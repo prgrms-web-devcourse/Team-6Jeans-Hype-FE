@@ -60,13 +60,13 @@ function Toggle({
   name: string;
   on?: boolean;
   disabled: boolean;
-  onChange(state: boolean): void;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
 }) {
   const { state, toggle } = useToggle(on);
 
-  const handleChange = () => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     toggle();
-    onChange && onChange(state);
+    onChange && onChange(e);
   };
 
   return (

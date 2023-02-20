@@ -1,4 +1,4 @@
-import { TrackInfo, ValuesType } from '@/components/postCreate/types';
+import { TrackInfo, ValuesType } from '@/components/post/create/types';
 import { useState } from 'react';
 
 const usePostCreate = () => {
@@ -8,7 +8,7 @@ const usePostCreate = () => {
     battleAvailability: false,
   });
 
-  const onChange = (e: any) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (e.target) {
       const { value, name } = e.target;
       setValues({ ...values, [name]: value });
@@ -21,7 +21,7 @@ const usePostCreate = () => {
     setValues({ ...values, musicInfo: infos });
   };
 
-  const onSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(values);
   };

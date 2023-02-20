@@ -1,4 +1,4 @@
-import PostCreate from '@/components/postCreate/index';
+import PostCreate from '@/components/post/create/index';
 import usePostCreate from '@/hooks/usePostCreate';
 
 function Create() {
