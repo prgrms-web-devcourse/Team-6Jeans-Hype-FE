@@ -1,0 +1,63 @@
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../../public/fonts/NotoSans/NotoSans-Regular.woff2) format('woff2'),
+    url(../../public/fonts/NotoSans/NotoSans-Regular.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 500;
+  src: url(../../public/fonts/NotoSans/NotoSans-Medium.woff2) format('woff2'),
+    url(../../public/fonts/NotoSans/NotoSans-Medium.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 700;
+  src: url(../../public/fonts/NotoSans/NotoSans-Bold.woff2) format('woff2'),
+    url(../../public/fonts/NotoSans/NotoSans-Bold.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: url(../../public/fonts/Poppins/Poppins-Light.woff2) format('woff2'),
+    url(../../public/fonts/Poppins/Poppins-Light.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../../public/fonts/Poppins/Poppins-Regular.woff2) format('woff2'),
+    url(../../public/fonts/Poppins/Poppins-Regular.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  src: url(../../public/fonts/Poppins/Poppins-Medium.woff2) format('woff2'),
+    url(../../public/fonts/Poppins/Poppins-Medium.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  src: url(../../public/fonts/Poppins/Poppins-SemiBold.woff2) format('woff2'),
+    url(../../public/fonts/Poppins/Poppins-SemiBold.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: url(../../public/fonts/Poppins/Poppins-Bold.woff2) format('woff2'),
+    url(../../public/fonts/Poppins/Poppins-Bold.ttf) format('ttf');
+}
