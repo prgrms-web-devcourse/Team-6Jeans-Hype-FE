@@ -13,8 +13,18 @@ export interface TrackInfo {
   title: string;
   subtitle: string;
   images: ImageInfo;
+  hub: HubInfo;
 }
 
 export interface ImageInfo {
   coverart: string;
+}
+
+export interface HubInfo {
+  actions: ActionInfo[];
+}
+
+export interface ActionInfo {
+  id: string;
+  uri: string;
 }

@@ -1,37 +1,75 @@
 import { debounce } from 'lodash';
 import { useRef, useState } from 'react';
-import { getMusicData } from '@/utils/apis/music';
+import { getMusicData, getMusicDetailData } from '@/utils/apis/music';
 import { MusicInfo, TrackInfo } from '../types';
 
 interface Props {
-  onClickMusic(track: TrackInfo): void;
+  onClickMusic(track: selectedMusicInfo): void;
+}
+
+interface selectedMusicInfo {
+  id: string;
+  musicTitle: string;
+  singerName: string;
+  coverArt: string;
+  genre: string;
+  m4a: string;
 }
 
 function MusicSearcher({ onClickMusic }: Props) {
   const [keyword, setKeyword] = useState('');
   const [musicList, setMusicList] = useState([]);
+  const [selectedMusic, setSelectedMusic] = useState<selectedMusicInfo>({
+    id: '',
+    musicTitle: '',
+    singerName: '',
+    coverArt: '',
+    genre: '',
+    m4a: '',
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   const debouncedSearch = useRef(
     debounce(async (keyword: string) => {
       setIsLoading(true);
-      const response = await getMusicData(keyword);
-      setMusicList(response);
+      setMusicList(await getMusicData(keyword));
       setIsLoading(false);
     }, 500),
   ).current;
 
-  const onClick = (track: TrackInfo) => {
-    onClickMusic(track);
-    setKeyword(track.title);
+  const onClickInMusicList = async (track: TrackInfo) => {
+    const { title, subtitle, images, hub } = track;
+
+    setKeyword(title);
     setMusicList([]);
+
+    const result = await getMusicDetail(hub.actions[0].id);
+    const selectedMusicObject: selectedMusicInfo = {
+      id: hub.actions[0].id,
+      musicTitle: title,
+      singerName: subtitle,
+      coverArt: images.coverart,
+      genre: result.attributes.genreNames,
+      m4a: hub.actions[1].uri,
+    };
+
+    setSelectedMusic(selectedMusicObject);
+    onClickMusic(selectedMusicObject);
   };
 
-  const getMusic = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const getMusicList = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
     setKeyword(value);
     debouncedSearch(value);
+  };
+
+  const getMusicDetail = async (id: string) => {
+    setIsLoading(true);
+    const response = await getMusicDetailData(id);
+    setIsLoading(false);
+
+    return response;
   };
 
   const renderMusics = () => {
@@ -48,7 +86,7 @@ function MusicSearcher({ onClickMusic }: Props) {
             }}
             key={key}
             className='musicInfo'
-            onClick={() => onClick(music.track)}
+            onClick={() => onClickInMusicList(music.track)}
           >
             <img src={images.coverart} alt='img' width={100} />
             <div>
@@ -62,11 +100,16 @@ function MusicSearcher({ onClickMusic }: Props) {
     );
   };
 
+  const renderSelectedMusic = () => {
+    return <div>당신이 선택한 음악은 {selectedMusic.musicTitle}</div>;
+  };
+
   return (
     <div>
       <span>음악 검색:</span>
-      <input value={keyword} onChange={getMusic} />
+      <input value={keyword} onChange={getMusicList} />
       <div>{isLoading ? <div>로딩중입니다</div> : renderMusics()}</div>
+      <div>{isLoading ? <div>로딩중입니다</div> : renderSelectedMusic()}</div>
     </div>
   );
 }

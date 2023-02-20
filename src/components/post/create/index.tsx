@@ -6,6 +6,7 @@ import { TrackInfo, ValuesType } from './types';
 const CreateContainer = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 const CreateRow = styled.div`
   display: flex;
