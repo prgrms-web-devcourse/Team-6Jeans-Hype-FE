@@ -1,0 +1,8 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended" // 가장 하단에 위치할 것
+  ]
+}
