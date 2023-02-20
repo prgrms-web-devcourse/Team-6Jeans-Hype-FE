@@ -1,3 +1,10 @@
+import Reset from '../Reset';
+import { Global } from '@emotion/react';
+
 export default function Home() {
-  return <></>;
+  return (
+    <>
+      <Global styles={Reset} />
+    </>
+  );
 }
