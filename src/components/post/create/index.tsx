@@ -20,18 +20,17 @@ const CreateRow = styled.div`
 interface Props {
   values: ValuesType;
   onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  onClickMusic(track: selectedMusicInfo): void;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 
-function PostCreate({ values, onChange, onClickMusic, onSubmit }: Props) {
+function PostCreate({ values, onChange, onSubmit }: Props) {
   return (
     <CreateContainer onSubmit={onSubmit}>
       <CreateRow>
-        <MusicSearcher onClickMusic={onClickMusic} />
+        <MusicSearcher />
       </CreateRow>
       <CreateRow>
-        <span>설명:</span>
+        <span>설명(추천이유):</span>
         <textarea value={values.description} onChange={onChange} name='description' />
       </CreateRow>
       <CreateRow>

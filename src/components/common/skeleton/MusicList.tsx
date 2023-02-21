@@ -17,7 +17,7 @@ const MusicList = ({ line = 3, ...props }) => {
 
 export default MusicList;
 
-export const MusicListContainer = styled.div`
+const MusicListContainer = styled.div`
   height: 100px;
   padding: 10px;
   margin: 10px;

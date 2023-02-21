@@ -17,7 +17,7 @@ const usePostCreate = () => {
     }
   };
 
-  const onClickMusic = (infos: selectedMusicInfo) => {
+  const onChangeMusicInfo = (infos: selectedMusicInfo) => {
     setValues({ ...values, musicInfo: infos });
   };
 
@@ -26,7 +26,7 @@ const usePostCreate = () => {
     console.log(values);
   };
 
-  return { values, onChange, onClickMusic, onSubmit };
+  return { values, onChange, onChangeMusicInfo, onSubmit };
 };
 
 export default usePostCreate;
