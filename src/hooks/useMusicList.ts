@@ -3,9 +3,13 @@ import { debounce } from 'lodash';
 import { useCallback, useRef, useState } from 'react';
 
 const useMusicList = () => {
-  const [tmpKeyword, setTmpKeyword] = useState('');
+  const [tmpKeyword, setTmpKeyword] = useState<string>('');
   const [keyword, setKeyword] = useState<string>('');
-  const [selectedId, setSelectedId] = useState('');
+  const [selectedId, setSelectedId] = useState<string>('');
+
+  const onChangeKeywordWithDebounce = debounce((keyword: string) => {
+    setKeyword(keyword);
+  }, 500);
 
   const onClickInMusicList = async (track: TrackInfo) => {
     const { hub } = track;
@@ -24,12 +28,6 @@ const useMusicList = () => {
     },
     [keyword],
   );
-
-  const onChangeKeywordWithDebounce = useRef(
-    debounce((keyword: string) => {
-      setKeyword(keyword);
-    }, 500),
-  ).current;
 
   return {
     selectedId,

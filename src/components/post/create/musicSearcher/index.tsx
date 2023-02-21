@@ -1,6 +1,7 @@
 import MusicListSkeleton from '@/components/common/skeleton/MusicList';
 import useMusicList from '@/hooks/useMusicList';
 import styled from '@emotion/styled';
+import { memo, useEffect } from 'react';
 import { selectedMusicInfo } from '../types';
 import RenderMusics from './renderMusics';
 import RenderSelectedMusic from './RenderSelectedMusic';
@@ -38,4 +39,4 @@ function MusicSearcher() {
   );
 }
 
-export default MusicSearcher;
+export default memo(MusicSearcher, (p, n) => JSON.stringify(p) === JSON.stringify(n));

@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
+import { memo } from 'react';
 import Toggle from '../../common/Toggle';
 import MusicSearcher from './musicSearcher/index';
-import { selectedMusicInfo, ValuesType } from './types';
+import { ValuesType } from './types';
 
 const CreateContainer = styled.form`
   display: flex;
