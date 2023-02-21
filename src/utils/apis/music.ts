@@ -1,14 +1,16 @@
 import axios from 'axios';
 
-const Address = 'https://shazam.p.rapidapi.com';
+const Address = process.env.NEXT_PUBLIC_API_ENDPOINT;
+const key = process.env.NEXT_PUBLIC_API_KEY;
+const host = process.env.NEXT_PUBLIC_API_Host;
 
 export const getMusicData = async (keyword: string) => {
   try {
     const response = await axios.get(`${Address}/search`, {
-      params: { term: keyword, locale: 'ko-KR', limit: 5 },
+      params: { term: keyword, locale: 'ko-KR' },
       headers: {
-        'X-RapidAPI-Key': '05596fce87msh116c297d3aa4debp16c879jsne5ba6ba0e0b5',
-        'X-RapidAPI-Host': 'shazam.p.rapidapi.com',
+        'X-RapidAPI-Key': key,
+        'X-RapidAPI-Host': host,
       },
     });
     if (response.data.tracks) {
@@ -26,8 +28,8 @@ export const getMusicDetailData = async (id: string) => {
     const response = await axios.get(`${Address}/songs/v2/get-details`, {
       params: { id, l: 'ko-KR' },
       headers: {
-        'X-RapidAPI-Key': '05596fce87msh116c297d3aa4debp16c879jsne5ba6ba0e0b5',
-        'X-RapidAPI-Host': 'shazam.p.rapidapi.com',
+        'X-RapidAPI-Key': key,
+        'X-RapidAPI-Host': host,
       },
     });
     if (response.data.data.length) {

@@ -1,5 +1,5 @@
 export interface ValuesType {
-  musicInfo: TrackInfo | string;
+  musicInfo: selectedMusicInfo | string;
   description: string;
   battleAvailability: boolean;
 }
@@ -27,4 +27,19 @@ export interface HubInfo {
 export interface ActionInfo {
   id: string;
   uri: string;
+}
+
+export interface selectedMusicInfo {
+  id: string;
+  musicTitle: string;
+  singerName: string;
+  coverArt: string;
+  genre: string;
+  m4a: string;
+}
+
+export interface Loadings {
+  isFirst: boolean;
+  listLoading: boolean;
+  detailLoading: boolean;
 }

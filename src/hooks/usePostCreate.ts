@@ -1,4 +1,4 @@
-import { TrackInfo, ValuesType } from '@/components/post/create/types';
+import { selectedMusicInfo, ValuesType } from '@/components/post/create/types';
 import { useState } from 'react';
 
 const usePostCreate = () => {
@@ -17,7 +17,7 @@ const usePostCreate = () => {
     }
   };
 
-  const onClickMusic = (infos: TrackInfo) => {
+  const onClickMusic = (infos: selectedMusicInfo) => {
     setValues({ ...values, musicInfo: infos });
   };
 
