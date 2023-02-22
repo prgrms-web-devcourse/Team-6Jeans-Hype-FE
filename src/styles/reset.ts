@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
-import { COLOR } from './utils/color';
+import { COLOR } from '../constants/color';
 
-const Reset = css`
+const reset = css`
   html,
   body,
   div,
@@ -155,4 +155,4 @@ const Reset = css`
   }
 `;
 
-export default Reset;
+export default reset;
