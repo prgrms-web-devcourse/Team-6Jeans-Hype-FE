@@ -1,9 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { getPostDetailData } from './api';
 import MusicInfo from './musicInfo';
+import { useRouter } from 'next/router';
 
 function PostDetail() {
-  const { data, isLoading } = useQuery<any>(['post', 'detail'], getPostDetailData, {});
+  const router = useRouter();
+  const { postId } = router.query as any;
+
+  const { data, isLoading } = useQuery<any>(['post', 'detail', postId], () => getPostDetailData(postId));
 
   return (
     <>
