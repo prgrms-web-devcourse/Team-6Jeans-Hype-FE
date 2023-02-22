@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { getPostFeedData } from './api';
+import { ListInfo } from './types';
 
-function PostFeed() {
-  const { data, isLoading } = useQuery(['postfeed'], getPostFeedData);
+function PostList() {
+  const { data, isLoading } = useQuery<ListInfo[]>(['postfeed'], getPostFeedData);
 
   return (
     <>
@@ -22,10 +23,11 @@ function PostFeed() {
           <div>좋아요 {post.likeCount}</div>
           <div>{post.isBattlePossible && '대결 가능'}</div>
           <div>닉네임 {post.nickname}</div>
+          <div>장르 {post.music.genre}</div>
         </div>
       ))}
     </>
   );
 }
 
-export default PostFeed;
+export default PostList;

@@ -1,7 +1,7 @@
-import PostFeed from '@/components/post';
+import PostList from '@/components/post';
 
 function Post() {
-  return <PostFeed />;
+  return <PostList />;
 }
 
 export default Post;

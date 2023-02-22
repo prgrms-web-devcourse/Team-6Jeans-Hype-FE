@@ -12,6 +12,7 @@ const DUMMY_DATA = {
           musicName: 'Ditto',
           thumbnailUrl: 'url',
           singer: '뉴진스',
+          genre: 'k-pop',
         },
         likeCount: 10,
         isBattlePossible: true,
@@ -23,6 +24,7 @@ const DUMMY_DATA = {
           musicName: 'Ditto',
           thumbnailUrl: 'url',
           singer: '뉴진스',
+          genre: 'k-pop',
         },
         likeCount: 10,
         isBattlePossible: true,
@@ -34,6 +36,7 @@ const DUMMY_DATA = {
           musicName: 'Ditto',
           thumbnailUrl: 'url',
           singer: '뉴진스',
+          genre: 'k-pop',
         },
         likeCount: 10,
         isBattlePossible: true,
@@ -45,6 +48,7 @@ const DUMMY_DATA = {
           musicName: 'Ditto',
           thumbnailUrl: 'url',
           singer: '뉴진스',
+          genre: 'k-pop',
         },
         likeCount: 10,
         isBattlePossible: true,
@@ -56,6 +60,7 @@ const DUMMY_DATA = {
           musicName: 'Ditto',
           thumbnailUrl: 'url',
           singer: '뉴진스',
+          genre: 'k-pop',
         },
         likeCount: 10,
         isBattlePossible: true,
@@ -67,6 +72,7 @@ const DUMMY_DATA = {
           musicName: 'Ditto',
           thumbnailUrl: 'url',
           singer: '뉴진스',
+          genre: 'k-pop',
         },
         likeCount: 10,
         isBattlePossible: true,
@@ -78,9 +84,9 @@ const DUMMY_DATA = {
 
 export const getPostFeedData = async () => {
   try {
-    const res = await axios.get('url', {
-      headers: { 'Content-Type': 'application/json' },
-    });
+    // const res = await axios.get('url', {
+    //   headers: { 'Content-Type': 'application/json' },
+    // });
 
     return DUMMY_DATA.data.posts;
   } catch {
