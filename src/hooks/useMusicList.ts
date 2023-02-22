@@ -1,22 +1,31 @@
-import { TrackInfo } from '@/components/post/create/types';
+import { MusicInfo } from '@/components/post/create/types';
 import { debounce } from 'lodash';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import usePostCreate from './usePostCreate';
 
 const useMusicList = () => {
   const [tmpKeyword, setTmpKeyword] = useState<string>('');
   const [keyword, setKeyword] = useState<string>('');
-  const [selectedId, setSelectedId] = useState<string>('');
+  const [selectedMusic, setSelectedMusic] = useState<MusicInfo>({
+    trackId: '',
+    trackName: '',
+    artistName: '',
+    artworkUrl100: '',
+    previewUrl: '',
+  });
 
-  const onChangeKeywordWithDebounce = debounce((keyword: string) => {
-    setKeyword(keyword);
-  }, 500);
+  const onChangeKeywordWithDebounce = useMemo(
+    () =>
+      debounce((keyword: string) => {
+        setKeyword(keyword);
+      }, 500),
+    [keyword],
+  );
 
-  const onClickInMusicList = async (track: TrackInfo) => {
-    const { hub } = track;
-
+  const onClickInMusicList = async (music: MusicInfo) => {
     setTmpKeyword('');
     setKeyword('');
-    setSelectedId(hub.actions[0].id);
+    setSelectedMusic(music);
   };
 
   const onChangeKeyword = useCallback(
@@ -24,13 +33,14 @@ const useMusicList = () => {
       const { value } = e.target;
 
       setTmpKeyword(value);
+
       onChangeKeywordWithDebounce(value);
     },
     [keyword],
   );
 
   return {
-    selectedId,
+    selectedMusic,
     tmpKeyword,
     keyword,
     onChangeKeyword,

@@ -1,35 +1,48 @@
-import { selectedMusicInfo, ValuesType } from '@/components/post/create/types';
+import { MusicInfo, ValuesType } from '@/components/post/create/types';
 import { useCallback, useState } from 'react';
 
 const usePostCreate = () => {
-  const [values, setValues] = useState<ValuesType>({
-    musicInfo: '',
-    description: '',
-    battleAvailability: false,
+  const [musicInfo, setMusicInfo] = useState<MusicInfo>({
+    trackId: '',
+    trackName: '',
+    artistName: '',
+    artworkUrl100: '',
+    previewUrl: '',
   });
+  const [description, setDescription] = useState<string>('');
+  const [battleAvailability, setBattleAvailability] = useState<boolean>(false);
 
-  const onChange = useCallback(
+  const onChangeValues = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { value, name } = e.target;
       if (name === 'battleAvailability') {
-        setValues({ ...values, battleAvailability: !values.battleAvailability });
-      } else {
-        setValues({ ...values, [name]: value });
+        setBattleAvailability((prev) => !prev);
+      } else if (name === 'description') {
+        setDescription(value);
       }
     },
-    [values.description, values.battleAvailability],
+    [description, battleAvailability],
   );
 
-  const onChangeMusicInfo = (infos: selectedMusicInfo) => {
-    setValues({ ...values, musicInfo: infos });
-  };
+  const onChangeMusicInfo = useCallback(
+    (infos: MusicInfo) => {
+      console.log(infos);
+      setMusicInfo(infos);
+    },
+    [musicInfo],
+  );
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(values);
+    const postInfo: ValuesType = {
+      musicInfo,
+      description,
+      battleAvailability,
+    };
+    console.log(postInfo);
   };
 
-  return { values, onChange, onChangeMusicInfo, onSubmit };
+  return { values: { musicInfo, description, battleAvailability }, onChangeValues, onChangeMusicInfo, onSubmit };
 };
 
 export default usePostCreate;

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import useToggle from '@/hooks/useToggle';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 
 const ToggleContainer = styled.label`
   display: inline-block;
@@ -85,4 +85,4 @@ function Toggle({
   );
 }
 
-export default memo(Toggle, (prev, next) => JSON.stringify(prev) === JSON.stringify(next));
+export default memo(Toggle, (prev, next) => prev.on === next.on);

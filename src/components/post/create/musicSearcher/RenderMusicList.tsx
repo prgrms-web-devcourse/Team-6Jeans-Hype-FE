@@ -1,7 +1,9 @@
 import MusicListSkeleton from '@/components/common/skeleton/MusicList';
+import usePostCreate from '@/hooks/usePostCreate';
 import { getMusicList } from '@/hooks/useQueryCreatePost';
 import styled from '@emotion/styled';
-import { MusicInfo, TrackInfo } from '../types';
+import { memo } from 'react';
+import { MusicInfo } from '../types';
 
 const MusicCard = styled.div`
   cursor: pointer;
@@ -33,11 +35,12 @@ const Ellipsis = styled.div`
 `;
 
 interface Props {
-  onClickInMusicList(track: TrackInfo): void;
+  onClickInMusicList(music: MusicInfo): void;
+  onChangeMusicInfo(music: MusicInfo): void;
   keyword: string;
 }
 
-function RenderMusics({ onClickInMusicList, keyword }: Props) {
+function RenderMusicList({ onClickInMusicList, onChangeMusicInfo, keyword }: Props) {
   const { data: musicList, isLoading } = getMusicList(keyword);
 
   return isLoading ? (
@@ -48,17 +51,31 @@ function RenderMusics({ onClickInMusicList, keyword }: Props) {
     </>
   ) : (
     musicList?.map((music: MusicInfo) => {
-      const { key, title, subtitle, images } = music.track;
-      console.log(musicList);
+      const { trackId, trackName, artistName, artworkUrl100, previewUrl } = music;
+      const newMusicInfo = {
+        trackId,
+        trackName,
+        artistName,
+        artworkUrl100,
+        previewUrl,
+      };
+
       return (
-        <MusicCard key={key} className='musicInfo' onClick={() => onClickInMusicList(music.track)}>
-          <img src={images.coverart} alt='img' width={80} />
+        <MusicCard
+          key={trackId}
+          className='musicInfo'
+          onClick={() => {
+            onClickInMusicList(newMusicInfo);
+            onChangeMusicInfo(newMusicInfo);
+          }}
+        >
+          <img src={artworkUrl100} alt='img' width={80} height={80} />
           <MusicTexts>
             <Ellipsis>
-              <span>{title}</span>
+              <span>{trackName}</span>
             </Ellipsis>
             <Ellipsis>
-              <span>{subtitle}</span>
+              <span>{artistName}</span>
             </Ellipsis>
           </MusicTexts>
         </MusicCard>
@@ -66,4 +83,4 @@ function RenderMusics({ onClickInMusicList, keyword }: Props) {
     })
   );
 }
-export default RenderMusics;
+export default memo(RenderMusicList, (prev, next) => prev.keyword === next.keyword);

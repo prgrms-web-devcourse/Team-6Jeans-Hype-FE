@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { memo } from 'react';
 import Toggle from '../../common/Toggle';
 import MusicSearcher from './musicSearcher/index';
-import { ValuesType } from './types';
+import { MusicInfo, ValuesType } from './types';
 
 const CreateContainer = styled.form`
   display: flex;
@@ -20,23 +20,24 @@ const CreateRow = styled.div`
 
 interface Props {
   values: ValuesType;
-  onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  onChangeValues: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  onChangeMusicInfo(music: MusicInfo): void;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 
-function PostCreate({ values, onChange, onSubmit }: Props) {
+function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Props) {
   return (
     <CreateContainer onSubmit={onSubmit}>
       <CreateRow>
-        <MusicSearcher />
+        <MusicSearcher onChangeMusicInfo={onChangeMusicInfo} />
       </CreateRow>
       <CreateRow>
         <span>설명(추천이유):</span>
-        <textarea value={values.description} onChange={onChange} name='description' />
+        <textarea name='description' value={values.description} onChange={onChangeValues} />
       </CreateRow>
       <CreateRow>
         <span>대결 가능</span>
-        <Toggle name='battleAvailability' disabled={false} onChange={onChange} />
+        <Toggle name='battleAvailability' disabled={false} onChange={onChangeValues} on={values.battleAvailability} />
       </CreateRow>
       <button type='submit'>submit</button>
     </CreateContainer>

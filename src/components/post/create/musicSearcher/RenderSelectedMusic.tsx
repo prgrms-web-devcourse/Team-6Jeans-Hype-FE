@@ -1,8 +1,5 @@
-import MusicListSkeleton from '@/components/common/skeleton/MusicList';
-import usePostCreate from '@/hooks/usePostCreate';
-import { getMusicDetail } from '@/hooks/useQueryCreatePost';
 import styled from '@emotion/styled';
-import { selectedMusicInfo } from '../types';
+import { MusicInfo } from '../types';
 
 const Player = styled.div`
   width: 30px;
@@ -19,60 +16,28 @@ const Player = styled.div`
 `;
 
 interface Props {
-  id: string;
+  selectedMusic: MusicInfo;
 }
 
-function RenderSelectedMusic({ id }: Props) {
-  const { data, isLoading } = getMusicDetail(id);
-  const { onChangeMusicInfo } = usePostCreate();
-
-  const render = () => {
-    const { id, attributes } = data;
-
-    const { genreNames } = attributes;
-    const genre = genreNames[0] === 'K-Pop' ? genreNames[2] : genreNames[0];
-    const coverUrl = attributes.artwork.url.replace('{w}x{h}', '100x100');
-
-    const selectedMusic = {
-      id,
-      musicTitle: attributes.name,
-      singerName: attributes.artistName,
-      coverArt: coverUrl,
-      genre,
-      m4a: attributes.previews[0].url,
-    };
-
-    onChangeMusicInfo(selectedMusic);
-
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <div>
-            {selectedMusic.musicTitle} - {selectedMusic.singerName}
-          </div>
-          <div></div>
-          <div>
-            <img src={selectedMusic.coverArt} width={100} />
-          </div>
-          <div>{selectedMusic.genre}</div>
-          <Player>
-            <audio src={selectedMusic.m4a} controls loop></audio>
-          </Player>
-        </div>
-      </div>
-    );
-  };
-
+function RenderSelectedMusic({ selectedMusic }: Props) {
   return (
     <div>
       <h4 style={{ fontWeight: 'bold' }}>당신이 선택한 음악은</h4>
-      {isLoading ? (
-        <>
-          <MusicListSkeleton />
-        </>
-      ) : (
-        render()
-      )}
+
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div>
+            {selectedMusic.trackName} - {selectedMusic.artistName}
+          </div>
+          <div></div>
+          <div>
+            <img src={selectedMusic.artworkUrl100} style={{ width: '100px', height: '100px' }} />
+          </div>
+          <Player>
+            <audio src={selectedMusic.previewUrl} controls loop></audio>
+          </Player>
+        </div>
+      </div>
     </div>
   );
 }
