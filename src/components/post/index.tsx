@@ -1,9 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
 import { getPostFeedData } from './api';
 import { ListInfo } from './types';
+import { useRouter } from 'next/router';
+import { useRef } from 'react';
 
 function PostList() {
   const { data, isLoading } = useQuery<ListInfo[]>(['postfeed'], getPostFeedData);
+  const loginStatus = useRef(false);
+
+  const router = useRouter();
+
+  const shiftPostDetail = () => {
+    if (loginStatus.current) router.push('/post/detail', '/post/detail');
+    else router.push('/auth', '/auth');
+  };
 
   return (
     <>
@@ -12,6 +22,7 @@ function PostList() {
       ) : (
         data?.map((post) => (
           <div
+            onClick={shiftPostDetail}
             style={{
               width: '130px',
               height: '130px',
