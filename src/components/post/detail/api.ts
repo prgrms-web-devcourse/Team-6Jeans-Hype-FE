@@ -72,7 +72,7 @@ const DUMMY_DATA4 = {
       musicName: 'Ditto',
       musicUrl:
         'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/43/cc/b8/43ccb8f7-fc0a-2a2f-c119-472f602773b4/mzaf_2239518959918453885.plus.aac.ep.m4a',
-      thumbnailUrl: 'https://i.ytimg.com/vi/11cta61wi0g/maxresdefault.jpg.',
+      thumbnailUrl: 'https://i.ytimg.com/vi/11cta61wi0g/maxresdefault.jpg',
       singer: '뉴진스',
       genre: {
         genreValue: 'BALLADE',
