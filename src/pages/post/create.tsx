@@ -1,5 +1,5 @@
 import PostCreate from '@/components/post/create/index';
-import usePostCreate from '@/hooks/usePostCreate';
+import usePostCreate from '@/hooks/useCreatePost';
 
 function Create() {
   const { values, onChangeValues, onChangeMusicInfo, onSubmit } = usePostCreate();

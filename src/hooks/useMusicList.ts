@@ -1,7 +1,7 @@
 import { MusicInfo } from '@/components/post/create/types';
 import { debounce } from 'lodash';
 import { useCallback, useMemo, useState } from 'react';
-import usePostCreate from './usePostCreate';
+import usePostCreate from './useCreatePost';
 
 const useMusicList = () => {
   const [tmpKeyword, setTmpKeyword] = useState<string>('');

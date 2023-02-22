@@ -1,5 +1,5 @@
 import MusicListSkeleton from '@/components/common/skeleton/MusicList';
-import usePostCreate from '@/hooks/usePostCreate';
+import usePostCreate from '@/hooks/useCreatePost';
 import { getMusicList } from '@/hooks/useQueryCreatePost';
 import styled from '@emotion/styled';
 import { memo } from 'react';
