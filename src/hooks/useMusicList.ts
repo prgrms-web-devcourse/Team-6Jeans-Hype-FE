@@ -1,10 +1,15 @@
-import { MusicInfo } from '@/components/post/create/types';
-import { debounce } from 'lodash';
-import { useCallback, useMemo, useState } from 'react';
+import { KeywordInfo, MusicInfo } from '@/components/post/create/types';
+import { useCallback, useState } from 'react';
 
 const useMusicList = () => {
-  const [tmpKeyword, setTmpKeyword] = useState<string>('');
-  const [keyword, setKeyword] = useState<string>('');
+  const [keywords, setKeywords] = useState<KeywordInfo>({
+    trackName: '',
+    artistName: '',
+  });
+  const [tmpKeywords, setTmpKeywords] = useState<KeywordInfo>({
+    trackName: '',
+    artistName: '',
+  });
   const [selectedMusic, setSelectedMusic] = useState<MusicInfo>({
     trackId: '',
     trackName: '',
@@ -13,36 +18,38 @@ const useMusicList = () => {
     previewUrl: '',
   });
 
-  const onChangeKeywordWithDebounce = useMemo(
-    () =>
-      debounce((keyword: string) => {
-        setKeyword(keyword);
-      }, 500),
-    [keyword],
+  const onChangeKeyword = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+
+      setTmpKeywords({ ...tmpKeywords, [name]: value });
+    },
+    [tmpKeywords],
   );
 
+  const onClickInSearchButton = async () => {
+    setKeywords({ ...tmpKeywords });
+  };
+
   const onClickInMusicList = async (music: MusicInfo) => {
-    setTmpKeyword('');
-    setKeyword('');
+    setKeywords({
+      trackName: '',
+      artistName: '',
+    });
+    setTmpKeywords({
+      trackName: '',
+      artistName: '',
+    });
+
     setSelectedMusic(music);
   };
 
-  const onChangeKeyword = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { value } = e.target;
-
-      setTmpKeyword(value);
-
-      onChangeKeywordWithDebounce(value);
-    },
-    [keyword],
-  );
-
   return {
     selectedMusic,
-    tmpKeyword,
-    keyword,
+    keywords,
+    tmpKeywords,
     onChangeKeyword,
+    onClickInSearchButton,
     onClickInMusicList,
   };
 };

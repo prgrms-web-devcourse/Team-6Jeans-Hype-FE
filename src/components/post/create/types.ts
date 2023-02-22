@@ -11,3 +11,8 @@ export interface MusicInfo {
   artworkUrl100: string;
   previewUrl: string;
 }
+
+export interface KeywordInfo {
+  trackName: string;
+  artistName: string;
+}

@@ -26,7 +26,6 @@ const usePostCreate = () => {
 
   const onChangeMusicInfo = useCallback(
     (infos: MusicInfo) => {
-      console.log(infos);
       setMusicInfo(infos);
     },
     [musicInfo],

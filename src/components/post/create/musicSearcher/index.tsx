@@ -4,17 +4,21 @@ import { memo } from 'react';
 import { MusicInfo } from '../types';
 import RenderMusicList from './RenderMusicList';
 import RenderSelectedMusic from './RenderSelectedMusic';
+import SearchInputs from './SearchInputs';
 
 const MusicSearchContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Searcher = styled.div`
+
+const MusicInputContainer = styled.div`
+  height: 100px;
   display: flex;
+  justify-content: center;
 `;
 
 const MusicListContainer = styled.div`
-  margin: 20px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   max-height: 300px;
@@ -26,20 +30,24 @@ interface Props {
 }
 
 function MusicSearcher({ onChangeMusicInfo }: Props) {
-  const { selectedMusic, tmpKeyword, keyword, onChangeKeyword, onClickInMusicList } = useMusicList();
+  const { selectedMusic, keywords, tmpKeywords, onChangeKeyword, onClickInSearchButton, onClickInMusicList } =
+    useMusicList();
 
   return (
     <MusicSearchContainer>
-      <Searcher>
-        <span>음악 검색:</span>
-        <input value={tmpKeyword} onChange={onChangeKeyword} />
-      </Searcher>
+      <MusicInputContainer>
+        <SearchInputs
+          keywords={tmpKeywords}
+          onChangeKeyword={onChangeKeyword}
+          onClickInSearchButton={onClickInSearchButton}
+        />
+      </MusicInputContainer>
       <MusicListContainer>
-        {keyword.length > 0 && (
+        {keywords.trackName && keywords.artistName && (
           <RenderMusicList
             onChangeMusicInfo={onChangeMusicInfo}
             onClickInMusicList={onClickInMusicList}
-            keyword={keyword}
+            keywords={keywords}
           />
         )}
       </MusicListContainer>
