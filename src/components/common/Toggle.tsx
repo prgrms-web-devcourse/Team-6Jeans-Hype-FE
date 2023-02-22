@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
 import useToggle from '@/hooks/useToggle';
-import { memo, useEffect } from 'react';
+import styled from '@emotion/styled';
+import { memo } from 'react';
 
 const ToggleContainer = styled.label`
   display: inline-block;

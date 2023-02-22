@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { memo } from 'react';
 import Toggle from '../../common/Toggle';
 import MusicSearcher from './musicSearcher/index';
 import { MusicInfo, ValuesType } from './types';

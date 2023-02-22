@@ -31,7 +31,7 @@ function RenderSelectedMusic({ selectedMusic }: Props) {
           </div>
           <div></div>
           <div>
-            <img src={selectedMusic.artworkUrl100} style={{ width: '100px', height: '100px' }} />
+            <img src={selectedMusic.artworkUrl100} style={{ width: '100px', height: '100px' }} alt='img' />
           </div>
           <Player>
             <audio src={selectedMusic.previewUrl} controls loop></audio>

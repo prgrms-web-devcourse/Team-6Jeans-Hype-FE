@@ -1,7 +1,7 @@
 import MusicListSkeleton from '@/components/common/skeleton/MusicList';
-import usePostCreate from '@/hooks/useCreatePost';
-import { getMusicList } from '@/hooks/useQueryCreatePost';
+import { getMusicData } from '@/utils/apis/music';
 import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import { MusicInfo } from '../types';
 
@@ -41,7 +41,9 @@ interface Props {
 }
 
 function RenderMusicList({ onClickInMusicList, onChangeMusicInfo, keyword }: Props) {
-  const { data: musicList, isLoading } = getMusicList(keyword);
+  const { data: musicList, isLoading } = useQuery(['keyword', keyword], () => getMusicData(keyword), {
+    enabled: !!keyword,
+  });
 
   return isLoading ? (
     <>
