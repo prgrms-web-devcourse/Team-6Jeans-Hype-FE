@@ -20,8 +20,9 @@ function PostList() {
       {isLoading ? (
         <div>로딩 중 입니다~</div>
       ) : (
-        data?.map((post) => (
+        data?.map((post, index) => (
           <div
+            key={index}
             onClick={shiftPostDetail}
             style={{
               width: '130px',
