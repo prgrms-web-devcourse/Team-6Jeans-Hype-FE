@@ -2,16 +2,19 @@ import { useQuery } from '@tanstack/react-query';
 import { getPostDetailData } from './api';
 import MusicInfo from './musicInfo';
 import { useRouter } from 'next/router';
+import { PostDetailInfo } from './types';
 
 function PostDetail() {
   const router = useRouter();
-  const { postId } = router.query as any;
+  const { postId } = router.query;
 
-  const { data, isLoading } = useQuery<any>(['post', 'detail', postId], () => getPostDetailData(postId));
+  const { data, isLoading } = useQuery<PostDetailInfo>(['post', 'detail', postId], () =>
+    getPostDetailData(parseInt(postId as string)),
+  );
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || !data ? (
         <div>로딩 중 입니다</div>
       ) : (
         <>
