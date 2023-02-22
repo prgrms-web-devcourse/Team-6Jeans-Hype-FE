@@ -27,9 +27,9 @@ const useMusicList = () => {
     [tmpKeywords],
   );
 
-  const onClickInSearchButton = async () => {
+  const onClickInSearchButton = useCallback(async () => {
     setKeywords({ ...tmpKeywords });
-  };
+  }, [tmpKeywords]);
 
   const onClickInMusicList = async (music: MusicInfo) => {
     setKeywords({

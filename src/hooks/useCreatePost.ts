@@ -1,5 +1,5 @@
 import { MusicInfo, ValuesType } from '@/components/post/create/types';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 const usePostCreate = () => {
   const [musicInfo, setMusicInfo] = useState<MusicInfo>({
@@ -12,24 +12,18 @@ const usePostCreate = () => {
   const [description, setDescription] = useState<string>('');
   const [battleAvailability, setBattleAvailability] = useState<boolean>(false);
 
-  const onChangeValues = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { value, name } = e.target;
-      if (name === 'battleAvailability') {
-        setBattleAvailability((prev) => !prev);
-      } else if (name === 'description') {
-        setDescription(value);
-      }
-    },
-    [description, battleAvailability],
-  );
+  const onChangeValues = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { value, name } = e.target;
+    if (name === 'battleAvailability') {
+      setBattleAvailability((prev) => !prev);
+    } else if (name === 'description') {
+      setDescription(value);
+    }
+  };
 
-  const onChangeMusicInfo = useCallback(
-    (infos: MusicInfo) => {
-      setMusicInfo(infos);
-    },
-    [musicInfo],
-  );
+  const onChangeMusicInfo = (infos: MusicInfo) => {
+    setMusicInfo(infos);
+  };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

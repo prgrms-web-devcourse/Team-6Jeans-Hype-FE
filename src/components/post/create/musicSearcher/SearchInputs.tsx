@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { KeywordInfo, MusicInfo } from '../types';
+import { KeywordInfo } from '../types';
 
 const Searcher = styled.div`
   display: flex;

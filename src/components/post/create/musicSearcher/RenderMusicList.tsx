@@ -2,7 +2,7 @@ import MusicListSkeleton from '@/components/common/skeleton/MusicList';
 import { getMusicData } from '@/utils/apis/music';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import { KeywordInfo, MusicInfo } from '../types';
 
 const MusicCard = styled.div`
