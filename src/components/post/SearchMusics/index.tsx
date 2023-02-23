@@ -1,9 +1,7 @@
-import useMusicList from '@/hooks/useSearchMusics';
 import styled from '@emotion/styled';
 import { memo } from 'react';
-import SearchInput from './SearchInput';
 import MusicList from './MusicList';
-import { Music } from './types';
+import SearchInput from './SearchInput';
 
 const MusicSearchContainer = styled.div`
   width: calc(100% - 30px);

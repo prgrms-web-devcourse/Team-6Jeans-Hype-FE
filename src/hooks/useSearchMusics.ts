@@ -12,11 +12,11 @@ const useSearchMusics = () => {
     setTmpKeyword(value);
   };
 
-  const onClickInSearchButton = useCallback(async () => {
+  const onClickInSearchButton = useCallback(() => {
     setKeyword(tmpKeyword);
   }, [tmpKeyword]);
 
-  const onClickInMusicList = (trackId: string) => {
+  const onClickInMusicList = (trackId: number) => {
     setKeyword('');
     setTmpKeyword('');
 

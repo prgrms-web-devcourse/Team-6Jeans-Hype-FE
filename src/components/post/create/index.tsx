@@ -39,8 +39,15 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
 
   useEffect(() => {
     if (!isLoading) {
-      const musicInfo = musicList.filter((music: Music) => music.trackId === Number(trackId));
-      onChangeMusicInfo(musicInfo[0]);
+      const musicInfo = musicList.find((music: Music) => music.trackId === Number(trackId));
+      const newMusic: Music = {
+        trackId: musicInfo.trackId,
+        trackName: musicInfo.trackName,
+        artistName: musicInfo.artistName,
+        artworkUrl100: musicInfo.artworkUrl100,
+        previewUrl: musicInfo.previewUrl,
+      };
+      onChangeMusicInfo(newMusic);
     }
   }, [isLoading]);
 
