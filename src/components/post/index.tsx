@@ -1,28 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
 import { getPostFeedData } from './api';
-import { ListInfo } from './types';
+import { PostInfo } from './types';
 import { useRouter } from 'next/router';
-import { useRef } from 'react';
 
 function PostList() {
-  const { data, isLoading } = useQuery<ListInfo[]>(['postfeed'], getPostFeedData);
-  const loginStatus = useRef(false);
+  const { data: postList, isLoading } = useQuery<PostInfo[]>(['postfeed'], getPostFeedData);
 
   const router = useRouter();
 
-  const shiftPostDetail = () => {
-    if (loginStatus.current) router.push('/post/detail', '/post/detail');
-    else router.push('/auth', '/auth');
-  };
+  const shiftPostDetail = () => router.push(`/post/detail`);
 
   return (
     <>
       {isLoading ? (
-        <div>로딩 중 입니다~</div>
+        <></>
       ) : (
-        data?.map((post, index) => (
+        postList?.map((post) => (
           <div
-            key={index}
+            key={post.postId}
             onClick={shiftPostDetail}
             style={{
               width: '130px',

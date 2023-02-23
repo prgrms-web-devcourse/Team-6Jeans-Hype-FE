@@ -1,4 +1,4 @@
-export interface ListInfo {
+export interface PostInfo {
   postId: number;
   music: MusicInfo;
   likeCount: number;
