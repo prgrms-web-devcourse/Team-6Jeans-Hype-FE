@@ -4,6 +4,10 @@ import reset from './reset';
 export const global = css`
   ${reset}
 
+  html {
+    font-size: 62.5%;
+  }
+
   html,
   body {
     max-width: 768px;

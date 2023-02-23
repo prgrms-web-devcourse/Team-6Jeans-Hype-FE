@@ -89,9 +89,6 @@ const reset = css`
     font: inherit;
     vertical-align: baseline;
   }
-  html {
-    font-size: 62.5%;
-  }
   body {
     background-color: ${COLOR.background};
     color: ${COLOR.deepBlue};
