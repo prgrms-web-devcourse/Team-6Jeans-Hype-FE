@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { KeywordInfo } from '../types';
 
 const Searcher = styled.div`
   display: flex;
@@ -7,21 +6,16 @@ const Searcher = styled.div`
   justify-content: center;
 `;
 interface Props {
-  keywords: KeywordInfo;
+  keyword: string;
   onChangeKeyword: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   onClickInSearchButton(): void;
 }
 
-function SearchInputs({ keywords, onChangeKeyword, onClickInSearchButton }: Props) {
+function SearchInputs({ keyword, onChangeKeyword, onClickInSearchButton }: Props) {
   return (
     <Searcher>
       <div>
-        <div>
-          제목: <input name='trackName' value={keywords.trackName} onChange={onChangeKeyword} autoComplete='off' />
-        </div>
-        <div>
-          가수: <input name='artistName' value={keywords.artistName} onChange={onChangeKeyword} autoComplete='off' />
-        </div>
+          <input name='trackName' value={keyword} onChange={onChangeKeyword} autoComplete='off' placeholder='ex) 아이유 좋은날'/>
       </div>
       <div>
         <button type='button' onClick={onClickInSearchButton}>

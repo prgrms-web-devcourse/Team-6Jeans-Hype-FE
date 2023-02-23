@@ -3,7 +3,7 @@ import { getMusicData } from '@/utils/apis/music';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
-import { KeywordInfo, MusicInfo } from '../types';
+import { Music } from '../types';
 
 const MusicCard = styled.div`
   cursor: pointer;
@@ -35,19 +35,19 @@ const Ellipsis = styled.div`
 `;
 
 interface Props {
-  onClickInMusicList(music: MusicInfo): void;
-  onChangeMusicInfo(music: MusicInfo): void;
-  keywords: KeywordInfo;
+  onClickInMusicList(music: Music): void;
+  onChangeMusicInfo(music: Music): void;
+  keyword: string;
 }
 
-function RenderMusicList({ onClickInMusicList, onChangeMusicInfo, keywords }: Props) {
-  const { data: musicList, isLoading } = useQuery(['musicList', keywords], () => getMusicData(keywords), {
-    enabled: !!keywords,
+function RenderMusicList({ onClickInMusicList, onChangeMusicInfo, keyword }: Props) {
+  const { data: musicList, isLoading } = useQuery(['musicList', keyword], () => getMusicData(keyword), {
+    enabled: !!keyword,
   });
 
   const renderList = () => {
     return musicList.length ? (
-      musicList?.map((music: MusicInfo) => {
+      musicList?.map((music: Music) => {
         const { trackId, trackName, artistName, artworkUrl100, previewUrl } = music;
         const newMusicInfo = {
           trackId,
@@ -93,4 +93,4 @@ function RenderMusicList({ onClickInMusicList, onChangeMusicInfo, keywords }: Pr
     renderList()
   );
 }
-export default memo(RenderMusicList, (prev, next) => JSON.stringify(prev.keywords) === JSON.stringify(next.keywords));
+export default memo(RenderMusicList, (prev, next) => JSON.stringify(prev.keyword) === JSON.stringify(next.keyword));

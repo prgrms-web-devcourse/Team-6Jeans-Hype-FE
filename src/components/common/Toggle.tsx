@@ -51,27 +51,28 @@ const ToggleInput = styled.input`
   }
 `;
 
+interface ToggleProps{
+  name: string;
+  on?: boolean;
+  disabled: boolean;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+}
+
 function Toggle({
   name,
   on = false,
   disabled,
   onChange,
-  ...props
-}: {
-  name: string;
-  on?: boolean;
-  disabled: boolean;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-}) {
+}: ToggleProps) {
   const { state, toggle } = useToggle(on);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     toggle();
-    onChange && onChange(e);
+    onChange?.(e);
   };
 
   return (
-    <ToggleContainer {...props}>
+    <ToggleContainer>
       <ToggleInput
         type='checkbox'
         name={name}
@@ -85,4 +86,4 @@ function Toggle({
   );
 }
 
-export default memo(Toggle, (prev, next) => prev.on === next.on);
+export default Toggle;

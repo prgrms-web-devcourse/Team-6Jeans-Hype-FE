@@ -1,16 +1,10 @@
-import { KeywordInfo, MusicInfo } from '@/components/post/create/types';
+import { Music } from '@/components/post/create/types';
 import { useCallback, useState } from 'react';
 
 const useMusicList = () => {
-  const [keywords, setKeywords] = useState<KeywordInfo>({
-    trackName: '',
-    artistName: '',
-  });
-  const [tmpKeywords, setTmpKeywords] = useState<KeywordInfo>({
-    trackName: '',
-    artistName: '',
-  });
-  const [selectedMusic, setSelectedMusic] = useState<MusicInfo>({
+  const [keyword, setKeyword] = useState<string>('');
+  const [tmpKeyword, setTmpKeyword] = useState<string>('');
+  const [selectedMusic, setSelectedMusic] = useState<Music>({
     trackId: '',
     trackName: '',
     artistName: '',
@@ -18,36 +12,28 @@ const useMusicList = () => {
     previewUrl: '',
   });
 
-  const onChangeKeyword = useCallback(
+  const onChangeKeyword = 
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target;
+      const { value } = e.target;
 
-      setTmpKeywords({ ...tmpKeywords, [name]: value });
-    },
-    [tmpKeywords],
-  );
+      setTmpKeyword(value);
+    }
+    
 
   const onClickInSearchButton = useCallback(async () => {
-    setKeywords({ ...tmpKeywords });
-  }, [tmpKeywords]);
+    setKeyword(tmpKeyword);
+  }, [tmpKeyword]);
 
-  const onClickInMusicList = async (music: MusicInfo) => {
-    setKeywords({
-      trackName: '',
-      artistName: '',
-    });
-    setTmpKeywords({
-      trackName: '',
-      artistName: '',
-    });
-
+  const onClickInMusicList = async (music: Music) => {
+    setKeyword('');
+    setTmpKeyword('');
     setSelectedMusic(music);
   };
 
   return {
     selectedMusic,
-    keywords,
-    tmpKeywords,
+    keyword,
+    tmpKeyword,
     onChangeKeyword,
     onClickInSearchButton,
     onClickInMusicList,

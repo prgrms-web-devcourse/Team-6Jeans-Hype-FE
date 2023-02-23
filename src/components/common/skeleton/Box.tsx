@@ -6,9 +6,9 @@ interface Size {
   height?: string | number;
 }
 
-const Box = styled(Base)`
+const SkeletonBase = styled(Base)`
   width: ${({ width }: Size) => (typeof width === 'number' ? `${width}px` : width)};
   height: ${({ height }: Size) => (typeof height === 'number' ? `${height}px` : height)};
 `;
 
-export default Box;
+export default SkeletonBase;

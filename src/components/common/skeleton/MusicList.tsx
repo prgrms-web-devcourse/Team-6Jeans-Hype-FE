@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Box from './Box';
 
-const MusicList = ({ line = 3, ...props }) => {
+const SkeletonMusicList = ({ line = 3, ...props }) => {
   return (
     <MusicListContainer {...props}>
       {Array.from(Array(line), (_, index) =>
@@ -15,7 +15,7 @@ const MusicList = ({ line = 3, ...props }) => {
   );
 };
 
-export default MusicList;
+export default SkeletonMusicList;
 
 const MusicListContainer = styled.div`
   height: 100px;

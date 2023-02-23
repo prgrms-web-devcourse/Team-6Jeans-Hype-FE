@@ -1,18 +1,13 @@
 export interface ValuesType {
-  musicInfo: MusicInfo | string;
+  musicInfo: Music | string;
   description: string;
   battleAvailability: boolean;
 }
 
-export interface MusicInfo {
+export interface Music {
   trackId: string;
   trackName: string;
   artistName: string;
   artworkUrl100: string;
   previewUrl: string;
-}
-
-export interface KeywordInfo {
-  trackName: string;
-  artistName: string;
 }

@@ -1,9 +1,9 @@
 import useMusicList from '@/hooks/useMusicList';
 import styled from '@emotion/styled';
 import { memo } from 'react';
-import { MusicInfo } from '../types';
-import RenderMusicList from './RenderMusicList';
-import RenderSelectedMusic from './RenderSelectedMusic';
+import { Music } from '../types';
+import RenderMusicList from './MusicList';
+import RenderSelectedMusic from './SelectedMusic';
 import SearchInputs from './SearchInputs';
 
 const MusicSearchContainer = styled.div`
@@ -26,28 +26,28 @@ const MusicListContainer = styled.div`
 `;
 
 interface Props {
-  onChangeMusicInfo(music: MusicInfo): void;
+  onChangeMusicInfo(music: Music): void;
 }
 
 function MusicSearcher({ onChangeMusicInfo }: Props) {
-  const { selectedMusic, keywords, tmpKeywords, onChangeKeyword, onClickInSearchButton, onClickInMusicList } =
+  const { selectedMusic, keyword, tmpKeyword, onChangeKeyword, onClickInSearchButton, onClickInMusicList } =
     useMusicList();
 
   return (
     <MusicSearchContainer>
       <MusicInputContainer>
         <SearchInputs
-          keywords={tmpKeywords}
+          keyword={tmpKeyword}
           onChangeKeyword={onChangeKeyword}
           onClickInSearchButton={onClickInSearchButton}
         />
       </MusicInputContainer>
       <MusicListContainer>
-        {keywords.trackName && keywords.artistName && (
+        {keyword && (
           <RenderMusicList
             onChangeMusicInfo={onChangeMusicInfo}
             onClickInMusicList={onClickInMusicList}
-            keywords={keywords}
+            keyword={keyword}
           />
         )}
       </MusicListContainer>
