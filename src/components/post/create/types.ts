@@ -1,4 +1,4 @@
-export interface ValuesType {
+export interface Values {
   musicInfo: Music;
   selectedGenre: string;
   description: string;

@@ -1,9 +1,9 @@
-import { Music, ValuesType } from '@/components/post/create/types';
+import { Music, Values } from '@/components/post/create/types';
 import { useState } from 'react';
 
 const usePostCreate = () => {
   const [musicInfo, setMusicInfo] = useState<Music>({
-    trackId: 0,
+    trackId: -1,
     trackName: '',
     artistName: '',
     artworkUrl100: '',
@@ -31,15 +31,13 @@ const usePostCreate = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const postInfo: ValuesType = {
+    const postInfo: Values = {
       musicInfo,
       selectedGenre,
       description,
       battleAvailability,
     };
-    if (musicInfo.trackId === 0) {
-      alert('음악을 선택해주세요');
-    } else if (selectedGenre === '') {
+    if (selectedGenre === '') {
       alert('장르를 선택해주세요');
     } else {
       console.log(postInfo);

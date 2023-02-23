@@ -21,7 +21,7 @@ interface Props {
   tmpKeyword: string;
   onChangeKeyword: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   onClickInSearchButton(): void;
-  onClickInMusicList(music: string): void;
+  onClickInMusicList(trackId: number): void;
 }
 
 function SearchMusics({ keyword, tmpKeyword, onChangeKeyword, onClickInSearchButton, onClickInMusicList }: Props) {

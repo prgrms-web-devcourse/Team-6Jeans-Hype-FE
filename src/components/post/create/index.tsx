@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Toggle from '../../common/Toggle';
 import SelectedMusic from './SelectedMusic';
-import { Music, ValuesType } from './types';
+import { Music, Values } from './types';
 
 const CreateContainer = styled.form`
   display: flex;
@@ -26,7 +26,7 @@ const CreateRow = styled.div`
 `;
 
 interface Props {
-  values: ValuesType;
+  values: Values;
   onChangeValues: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   onChangeMusicInfo(music: Music): void;
   onSubmit: React.FormEventHandler<HTMLFormElement>;

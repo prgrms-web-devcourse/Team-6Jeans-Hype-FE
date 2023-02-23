@@ -72,7 +72,7 @@ const ArtistName = styled.div`
   color: #9f9f9f;
 `;
 interface Props {
-  onClickInMusicList(music: string): void;
+  onClickInMusicList(trackId: number): void;
   keyword: string;
 }
 
