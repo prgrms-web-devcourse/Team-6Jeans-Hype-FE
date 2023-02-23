@@ -28,20 +28,22 @@ interface Props {
 }
 
 function SelectedMusic({ selectedMusic, onChangeValues }: Props) {
+  const { trackName, artistName, previewUrl, artworkUrl100 } = selectedMusic;
+
   return (
     <div>
       <h4 style={{ fontWeight: 'bold' }}>당신이 선택한 음악은</h4>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid' }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div>
-            {selectedMusic.trackName} - {selectedMusic.artistName}
+            {trackName} - {artistName}
           </div>
           <div></div>
           <div>
-            <img src={selectedMusic.artworkUrl100} style={{ width: '100px', height: '100px' }} alt='img' />
+            <img src={artworkUrl100} style={{ width: '100px', height: '100px' }} alt='img' />
           </div>
           <Player>
-            <audio src={selectedMusic.previewUrl} controls loop />
+            <audio src={previewUrl} controls loop />
           </Player>
           <Genres>
             <fieldset>
