@@ -3,7 +3,7 @@ import { getMusicData } from '@/utils/apis/music';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
-import { Music } from '../types';
+import { Music } from './types';
 
 interface Src {
   src: string;
@@ -17,9 +17,11 @@ const Header = styled.div`
 `;
 
 const MusicListContainer = styled.div`
+  max-height: 300px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  max-height: 300px;
+
   overflow-y: scroll;
   margin-top: 50px;
 `;
@@ -70,12 +72,11 @@ const ArtistName = styled.div`
   color: #9f9f9f;
 `;
 interface Props {
-  onClickInMusicList(music: Music): void;
-  onChangeMusicInfo(music: Music): void;
+  onClickInMusicList(music: string): void;
   keyword: string;
 }
 
-function RenderMusicList({ onClickInMusicList, onChangeMusicInfo, keyword }: Props) {
+function MusicList({ onClickInMusicList, keyword }: Props) {
   const { data: musicList, isLoading } = useQuery(['musicList', keyword], () => getMusicData(keyword), {
     enabled: !!keyword,
   });
@@ -83,22 +84,14 @@ function RenderMusicList({ onClickInMusicList, onChangeMusicInfo, keyword }: Pro
   const renderList = () => {
     return musicList.length ? (
       musicList?.map((music: Music) => {
-        const { trackId, trackName, artistName, artworkUrl100, previewUrl } = music;
-        const newMusicInfo = {
-          trackId,
-          trackName,
-          artistName,
-          artworkUrl100,
-          previewUrl,
-        };
+        const { trackId, trackName, artistName, artworkUrl100 } = music;
 
         return (
           <MusicCard
             key={trackId}
             className='musicInfo'
             onClick={() => {
-              onClickInMusicList(newMusicInfo);
-              onChangeMusicInfo(newMusicInfo);
+              onClickInMusicList(trackId);
             }}
           >
             <ImageContainer src={artworkUrl100}></ImageContainer>
@@ -137,4 +130,4 @@ function RenderMusicList({ onClickInMusicList, onChangeMusicInfo, keyword }: Pro
     </MusicListContainer>
   );
 }
-export default memo(RenderMusicList, (prev, next) => JSON.stringify(prev.keyword) === JSON.stringify(next.keyword));
+export default memo(MusicList, (prev, next) => JSON.stringify(prev.keyword) === JSON.stringify(next.keyword));

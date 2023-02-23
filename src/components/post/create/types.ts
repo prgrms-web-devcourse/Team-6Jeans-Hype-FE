@@ -1,12 +1,12 @@
 export interface ValuesType {
-  musicInfo: Music | string;
-  selectedGenre:string,
+  musicInfo: Music;
+  selectedGenre: string;
   description: string;
   battleAvailability: boolean;
 }
 
 export interface Music {
-  trackId: string;
+  trackId: number;
   trackName: string;
   artistName: string;
   artworkUrl100: string;

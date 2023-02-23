@@ -35,7 +35,7 @@ interface Props {
   onClickInSearchButton(): void;
 }
 
-function SearchInputs({ keyword, onChangeKeyword, onClickInSearchButton }: Props) {
+function SearchInput({ keyword, onChangeKeyword, onClickInSearchButton }: Props) {
   return (
     <Searcher>
       <input
@@ -52,4 +52,4 @@ function SearchInputs({ keyword, onChangeKeyword, onClickInSearchButton }: Props
   );
 }
 
-export default SearchInputs;
+export default SearchInput;

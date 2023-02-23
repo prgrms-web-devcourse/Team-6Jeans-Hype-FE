@@ -1,6 +1,10 @@
+import { getMusicData } from '@/utils/apis/music';
 import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import Toggle from '../../common/Toggle';
-import MusicSearcher from './musicSearcher/index';
+import SelectedMusic from './SelectedMusic';
 import { Music, ValuesType } from './types';
 
 const CreateContainer = styled.form`
@@ -29,10 +33,25 @@ interface Props {
 }
 
 function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Props) {
+  const router = useRouter();
+  const { trackId, keyword } = router.query;
+  const { data: musicList, isLoading } = useQuery(['musicList', keyword], () => getMusicData(keyword as string));
+
+  useEffect(() => {
+    if (!isLoading) {
+      const musicInfo = musicList.filter((music: Music) => music.trackId === Number(trackId));
+      onChangeMusicInfo(musicInfo[0]);
+    }
+  }, [isLoading]);
+
   return (
     <CreateContainer onSubmit={onSubmit}>
       <CreateRow>
-        <MusicSearcher onChangeValues={onChangeValues} onChangeMusicInfo={onChangeMusicInfo} />
+        {isLoading ? (
+          <div>로딩중,,,</div>
+        ) : (
+          <SelectedMusic selectedMusic={values.musicInfo} onChangeValues={onChangeValues} />
+        )}
       </CreateRow>
       <CreateRow>
         <span>설명(추천이유):</span>

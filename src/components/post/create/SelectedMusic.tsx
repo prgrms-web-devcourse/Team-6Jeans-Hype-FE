@@ -1,6 +1,6 @@
 import { genres } from '@/utils/genreData';
 import styled from '@emotion/styled';
-import { Music } from '../types';
+import { Music } from './types';
 
 const Player = styled.div`
   width: 30px;
@@ -27,7 +27,7 @@ interface Props {
   onChangeValues: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 }
 
-function RenderSelectedMusic({ selectedMusic,onChangeValues }: Props) {
+function SelectedMusic({ selectedMusic, onChangeValues }: Props) {
   return (
     <div>
       <h4 style={{ fontWeight: 'bold' }}>당신이 선택한 음악은</h4>
@@ -41,20 +41,17 @@ function RenderSelectedMusic({ selectedMusic,onChangeValues }: Props) {
             <img src={selectedMusic.artworkUrl100} style={{ width: '100px', height: '100px' }} alt='img' />
           </div>
           <Player>
-            <audio src={selectedMusic.previewUrl} controls loop/>
+            <audio src={selectedMusic.previewUrl} controls loop />
           </Player>
           <Genres>
             <fieldset>
-              <legend style={{fontWeight:'bold'}}>장르를 선택하세요</legend>
-              {genres.map((genre:string,i:number)=>(
+              <legend style={{ fontWeight: 'bold' }}>장르를 선택하세요</legend>
+              {genres.map((genre: string, i: number) => (
                 <div key={i}>
-                  <input type="radio" id={`genre${i+1}`} name="genre" value={genre} onChange={onChangeValues}/>
-                  <label htmlFor={`genre${i+1}`}>{genre}</label>
+                  <input type='radio' id={`genre${i + 1}`} name='genre' value={genre} onChange={onChangeValues} />
+                  <label htmlFor={`genre${i + 1}`}>{genre}</label>
                 </div>
-              )
-              )}
-              
-              
+              ))}
             </fieldset>
           </Genres>
         </div>
@@ -63,4 +60,4 @@ function RenderSelectedMusic({ selectedMusic,onChangeValues }: Props) {
   );
 }
 
-export default RenderSelectedMusic;
+export default SelectedMusic;

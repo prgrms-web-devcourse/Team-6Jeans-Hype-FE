@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const usePostCreate = () => {
   const [musicInfo, setMusicInfo] = useState<Music>({
-    trackId: '',
+    trackId: 0,
     trackName: '',
     artistName: '',
     artworkUrl100: '',
@@ -19,8 +19,8 @@ const usePostCreate = () => {
       setBattleAvailability((prev) => !prev);
     } else if (name === 'description') {
       setDescription(value);
-    } else if(name==="genre"){
-      setSelectedGenre(value)
+    } else if (name === 'genre') {
+      setSelectedGenre(value);
     }
   };
 
@@ -30,24 +30,28 @@ const usePostCreate = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const postInfo: ValuesType = {
       musicInfo,
       selectedGenre,
       description,
       battleAvailability,
     };
-    if(musicInfo.trackId === ''){
-      alert('음악을 선택해주세요')
-    } else if(selectedGenre===''){
-      alert('장르를 선택해주세요')
+    if (musicInfo.trackId === 0) {
+      alert('음악을 선택해주세요');
+    } else if (selectedGenre === '') {
+      alert('장르를 선택해주세요');
     } else {
       console.log(postInfo);
     }
-    
   };
 
-  return { values: { musicInfo, selectedGenre, description, battleAvailability }, onChangeValues, onChangeMusicInfo, onSubmit };
+  return {
+    values: { musicInfo, selectedGenre, description, battleAvailability },
+    onChangeValues,
+    onChangeMusicInfo,
+    onSubmit,
+  };
 };
 
 export default usePostCreate;
