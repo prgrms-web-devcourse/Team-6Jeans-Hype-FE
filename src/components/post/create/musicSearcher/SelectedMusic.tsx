@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { MusicInfo } from '../types';
+import { Music } from '../types';
 
 const Player = styled.div`
   width: 30px;
@@ -16,7 +16,7 @@ const Player = styled.div`
 `;
 
 interface Props {
-  selectedMusic: MusicInfo;
+  selectedMusic: Music;
 }
 
 function RenderSelectedMusic({ selectedMusic }: Props) {

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Toggle from '../../common/Toggle';
 import MusicSearcher from './musicSearcher/index';
-import { MusicInfo, ValuesType } from './types';
+import { Music, ValuesType } from './types';
 
 const CreateContainer = styled.form`
   display: flex;
@@ -20,7 +20,7 @@ const CreateRow = styled.div`
 interface Props {
   values: ValuesType;
   onChangeValues: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  onChangeMusicInfo(music: MusicInfo): void;
+  onChangeMusicInfo(music: Music): void;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 
