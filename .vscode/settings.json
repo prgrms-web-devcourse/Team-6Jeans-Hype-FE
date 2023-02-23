@@ -1,1 +1,4 @@
-{ "cSpell.words": ["tanstack"] }
+{
+  "cSpell.words": ["tanstack"],
+  "typescript.tsdk": "node_modules\\typescript\\lib"
+}
