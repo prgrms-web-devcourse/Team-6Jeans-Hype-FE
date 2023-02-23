@@ -7,7 +7,7 @@
   ],
   "plugins": ["simple-import-sort"],
   "rules": {
-    "simple-import-sort/imports": "warning",
-    "simple-import-sort/exports": "warning"
+    "simple-import-sort/imports": "warn",
+    "simple-import-sort/exports": "warn"
   }
 }
