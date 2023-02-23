@@ -14,24 +14,34 @@ const MusicCard = styled.div`
 `;
 
 const MusicTexts = styled.div`
-  padding-left: 10px;
+  width: 100%;
   height: 100%;
   cursor: pointer;
   display: flex;
   flex-direction: column;
 `;
 
-const Ellipsis = styled.div`
-  width: 200px;
+const Text = styled.div`
   height: 50%;
-
   display: flex;
   align-items: center;
-  & > span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+`;
+
+const Ellipsis = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1.2rem;
+`;
+const TitleText = styled.span`
+  border: 1px solid #7893ea;
+  border-radius: 10px;
+  padding: 3px 5px;
+  margin-right: 5px;
+  font-weight: bold;
+  font-size: 1rem;
+  letter-spacing: 0.05rem;
+  color: #7893ea;
 `;
 
 interface Props {
@@ -66,14 +76,14 @@ function RenderMusicList({ onClickInMusicList, onChangeMusicInfo, keyword }: Pro
               onChangeMusicInfo(newMusicInfo);
             }}
           >
-            <img src={artworkUrl100} alt='img' width={80} height={80} />
             <MusicTexts>
-              <Ellipsis>
-                <span>{trackName}</span>
-              </Ellipsis>
-              <Ellipsis>
-                <span>{artistName}</span>
-              </Ellipsis>
+              <Text>
+                <TitleText>TITLE</TitleText>
+                <Ellipsis>{trackName}</Ellipsis>
+              </Text>
+              <Text>
+                <Ellipsis>{artistName}</Ellipsis>
+              </Text>
             </MusicTexts>
           </MusicCard>
         );

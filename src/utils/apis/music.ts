@@ -1,3 +1,4 @@
+import { Music } from '@/components/post/create/types';
 import axios from 'axios';
 
 const Address = process.env.NEXT_PUBLIC_API_ENDPOINT;

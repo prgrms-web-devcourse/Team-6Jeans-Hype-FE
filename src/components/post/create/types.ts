@@ -1,5 +1,6 @@
 export interface ValuesType {
   musicInfo: Music | string;
+  selectedGenre:string,
   description: string;
   battleAvailability: boolean;
 }

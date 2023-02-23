@@ -9,6 +9,7 @@ const usePostCreate = () => {
     artworkUrl100: '',
     previewUrl: '',
   });
+  const [selectedGenre, setSelectedGenre] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [battleAvailability, setBattleAvailability] = useState<boolean>(false);
 
@@ -18,6 +19,8 @@ const usePostCreate = () => {
       setBattleAvailability((prev) => !prev);
     } else if (name === 'description') {
       setDescription(value);
+    } else if(name==="genre"){
+      setSelectedGenre(value)
     }
   };
 
@@ -27,15 +30,24 @@ const usePostCreate = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
     const postInfo: ValuesType = {
       musicInfo,
+      selectedGenre,
       description,
       battleAvailability,
     };
-    console.log(postInfo);
+    if(musicInfo.trackId === ''){
+      alert('음악을 선택해주세요')
+    } else if(selectedGenre===''){
+      alert('장르를 선택해주세요')
+    } else {
+      console.log(postInfo);
+    }
+    
   };
 
-  return { values: { musicInfo, description, battleAvailability }, onChangeValues, onChangeMusicInfo, onSubmit };
+  return { values: { musicInfo, selectedGenre, description, battleAvailability }, onChangeValues, onChangeMusicInfo, onSubmit };
 };
 
 export default usePostCreate;
