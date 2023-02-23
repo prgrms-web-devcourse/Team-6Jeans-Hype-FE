@@ -5,12 +5,43 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import { Music } from '../types';
 
+interface Src {
+  src: string;
+}
+
+const Header = styled.div`
+  font-size: 14px;
+  color: #242467;
+  font-weight: bold;
+  margin-left: 10px;
+`;
+
+const MusicListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-height: 300px;
+  overflow-y: scroll;
+  margin-top: 50px;
+`;
+
 const MusicCard = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin: 10px;
-  height: 80px;
+  padding: 10px;
+  height: 70px;
+  box-shadow: 0px 0px 10px rgba(226, 226, 226, 0.25);
+  background-color: #fff;
+`;
+
+const ImageContainer = styled.div`
+  border-radius: 10px;
+  width: 64px;
+  height: 64px;
+  border: 1px solid #dddddd;
+  background-image: ${({ src }: Src) => `url(${src})`};
+  background-repeat: no-repeat;
+  background-size: 64px 64px;
 `;
 
 const MusicTexts = styled.div`
@@ -19,6 +50,7 @@ const MusicTexts = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  margin-left: 20px;
 `;
 
 const Text = styled.div`
@@ -31,19 +63,12 @@ const Ellipsis = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 1.2rem;
-`;
-const TitleText = styled.span`
-  border: 1px solid #7893ea;
-  border-radius: 10px;
-  padding: 3px 5px;
-  margin-right: 5px;
+  font-size: 12px;
   font-weight: bold;
-  font-size: 1rem;
-  letter-spacing: 0.05rem;
-  color: #7893ea;
 `;
-
+const ArtistName = styled.div`
+  color: #9f9f9f;
+`;
 interface Props {
   onClickInMusicList(music: Music): void;
   onChangeMusicInfo(music: Music): void;
@@ -76,13 +101,17 @@ function RenderMusicList({ onClickInMusicList, onChangeMusicInfo, keyword }: Pro
               onChangeMusicInfo(newMusicInfo);
             }}
           >
+            <ImageContainer src={artworkUrl100}></ImageContainer>
             <MusicTexts>
               <Text>
-                <TitleText>TITLE</TitleText>
-                <Ellipsis>{trackName}</Ellipsis>
+                <Ellipsis>
+                  <span>{trackName}</span>
+                </Ellipsis>
               </Text>
               <Text>
-                <Ellipsis>{artistName}</Ellipsis>
+                <Ellipsis>
+                  <ArtistName>{artistName}</ArtistName>
+                </Ellipsis>
               </Text>
             </MusicTexts>
           </MusicCard>
@@ -93,14 +122,19 @@ function RenderMusicList({ onClickInMusicList, onChangeMusicInfo, keyword }: Pro
     );
   };
 
-  return isLoading ? (
-    <>
-      <MusicListSkeleton />
-      <MusicListSkeleton />
-      <MusicListSkeleton />
-    </>
-  ) : (
-    renderList()
+  return (
+    <MusicListContainer>
+      <Header>검색 결과</Header>
+      {isLoading ? (
+        <>
+          <MusicListSkeleton />
+          <MusicListSkeleton />
+          <MusicListSkeleton />
+        </>
+      ) : (
+        renderList()
+      )}
+    </MusicListContainer>
   );
 }
 export default memo(RenderMusicList, (prev, next) => JSON.stringify(prev.keyword) === JSON.stringify(next.keyword));

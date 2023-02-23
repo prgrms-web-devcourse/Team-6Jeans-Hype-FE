@@ -11,16 +11,6 @@ const MusicSearchContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const MusicListContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-height: 300px;
-  overflow-y: scroll;
-  border: 1px solid #eff3f6;
-  border-radius: 3px;
-  border-top: 0;
-  background-color: #f6f9fb;
-`;
 
 interface Props {
   onChangeMusicInfo(music: Music): void;
@@ -38,15 +28,15 @@ function MusicSearcher({ onChangeMusicInfo, onChangeValues }: Props) {
         onChangeKeyword={onChangeKeyword}
         onClickInSearchButton={onClickInSearchButton}
       />
-      <MusicListContainer>
-        {keyword && (
-          <RenderMusicList
-            onChangeMusicInfo={onChangeMusicInfo}
-            onClickInMusicList={onClickInMusicList}
-            keyword={keyword}
-          />
-        )}
-      </MusicListContainer>
+
+      {keyword && (
+        <RenderMusicList
+          onChangeMusicInfo={onChangeMusicInfo}
+          onClickInMusicList={onClickInMusicList}
+          keyword={keyword}
+        />
+      )}
+
       {selectedMusic.trackId && <RenderSelectedMusic onChangeValues={onChangeValues} selectedMusic={selectedMusic} />}
     </MusicSearchContainer>
   );

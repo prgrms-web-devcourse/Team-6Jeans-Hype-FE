@@ -2,28 +2,30 @@ import styled from '@emotion/styled';
 
 const Searcher = styled.div`
   width: 100%;
-  height: 50px;
+  height: 35px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   border-radius: 4px;
-  & > * {
-    height: calc(100%);
-  }
+
   & > input {
     padding: 0 10px;
-    width: calc(100% - 50px);
-    background-color: #eff3f6;
-    border-radius: 3px 0 0 3px;
+    width: calc(100% - 60px);
+    box-shadow: 0px 0px 15px rgba(158, 158, 158, 0.25);
+    border-radius: 10px;
+    border: 1px solid #7893ea;
+    height: 100%;
   }
 `;
 
 const SearcherButton = styled.button`
-  width: 50px;
-  border-radius: 3px;
-  background: linear-gradient(98.38deg, #7d74dc -1.83%, #7697ec 86.44%);
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #7697ec;
+  border: 0;
   & > img {
-    width: 25px;
+    width: 10px;
   }
 `;
 
