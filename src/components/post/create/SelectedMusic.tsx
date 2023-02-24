@@ -2,20 +2,6 @@ import styled from '@emotion/styled';
 
 import { Music } from './types';
 
-const Player = styled.div`
-  width: 30px;
-  height: 30px;
-  overflow: hidden;
-  border-radius: 50%;
-  border: 1px solid #cccccc;
-  box-sizing: content-box;
-  & > audio {
-    margin-top: -12px;
-    margin-left: -11px;
-    display: block;
-  }
-`;
-
 interface Props {
   selectedMusic: Music;
 }
@@ -45,3 +31,17 @@ function SelectedMusic({ selectedMusic }: Props) {
 }
 
 export default SelectedMusic;
+
+const Player = styled.div`
+  width: 3rem;
+  height: 3rem;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 0.1rem solid #cccccc;
+  box-sizing: content-box;
+  & > audio {
+    margin-top: -12px;
+    margin-left: -11px;
+    display: block;
+  }
+`;

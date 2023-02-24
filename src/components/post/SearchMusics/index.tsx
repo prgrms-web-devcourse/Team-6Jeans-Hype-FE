@@ -6,32 +6,6 @@ import { COLOR } from '@/constants/color';
 import MusicList from './MusicList';
 import SearchInput from './SearchInput';
 
-const MusicSearchContainer = styled.div`
-  width: calc(100% - 3rem);
-  max-width: 76.5rem;
-  padding: 0 1.5rem;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const InitContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 50%;
-  transform: translatey(-50%);
-  & > img {
-    width: 8rem;
-  }
-  & > span {
-    padding-top: 3rem;
-    color: ${COLOR.gray};
-  }
-`;
-
 interface Props {
   keyword: string;
   tmpKeyword: string;
@@ -61,3 +35,29 @@ function SearchMusics({ keyword, tmpKeyword, onChangeKeyword, onClickInSearchBut
 }
 
 export default memo(SearchMusics, (prev, next) => JSON.stringify(prev) === JSON.stringify(next));
+
+const MusicSearchContainer = styled.div`
+  width: calc(100% - 3rem);
+  max-width: 76.5rem;
+  padding: 0 1.5rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const InitContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translatey(-50%);
+  & > img {
+    width: 8rem;
+  }
+  & > span {
+    padding-top: 3rem;
+    color: ${COLOR.gray};
+  }
+`;

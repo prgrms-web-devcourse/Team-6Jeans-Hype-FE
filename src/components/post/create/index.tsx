@@ -10,24 +10,6 @@ import Toggle from '../../common/Toggle';
 import SelectedMusic from './SelectedMusic';
 import { Music, Values } from './types';
 
-const CreateContainer = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: calc(100% - 25px);
-  max-width: 400px;
-  margin: 0 auto;
-  margin-top: 50px;
-`;
-const Row = styled.div`
-  padding-bottom: 10px;
-  width: 100%;
-
-  & > span {
-    margin-right: 10px;
-  }
-`;
-
 interface Props {
   values: Values;
   onChangeValues: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
@@ -83,3 +65,21 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
 }
 
 export default PostCreate;
+
+const CreateContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100% - 2.5rem);
+  max-width: 40rem;
+  margin: 0 auto;
+  margin-top: 5rem;
+`;
+const Row = styled.div`
+  padding-bottom: 1rem;
+  width: 100%;
+
+  & > span {
+    margin-right: 1rem;
+  }
+`;
