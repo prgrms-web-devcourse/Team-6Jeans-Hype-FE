@@ -4,13 +4,18 @@ import { PostInfo } from './types';
 import { useRouter } from 'next/router';
 import Genres from '../common/Genres';
 import { useState } from 'react';
+import Battles from '../common/Battles';
 
 function PostList() {
   const [genre, setGenre] = useState('all');
 
-  const { data: postFeed, isLoading } = useQuery<PostInfo[]>(['postfeed', genre], () => getPostFeedData(genre));
-
   const router = useRouter();
+  const { possible } = router.query;
+
+  const { data: postFeed, isLoading } = useQuery<PostInfo[]>(['postfeed', genre, possible], () => {
+    const possibleStatus = possible === 'true' ? true : possible === 'false' ? false : undefined;
+    return getPostFeedData(genre, possibleStatus as boolean);
+  });
 
   const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
 
@@ -19,6 +24,7 @@ function PostList() {
   return (
     <>
       <Genres title='장르 선택' onChange={onChange} />
+      <Battles />
       {isLoading ? (
         <></>
       ) : (
