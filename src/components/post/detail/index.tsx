@@ -8,8 +8,12 @@ function PostDetail() {
   const router = useRouter();
   const { postId } = router.query;
 
-  const { data: postDetail } = useQuery<PostDetail>(['post', 'detail', postId], () =>
-    getPostDetailData(parseInt(postId as string)),
+  const { data: postDetail } = useQuery<PostDetail>(
+    ['post', 'detail', postId],
+    () => getPostDetailData(parseInt(postId as string)),
+    {
+      enabled: !!postId,
+    },
   );
 
   return (

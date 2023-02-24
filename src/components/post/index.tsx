@@ -8,17 +8,17 @@ function PostList() {
 
   const router = useRouter();
 
-  const navigatePostDetail = () => router.push(`/post/detail`);
+  const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
 
   return (
     <>
       {isLoading ? (
         <></>
       ) : (
-        postList?.map((post) => (
+        postFeed?.map((post) => (
           <div
             key={post.postId}
-            onClick={navigatePostDetail}
+            onClick={() => navigatePostDetail(post.postId)}
             style={{
               width: '130px',
               height: '130px',
