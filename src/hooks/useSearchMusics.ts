@@ -20,7 +20,7 @@ const useSearchMusics = () => {
     setKeyword('');
     setTmpKeyword('');
 
-    router.push(`/post/create?trackId=${trackId}&keyword=${keyword}`);
+    router.push(`/post/create?trackId=${trackId}`);
   };
 
   return {

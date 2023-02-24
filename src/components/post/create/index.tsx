@@ -1,4 +1,4 @@
-import { getMusicData } from '@/utils/apis/music';
+import { getMusicData, getMusicDetailData } from '@/utils/apis/music';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
@@ -34,19 +34,21 @@ interface Props {
 
 function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Props) {
   const router = useRouter();
-  const { trackId, keyword } = router.query;
-  const { data: musicList, isLoading } = useQuery(['musicList', keyword], () => getMusicData(keyword as string));
+  const { trackId } = router.query;
+  const { data: musicDetail, isLoading } = useQuery(['musicDetail', trackId], () =>
+    getMusicDetailData(trackId as string),
+  );
 
   useEffect(() => {
     if (!isLoading) {
-      const musicInfo = musicList.find((music: Music) => music.trackId === Number(trackId));
       const newMusic: Music = {
-        trackId: musicInfo.trackId,
-        trackName: musicInfo.trackName,
-        artistName: musicInfo.artistName,
-        artworkUrl100: musicInfo.artworkUrl100,
-        previewUrl: musicInfo.previewUrl,
+        trackId: musicDetail.trackId,
+        trackName: musicDetail.trackName,
+        artistName: musicDetail.artistName,
+        artworkUrl100: musicDetail.artworkUrl100,
+        previewUrl: musicDetail.previewUrl,
       };
+
       onChangeMusicInfo(newMusic);
     }
   }, [isLoading]);
