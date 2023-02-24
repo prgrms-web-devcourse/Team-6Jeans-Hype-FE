@@ -1,31 +1,48 @@
 import styled from '@emotion/styled';
 
+import { COLOR } from '@/constants/color';
+
+const SearchContainer = styled.div`
+  width: 100%;
+`;
+
+const TItle = styled.div`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  margin: 1rem 0;
+  padding-left: 0.8rem;
+`;
+
 const Searcher = styled.div`
   width: 100%;
   height: 35px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: 4px;
+  border-radius: 1rem;
+  background-color: ${COLOR.white};
+  box-shadow: 0 0 1.5rem rgba(158, 158, 158, 0.25);
+  border: 1px solid ${COLOR.blue};
+`;
 
-  & > input {
-    padding: 0 10px;
-    width: calc(100% - 60px);
-    box-shadow: 0px 0px 15px rgba(158, 158, 158, 0.25);
-    border-radius: 10px;
-    border: 1px solid #7893ea;
-    height: 100%;
-  }
+const Input = styled.input`
+  padding: 0 1rem;
+  width: calc(100% - 3rem);
+  border-radius: 1rem 0 0 1rem;
+  height: 100%;
+  color: ${COLOR.deepBlue};
+  font-size: 1.25rem;
 `;
 
 const SearcherButton = styled.button`
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #7697ec;
+  width: 2.5rem;
+  margin-right: 0.5rem;
+  height: 2.5rem;
   border: 0;
   & > img {
-    width: 10px;
+    width: 1.1rem;
   }
 `;
 
@@ -37,18 +54,21 @@ interface Props {
 
 function SearchInput({ keyword, onChangeKeyword, onClickInSearchButton }: Props) {
   return (
-    <Searcher>
-      <input
-        name='trackName'
-        value={keyword}
-        onChange={onChangeKeyword}
-        autoComplete='off'
-        placeholder='ex) 아이유 좋은날'
-      />
-      <SearcherButton type='button' onClick={onClickInSearchButton}>
-        <img src={'/images/search.png'} alt='img' />
-      </SearcherButton>
-    </Searcher>
+    <SearchContainer>
+      <TItle>음악 검색</TItle>
+      <Searcher>
+        <Input
+          name='trackName'
+          value={keyword}
+          onChange={onChangeKeyword}
+          autoComplete='off'
+          placeholder='ex) 아이유 좋은날'
+        />
+        <SearcherButton type='button' onClick={onClickInSearchButton}>
+          <img src={'/images/search-icon.svg'} alt='img' />
+        </SearcherButton>
+      </Searcher>
+    </SearchContainer>
   );
 }
 

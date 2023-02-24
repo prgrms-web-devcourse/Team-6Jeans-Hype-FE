@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const Address = process.env.NEXT_PUBLIC_API_ENDPOINT;
-
+axios.defaults.withCredentials = true;
 export const getMusicData = async (keyword: string) => {
   try {
     const response = await axios.get(`${Address}/search`, {
