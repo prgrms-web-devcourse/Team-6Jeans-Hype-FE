@@ -27,9 +27,7 @@ function MyBattleList() {
             <div>{list.music.thumbnailUrl}</div>
             <div>{list.music.singer}</div>
             <button
-              onClick={() =>
-                onClickBattleButton({ postId: list.postId, title: list.music.musicName, singer: list.music.singer })
-              }
+              onClick={() => onClickBattleButton({ title: list.music.musicName, singer: list.music.singer })}
               style={{
                 width: '40px',
                 height: '30px',
