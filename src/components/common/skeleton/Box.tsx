@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+
 import Base from './Base';
 
 interface Size {

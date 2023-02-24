@@ -1,5 +1,6 @@
-import useToggle from '@/hooks/useToggle';
 import styled from '@emotion/styled';
+
+import useToggle from '@/hooks/useToggle';
 
 const ToggleContainer = styled.label`
   display: inline-block;
@@ -50,19 +51,14 @@ const ToggleInput = styled.input`
   }
 `;
 
-interface ToggleProps{
+interface ToggleProps {
   name: string;
   on?: boolean;
   disabled: boolean;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-function Toggle({
-  name,
-  on = false,
-  disabled,
-  onChange,
-}: ToggleProps) {
+function Toggle({ name, on = false, disabled, onChange }: ToggleProps) {
   const { state, toggle } = useToggle(on);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
