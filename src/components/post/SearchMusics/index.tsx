@@ -1,18 +1,35 @@
 import styled from '@emotion/styled';
 import { memo } from 'react';
 
+import { COLOR } from '@/constants/color';
+
 import MusicList from './MusicList';
 import SearchInput from './SearchInput';
 
 const MusicSearchContainer = styled.div`
-  width: calc(100% - 30px);
-  max-width: 765px;
-  padding: 0 15px;
+  width: calc(100% - 3rem);
+  max-width: 76.5rem;
+  padding: 0 1.5rem;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+`;
+
+const InitContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translatey(-50%);
+  & > img {
+    width: 8rem;
+  }
+  & > span {
+    padding-top: 3rem;
+    color: ${COLOR.gray};
+  }
 `;
 
 interface Props {
@@ -31,7 +48,14 @@ function SearchMusics({ keyword, tmpKeyword, onChangeKeyword, onClickInSearchBut
         onChangeKeyword={onChangeKeyword}
         onClickInSearchButton={onClickInSearchButton}
       />
-      {keyword && <MusicList onClickInMusicList={onClickInMusicList} keyword={keyword} />}
+      {keyword ? (
+        <MusicList onClickInMusicList={onClickInMusicList} keyword={keyword} />
+      ) : (
+        <InitContainer>
+          <img src={'/images/translucent-logo.svg'} />
+          <span>검색 후 음악을 선택하세요.</span>
+        </InitContainer>
+      )}
     </MusicSearchContainer>
   );
 }

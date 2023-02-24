@@ -3,75 +3,82 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import MusicListSkeleton from '@/components/common/skeleton/MusicList';
+import { COLOR } from '@/constants/color';
 import { getMusicData } from '@/utils/apis/music';
 
 import { Music } from './types';
 
-interface Src {
-  src: string;
-}
-
 const Header = styled.div`
-  font-size: 14px;
-  color: #242467;
-  font-weight: bold;
-  margin-left: 10px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  padding-left: 0.8rem;
 `;
 
 const MusicListContainer = styled.div`
-  max-height: 300px;
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  overflow-y: scroll;
-  margin-top: 50px;
+  margin-top: 3rem;
 `;
-
+const MusicCardContainer = styled.div`
+  max-height: 300px;
+  overflow-y: scroll;
+`;
 const MusicCard = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 10px;
-  height: 70px;
-  box-shadow: 0px 0px 10px rgba(226, 226, 226, 0.25);
-  background-color: #fff;
+  margin: 1rem 0;
+  padding: 0.3rem;
+  height: 7rem;
+  box-shadow: 0 0 1rem rgba(226, 226, 226, 0.25);
+  background-color: ${COLOR.white};
+  border-radius: 1rem;
 `;
 
 const ImageContainer = styled.div`
   border-radius: 10px;
-  width: 64px;
-  height: 64px;
-  border: 1px solid #dddddd;
-  background-image: ${({ src }: Src) => `url(${src})`};
-  background-repeat: no-repeat;
-  background-size: 64px 64px;
+  width: 6.4rem;
+  height: 6.4rem;
+  border: 0.1rem solid #dddddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & > img {
+    width: 5.5rem;
+    height: 5rem;
+  }
 `;
 
 const MusicTexts = styled.div`
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 2rem - 7rem);
+  height: 60%;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
+  margin-left: 2rem;
 `;
 
 const Text = styled.div`
   height: 50%;
   display: flex;
   align-items: center;
+  line-height: 1.7rem;
 `;
 
 const Ellipsis = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 12px;
   font-weight: bold;
+  & > span {
+    font-size: 1.2rem;
+  }
 `;
 const ArtistName = styled.div`
-  color: #9f9f9f;
+  color: ${COLOR.gray};
 `;
 interface Props {
   onClickInMusicList(trackId: number): void;
@@ -96,38 +103,41 @@ function MusicList({ onClickInMusicList, keyword }: Props) {
   return (
     <MusicListContainer>
       <Header>검색 결과</Header>
-      {musicList.length ? (
-        musicList?.map((music: Music) => {
-          const { trackId, trackName, artistName, artworkUrl100 } = music;
+      <MusicCardContainer>
+        {musicList?.length ? (
+          musicList?.map((music: Music) => {
+            const { trackId, trackName, artistName, artworkUrl100 } = music;
 
-          return (
-            <MusicCard
-              key={trackId}
-              className='musicInfo'
-              onClick={() => {
-                onClickInMusicList(trackId);
-              }}
-            >
-              <ImageContainer src={artworkUrl100}></ImageContainer>
-              <MusicTexts>
-                <Text>
-                  <Ellipsis>
-                    <span>{trackName}</span>
-                  </Ellipsis>
-                </Text>
-                <Text>
-                  <Ellipsis>
-                    <ArtistName>{artistName}</ArtistName>
-                  </Ellipsis>
-                </Text>
-              </MusicTexts>
-            </MusicCard>
-          );
-        })
-      ) : (
-        <div>결과없음</div>
-      )}
-      ;
+            return (
+              <MusicCard
+                key={trackId}
+                className='musicInfo'
+                onClick={() => {
+                  onClickInMusicList(trackId);
+                }}
+              >
+                <ImageContainer>
+                  <img src={artworkUrl100} />
+                </ImageContainer>
+                <MusicTexts>
+                  <Text>
+                    <Ellipsis>
+                      <span>{trackName}</span>
+                    </Ellipsis>
+                  </Text>
+                  <Text>
+                    <Ellipsis>
+                      <ArtistName>{artistName}</ArtistName>
+                    </Ellipsis>
+                  </Text>
+                </MusicTexts>
+              </MusicCard>
+            );
+          })
+        ) : (
+          <div>결과없음</div>
+        )}
+      </MusicCardContainer>
     </MusicListContainer>
   );
 }
