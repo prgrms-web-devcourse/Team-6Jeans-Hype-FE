@@ -1,5 +1,5 @@
-import { GENRES } from '@/constants/genreData';
 import styled from '@emotion/styled';
+
 import { Music } from './types';
 
 const Player = styled.div`
@@ -16,18 +16,11 @@ const Player = styled.div`
   }
 `;
 
-const Genres = styled.div`
-  border: 1px solid #bdbdbd;
-  margin: 10px;
-  padding: 5px;
-`;
-
 interface Props {
   selectedMusic: Music;
-  onChangeValues: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 }
 
-function SelectedMusic({ selectedMusic, onChangeValues }: Props) {
+function SelectedMusic({ selectedMusic }: Props) {
   const { trackName, artistName, previewUrl, artworkUrl100 } = selectedMusic;
 
   return (
@@ -45,17 +38,6 @@ function SelectedMusic({ selectedMusic, onChangeValues }: Props) {
           <Player>
             <audio src={previewUrl} controls loop />
           </Player>
-          <Genres>
-            <fieldset>
-              <legend style={{ fontWeight: 'bold' }}>장르를 선택하세요</legend>
-              {GENRES.map((genre: string, i: number) => (
-                <div key={i}>
-                  <input type='radio' id={`genre${i + 1}`} name='genre' value={genre} onChange={onChangeValues} />
-                  <label htmlFor={`genre${i + 1}`}>{genre}</label>
-                </div>
-              ))}
-            </fieldset>
-          </Genres>
         </div>
       </div>
     </div>
