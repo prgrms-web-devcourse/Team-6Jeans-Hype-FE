@@ -53,11 +53,11 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
     }
   }, [
     isLoading,
-    musicDetail.trackId,
-    musicDetail.trackName,
-    musicDetail.artistName,
-    musicDetail.artworkUrl100,
-    musicDetail.previewUrl,
+    musicDetail?.trackId,
+    musicDetail?.trackName,
+    musicDetail?.artistName,
+    musicDetail?.artworkUrl100,
+    musicDetail?.previewUrl,
     onChangeMusicInfo,
   ]);
 
