@@ -1,20 +1,20 @@
-export interface PostDetailInfo {
-  music: MusicInfo;
+export interface PostDetail {
+  music: Music;
   likeCount: number;
   isBattlePossible: boolean;
   nickname: string;
   content?: string;
 }
 
-export interface MusicInfo {
+export interface Music {
   musicName: string;
   musicUrl: string;
   thumbnailUrl: string;
   singer: string;
-  genre: GenreInfo;
+  genre: Genre;
 }
 
-export interface GenreInfo {
+export interface Genre {
   genreValue: string;
   genreName: string;
 }

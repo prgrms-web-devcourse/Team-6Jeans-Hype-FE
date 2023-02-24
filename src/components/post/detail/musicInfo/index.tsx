@@ -1,4 +1,6 @@
-function MusicInfo({ musicData }: any) {
+import { Music } from '../types';
+
+function MusicInfo({ musicName, musicUrl, thumbnailUrl, singer, genre }: Music) {
   return (
     <div
       style={{
@@ -8,14 +10,14 @@ function MusicInfo({ musicData }: any) {
         marginBottom: '10px',
       }}
     >
-      <div>노래 제목 : {musicData.musicName}</div>
+      <div>노래 제목 : {musicName}</div>
       <div>
-        <audio src={musicData.musicUrl} controls loop></audio>
+        <audio src={musicUrl} controls loop></audio>
       </div>
-      <div>장르 : {musicData.genre.genreName}</div>
-      <div>가수 : {musicData.singer}</div>
+      <div>장르 : {genre.genreName}</div>
+      <div>가수 : {singer}</div>
       <img
-        src={musicData.thumbnailUrl}
+        src={thumbnailUrl}
         alt='썸네일 이미지'
         style={{
           width: '100px',
