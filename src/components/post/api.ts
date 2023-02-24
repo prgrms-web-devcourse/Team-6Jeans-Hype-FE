@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 // by 민형, 임시 더미 데이터_230221
 const DUMMY_DATA = {
   success: true,
