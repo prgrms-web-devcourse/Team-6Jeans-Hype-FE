@@ -70,6 +70,69 @@ function MusicList({ onClickInMusicList, keyword }: Props) {
 }
 export default memo(MusicList, (prev, next) => JSON.stringify(prev.keyword) === JSON.stringify(next.keyword));
 
+interface Props {
+  onClickInMusicList(trackId: number): void;
+  keyword: string;
+}
+
+function MusicList({ onClickInMusicList, keyword }: Props) {
+  const { data: musicList, isLoading } = useQuery(['musicList', keyword], () => getMusicData(keyword), {
+    enabled: !!keyword,
+  });
+
+  if (isLoading) {
+    return (
+      <>
+        <MusicListSkeleton />
+        <MusicListSkeleton />
+        <MusicListSkeleton />
+      </>
+    );
+  }
+
+  return (
+    <MusicListContainer>
+      <Header>검색 결과</Header>
+      <MusicCardContainer>
+        {musicList?.length ? (
+          musicList?.map((music: Music) => {
+            const { trackId, trackName, artistName, artworkUrl100 } = music;
+
+            return (
+              <MusicCard
+                key={trackId}
+                className='musicInfo'
+                onClick={() => {
+                  onClickInMusicList(trackId);
+                }}
+              >
+                <ImageContainer>
+                  <img src={artworkUrl100} />
+                </ImageContainer>
+                <MusicTexts>
+                  <Text>
+                    <Ellipsis>
+                      <span>{trackName}</span>
+                    </Ellipsis>
+                  </Text>
+                  <Text>
+                    <Ellipsis>
+                      <ArtistName>{artistName}</ArtistName>
+                    </Ellipsis>
+                  </Text>
+                </MusicTexts>
+              </MusicCard>
+            );
+          })
+        ) : (
+          <EmptyResult>결과가 없습니다. 다른 검색어로 검색해보세요</EmptyResult>
+        )}
+      </MusicCardContainer>
+    </MusicListContainer>
+  );
+}
+export default memo(MusicList, (prev, next) => JSON.stringify(prev.keyword) === JSON.stringify(next.keyword));
+
 const Header = styled.div`
   font-style: normal;
   font-weight: 700;
