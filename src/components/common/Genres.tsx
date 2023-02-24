@@ -4,6 +4,53 @@ import { COLOR } from '@/constants/color';
 import { GENRES, GENRES_WITH_ALL } from '@/constants/genreData';
 import useGenre from '@/hooks/useGenre';
 
+interface Props {
+  shouldNeedAll?: boolean;
+  shouldNeedFilter?: boolean;
+  title?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+}
+
+function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChange }: Props) {
+  const targetGenres = shouldNeedAll ? GENRES_WITH_ALL : GENRES;
+  const { selectedValue, onClick } = useGenre();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onClick(e);
+    onChange?.(e);
+  };
+
+  return (
+    <>
+      <Titles>
+        <Title>{title}</Title>
+        {shouldNeedFilter && <Filter>최신순 ▽</Filter> /*mvp에선 구현 안해도 되니 영역만 잡아두었음 */}
+      </Titles>
+      <GenreContainer>
+        <fieldset>
+          <RadioGroup>
+            {targetGenres.map((genre: string, i: number) => (
+              <div key={i}>
+                <Input
+                  type='radio'
+                  id={`genre${i + 1}`}
+                  name='genre'
+                  value={genre}
+                  onChange={handleChange}
+                  checked={selectedValue === genre ? true : false}
+                />
+                <Label htmlFor={`genre${i + 1}`}>{genre}</Label>
+              </div>
+            ))}
+          </RadioGroup>
+        </fieldset>
+      </GenreContainer>
+    </>
+  );
+}
+
+export default Genres;
+
 const GenreContainer = styled.div`
   width: 100%;
   overflow-x: scroll;
@@ -59,50 +106,3 @@ const Label = styled.label`
   line-height: 1.6rem;
   text-align: center;
 `;
-
-interface Props {
-  isNeedAll?: boolean;
-  isNeedFilter?: boolean;
-  title?: string;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-}
-
-function Genres({ isNeedAll = false, isNeedFilter = false, title, onChange }: Props) {
-  const targetGenres = isNeedAll ? GENRES_WITH_ALL : GENRES;
-  const { selectedValue, onClick } = useGenre();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onClick(e);
-    onChange?.(e);
-  };
-
-  return (
-    <>
-      <Titles>
-        <Title>{title}</Title>
-        {isNeedFilter && <Filter>최신순 ▽</Filter> /*mvp에선 구현 안해도 되니 영역만 잡아두었음 */}
-      </Titles>
-      <GenreContainer>
-        <fieldset>
-          <RadioGroup>
-            {targetGenres.map((genre: string, i: number) => (
-              <div key={i}>
-                <Input
-                  type='radio'
-                  id={`genre${i + 1}`}
-                  name='genre'
-                  value={genre}
-                  onChange={handleChange}
-                  checked={selectedValue === genre ? true : false}
-                />
-                <Label htmlFor={`genre${i + 1}`}>{genre}</Label>
-              </div>
-            ))}
-          </RadioGroup>
-        </fieldset>
-      </GenreContainer>
-    </>
-  );
-}
-
-export default Genres;
