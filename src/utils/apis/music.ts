@@ -22,3 +22,22 @@ export const getMusicData = async (keyword: string) => {
     console.error(error);
   }
 };
+
+export const getMusicDetailData = async (trackId: string) => {
+  try {
+    const response = await axios.get(`${Address}/lookup`, {
+      params: {
+        id: trackId,
+        country: 'KR',
+      },
+    });
+
+    if (response.data.results.length > 0) {
+      return response.data.results[0];
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
