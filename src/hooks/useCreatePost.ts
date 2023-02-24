@@ -1,4 +1,4 @@
-import { Music, Values } from '@/components/post/create/types';
+import { Genre, Music, Values } from '@/components/post/create/types';
 import { useState } from 'react';
 
 const usePostCreate = () => {
@@ -9,7 +9,7 @@ const usePostCreate = () => {
     artworkUrl100: '',
     previewUrl: '',
   });
-  const [selectedGenre, setSelectedGenre] = useState<string>('');
+  const [selectedGenre, setSelectedGenre] = useState<Genre | undefined>(undefined);
   const [description, setDescription] = useState<string>('');
   const [battleAvailability, setBattleAvailability] = useState<boolean>(false);
 
@@ -20,7 +20,7 @@ const usePostCreate = () => {
     } else if (name === 'description') {
       setDescription(value);
     } else if (name === 'genre') {
-      setSelectedGenre(value);
+      setSelectedGenre(value as Genre);
     }
   };
 
@@ -37,7 +37,7 @@ const usePostCreate = () => {
       description,
       battleAvailability,
     };
-    if (selectedGenre === '') {
+    if (selectedGenre === null) {
       alert('장르를 선택해주세요');
     } else {
       console.log(postInfo);

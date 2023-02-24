@@ -81,52 +81,51 @@ function MusicList({ onClickInMusicList, keyword }: Props) {
     enabled: !!keyword,
   });
 
-  const renderList = () => {
-    return musicList.length ? (
-      musicList?.map((music: Music) => {
-        const { trackId, trackName, artistName, artworkUrl100 } = music;
-
-        return (
-          <MusicCard
-            key={trackId}
-            className='musicInfo'
-            onClick={() => {
-              onClickInMusicList(trackId);
-            }}
-          >
-            <ImageContainer src={artworkUrl100}></ImageContainer>
-            <MusicTexts>
-              <Text>
-                <Ellipsis>
-                  <span>{trackName}</span>
-                </Ellipsis>
-              </Text>
-              <Text>
-                <Ellipsis>
-                  <ArtistName>{artistName}</ArtistName>
-                </Ellipsis>
-              </Text>
-            </MusicTexts>
-          </MusicCard>
-        );
-      })
-    ) : (
-      <div>결과없음</div>
+  if (isLoading) {
+    return (
+      <>
+        <MusicListSkeleton />
+        <MusicListSkeleton />
+        <MusicListSkeleton />
+      </>
     );
-  };
+  }
 
   return (
     <MusicListContainer>
       <Header>검색 결과</Header>
-      {isLoading ? (
-        <>
-          <MusicListSkeleton />
-          <MusicListSkeleton />
-          <MusicListSkeleton />
-        </>
+      {musicList.length ? (
+        musicList?.map((music: Music) => {
+          const { trackId, trackName, artistName, artworkUrl100 } = music;
+
+          return (
+            <MusicCard
+              key={trackId}
+              className='musicInfo'
+              onClick={() => {
+                onClickInMusicList(trackId);
+              }}
+            >
+              <ImageContainer src={artworkUrl100}></ImageContainer>
+              <MusicTexts>
+                <Text>
+                  <Ellipsis>
+                    <span>{trackName}</span>
+                  </Ellipsis>
+                </Text>
+                <Text>
+                  <Ellipsis>
+                    <ArtistName>{artistName}</ArtistName>
+                  </Ellipsis>
+                </Text>
+              </MusicTexts>
+            </MusicCard>
+          );
+        })
       ) : (
-        renderList()
+        <div>결과없음</div>
       )}
+      ;
     </MusicListContainer>
   );
 }

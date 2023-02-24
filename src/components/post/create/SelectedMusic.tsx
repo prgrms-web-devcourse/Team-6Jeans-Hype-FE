@@ -1,4 +1,4 @@
-import { genres } from '@/utils/genreData';
+import { GENRES } from '@/constants/genreData';
 import styled from '@emotion/styled';
 import { Music } from './types';
 
@@ -48,7 +48,7 @@ function SelectedMusic({ selectedMusic, onChangeValues }: Props) {
           <Genres>
             <fieldset>
               <legend style={{ fontWeight: 'bold' }}>장르를 선택하세요</legend>
-              {genres.map((genre: string, i: number) => (
+              {GENRES.map((genre: string, i: number) => (
                 <div key={i}>
                   <input type='radio' id={`genre${i + 1}`} name='genre' value={genre} onChange={onChangeValues} />
                   <label htmlFor={`genre${i + 1}`}>{genre}</label>

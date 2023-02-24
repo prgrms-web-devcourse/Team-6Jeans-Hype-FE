@@ -1,4 +1,4 @@
-import { getMusicData, getMusicDetailData } from '@/utils/apis/music';
+import { getMusicDetailData } from '@/utils/apis/music';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
@@ -51,7 +51,15 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
 
       onChangeMusicInfo(newMusic);
     }
-  }, [isLoading]);
+  }, [
+    isLoading,
+    musicDetail.trackId,
+    musicDetail.trackName,
+    musicDetail.artistName,
+    musicDetail.artworkUrl100,
+    musicDetail.previewUrl,
+    onChangeMusicInfo,
+  ]);
 
   return (
     <CreateContainer onSubmit={onSubmit}>
