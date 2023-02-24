@@ -11,7 +11,6 @@ export const global = css`
   html,
   body {
     max-width: 768px;
-    background-color: #e2e2e2;
     margin: 0 auto;
     height: 100%;
   }
@@ -20,5 +19,6 @@ export const global = css`
   #root {
     width: 100%;
     height: 100%;
+    background-color: #fbfbff;
   }
 `;
