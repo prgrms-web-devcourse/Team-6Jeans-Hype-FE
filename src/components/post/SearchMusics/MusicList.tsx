@@ -20,11 +20,11 @@ function MusicList({ onClickInMusicList, keyword }: Props) {
 
   if (isLoading) {
     return (
-      <>
+      <MusicListContainer>
         <MusicListSkeleton />
         <MusicListSkeleton />
         <MusicListSkeleton />
-      </>
+      </MusicListContainer>
     );
   }
 
