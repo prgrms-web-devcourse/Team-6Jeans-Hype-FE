@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { memo } from 'react';
+
 import MusicList from './MusicList';
 import SearchInput from './SearchInput';
 

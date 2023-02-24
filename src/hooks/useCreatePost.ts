@@ -1,5 +1,6 @@
-import { Genre, Music, Values } from '@/components/post/create/types';
 import { useState } from 'react';
+
+import { Genre, Music, Values } from '@/components/post/create/types';
 
 const usePostCreate = () => {
   const [musicInfo, setMusicInfo] = useState<Music>({

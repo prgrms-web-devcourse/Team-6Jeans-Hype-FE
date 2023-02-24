@@ -1,8 +1,10 @@
-import MusicListSkeleton from '@/components/common/skeleton/MusicList';
-import { getMusicData } from '@/utils/apis/music';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
+
+import MusicListSkeleton from '@/components/common/skeleton/MusicList';
+import { getMusicData } from '@/utils/apis/music';
+
 import { Music } from './types';
 
 interface Src {
