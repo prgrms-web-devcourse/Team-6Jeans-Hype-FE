@@ -29,15 +29,19 @@ const Filter = styled.div`
 `;
 
 const RadioGroup = styled.div`
-  height: 2.5rem;
+  height: 2.6rem;
+  padding: 0.2rem;
   display: flex;
-  overflow-x: scroll;
+  align-items: center;
+  align-items: flex-start;
+  padding: 0.2rem 1.6rem;
+  gap: 1.6rem;
 `;
 
 const Input = styled.input`
   display: none;
   &:checked + label {
-    font-weight: bold;
+    font-weight: 700;
     background-color: ${COLOR.blue};
   }
 `;
@@ -45,14 +49,15 @@ const Input = styled.input`
 const Label = styled.label`
   display: block;
   cursor: pointer;
-
   background-color: #b9c7f4;
   color: ${COLOR.white};
   border-radius: 2rem;
   white-space: nowrap;
   padding: 0.5rem 1.5rem;
-  margin: 0 0.8rem;
+  font-weight: bold;
   font-size: 1.1rem;
+  line-height: 1.6rem;
+  text-align: center;
 `;
 
 interface Props {

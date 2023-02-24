@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+
 import Box from './Box';
 
 const SkeletonMusicList = ({ line = 3, ...props }) => {
