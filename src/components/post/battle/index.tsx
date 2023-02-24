@@ -16,7 +16,6 @@ function PostBattle() {
     },
   );
 
-  console.log(battleMusic);
   const navigatePostMyBattleList = () => {
     router.push(`/post/battle/mybattlelist?postId=${postId}&genre=${battleMusic.genre.genreName}`);
   };

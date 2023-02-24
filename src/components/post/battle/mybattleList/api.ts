@@ -24,9 +24,9 @@ const DUMMY_DATA = [
           {
             postId: 2,
             music: {
-              musicName: 'ditto',
+              musicName: '행복하지 말아요',
               thumbnailUrl: 'url',
-              singer: '뉴진스-발라드',
+              singer: 'mctheMax-발라드',
             },
           },
         ],
