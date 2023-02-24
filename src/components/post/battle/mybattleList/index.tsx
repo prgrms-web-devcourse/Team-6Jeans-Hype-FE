@@ -1,6 +1,7 @@
 import useConfirmModal from '@/hooks/useConfirmModal';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
+import { MyBattlePostInfo } from '../types';
 import { getMyBattleListData } from './api';
 
 function MyBattleList() {
@@ -9,21 +10,18 @@ function MyBattleList() {
 
   const { musicData, isOpened, onClickBattleButton, onClickConfirmButton, onClickCancelButton } = useConfirmModal();
 
-  const { data: myBattleMusicList } = useQuery<any>(
+  const { data: myBattleMusicList } = useQuery<MyBattlePostInfo[]>(
     ['post', 'battle', genre],
-    () => getMyBattleListData(genre as any),
+    () => getMyBattleListData(genre as string),
     {
       enabled: !!genre,
-      select: (res) => {
-        return res.map((item: any) => item.data.posts[0]);
-      },
     },
   );
 
   return (
     <>
-      {myBattleMusicList?.length > 0 ? (
-        myBattleMusicList.map((list: any) => (
+      {myBattleMusicList && myBattleMusicList.length > 0 ? (
+        myBattleMusicList.map((list: MyBattlePostInfo) => (
           <div key={list.postId}>
             <div>{list.music.musicName}</div>
             <div>{list.music.thumbnailUrl}</div>

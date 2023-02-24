@@ -1,8 +1,13 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+interface MusicTitleSingerInfo {
+  title: string;
+  singer: string;
+}
+
 const useConfirmModal = () => {
-  const [musicData, setMusicData] = useState({
+  const [musicData, setMusicData] = useState<MusicTitleSingerInfo>({
     title: '',
     singer: '',
   });
@@ -11,7 +16,7 @@ const useConfirmModal = () => {
   const router = useRouter();
   const { postId } = router.query;
 
-  const onClickBattleButton = (musicInfo: any) => {
+  const onClickBattleButton = (musicInfo: MusicTitleSingerInfo) => {
     setIsOpened(true);
     setMusicData(musicInfo);
   };
