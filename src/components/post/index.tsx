@@ -8,7 +8,7 @@ function PostList() {
 
   const router = useRouter();
 
-  const shiftPostDetail = () => router.push(`/post/detail`);
+  const navigatePostDetail = () => router.push(`/post/detail`);
 
   return (
     <>
@@ -18,7 +18,7 @@ function PostList() {
         postList?.map((post) => (
           <div
             key={post.postId}
-            onClick={shiftPostDetail}
+            onClick={navigatePostDetail}
             style={{
               width: '130px',
               height: '130px',
