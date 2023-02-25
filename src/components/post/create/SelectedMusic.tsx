@@ -1,3 +1,4 @@
+import Image from '@/components/common/AlbumPoster';
 import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
 
@@ -24,9 +25,7 @@ function SelectedMusic({ selectedMusic }: Props) {
       </Header>
       <SelectedMusicInfo>
         <PosterAndPreview>
-          <ImgContainer src={artworkUrl100}>
-            <div />
-          </ImgContainer>
+          <Image lazy={true} src={artworkUrl100} size={12} blur={true} />
           <Player>
             <audio src={previewUrl} controls loop />
           </Player>
@@ -67,25 +66,6 @@ const SelectedMusicInfo = styled.div`
 
 const PosterAndPreview = styled.div`
   position: relative;
-`;
-
-const ImgContainer = styled.div`
-  width: 120px;
-  height: 120px;
-
-  border-radius: 10px;
-  background-image: ${({ src }: Url) => `url(${src})`};
-  background-repeat: no-repeat;
-  background-position: center;
-
-  & > div {
-    background: rgba(36, 36, 103, 0.16);
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-  }
 `;
 
 const Player = styled.div`

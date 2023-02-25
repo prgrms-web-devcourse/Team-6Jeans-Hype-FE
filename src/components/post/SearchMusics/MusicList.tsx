@@ -7,6 +7,7 @@ import { COLOR } from '@/constants/color';
 import { getMusicData } from '@/utils/apis/music';
 
 import { Music } from './types';
+import Image from '@/components/common/AlbumPoster';
 
 interface Props {
   onClickInMusicList(trackId: number): void;
@@ -44,9 +45,7 @@ function MusicList({ onClickInMusicList, keyword }: Props) {
                   onClickInMusicList(trackId);
                 }}
               >
-                <ImageContainer>
-                  <img src={artworkUrl100} />
-                </ImageContainer>
+                <Image lazy={true} src={artworkUrl100} size={6.4} />
                 <MusicTexts>
                   <Text>
                     <Ellipsis>

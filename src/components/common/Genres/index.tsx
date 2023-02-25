@@ -82,7 +82,7 @@ const RadioGroup = styled.div`
   align-items: center;
   align-items: flex-start;
   padding: 0.2rem 0;
-  & > div:first-child > label {
+  & > div:first-of-type > label {
     margin-left: 0;
   }
 `;
