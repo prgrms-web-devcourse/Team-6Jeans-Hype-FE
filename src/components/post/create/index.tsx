@@ -45,17 +45,18 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
         <Genres title='장르 선택' onChange={onChangeValues} />
       </Row>
       <Row>
-        <span>설명(추천이유):</span>
-        <textarea
+        <Description
           name='description'
           value={values.description}
           onChange={onChangeValues}
-          style={{ border: '1px solid #bdbdbd' }}
+          placeholder='선택한 음악에 대한 아무 말이나 써보세요 ...'
         />
       </Row>
       <Row>
-        <span>대결 가능</span>
-        <Toggle name='battleAvailability' disabled={false} onChange={onChangeValues} on={values.battleAvailability} />
+        <BattleAvailability>
+          <span>대결 가능</span>
+          <Toggle name='battleAvailability' disabled={false} onChange={onChangeValues} on={values.battleAvailability} />
+        </BattleAvailability>
       </Row>
       <button type='submit' style={{ cursor: 'pointer' }}>
         submit
@@ -70,16 +71,31 @@ const CreateContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: calc(100% - 2.5rem);
+  width: calc(100% - 5.2rem);
   max-width: 40rem;
   margin: 0 auto;
-  margin-top: 5rem;
 `;
-const Row = styled.div`
-  padding-bottom: 1rem;
-  width: 100%;
 
+const Row = styled.div`
+  padding-bottom: 2.9rem;
+  width: 100%;
   & > span {
     margin-right: 1rem;
   }
+`;
+
+const Description = styled.textarea`
+  width: calc(100% - 1.9rem);
+  min-height: 160px;
+  box-shadow: 0px 0px 10px rgba(226, 226, 226, 0.25);
+  border-radius: 10px;
+  padding-top: 1.7rem;
+  padding-left: 1.9rem;
+`;
+const BattleAvailability = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  font-weight: 700;
 `;

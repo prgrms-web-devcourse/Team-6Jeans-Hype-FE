@@ -67,8 +67,8 @@ const Titles = styled.div`
 
 const Title = styled.div`
   font-weight: bold;
-  font-size: 1.8rem;
-  margin: 1rem 0;
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
 `;
 
 const Filter = styled.div`
@@ -81,8 +81,10 @@ const RadioGroup = styled.div`
   display: flex;
   align-items: center;
   align-items: flex-start;
-  padding: 0.2rem 1.6rem;
-  gap: 1.6rem;
+  padding: 0.2rem 0;
+  & > div:first-child > label {
+    margin-left: 0;
+  }
 `;
 
 const Input = styled.input`
@@ -101,6 +103,7 @@ const Label = styled.label`
   border-radius: 2rem;
   white-space: nowrap;
   padding: 0.5rem 1.5rem;
+  margin-left: 1.6rem;
   font-weight: bold;
   font-size: 1.1rem;
   line-height: 1.6rem;

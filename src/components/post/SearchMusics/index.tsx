@@ -52,12 +52,13 @@ const InitContainer = styled.div`
   align-items: center;
   position: absolute;
   top: 50%;
-  transform: translatey(-50%);
+  transform: translateY(-50%);
   & > img {
     width: 8rem;
   }
   & > span {
     padding-top: 3rem;
-    color: ${COLOR.gray};
+    color: ${COLOR.lightGray};
+    font-size: 1.4rem;
   }
 `;

@@ -12,7 +12,7 @@ function SearchInput({ keyword, onChangeKeyword, onClickInSearchButton }: Props)
   return (
     <SearchContainer>
       <TItle>음악 검색</TItle>
-      <Searcher>
+      <Searcher onSubmit={(e) => e.preventDefault()}>
         <Input
           name='trackName'
           value={keyword}
@@ -20,7 +20,7 @@ function SearchInput({ keyword, onChangeKeyword, onClickInSearchButton }: Props)
           autoComplete='off'
           placeholder='ex) 아이유 좋은날'
         />
-        <SearcherButton type='button' onClick={onClickInSearchButton}>
+        <SearcherButton type='submit' onClick={onClickInSearchButton}>
           <img src={'/images/search-icon.svg'} alt='img' />
         </SearcherButton>
       </Searcher>
@@ -43,7 +43,7 @@ const TItle = styled.div`
   padding-left: 0.8rem;
 `;
 
-const Searcher = styled.div`
+const Searcher = styled.form`
   width: 100%;
   height: 3.5rem;
   display: flex;
@@ -52,7 +52,6 @@ const Searcher = styled.div`
   border-radius: 1rem;
   background: linear-gradient(90deg, rgba(162, 116, 220, 1) -1.83%, rgba(101, 141, 244, 1) 86.44%);
   box-shadow: 0 0 1.5rem rgba(158, 158, 158, 0.25);
-  border: 1px solid ${COLOR.blue};
 `;
 
 const Input = styled.input`

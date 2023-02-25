@@ -38,7 +38,7 @@ const usePostCreate = () => {
       description,
       battleAvailability,
     };
-    if (selectedGenre === null) {
+    if (selectedGenre === undefined) {
       alert('장르를 선택해주세요');
     } else {
       console.log(postInfo);
