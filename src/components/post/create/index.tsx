@@ -72,7 +72,7 @@ const CreateContainer = styled.form`
   flex-direction: column;
   align-items: center;
   width: calc(100% - 5.2rem);
-  max-width: 40rem;
+
   margin: 0 auto;
 `;
 
