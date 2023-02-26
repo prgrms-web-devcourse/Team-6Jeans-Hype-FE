@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import GoogleLogo from 'public/images/google-logo.svg';
 
+import { requestLogin } from './api';
+
 export default function GoogleLoginButton() {
   return (
-    <Container>
+    <Container onClick={requestLogin}>
       <StyledGoogleLogo />
       Google로 시작하기
     </Container>
