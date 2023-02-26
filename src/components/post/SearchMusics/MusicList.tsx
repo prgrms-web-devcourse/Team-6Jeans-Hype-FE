@@ -87,8 +87,9 @@ const MusicListContainer = styled.div`
 `;
 
 const MusicCardContainer = styled.div`
-  height: calc(100vh - 15rem);
+  height: calc(100vh - 22rem);
   overflow-y: scroll;
+  border-radius: 1rem;
 `;
 const MusicCard = styled.div`
   cursor: pointer;

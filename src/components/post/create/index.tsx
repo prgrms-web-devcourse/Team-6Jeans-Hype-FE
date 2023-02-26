@@ -58,9 +58,6 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
           <Toggle name='battleAvailability' disabled={false} onChange={onChangeValues} on={values.battleAvailability} />
         </BattleAvailability>
       </Row>
-      <button type='submit' style={{ cursor: 'pointer' }}>
-        submit
-      </button>
     </CreateContainer>
   );
 }
@@ -73,13 +70,17 @@ const CreateContainer = styled.form`
   align-items: center;
   width: calc(100% - 5.2rem);
   margin: 0 auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 const Row = styled.div`
-  padding-bottom: 2.9rem;
+  margin-bottom: 2.9rem;
   width: 100%;
   & > span {
     margin-right: 1rem;
+  }
+  &:last-child {
   }
 `;
 
