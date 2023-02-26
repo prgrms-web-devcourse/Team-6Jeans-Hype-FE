@@ -1,11 +1,29 @@
 import styled from '@emotion/styled';
+import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import GoogleLogo from 'public/images/google-logo.svg';
+import { useSetRecoilState } from 'recoil';
 
 import { requestLogin } from './api';
+import { accessTokenAtom } from './store';
 
 export default function GoogleLoginButton() {
+  const router = useRouter();
+  // 임시 코드 (API 요청 로직이 미정)
+  const { mutate: login } = useMutation({
+    mutationFn: async () => {
+      const { accessToken } = await requestLogin();
+      return accessToken;
+    },
+    onSuccess: (token) => {
+      setAccessToken(token);
+      router.push('/');
+    },
+  });
+  const setAccessToken = useSetRecoilState(accessTokenAtom);
+
   return (
-    <Container onClick={requestLogin}>
+    <Container onClick={() => login()}>
       <StyledGoogleLogo />
       Google로 시작하기
     </Container>
