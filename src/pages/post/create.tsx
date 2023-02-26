@@ -7,7 +7,7 @@ function Create() {
 
   return (
     <>
-      <Header title='추천 글쓰기' subButton='완료' onClickSubButton={onSubmit} />
+      <Header title='추천 글쓰기' subButtonValue='완료' onClickSubButton={onSubmit} />
       <PostCreate
         values={values}
         onChangeValues={onChangeValues}
