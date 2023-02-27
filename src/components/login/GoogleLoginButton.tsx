@@ -1,48 +1,31 @@
 import styled from '@emotion/styled';
-import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import GoogleLogo from 'public/images/google-logo.svg';
-import { useSetRecoilState } from 'recoil';
 
-import { requestLogin } from './api';
-import { accessTokenAtom } from './store';
+import { GOOGLE_LOGIN_REQUEST_URL } from './constants';
 
 export default function GoogleLoginButton() {
-  const router = useRouter();
-  // 임시 코드 (API 요청 로직이 미정)
-  const { mutate: login } = useMutation({
-    mutationFn: async () => {
-      const { accessToken } = await requestLogin();
-      return accessToken;
-    },
-    onSuccess: (token) => {
-      setAccessToken(token);
-      router.push('/');
-    },
-  });
-  const setAccessToken = useSetRecoilState(accessTokenAtom);
-
   return (
-    <Container onClick={() => login()}>
+    <StyledLink href={GOOGLE_LOGIN_REQUEST_URL} replace>
       <StyledGoogleLogo />
       Google로 시작하기
-    </Container>
+    </StyledLink>
   );
 }
 
-const Container = styled.button`
+const StyledLink = styled(Link)`
   position: relative;
   background-color: #ffffff;
   border: 0.4px solid #b7b7b7;
   border-radius: 10px;
   width: calc(100% - 6.8rem);
   padding: 1.5rem 0;
-  font-family: 'Poppins';
   font-weight: 600;
   font-size: 15px;
   line-height: 22px;
   color: #848484;
   margin: 0 3.4rem;
+  text-align: center;
 `;
 
 const StyledGoogleLogo = styled(GoogleLogo)`
