@@ -6,8 +6,8 @@ import MusicListSkeleton from '@/components/common/skeleton/MusicList';
 import { COLOR } from '@/constants/color';
 import { getMusicData } from '../api';
 
+import Card from '../../common/MusicCard';
 import { Music } from './types';
-import Image from '@/components/common/AlbumPoster';
 
 interface Props {
   onClickInMusicList(trackId: number): void;
@@ -34,33 +34,9 @@ function MusicList({ onClickInMusicList, keyword }: Props) {
       <Header>검색 결과</Header>
       <MusicCardContainer>
         {musicList?.length ? (
-          musicList?.map((music: Music) => {
-            const { trackId, trackName, artistName, artworkUrl100 } = music;
-
-            return (
-              <MusicCard
-                key={trackId}
-                className='musicInfo'
-                onClick={() => {
-                  onClickInMusicList(trackId);
-                }}
-              >
-                <Image lazy={true} src={artworkUrl100} size={6.4} />
-                <MusicTexts>
-                  <Text>
-                    <Ellipsis>
-                      <span>{trackName}</span>
-                    </Ellipsis>
-                  </Text>
-                  <Text>
-                    <Ellipsis>
-                      <ArtistName>{artistName}</ArtistName>
-                    </Ellipsis>
-                  </Text>
-                </MusicTexts>
-              </MusicCard>
-            );
-          })
+          musicList?.map((music: Music) => (
+            <Card key={music.trackId} music={music} onClickMusicList={() => onClickInMusicList(music.trackId)} />
+          ))
         ) : (
           <EmptyResult>결과가 없습니다. 다른 검색어로 검색해보세요</EmptyResult>
         )}

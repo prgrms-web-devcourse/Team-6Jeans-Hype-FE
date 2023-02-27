@@ -215,7 +215,7 @@ export const createPost = async (data: Values) => {
     const { battleAvailability, description, musicInfo, selectedGenre } = data;
 
     const body = {
-      musicId: '123456',
+      musicId: musicInfo.trackId,
       musicName: musicInfo.trackName,
       musicUrl: musicInfo.previewUrl,
       albumCoverUrl: musicInfo.artworkUrl100,
@@ -225,6 +225,7 @@ export const createPost = async (data: Values) => {
       content: description,
     };
 
+    //로그인 되면 교체될 부분입니다
     const response = await axios.post(
       `${SERVER}/posts`,
       { ...body },

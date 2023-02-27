@@ -21,7 +21,7 @@ const onIntersection: IntersectionObserverCallback = (entries, io) => {
   });
 };
 
-const Image = ({ lazy, threshold = 0.5, src, size, blur = false }: Props) => {
+const AlbumPoster = ({ lazy, threshold = 0.5, src, size, blur = false }: Props) => {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef(null);
 
@@ -58,7 +58,7 @@ const Image = ({ lazy, threshold = 0.5, src, size, blur = false }: Props) => {
   );
 };
 
-export default Image;
+export default AlbumPoster;
 
 interface StyleProps {
   size?: number;
