@@ -1,3 +1,4 @@
+import { COLOR } from '@/constants/color';
 import { css } from '@emotion/react';
 
 import reset from './reset';
@@ -20,5 +21,6 @@ export const global = css`
   #root {
     width: 100%;
     height: 100%;
+    background-color: ${COLOR.background};
   }
 `;
