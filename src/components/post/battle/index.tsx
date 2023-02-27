@@ -17,15 +17,12 @@ function PostBattle() {
   );
 
   const navigatePostMyBattleList = () => {
-    const { music } = battleMusic as PostBattleInfo;
-    router.push(`/post/battle/mybattlelist?postId=${postId}&genre=${music.genre?.genreName}`);
+    router.push(`/post/battle/mybattlelist?postId=${postId}&genre=${battleMusic?.music.genre?.genreName}`);
   };
 
   return (
     <>
-      {isLoading || !battleMusic ? (
-        <></>
-      ) : (
+      {battleMusic && (
         <>
           <MusicInfo
             musicName={battleMusic.music.musicName}

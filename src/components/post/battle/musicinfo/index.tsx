@@ -2,14 +2,7 @@ import { BattleMusicInfo } from '../types';
 
 function MusicInfo({ musicName, musicUrl, thumbnailUrl, singer, genre }: BattleMusicInfo) {
   return (
-    <div
-      style={{
-        width: '400px',
-        height: '250px',
-        backgroundColor: 'yellow',
-        marginBottom: '10px',
-      }}
-    >
+    <div>
       <div>노래 제목 : {musicName}</div>
       <div>
         <audio src={musicUrl} controls loop></audio>

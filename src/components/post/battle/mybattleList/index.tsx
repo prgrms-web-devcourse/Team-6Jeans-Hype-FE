@@ -21,22 +21,12 @@ function MyBattleList() {
   return (
     <>
       {myBattleMusicList && myBattleMusicList.length > 0 ? (
-        myBattleMusicList.map((list: MyBattlePostInfo) => (
-          <div key={list.postId}>
-            <div>{list.music.musicName}</div>
-            <div>{list.music.thumbnailUrl}</div>
-            <div>{list.music.singer}</div>
-            <button
-              onClick={() => onClickBattleButton({ title: list.music.musicName, singer: list.music.singer })}
-              style={{
-                width: '40px',
-                height: '30px',
-                backgroundColor: 'gray',
-                cursor: 'pointer',
-              }}
-            >
-              VS
-            </button>
+        myBattleMusicList.map(({ postId, music: { musicName, thumbnailUrl, singer } }: MyBattlePostInfo) => (
+          <div key={postId}>
+            <div>{musicName}</div>
+            <div>{thumbnailUrl}</div>
+            <div>{singer}</div>
+            <button onClick={() => onClickBattleButton({ title: musicName, singer: singer })}>VS</button>
           </div>
         ))
       ) : (
