@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+
 import reset from './reset';
 
 export const global = css`
@@ -11,7 +12,6 @@ export const global = css`
   html,
   body {
     max-width: 768px;
-    background-color: #e2e2e2;
     margin: 0 auto;
     height: 100%;
   }
