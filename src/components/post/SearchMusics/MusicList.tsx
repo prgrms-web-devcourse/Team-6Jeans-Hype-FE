@@ -87,8 +87,9 @@ const MusicListContainer = styled.div`
 `;
 
 const MusicCardContainer = styled.div`
-  height: calc(100vh - 15rem);
+  height: calc(100vh - 22rem);
   overflow-y: scroll;
+  border-radius: 1rem;
 `;
 const MusicCard = styled.div`
   cursor: pointer;
@@ -100,20 +101,6 @@ const MusicCard = styled.div`
   box-shadow: 0 0 1rem rgba(226, 226, 226, 0.25);
   background-color: ${COLOR.white};
   border-radius: 1rem;
-`;
-
-const ImageContainer = styled.div`
-  border-radius: 10px;
-  width: 6.4rem;
-  height: 6.4rem;
-  border: 0.1rem solid #dddddd;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  & > img {
-    width: 5.5rem;
-    height: 5rem;
-  }
 `;
 
 const MusicTexts = styled.div`
