@@ -1,3 +1,4 @@
+import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 import BattleButton from '@/components/common/ImageButtons/BattleButton';
 import LikeButton from '@/components/common/ImageButtons/LikeButton';
@@ -7,9 +8,6 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <>
-      <Link href='/post/searchMusics' legacyBehavior>
-        <a>create</a>
-      </Link>
       {/*임시 */}
       <TextDivider text1='내가바로음잘알' text2='2023-02-21' />
 
@@ -36,6 +34,7 @@ export default function Home() {
       />
 
       <Header shouldNeedBack={true} />
+      <BottomNav />
     </>
   );
 }

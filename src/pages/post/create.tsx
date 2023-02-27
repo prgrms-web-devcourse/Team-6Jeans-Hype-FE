@@ -1,3 +1,4 @@
+import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 import PostCreate from '@/components/post/create/index';
 import usePostCreate from '@/hooks/useCreatePost';
