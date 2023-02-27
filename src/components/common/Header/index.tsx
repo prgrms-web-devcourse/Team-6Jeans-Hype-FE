@@ -1,5 +1,6 @@
-import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
+
+import { COLOR } from '@/constants/color';
 
 interface Props {
   shouldNeedBack?: boolean;
@@ -66,4 +67,5 @@ const SubButton = styled.button`
   font-size: 1.5rem;
   color: ${COLOR.deepBlue};
   right: 0%;
+  cursor: pointer;
 `;
