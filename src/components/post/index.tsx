@@ -3,6 +3,7 @@ import { getPostFeedData } from './api';
 import { PostInfo } from './types';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
+import { COLOR } from '@/constants/color';
 
 function PostList() {
   const { data: postFeed } = useQuery<PostInfo[]>(['postfeed'], getPostFeedData);
@@ -12,14 +13,14 @@ function PostList() {
   const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
 
   return (
-    <FeedContainer>
-      <FeedTitle>
+    <Container>
+      <Title>
         <div>한눈에 보는 추천</div>
-        <FeedTitleFilter>
+        <Filter>
           <div>최신순</div>
           <img src='./images/down-arrow.png' alt='필터 버튼' />
-        </FeedTitleFilter>
-      </FeedTitle>
+        </Filter>
+      </Title>
       <FeedPostList>
         {postFeed?.map(
           ({ postId, music: { thumbnailUrl, singer, musicName, genre }, likeCount, isBattlePossible, nickname }) => (
@@ -57,18 +58,18 @@ function PostList() {
           ),
         )}
       </FeedPostList>
-    </FeedContainer>
+    </Container>
   );
 }
 
 export default PostList;
 
-const FeedContainer = styled.div`
+const Container = styled.div`
   width: 90%;
   margin: 2rem auto;
 `;
 
-const FeedTitle = styled.div`
+const Title = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -78,11 +79,11 @@ const FeedTitle = styled.div`
     font-size: 1.8rem;
     line-height: 2.6rem;
     text-align: center;
-    color: #242467;
+    color: ${COLOR.deepBlue};
   }
 `;
 
-const FeedTitleFilter = styled.div`
+const Filter = styled.div`
   display: flex;
   align-items: center;
 
@@ -91,7 +92,7 @@ const FeedTitleFilter = styled.div`
   line-height: 1.4rem;
   text-align: center;
 
-  color: #9f9f9f;
+  color: ${COLOR.gray};
 
   & div {
     margin-right: 0.5rem;
@@ -121,7 +122,7 @@ const Divider = styled.div`
   height: 0.25rem;
   margin: 0 0.75rem;
   border-radius: 50%;
-  background-color: #afafaf;
+  background-color: ${COLOR.gray};
 `;
 
 const FeedPostHeadInfo = styled.div`
@@ -135,7 +136,7 @@ const FeedPostHeadInfo = styled.div`
     display: flex;
     align-items: center;
 
-    color: #242467;
+    color: ${COLOR.deepBlue};
   }
 
   & div:nth-of-type(3) {
@@ -143,7 +144,7 @@ const FeedPostHeadInfo = styled.div`
     font-size: 0.8rem;
     line-height: 1.2rem;
 
-    color: #afafaf;
+    color: ${COLOR.gray};
   }
 `;
 
@@ -155,7 +156,7 @@ const FeedPostHeadBattle = styled.div`
   text-align: center;
   letter-spacing: -0.01em;
 
-  color: #7697ec;
+  color: ${COLOR.blue};
 `;
 
 const FeedPostBody = styled.div`
@@ -190,7 +191,7 @@ const PostmusicInfo = styled.div`
     line-height: 1.7rem;
     margin-bottom: 0.5rem;
 
-    color: #242467;
+    color: ${COLOR.deepBlue};
   }
 
   & > div:last-child {
@@ -198,7 +199,7 @@ const PostmusicInfo = styled.div`
     font-size: 1.2rem;
     line-height: 1.8rem;
 
-    color: #9f9f9f;
+    color: ${COLOR.gray};
 
     display: flex;
     align-items: center;
@@ -213,7 +214,7 @@ const PostIcons = styled.div`
 const PostIcon = styled.div`
   display: flex;
   flex-direction: column;
-  color: #7697ec;
+  color: ${COLOR.blue};
   padding: 0 0.75rem;
 
   & img {
