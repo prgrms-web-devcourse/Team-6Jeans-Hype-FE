@@ -13,7 +13,7 @@ const Header = ({ shouldNeedBack = true, title, subButtonType = 'text', subButto
   return (
     <HeaderContainer>
       {shouldNeedBack && (
-        <button onClick={() => history.back()}>
+        <button onClick={() => history.back()} style={{ cursor: 'pointer' }}>
           <img src={'/images/back-icon.svg'} style={{ width: '100%' }} />
         </button>
       )}
@@ -54,4 +54,5 @@ const SubButton = styled.button`
   font-size: 1.5rem;
   color: ${COLOR.deepBlue};
   right: 0%;
+  cursor: pointer;
 `;

@@ -70,6 +70,7 @@ const SearcherButton = styled.button`
   height: calc(100% - 0.2rem);
   background-color: ${COLOR.white};
   border: 0;
+  cursor: pointer;
   & > img {
     width: 1.1rem;
   }
