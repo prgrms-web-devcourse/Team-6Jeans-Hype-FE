@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import Genres from '@/components/common/Genres';
-import { getMusicDetailData } from '@/utils/apis/music';
+import { getMusicDetailData } from '../api';
 
 import Toggle from '../../common/Toggle';
 import SelectedMusic from './SelectedMusic';

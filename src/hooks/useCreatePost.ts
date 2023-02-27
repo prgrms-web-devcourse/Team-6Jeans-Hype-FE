@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Genre, Music, Values } from '@/components/post/create/types';
+import { createPost } from '@/components/post/api';
 
 const usePostCreate = () => {
   const [musicInfo, setMusicInfo] = useState<Music>({
@@ -29,7 +30,7 @@ const usePostCreate = () => {
     setMusicInfo(infos);
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const postInfo: Values = {
@@ -41,7 +42,10 @@ const usePostCreate = () => {
     if (selectedGenre === undefined) {
       alert('장르를 선택해주세요');
     } else {
-      console.log(postInfo);
+      const response = await createPost(postInfo);
+      if (response) {
+        console.log('성공');
+      }
     }
   };
 
