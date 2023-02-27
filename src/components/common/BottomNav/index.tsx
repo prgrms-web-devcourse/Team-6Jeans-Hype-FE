@@ -26,11 +26,12 @@ const BottomNav = () => {
       <Buttons>
         {buttonList.map((button: Button) => {
           const { src, text, path } = button;
-          const isCLicked = path === pathname;
+          const isClicked = path === pathname;
+
           return (
             <Link href={path} legacyBehavior key={src}>
-              <Button isCLicked={isCLicked}>
-                <img src={`/images/bottom-nav/${src}-icon${isCLicked ? '' : '-off'}.svg`} />
+              <Button isClicked={isClicked}>
+                <img src={`/images/bottom-nav/${src}-icon${isClicked ? '' : '-off'}.svg`} />
                 <span>{text}</span>
               </Button>
             </Link>
@@ -44,7 +45,7 @@ const BottomNav = () => {
 export default BottomNav;
 
 interface styleProp {
-  isCLicked: boolean;
+  isClicked: boolean;
 }
 
 const BottomNavContainer = styled.div`
@@ -76,8 +77,8 @@ const Button = styled.button`
   & > span {
     font-size: 1rem;
     line-height: 1.4rem;
-    color: ${({ isCLicked }: styleProp) => (isCLicked ? COLOR.purple : COLOR.gray)};
-    font-weight: ${({ isCLicked }: styleProp) => (isCLicked ? '700' : '500')};
+    color: ${({ isClicked }: styleProp) => (isClicked ? COLOR.purple : COLOR.gray)};
+    font-weight: ${({ isClicked }: styleProp) => (isClicked ? '700' : '500')};
     margin-top: 0.6rem;
   }
 `;
