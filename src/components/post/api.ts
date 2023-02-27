@@ -1,3 +1,13 @@
+import axios from 'axios';
+import { Values } from './create/types';
+
+const ADDRESS = process.env.NEXT_PUBLIC_API_ENDPOINT;
+const SERVER = process.env.NEXT_PUBLIC_SERVER_ENDPOINT;
+
+//임시입니당;
+const TEMP_TOKEN =
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjc3NDg1MTUwLCJleHAiOjE2NzgzNDkxNTB9.1UtakWRXOkrN-IGZ7V7fWh0YhC4WzBS6M31FxTnPceKLW-IqvD8sTVlQIDEDfmbqxDdqqWnOVH4i0i0k1KuYlg';
+
 // by 민형, 임시 더미 데이터_230221
 const DUMMY_DATA = {
   success: true,
@@ -143,5 +153,94 @@ export const getPostFeedData = async (genre: string, isPossibleBattle: boolean |
     } else return [];
   } catch {
     throw new Error('데이터 요청 실패');
+  }
+};
+
+export const getMusicData = async (keyword: string) => {
+  try {
+    const response = await axios.get(`${ADDRESS}/search`, {
+      params: {
+        term: keyword,
+        country: 'KR',
+        limit: 500,
+        media: 'music',
+      },
+    });
+
+    if (response.data.results.length > 0) {
+      return response.data.results;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getMusicDetailData = async (trackId: string) => {
+  try {
+    const response = await axios.get(`${ADDRESS}/lookup`, {
+      params: {
+        id: trackId,
+        country: 'KR',
+      },
+    });
+
+    if (response.data.results.length > 0) {
+      return response.data.results[0];
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getGenres = async () => {
+  try {
+    const response = await axios.get(`${SERVER}/genres`);
+
+    if (response.data.success) {
+      return response.data.data.genres;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const createPost = async (data: Values) => {
+  try {
+    const { battleAvailability, description, musicInfo, selectedGenre } = data;
+
+    const body = {
+      musicId: '123456',
+      musicName: musicInfo.trackName,
+      musicUrl: musicInfo.previewUrl,
+      albumCoverUrl: musicInfo.artworkUrl100,
+      singer: musicInfo.artistName,
+      genre: selectedGenre,
+      isBattlePossible: battleAvailability,
+      content: description,
+    };
+
+    const response = await axios.post(
+      `${SERVER}/posts`,
+      { ...body },
+      {
+        headers: {
+          Authorization: `Bearer ${TEMP_TOKEN}`,
+        },
+      },
+    );
+
+    if (response.data.success) {
+      return response.data.success;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error(error);
   }
 };

@@ -3,6 +3,9 @@ import styled from '@emotion/styled';
 import { COLOR } from '@/constants/color';
 import { GENRES, GENRES_WITH_ALL } from '@/constants/genreData';
 import useGenre from '@/hooks/useGenre';
+import { getGenres } from '@/components/post/api';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 
 interface Props {
   shouldNeedAll?: boolean;
@@ -11,35 +14,47 @@ interface Props {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
+interface Genre {
+  genreName: string;
+  genreValue: string;
+}
+
 function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChange }: Props) {
-  const targetGenres = shouldNeedAll ? GENRES_WITH_ALL : GENRES;
+  const [targetGenres, setTargetGenres] = useState<Genre[]>([]);
+  const { data: genres, isLoading } = useQuery(['genres'], () => getGenres());
   const { selectedValue, onClick } = useGenre();
+
+  useEffect(() => {
+    setTargetGenres(shouldNeedAll ? [{ genreValue: 'ALL', genreName: 'ALL' }, ...genres] : genres);
+  }, [genres]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onClick(e);
     onChange?.(e);
   };
 
-  return (
+  return isLoading ? (
+    <></>
+  ) : (
     <>
       <Titles>
-        <Title>{title}</Title>
+        {title && <Title>{title}</Title>}
         {shouldNeedFilter && <Filter>최신순 ▽</Filter> /*mvp에선 구현 안해도 되니 영역만 잡아두었음 */}
       </Titles>
       <GenreContainer>
         <fieldset>
           <RadioGroup>
-            {targetGenres.map((genre: string, i: number) => (
+            {targetGenres?.map((genre: Genre, i: number) => (
               <div key={i}>
                 <Input
                   type='radio'
                   id={`genre${i + 1}`}
                   name='genre'
-                  value={genre}
+                  value={genre.genreValue}
                   onChange={handleChange}
-                  checked={selectedValue === genre ? true : false}
+                  checked={selectedValue === genre.genreValue ? true : false}
                 />
-                <Label htmlFor={`genre${i + 1}`}>{genre}</Label>
+                <Label htmlFor={`genre${i + 1}`}>{genre.genreName}</Label>
               </div>
             ))}
           </RadioGroup>

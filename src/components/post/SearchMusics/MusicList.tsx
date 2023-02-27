@@ -4,7 +4,7 @@ import { memo } from 'react';
 
 import MusicListSkeleton from '@/components/common/skeleton/MusicList';
 import { COLOR } from '@/constants/color';
-import { getMusicData } from '@/utils/apis/music';
+import { getMusicData } from '../api';
 
 import { Music } from './types';
 import Image from '@/components/common/AlbumPoster';
