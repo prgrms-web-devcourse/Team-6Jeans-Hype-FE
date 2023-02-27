@@ -44,7 +44,7 @@ const usePostCreate = () => {
     } else {
       const response = await createPost(postInfo);
       if (response) {
-        console.log('성공');
+        //go to post-detail
       }
     }
   };

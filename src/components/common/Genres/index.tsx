@@ -21,12 +21,12 @@ interface Genre {
 
 function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChange }: Props) {
   const [targetGenres, setTargetGenres] = useState<Genre[]>([]);
-  const { data, isLoading } = useQuery(['genres'], () => getGenres());
+  const { data: genres, isLoading } = useQuery(['genres'], () => getGenres());
   const { selectedValue, onClick } = useGenre();
 
   useEffect(() => {
-    setTargetGenres(shouldNeedAll ? [{ genreValue: 'ALL', genreName: 'ALL' }, ...data] : data);
-  }, [isLoading]);
+    setTargetGenres(shouldNeedAll ? [{ genreValue: 'ALL', genreName: 'ALL' }, ...genres] : genres);
+  }, [genres]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onClick(e);
@@ -34,7 +34,7 @@ function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChan
   };
 
   return isLoading ? (
-    <div>로딩중...</div>
+    <></>
   ) : (
     <>
       <Titles>
