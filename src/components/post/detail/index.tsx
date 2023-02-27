@@ -19,8 +19,8 @@ function PostDetail() {
   );
 
   return (
-    <PostDetailContainer>
-      <PostDetailInfo>
+    <Container>
+      <Wrapper>
         <PrevButton src='/images/prev-button.png' />
 
         {postDetail && (
@@ -79,14 +79,14 @@ function PostDetail() {
             </ContentContainer>
           </PostDetailContent>
         )}
-      </PostDetailInfo>
-    </PostDetailContainer>
+      </Wrapper>
+    </Container>
   );
 }
 
 export default PostDetail;
 
-const PostDetailContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -95,7 +95,7 @@ const PostDetailContainer = styled.div`
   position: relative;
 `;
 
-const PostDetailInfo = styled.div`
+const Wrapper = styled.div`
   width: 90%;
   margin: 2rem auto 0 auto;
 `;
