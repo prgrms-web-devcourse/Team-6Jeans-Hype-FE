@@ -2,16 +2,29 @@ import { useQuery } from '@tanstack/react-query';
 import { getPostFeedData } from './api';
 import { PostInfo } from './types';
 import { useRouter } from 'next/router';
+import Genres from '../common/Genres';
+import { useState } from 'react';
+import Battles from '../common/Battles';
 
 function PostList() {
-  const { data: postFeed, isLoading } = useQuery<PostInfo[]>(['postfeed'], getPostFeedData);
+  const [genre, setGenre] = useState('all');
 
   const router = useRouter();
+  const { battle } = router.query;
+
+  const { data: postFeed, isLoading } = useQuery<PostInfo[]>(['postfeed', genre, battle], () => {
+    const possibleStatus = battle === 'true' ? true : battle === 'false' ? false : undefined;
+    return getPostFeedData(genre, possibleStatus);
+  });
 
   const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
 
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setGenre(e.target.value);
+
   return (
     <>
+      <Genres title='장르 선택' onChange={onChange} />
+      <Battles />
       {isLoading ? (
         <></>
       ) : (
