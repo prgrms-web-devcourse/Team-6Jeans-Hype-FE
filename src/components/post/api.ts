@@ -104,39 +104,39 @@ const DUMMY_DATA = {
   },
 };
 
-export const getPostFeedData = async (genre: string, possible: boolean) => {
+export const getPostFeedData = async (genre: string, isPossibleBattle: boolean | undefined) => {
   try {
     // const res = await axios.get('url', {
     //   headers: { 'Content-Type': 'application/json' },
     // });
 
     if (genre === 'all') {
-      if (possible === true) return DUMMY_DATA.data.posts.filter((_, index) => index % 2 === 0);
-      else if (possible === false) return DUMMY_DATA.data.posts.filter((_, index) => index % 2 === 1);
+      if (isPossibleBattle === true) return DUMMY_DATA.data.posts.filter((_, index) => index % 2 === 0);
+      else if (isPossibleBattle === false) return DUMMY_DATA.data.posts.filter((_, index) => index % 2 === 1);
       else {
         return DUMMY_DATA.data.posts;
       }
     } else if (genre === '힙합 / 랩') {
-      if (possible === true) return DUMMY_DATA.data.posts.slice(0, 1);
-      else if (possible === false) return DUMMY_DATA.data.posts.slice(1, 2);
+      if (isPossibleBattle === true) return DUMMY_DATA.data.posts.slice(0, 1);
+      else if (isPossibleBattle === false) return DUMMY_DATA.data.posts.slice(1, 2);
       else {
         return DUMMY_DATA.data.posts.slice(0, 2);
       }
     } else if (genre === '락 / 메탈') {
-      if (possible === true) return DUMMY_DATA.data.posts.slice(2, 3);
-      else if (possible === false) return DUMMY_DATA.data.posts.slice(3, 4);
+      if (isPossibleBattle === true) return DUMMY_DATA.data.posts.slice(2, 3);
+      else if (isPossibleBattle === false) return DUMMY_DATA.data.posts.slice(3, 4);
       else {
         return DUMMY_DATA.data.posts.slice(2, 4);
       }
     } else if (genre === '인디 / 어쿠스틱') {
-      if (possible === true) return DUMMY_DATA.data.posts.slice(4, 5);
-      else if (possible === false) return DUMMY_DATA.data.posts.slice(5, 6);
+      if (isPossibleBattle === true) return DUMMY_DATA.data.posts.slice(4, 5);
+      else if (isPossibleBattle === false) return DUMMY_DATA.data.posts.slice(5, 6);
       else {
         return DUMMY_DATA.data.posts.slice(4, 6);
       }
     } else if (genre === '발라드') {
-      if (possible === true) return DUMMY_DATA.data.posts.slice(6, 7);
-      else if (possible === false) return DUMMY_DATA.data.posts.slice(7, 8);
+      if (isPossibleBattle === true) return DUMMY_DATA.data.posts.slice(6, 7);
+      else if (isPossibleBattle === false) return DUMMY_DATA.data.posts.slice(7, 8);
       else {
         return DUMMY_DATA.data.posts.slice(6, 8);
       }

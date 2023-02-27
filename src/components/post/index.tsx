@@ -10,11 +10,11 @@ function PostList() {
   const [genre, setGenre] = useState('all');
 
   const router = useRouter();
-  const { possible } = router.query;
+  const { battle } = router.query;
 
-  const { data: postFeed, isLoading } = useQuery<PostInfo[]>(['postfeed', genre, possible], () => {
-    const possibleStatus = possible === 'true' ? true : possible === 'false' ? false : undefined;
-    return getPostFeedData(genre, possibleStatus as boolean);
+  const { data: postFeed, isLoading } = useQuery<PostInfo[]>(['postfeed', genre, battle], () => {
+    const possibleStatus = battle === 'true' ? true : battle === 'false' ? false : undefined;
+    return getPostFeedData(genre, possibleStatus);
   });
 
   const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
