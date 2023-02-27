@@ -3,8 +3,6 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-interface Props {}
-
 interface Button {
   src: string;
   text: string;
@@ -19,7 +17,7 @@ const buttonList = [
   { src: 'mypage', text: '마이페이지', path: '/tmp' },
 ];
 
-const BottomNav = ({}: Props) => {
+const BottomNav = () => {
   const router = useRouter();
   const { pathname } = router;
 
@@ -30,7 +28,7 @@ const BottomNav = ({}: Props) => {
           const { src, text, path } = button;
           const isCLicked = path === pathname;
           return (
-            <Link href={path} legacyBehavior>
+            <Link href={path} legacyBehavior key={src}>
               <Button isCLicked={isCLicked}>
                 <img src={`/images/bottom-nav/${src}-icon${isCLicked ? '' : '-off'}.svg`} />
                 <span>{text}</span>
