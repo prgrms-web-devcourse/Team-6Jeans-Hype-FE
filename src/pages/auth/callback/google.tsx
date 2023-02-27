@@ -28,7 +28,7 @@ export default function GoogleAuthCallbackPage() {
     );
   }
 
-  return <div></div>;
+  return <></>;
 }
 
 const Container = styled.div`
