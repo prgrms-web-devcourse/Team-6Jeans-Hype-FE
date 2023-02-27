@@ -4,16 +4,29 @@ import { PostInfo } from './types';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { COLOR } from '@/constants/color';
+import Genres from '../common/Genres';
+import { useState } from 'react';
+import Battles from '../common/Battles';
 
 function PostList() {
-  const { data: postFeed } = useQuery<PostInfo[]>(['postfeed'], getPostFeedData);
-
+  const [genre, setGenre] = useState('all');
+  
   const router = useRouter();
+  const { battle } = router.query;
+
+  const { data: postFeed, isLoading } = useQuery<PostInfo[]>(['postfeed', genre, battle], () => {
+    const possibleStatus = battle === 'true' ? true : battle === 'false' ? false : undefined;
+    return getPostFeedData(genre, possibleStatus);
+  });
 
   const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
 
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setGenre(e.target.value);
+
   return (
     <Container>
+      <Genres title='장르 선택' onChange={onChange} />
+      <Battles />
       <Title>
         <div>한눈에 보는 추천</div>
         <Filter>

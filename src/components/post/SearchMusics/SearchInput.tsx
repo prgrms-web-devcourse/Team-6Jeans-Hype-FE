@@ -1,33 +1,6 @@
 import styled from '@emotion/styled';
 
-const Searcher = styled.div`
-  width: 100%;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 4px;
-
-  & > input {
-    padding: 0 10px;
-    width: calc(100% - 60px);
-    box-shadow: 0px 0px 15px rgba(158, 158, 158, 0.25);
-    border-radius: 10px;
-    border: 1px solid #7893ea;
-    height: 100%;
-  }
-`;
-
-const SearcherButton = styled.button`
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #7697ec;
-  border: 0;
-  & > img {
-    width: 10px;
-  }
-`;
+import { COLOR } from '@/constants/color';
 
 interface Props {
   keyword: string;
@@ -37,19 +10,67 @@ interface Props {
 
 function SearchInput({ keyword, onChangeKeyword, onClickInSearchButton }: Props) {
   return (
-    <Searcher>
-      <input
-        name='trackName'
-        value={keyword}
-        onChange={onChangeKeyword}
-        autoComplete='off'
-        placeholder='ex) 아이유 좋은날'
-      />
-      <SearcherButton type='button' onClick={onClickInSearchButton}>
-        <img src={'/images/search.png'} alt='img' />
-      </SearcherButton>
-    </Searcher>
+    <SearchContainer>
+      <TItle>음악 검색</TItle>
+      <Searcher onSubmit={(e) => e.preventDefault()}>
+        <Input
+          name='trackName'
+          value={keyword}
+          onChange={onChangeKeyword}
+          autoComplete='off'
+          placeholder='ex) 아이유 좋은날'
+        />
+        <SearcherButton type='submit' onClick={onClickInSearchButton}>
+          <img src={'/images/search-icon.svg'} alt='img' />
+        </SearcherButton>
+      </Searcher>
+    </SearchContainer>
   );
 }
 
 export default SearchInput;
+
+const SearchContainer = styled.div`
+  width: 100%;
+`;
+
+const TItle = styled.div`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  margin: 1rem 0;
+  padding-left: 0.8rem;
+`;
+
+const Searcher = styled.form`
+  width: 100%;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  background: linear-gradient(90deg, rgba(162, 116, 220, 1) -1.83%, rgba(101, 141, 244, 1) 86.44%);
+  box-shadow: 0 0 1.5rem rgba(158, 158, 158, 0.25);
+`;
+
+const Input = styled.input`
+  padding: 0 1rem;
+  width: calc(100% - 4.6rem);
+  border-radius: 0.9rem 0 0 0.9rem;
+  background-color: ${COLOR.white};
+  height: calc(100% - 0.2rem);
+  color: ${COLOR.deepBlue};
+  font-size: 1.25rem;
+`;
+
+const SearcherButton = styled.button`
+  width: 2.4rem;
+  border-radius: 0 0.9rem 0.9rem 0;
+  height: calc(100% - 0.2rem);
+  background-color: ${COLOR.white};
+  border: 0;
+  & > img {
+    width: 1.1rem;
+  }
+`;
