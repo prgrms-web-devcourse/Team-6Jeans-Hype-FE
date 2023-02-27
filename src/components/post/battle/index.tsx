@@ -10,7 +10,7 @@ import MyBattleList from './mybattleList';
 function PostBattle() {
   const router = useRouter();
   const { postId } = router.query;
-  
+
   const [myListMusic, setMyListMusic] = useState({
     musicName: '내 대결 곡 고르기',
     musicUrl: '',
@@ -32,7 +32,7 @@ function PostBattle() {
 
   return (
     <BattlePage>
-      <BattleTitle>What's next?</BattleTitle>
+      <BattleTitle>What&apos;s next?</BattleTitle>
       <BattlePageMusics>
         {battleMusic && (
           <>
