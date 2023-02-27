@@ -10,6 +10,7 @@ import MyBattleList from './mybattleList';
 function PostBattle() {
   const router = useRouter();
   const { postId } = router.query;
+  
   const [myListMusic, setMyListMusic] = useState({
     musicName: '내 대결 곡 고르기',
     musicUrl: '',
@@ -26,8 +27,7 @@ function PostBattle() {
   );
 
   const navigatePostMyBattleList = () => {
-    const { music } = battleMusic as PostBattleInfo;
-    router.push(`/post/battle/mybattlelist?postId=${postId}&genre=${music.genre?.genreName}`);
+    router.push(`/post/battle/mybattlelist?postId=${postId}&genre=${battleMusic?.music.genre?.genreName}`);
   };
 
   return (

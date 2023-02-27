@@ -10,24 +10,6 @@ import Toggle from '../../common/Toggle';
 import SelectedMusic from './SelectedMusic';
 import { Music, Values } from './types';
 
-const CreateContainer = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: calc(100% - 25px);
-  max-width: 400px;
-  margin: 0 auto;
-  margin-top: 50px;
-`;
-const Row = styled.div`
-  padding-bottom: 10px;
-  width: 100%;
-
-  & > span {
-    margin-right: 10px;
-  }
-`;
-
 interface Props {
   values: Values;
   onChangeValues: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
@@ -63,23 +45,57 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
         <Genres title='장르 선택' onChange={onChangeValues} />
       </Row>
       <Row>
-        <span>설명(추천이유):</span>
-        <textarea
+        <Description
           name='description'
           value={values.description}
           onChange={onChangeValues}
-          style={{ border: '1px solid #bdbdbd' }}
+          placeholder='선택한 음악에 대한 아무 말이나 써보세요 ...'
         />
       </Row>
       <Row>
-        <span>대결 가능</span>
-        <Toggle name='battleAvailability' disabled={false} onChange={onChangeValues} on={values.battleAvailability} />
+        <BattleAvailability>
+          <span>대결 가능</span>
+          <Toggle name='battleAvailability' disabled={false} onChange={onChangeValues} on={values.battleAvailability} />
+        </BattleAvailability>
       </Row>
-      <button type='submit' style={{ cursor: 'pointer' }}>
-        submit
-      </button>
     </CreateContainer>
   );
 }
 
 export default PostCreate;
+
+const CreateContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100% - 5.2rem);
+  margin: 0 auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+`;
+
+const Row = styled.div`
+  margin-bottom: 2.9rem;
+  width: 100%;
+  & > span {
+    margin-right: 1rem;
+  }
+  &:last-child {
+  }
+`;
+
+const Description = styled.textarea`
+  width: calc(100% - 1.9rem);
+  min-height: 160px;
+  box-shadow: 0px 0px 10px rgba(226, 226, 226, 0.25);
+  border-radius: 10px;
+  padding-top: 1.7rem;
+  padding-left: 1.9rem;
+`;
+const BattleAvailability = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  font-weight: 700;
+`;
