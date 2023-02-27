@@ -5,11 +5,11 @@ import { useQuery } from '@tanstack/react-query';
 import { MyBattlePostInfo } from '../types';
 import { getMyBattleListData } from './api';
 
-interface Genre {
+interface Props {
   genre?: string;
 }
 
-function MyBattleList({ genre }: Genre) {
+function MyBattleList({ genre }: Props) {
   const { musicData, isOpened, onClickBattleButton, onClickConfirmButton, onClickCancelButton } = useConfirmModal();
 
   const { data: myBattleMusicList } = useQuery<MyBattlePostInfo[]>(
@@ -21,8 +21,8 @@ function MyBattleList({ genre }: Genre) {
   );
 
   return (
-    <MyMusicListContainer>
-      <MusicListTitle>내 음악 목록</MusicListTitle>
+    <Container>
+      <Title>내 음악 목록</Title>
       <MyMusicList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
           myBattleMusicList.map((list: MyBattlePostInfo) => (
@@ -60,15 +60,15 @@ function MyBattleList({ genre }: Genre) {
           <button onClick={onClickCancelButton}>취소</button>
         </div>
       )}
-    </MyMusicListContainer>
+    </Container>
   );
 }
 
 export default MyBattleList;
 
-const MyMusicListContainer = styled.div``;
+const Container = styled.div``;
 
-const MusicListTitle = styled.div`
+const Title = styled.div`
   font-style: normal;
   font-weight: 700;
   font-size: 1.4rem;

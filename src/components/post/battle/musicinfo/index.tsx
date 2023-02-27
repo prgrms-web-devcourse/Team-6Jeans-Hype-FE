@@ -4,24 +4,24 @@ import { BattleMusicInfo } from '../types';
 
 function MusicInfo({ musicName, musicUrl, thumbnailUrl, singer }: BattleMusicInfo) {
   return (
-    <BattlePageMusic>
-      <BattleMusicInfo>
-        <MusicThumbnail src={thumbnailUrl}>
-          <MusicPlayIcon value={musicUrl}>
+    <Container>
+      <Wrapper>
+        <Thumbnail src={thumbnailUrl}>
+          <PlayIcon value={musicUrl}>
             <audio src={musicUrl} controls loop></audio>
-          </MusicPlayIcon>
-          <MusicPlusIcon src='/images/plus-music.png' value={musicUrl} />
-        </MusicThumbnail>
-        <MusicTitle>{musicName}</MusicTitle>
-        <MusicSinger>{singer}</MusicSinger>
-      </BattleMusicInfo>
-    </BattlePageMusic>
+          </PlayIcon>
+          <PlusIcon src='/images/plus-music.png' value={musicUrl} />
+        </Thumbnail>
+        <Title>{musicName}</Title>
+        <Singer>{singer}</Singer>
+      </Wrapper>
+    </Container>
   );
 }
 
 export default MusicInfo;
 
-const BattlePageMusic = styled.div`
+const Container = styled.div`
   width: 45%;
   height: 18rem;
 
@@ -32,7 +32,7 @@ const BattlePageMusic = styled.div`
   position: relative;
 `;
 
-const BattleMusicInfo = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,7 +42,7 @@ const BattleMusicInfo = styled.div`
   top: -3rem;
 `;
 
-const MusicThumbnail = styled.div<{ src: string }>`
+const Thumbnail = styled.div<{ src: string }>`
   background-image: url(${(props) => props.src});
   background-color: ${(props) => props.src === '' && COLOR.lightGray};
 
@@ -56,7 +56,7 @@ const MusicThumbnail = styled.div<{ src: string }>`
   margin-bottom: 2rem;
 `;
 
-const MusicTitle = styled.div`
+const Title = styled.div`
   font-style: normal;
   font-weight: 700;
   font-size: 1.3rem;
@@ -68,7 +68,7 @@ const MusicTitle = styled.div`
   margin-bottom: 1rem;
 `;
 
-const MusicPlayIcon = styled.div<{ value: string | undefined }>`
+const PlayIcon = styled.div<{ value: string | undefined }>`
   width: 4rem;
   height: 4rem;
   overflow: hidden;
@@ -88,7 +88,7 @@ const MusicPlayIcon = styled.div<{ value: string | undefined }>`
   transform: translate(-50%, -50%);
 `;
 
-const MusicPlusIcon = styled.img<{ value: string | undefined }>`
+const PlusIcon = styled.img<{ value: string | undefined }>`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -97,7 +97,7 @@ const MusicPlusIcon = styled.img<{ value: string | undefined }>`
   display: ${(prop) => (prop.value === '' ? 'block' : 'none')};
 `;
 
-const MusicSinger = styled.div`
+const Singer = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 1.1rem;

@@ -31,9 +31,9 @@ function PostBattle() {
   };
 
   return (
-    <BattlePage>
-      <BattleTitle>What&apos;s next?</BattleTitle>
-      <BattlePageMusics>
+    <Container>
+      <Title>What&apos;s next?</Title>
+      <Musics>
         {battleMusic && (
           <>
             <MusicInfo
@@ -51,20 +51,20 @@ function PostBattle() {
             {/* <button onClick={navigatePostMyBattleList}>내 대결 곡 고르기</button> */}
           </>
         )}
-      </BattlePageMusics>
+      </Musics>
       <MyBattleList genre={battleMusic?.music.genre?.genreName} />
-    </BattlePage>
+    </Container>
   );
 }
 
 export default PostBattle;
 
-const BattlePage = styled.div`
+const Container = styled.div`
   width: 90%;
   margin: 0 auto;
 `;
 
-const BattleTitle = styled.div`
+const Title = styled.div`
   font-style: normal;
   font-weight: 600;
   font-size: 1.7rem;
@@ -82,7 +82,7 @@ const BattleTitle = styled.div`
   margin-bottom: 7rem;
 `;
 
-const BattlePageMusics = styled.div`
+const Musics = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 4rem;
