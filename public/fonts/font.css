@@ -24,7 +24,7 @@
   font-style: normal;
   font-weight: 300;
   src: url(Poppins/Poppins-Light.woff2) format('woff2'), url(Poppins/Poppins-Light.ttf) format('ttf');
-  unicode-range: U+0041-005A, U+0061-007A;
+  unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
 }
 
 @font-face {
@@ -32,7 +32,7 @@
   font-style: normal;
   font-weight: 400;
   src: url(Poppins/Poppins-Regular.woff2) format('woff2'), url(Poppins/Poppins-Regular.ttf) format('ttf');
-  unicode-range: U+0041-005A, U+0061-007A;
+  unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
 }
 
 @font-face {
@@ -40,7 +40,7 @@
   font-style: normal;
   font-weight: 500;
   src: url(Poppins/Poppins-Medium.woff2) format('woff2'), url(Poppins/Poppins-Medium.ttf) format('ttf');
-  unicode-range: U+0041-005A, U+0061-007A;
+  unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
 }
 
 @font-face {
@@ -48,7 +48,7 @@
   font-style: normal;
   font-weight: 600;
   src: url(Poppins/Poppins-SemiBold.woff2) format('woff2'), url(Poppins/Poppins-SemiBold.ttf) format('ttf');
-  unicode-range: U+0041-005A, U+0061-007A;
+  unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
 }
 
 @font-face {
@@ -56,5 +56,5 @@
   font-style: normal;
   font-weight: 700;
   src: url(Poppins/Poppins-Bold.woff2) format('woff2'), url(Poppins/Poppins-Bold.ttf) format('ttf');
-  unicode-range: U+0041-005A, U+0061-007A;
+  unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
 }
