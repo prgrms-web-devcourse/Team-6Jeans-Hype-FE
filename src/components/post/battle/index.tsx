@@ -6,6 +6,7 @@ import { getPostBattleData } from './api';
 import MusicInfo from './musicinfo';
 import { PostBattleInfo } from './types';
 import MyBattleList from './mybattleList';
+import Header from '@/components/common/Header';
 
 function PostBattle() {
   const router = useRouter();
@@ -32,6 +33,7 @@ function PostBattle() {
 
   return (
     <Container>
+      <Header title='대결 신청' subButtonValue='완료' onClickSubButton='' selectedColor='deepblue' />
       <Title>What&apos;s next?</Title>
       <Musics>
         {battleMusic && (
