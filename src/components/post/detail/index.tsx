@@ -190,7 +190,7 @@ const PostPlayIcon = styled.div`
 const PostDetailContent = styled.div``;
 
 const ContenTitleContainer = styled.div`
-  background: #fbfbff;
+  background: ${COLOR.background};
   box-shadow: 0.5rem 0 1.5rem rgba(135, 135, 135, 0.7);
   border-radius: 2rem 2rem 0 0;
   padding: 2rem 0;
@@ -243,7 +243,7 @@ const ContentTitle = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  background: #fbfbff;
+  background: ${COLOR.background};
 
   position: absolute;
   left: 0;

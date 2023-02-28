@@ -10,7 +10,7 @@ import Battles from '../common/Battles';
 
 function PostList() {
   const [genre, setGenre] = useState('all');
-  
+
   const router = useRouter();
   const { battle } = router.query;
 
@@ -175,7 +175,7 @@ const FeedPostHeadBattle = styled.div`
 const FeedPostBody = styled.div`
   display: flex;
   align-items: center;
-  background: #ffffff;
+  background: ${COLOR.white};
   box-shadow: 0px 0px 10px rgba(226, 226, 226, 0.25);
   border-radius: 1rem;
 

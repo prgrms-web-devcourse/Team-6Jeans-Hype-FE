@@ -6,6 +6,7 @@ import { getPostBattleData } from './api';
 import MusicInfo from './musicinfo';
 import { PostBattleInfo } from './types';
 import MyBattleList from './mybattleList';
+import { COLOR } from '@/constants/color';
 
 function PostBattle() {
   const router = useRouter();
@@ -74,7 +75,7 @@ const Title = styled.div`
   justify-content: center;
   align-items: center;
 
-  background: linear-gradient(98.38deg, #7d74dc -1.83%, #7697ec 86.44%);
+  background: linear-gradient(98.38deg, ${COLOR.purple} -1.83%, ${COLOR.blue} 86.44%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
