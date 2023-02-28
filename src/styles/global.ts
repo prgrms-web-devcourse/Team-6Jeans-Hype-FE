@@ -1,5 +1,6 @@
-import { COLOR } from '@/constants/color';
 import { css } from '@emotion/react';
+
+import { COLOR } from '@/constants/color';
 
 import reset from './reset';
 
@@ -22,5 +23,6 @@ export const global = css`
     width: 100%;
     height: 100%;
     background-color: ${COLOR.background};
+    color: ${COLOR.deepBlue};
   }
 `;
