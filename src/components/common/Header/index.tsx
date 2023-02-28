@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 import { COLOR } from '@/constants/color';
 
 interface Props {
   shouldNeedBack?: boolean;
+  backUrl?: string;
   title?: string;
   subButtonType?: 'image' | 'text';
   subButtonValue?: string;
@@ -13,20 +15,19 @@ interface Props {
 
 const Header = ({
   shouldNeedBack = true,
+  backUrl,
   title,
   subButtonType = 'text',
   subButtonValue,
   onClickSubButton,
-  selectedColor = 'deepblue',
 }: Props) => {
+  const router = useRouter();
+
   return (
     <HeaderContainer>
-      {shouldNeedBack && (
-        <button onClick={() => history.back()}>
-          <img
-            src={selectedColor === 'deepblue' ? '/images/back-deepblue-icon.svg' : '/images/back-white-icon.svg'}
-            style={{ width: '100%' }}
-          />
+      {shouldNeedBack && backUrl && (
+        <button onClick={() => router.push(backUrl)} style={{ cursor: 'pointer' }}>
+          <img src={'/images/back-icon.svg'} style={{ width: '100%' }} />
         </button>
       )}
       {title && <H1>{title}</H1>}
