@@ -27,7 +27,7 @@ function PostDetail() {
           <MusicInfo
             musicName={postDetail.music.musicName}
             musicUrl={postDetail.music.musicUrl}
-            thumbnailUrl={postDetail.music.thumbnailUrl}
+            albumCoverUrl={postDetail.music.albumCoverUrl}
             singer={postDetail.music.singer}
             genre={postDetail.music.genre}
           />

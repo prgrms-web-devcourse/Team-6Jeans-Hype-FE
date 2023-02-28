@@ -9,7 +9,7 @@ export interface PostDetail {
 export interface Music {
   musicName: string;
   musicUrl: string;
-  thumbnailUrl: string;
+  albumCoverUrl: string;
   singer: string;
   genre: Genre;
 }

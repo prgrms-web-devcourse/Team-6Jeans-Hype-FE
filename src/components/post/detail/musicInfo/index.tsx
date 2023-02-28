@@ -2,19 +2,24 @@ import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
 import { Music } from '../types';
 
-function MusicInfo({ musicName, thumbnailUrl, singer }: Music) {
+function MusicInfo({ musicName, albumCoverUrl, singer }: Music) {
+  console.log(albumCoverUrl);
   return (
     <MusicInfoContainer>
       <MusicItem>
-        <MusicTitle>노래 제목 : {musicName}</MusicTitle>
-        <MusicSinger>가수 : {singer}</MusicSinger>
-        <MusicThumbnail src={thumbnailUrl} />
+        <MusicTitle>{musicName}</MusicTitle>
+        <MusicSinger>{singer}</MusicSinger>
+        <MusicThumbnail albumCoverUrl={albumCoverUrl} />
       </MusicItem>
     </MusicInfoContainer>
   );
 }
 
 export default MusicInfo;
+
+interface StyleProps {
+  albumCoverUrl: string;
+}
 
 const MusicInfoContainer = styled.div`
   display: flex;
@@ -51,9 +56,10 @@ const MusicSinger = styled.div`
   color: ${COLOR.white};
 `;
 
-const MusicThumbnail = styled.div<{ src: string }>`
-  background-image: url('http://www.akbobada.com/home/akbobada/archive/akbo/img/20150115102222.jpg');
+const MusicThumbnail = styled.div`
+  background-image: url(${({ albumCoverUrl }: StyleProps) => albumCoverUrl});
   background-position: center center;
+  background-repeat: no-repeat;
 
   filter: drop-shadow(0 0 1.5rem rgba(158, 158, 158, 0.25));
   border-radius: 1rem;
