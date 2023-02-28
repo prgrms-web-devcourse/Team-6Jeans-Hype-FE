@@ -14,7 +14,7 @@ function PostBattle() {
   const [myListMusic, setMyListMusic] = useState({
     musicName: '내 대결 곡 고르기',
     musicUrl: '',
-    thumbnailUrl: '',
+    albumCoverUrl: '',
     singer: '',
   });
 
@@ -26,10 +26,6 @@ function PostBattle() {
     },
   );
 
-  const navigatePostMyBattleList = () => {
-    router.push(`/post/battle/mybattlelist?postId=${postId}&genre=${battleMusic?.music.genre?.genreName}`);
-  };
-
   return (
     <Container>
       <Title>What&apos;s next?</Title>
@@ -39,20 +35,19 @@ function PostBattle() {
             <MusicInfo
               musicName={battleMusic.music.musicName}
               musicUrl={battleMusic.music.musicUrl}
-              thumbnailUrl={battleMusic.music.thumbnailUrl}
+              albumCoverUrl={battleMusic.music.albumCoverUrl}
               singer={battleMusic.music.singer}
             />
             <MusicInfo
               musicName={myListMusic.musicName}
               musicUrl={myListMusic.musicUrl}
-              thumbnailUrl={myListMusic.thumbnailUrl}
+              albumCoverUrl={myListMusic.albumCoverUrl}
               singer={myListMusic.singer}
             />
-            {/* <button onClick={navigatePostMyBattleList}>내 대결 곡 고르기</button> */}
           </>
         )}
       </Musics>
-      <MyBattleList genre={battleMusic?.music.genre?.genreName} />
+      <MyBattleList genre={battleMusic?.music.genre?.genreValue} />
     </Container>
   );
 }

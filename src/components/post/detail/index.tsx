@@ -18,6 +18,10 @@ function PostDetail() {
     },
   );
 
+  const navigatePostBattle = () => {
+    router.push(`/post/battle?postId=${postId}`);
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -53,7 +57,7 @@ function PostDetail() {
           <PostPlayIcon>
             <audio src={postDetail?.music.musicUrl} controls loop></audio>
           </PostPlayIcon>
-          <PostIcon>
+          <PostIcon onClick={navigatePostBattle}>
             <img src='/images/white-fire.png' alt='대결 아이콘' />
             <span>15</span>
           </PostIcon>

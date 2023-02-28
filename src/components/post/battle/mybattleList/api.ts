@@ -1,96 +1,26 @@
-const DUMMY_DATA = [
-  [
-    {
-      postId: 1,
-      music: {
-        musicName: 'ditto',
-        thumbnailUrl: 'url',
-        singer: '뉴진스-발라드',
-      },
-    },
-    {
-      postId: 2,
-      music: {
-        musicName: '행복하지 말아요',
-        thumbnailUrl: 'url',
-        singer: 'mctheMax-발라드',
-      },
-    },
-  ],
-  [
-    {
-      postId: 3,
-      music: {
-        musicName: 'ditto',
-        thumbnailUrl: 'url',
-        singer: '뉴진스-힙합',
-      },
-    },
-    {
-      postId: 4,
-      music: {
-        musicName: 'ditto',
-        thumbnailUrl: 'url',
-        singer: '뉴진스-힙합',
-      },
-    },
-  ],
-  [
-    {
-      postId: 5,
-      music: {
-        musicName: 'ditto',
-        thumbnailUrl: 'url',
-        singer: '뉴진스-랩',
-      },
-    },
-    {
-      postId: 6,
-      music: {
-        musicName: 'ditto',
-        thumbnailUrl: 'url',
-        singer: '뉴진스-랩',
-      },
-    },
-  ],
-  [
-    {
-      postId: 7,
-      music: {
-        musicName: 'ditto',
-        thumbnailUrl: 'url',
-        singer: '뉴진스-K-Pop',
-      },
-    },
+import axios from 'axios';
 
-    {
-      postId: 8,
-      music: {
-        musicName: 'ditto',
-        thumbnailUrl: 'url',
-        singer: '뉴진스-K-Pop',
-      },
-    },
-  ],
-  [],
-];
+const SERVER = process.env.NEXT_PUBLIC_API_URL;
+
+const TEMP_TOKEN =
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjc3NDg1MTUwLCJleHAiOjE2NzgzNDkxNTB9.1UtakWRXOkrN-IGZ7V7fWh0YhC4WzBS6M31FxTnPceKLW-IqvD8sTVlQIDEDfmbqxDdqqWnOVH4i0i0k1KuYlg';
 
 export const getMyBattleListData = async (genre: string) => {
   try {
-    if (genre === '발라드') {
-      return DUMMY_DATA[0];
-    } else if (genre === '힙합') {
-      return DUMMY_DATA[1];
-    } else if (genre === '랩') {
-      return DUMMY_DATA[2];
-    } else if (genre === 'k-pop') {
-      return DUMMY_DATA[3];
-    } else if (genre === '재즈') {
-      return DUMMY_DATA[4];
+    const response = await axios.get(`${SERVER}/posts/battle/candidates`, {
+      params: { genre },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${TEMP_TOKEN}`,
+      },
+    });
+
+    if (response.data.success) {
+      return response.data.data.posts;
     } else {
       return [];
     }
   } catch {
-    throw new Error('패칭 실패');
+    throw new Error('데이터 요청 실패');
   }
 };
