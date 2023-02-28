@@ -21,7 +21,7 @@ const BattleMusicInfo = ({ music, onClick }: Prop) => {
           <PlayIcon value={musicUrl}>
             <audio src={musicUrl} controls loop></audio>
           </PlayIcon>
-          <PlusIcon src='/images/plus-music.png' value={musicUrl} />
+          <PlusIcon src='/images/plus-music.svg' value={musicUrl} />
         </Thumbnail>
         <Title>{musicName}</Title>
         <Singer>{singer}</Singer>
