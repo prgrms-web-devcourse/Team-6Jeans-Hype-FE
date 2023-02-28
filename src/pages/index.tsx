@@ -32,9 +32,10 @@ export default function Home() {
         title='테스트용2'
         subButtonValue='complete'
         onClickSubButton={() => console.log('click!!')}
+        selectedColor='deepblue'
       />
 
-      <Header shouldNeedBack={true} />
+      <Header shouldNeedBack={true} selectedColor='deepblue' />
       <BottomNav />
     </>
   );
