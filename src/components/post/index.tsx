@@ -39,7 +39,7 @@ function PostList() {
       </Title>
       <FeedPostList>
         {postFeed?.map(
-          ({ postId, music: { thumbnailUrl, singer, musicName, genre }, likeCount, isBattlePossible, nickname }) => (
+          ({ postId, music: { albumCoverUrl, singer, musicName, genre }, likeCount, isBattlePossible, nickname }) => (
             <FeedPost key={postId} onClick={() => navigatePostDetail(postId)}>
               <FeedPostHead>
                 <FeedPostHeadInfo>
@@ -50,7 +50,7 @@ function PostList() {
                 <FeedPostHeadBattle>대결 신청</FeedPostHeadBattle>
               </FeedPostHead>
               <FeedPostBody>
-                <PostmusicThumbnailUrl src={thumbnailUrl} />
+                <PostmusicThumbnailUrl src={albumCoverUrl} />
                 <PostmusicInfo>
                   <div>{musicName}</div>
                   <div>

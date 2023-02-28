@@ -30,7 +30,7 @@ function MyBattleList({ genre }: Props) {
               key={list.postId}
               onClick={() => onClickBattleButton({ title: list.music.musicName, singer: list.music.singer })}
             >
-              <MusicThumbnail>{list.music.thumbnailUrl}</MusicThumbnail>
+              <MusicThumbnail>{list.music.albumCoverUrl}</MusicThumbnail>
               <MusicTitleSinger>
                 <div>{list.music.musicName}</div>
                 <div>{list.music.singer}</div>
