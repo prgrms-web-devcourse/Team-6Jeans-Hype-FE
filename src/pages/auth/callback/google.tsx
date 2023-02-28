@@ -46,7 +46,7 @@ const Text = styled.div`
 
 const StyledLink = styled(Link)`
   background-color: ${COLOR.blue};
-  color: white;
+  color: ${COLOR.white};
   border-radius: 1.6rem;
   padding: 1rem;
   font-size: 1.2rem;
