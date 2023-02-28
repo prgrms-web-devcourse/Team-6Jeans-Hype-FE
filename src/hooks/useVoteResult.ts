@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 
 const useVoteResult = () => {
   const [visible, setVisible] = useState<boolean>();
-  const refForMove = useRef<HTMLSpanElement>(null);
 
   const onVote = () => {
     setVisible((prev) => !prev);
@@ -12,25 +11,27 @@ const useVoteResult = () => {
     }, 1800);
   };
 
-  const onClickMusic = () => {
-    const target = refForMove.current;
+  const onClickMusic = (e: any) => {
+    const { target } = e;
 
     if (target) {
-      const { className } = target;
+      const parent = target.closest('.container');
+      const newTarget = parent.firstChild;
+      const tmpClassName = newTarget.className;
 
-      target.className = `${className} active`;
+      newTarget.className = `${tmpClassName} active`;
 
       setTimeout(() => {
         onVote();
       }, 200);
 
       setTimeout(() => {
-        target.className = `${className}`;
+        newTarget.className = `${tmpClassName}`;
       }, 1800);
     }
   };
 
-  return { visible, refForMove, onVote, onClickMusic };
+  return { visible, onClickMusic };
 };
 
 export default useVoteResult;
