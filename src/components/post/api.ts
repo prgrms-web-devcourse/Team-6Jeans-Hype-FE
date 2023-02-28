@@ -2,8 +2,8 @@ import axios from 'axios';
 
 import { Values } from './create/types';
 
-const ADDRESS = process.env.NEXT_PUBLIC_API_ENDPOINT;
-const SERVER = process.env.NEXT_PUBLIC_SERVER_ENDPOINT;
+const ADDRESS = process.env.NEXT_PUBLIC_MUSIC_SEARCH_API_URL;
+const SERVER = process.env.NEXT_PUBLIC_API_URL;
 
 //임시입니당;
 const TEMP_TOKEN =
