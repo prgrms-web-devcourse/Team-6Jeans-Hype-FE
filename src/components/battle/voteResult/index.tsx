@@ -81,11 +81,7 @@ const VoteResultContainer = styled.div`
   flex-direction: column;
   align-items: center;
   animation: ${backgroundFade} 3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 99;
+  z-index: 99; ;
 `;
 
 const Title = styled.div`
