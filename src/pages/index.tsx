@@ -24,6 +24,7 @@ export default function Home() {
         subButtonValue={'/images/search-icon.svg'}
         subButtonType='image'
         onClickSubButton={() => console.log('click!!')}
+        selectedColor='deepblue'
       />
 
       <Header
