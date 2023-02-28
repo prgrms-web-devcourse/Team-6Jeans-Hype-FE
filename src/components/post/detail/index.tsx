@@ -69,7 +69,7 @@ function PostDetail() {
                   <div>님의 한마디</div>
                 </div>
                 <div>
-                  <img src='/images/down-arrow.png' />
+                  <img src='/images/down-arrow.png' alt='img' />
                 </div>
               </ContentTitle>
             </ContenTitleContainer>

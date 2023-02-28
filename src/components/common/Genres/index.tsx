@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 
-import { COLOR } from '@/constants/color';
-import { GENRES, GENRES_WITH_ALL } from '@/constants/genreData';
-import useGenre from '@/hooks/useGenre';
 import { getGenres } from '@/components/post/api';
+import { COLOR } from '@/constants/color';
+import useGenre from '@/hooks/useGenre';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
@@ -26,7 +25,7 @@ function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChan
 
   useEffect(() => {
     setTargetGenres(shouldNeedAll ? [{ genreValue: 'ALL', genreName: 'ALL' }, ...genres] : genres);
-  }, [genres]);
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onClick(e);

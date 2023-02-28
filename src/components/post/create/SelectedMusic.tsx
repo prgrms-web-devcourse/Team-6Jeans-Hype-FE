@@ -9,10 +9,6 @@ interface Props {
   selectedMusic: Music;
 }
 
-interface Url {
-  src: string;
-}
-
 function SelectedMusic({ selectedMusic }: Props) {
   const router = useRouter();
   const { trackName, artistName, previewUrl, artworkUrl100 } = selectedMusic;
@@ -22,7 +18,7 @@ function SelectedMusic({ selectedMusic }: Props) {
       <Header>
         <span>선택한 음악</span>
         <button onClick={() => router.push('/post/searchMusics')} style={{ cursor: 'pointer' }}>
-          <img src={'/images/post-cancel-button.svg'} />
+          <img src={'/images/post-cancel-button.svg'} alt='img' />
         </button>
       </Header>
       <SelectedMusicInfo>

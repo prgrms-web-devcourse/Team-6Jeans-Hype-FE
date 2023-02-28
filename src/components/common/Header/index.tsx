@@ -25,13 +25,13 @@ const Header = ({
     <HeaderContainer>
       {shouldNeedBack && backUrl && (
         <button onClick={() => router.push(backUrl)} style={{ cursor: 'pointer' }}>
-          <img src={'/images/back-icon.svg'} style={{ width: '100%' }} />
+          <img src={'/images/back-icon.svg'} style={{ width: '100%' }} alt='img' />
         </button>
       )}
       {title && <H1>{title}</H1>}
       {subButtonValue && (
         <SubButton onClick={onClickSubButton}>
-          {subButtonType === 'image' ? <img src={subButtonValue} /> : <span>{subButtonValue}</span>}
+          {subButtonType === 'image' ? <img src={subButtonValue} alt='img' /> : <span>{subButtonValue}</span>}
         </SubButton>
       )}
     </HeaderContainer>

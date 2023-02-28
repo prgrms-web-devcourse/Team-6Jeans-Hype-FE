@@ -23,7 +23,7 @@ const onIntersection: IntersectionObserverCallback = (entries, io) => {
 
 const AlbumPoster = ({ lazy, threshold = 0.5, src, size, blur = false }: Props) => {
   const [loaded, setLoaded] = useState(false);
-  const imgRef = useRef(null);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     if (!lazy) {
@@ -33,7 +33,7 @@ const AlbumPoster = ({ lazy, threshold = 0.5, src, size, blur = false }: Props) 
 
     const handleLoadImage = () => setLoaded(true);
 
-    const imgElement: any = imgRef.current; //타입 뭘 넣어야할지 모르겠음 ㅠ
+    const imgElement = imgRef.current;
 
     imgElement?.addEventListener(LOAD_IMG_EVENT_TYPE, handleLoadImage);
 
@@ -53,7 +53,7 @@ const AlbumPoster = ({ lazy, threshold = 0.5, src, size, blur = false }: Props) 
   return (
     <ImgContainer ref={imgRef} size={size} style={{ opacity: loaded ? 1 : 0 }}>
       {blur && <div />}
-      <img src={loaded ? src : '/images/translucent-logo.svg'} />
+      <img src={loaded ? src : '/images/translucent-logo.svg'} alt='img' />
     </ImgContainer>
   );
 };

@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { getPostBattleData } from './api';
 import MusicInfo from './musicinfo';
-import { PostBattleInfo } from './types';
 import MyBattleList from './mybattleList';
+import { PostBattleInfo } from './types';
 
 function PostBattle() {
   const router = useRouter();

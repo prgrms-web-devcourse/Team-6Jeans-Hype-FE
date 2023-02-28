@@ -67,47 +67,6 @@ const MusicCardContainer = styled.div`
   overflow-y: scroll;
   border-radius: 1rem;
 `;
-const MusicCard = styled.div`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  margin: 1rem 0;
-  padding: 0.3rem;
-  height: 7rem;
-  box-shadow: 0 0 1rem rgba(226, 226, 226, 0.25);
-  background-color: ${COLOR.white};
-  border-radius: 1rem;
-`;
-
-const MusicTexts = styled.div`
-  width: calc(100% - 2rem - 7rem);
-  height: 60%;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  margin-left: 2rem;
-`;
-
-const Text = styled.div`
-  height: 50%;
-  display: flex;
-  align-items: center;
-  line-height: 1.7rem;
-`;
-
-const Ellipsis = styled.div`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-weight: bold;
-  & > span {
-    font-size: 1.2rem;
-  }
-`;
-
-const ArtistName = styled.div`
-  color: ${COLOR.gray};
-`;
 
 const EmptyResult = styled.div`
   position: relative;
