@@ -31,28 +31,25 @@ function PostList() {
         <div>한눈에 보는 추천</div>
         <Filter>
           <div>최신순</div>
-          <img src='./images/down-arrow.png' alt='필터 버튼' />
+          <img src='./images/down-arrow-gray.svg' alt='필터 버튼' />
         </Filter>
       </Title>
       <FeedPostList>
         {postFeed?.map(
           ({ postId, music: { thumbnailUrl, singer, musicName, genre }, likeCount, isBattlePossible, nickname }) => (
-            <FeedPost key={postId} onClick={() => navigatePostDetail(postId)}>
-              <FeedPostHead>
-                <FeedPostHeadInfo>
+            <Post key={postId} onClick={() => navigatePostDetail(postId)}>
+              <PostHead>
+                <PostHeadInfo>
                   <div>{nickname}</div>
-                  <Divider />
                   <div>2023-02-25</div>
-                </FeedPostHeadInfo>
-                <FeedPostHeadBattle>대결 신청</FeedPostHeadBattle>
-              </FeedPostHead>
-              <FeedPostBody>
+                </PostHeadInfo>
+              </PostHead>
+              <PostBody>
                 <PostmusicThumbnailUrl src={thumbnailUrl} />
                 <PostmusicInfo>
                   <div>{musicName}</div>
                   <div>
                     <div>{singer}</div>
-                    <Divider />
                     <div>{genre}</div>
                   </div>
                 </PostmusicInfo>
@@ -66,8 +63,8 @@ function PostList() {
                     <span>15</span>
                   </PostIcon>
                 </PostIcons>
-              </FeedPostBody>
-            </FeedPost>
+              </PostBody>
+            </Post>
           ),
         )}
       </FeedPostList>
@@ -118,27 +115,19 @@ const FeedPostList = styled.div`
   margin-top: 1rem;
 `;
 
-const FeedPost = styled.div`
+const Post = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
 
-const FeedPostHead = styled.div`
+const PostHead = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 1rem;
 `;
 
-const Divider = styled.div`
-  width: 0.25rem;
-  height: 0.25rem;
-  margin: 0 0.75rem;
-  border-radius: 50%;
-  background-color: ${COLOR.gray};
-`;
-
-const FeedPostHeadInfo = styled.div`
+const PostHeadInfo = styled.div`
   display: flex;
   align-items: center;
 
@@ -161,18 +150,7 @@ const FeedPostHeadInfo = styled.div`
   }
 `;
 
-const FeedPostHeadBattle = styled.div`
-  font-weight: 700;
-  font-size: 0.8rem;
-  line-height: 1.2rem;
-
-  text-align: center;
-  letter-spacing: -0.01em;
-
-  color: ${COLOR.blue};
-`;
-
-const FeedPostBody = styled.div`
+const PostBody = styled.div`
   display: flex;
   align-items: center;
   background: ${COLOR.white};

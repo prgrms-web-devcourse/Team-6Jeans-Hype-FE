@@ -4,32 +4,32 @@ import { Music } from '../types';
 
 function MusicInfo({ musicName, thumbnailUrl, singer }: Music) {
   return (
-    <MusicInfoContainer>
-      <MusicItem>
-        <MusicTitle>노래 제목 : {musicName}</MusicTitle>
-        <MusicSinger>가수 : {singer}</MusicSinger>
-        <MusicThumbnail src={thumbnailUrl} />
-      </MusicItem>
-    </MusicInfoContainer>
+    <Container>
+      <Wrap>
+        <Title>노래 제목 : {musicName}</Title>
+        <Singer>가수 : {singer}</Singer>
+        <Thumbnail src={thumbnailUrl} />
+      </Wrap>
+    </Container>
   );
 }
 
 export default MusicInfo;
 
-const MusicInfoContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 50%;
   margin: 8rem auto 0 auto;
 `;
 
-const MusicItem = styled.div`
+const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-const MusicTitle = styled.div`
+const Title = styled.div`
   font-style: normal;
   font-weight: 700;
   font-size: 1.5rem;
@@ -39,7 +39,7 @@ const MusicTitle = styled.div`
   color: ${COLOR.white};
 `;
 
-const MusicSinger = styled.div`
+const Singer = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 1.2rem;
@@ -51,7 +51,7 @@ const MusicSinger = styled.div`
   color: ${COLOR.white};
 `;
 
-const MusicThumbnail = styled.div<{ src: string }>`
+const Thumbnail = styled.div<{ src: string }>`
   background-image: url('http://www.akbobada.com/home/akbobada/archive/akbo/img/20150115102222.jpg');
   background-position: center center;
 

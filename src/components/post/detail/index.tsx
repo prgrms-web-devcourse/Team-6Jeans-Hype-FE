@@ -33,17 +33,17 @@ function PostDetail() {
           />
         )}
 
-        <MusicPlayStatus>
-          <MusicPlayBar>
+        <PlayStatus>
+          <PlayBar>
             <div></div>
             <div></div>
             <div></div>
-          </MusicPlayBar>
-          <MusicPlayTime>
+          </PlayBar>
+          <PlayTime>
             <div>1:46</div>
             <div>4:10</div>
-          </MusicPlayTime>
-        </MusicPlayStatus>
+          </PlayTime>
+        </PlayStatus>
 
         <PostDetailEvent>
           <PostIcon>
@@ -61,8 +61,8 @@ function PostDetail() {
 
         {postDetail?.content && (
           <PostDetailContent>
-            <ContenTitleContainer>
-              <ContentTitle>
+            <ContenHeader>
+              <Title>
                 <div></div>
                 <div>
                   <div>{postDetail?.nickname}</div>
@@ -71,12 +71,12 @@ function PostDetail() {
                 <div>
                   <img src='/images/down-arrow.svg' />
                 </div>
-              </ContentTitle>
-            </ContenTitleContainer>
+              </Title>
+            </ContenHeader>
 
-            <ContentContainer>
+            <ContentBody>
               <Content>{postDetail.content}</Content>
-            </ContentContainer>
+            </ContentBody>
           </PostDetailContent>
         )}
       </Wrapper>
@@ -105,14 +105,14 @@ const PrevButton = styled.img`
   height: 2rem;
 `;
 
-const MusicPlayStatus = styled.div`
+const PlayStatus = styled.div`
   display: flex;
   flex-direction: column;
   width: 65%;
   margin: 0 auto 2rem auto;
 `;
 
-const MusicPlayBar = styled.div`
+const PlayBar = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
@@ -140,7 +140,7 @@ const MusicPlayBar = styled.div`
   }
 `;
 
-const MusicPlayTime = styled.div`
+const PlayTime = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -189,7 +189,7 @@ const PostPlayIcon = styled.div`
 
 const PostDetailContent = styled.div``;
 
-const ContenTitleContainer = styled.div`
+const ContenHeader = styled.div`
   background: ${COLOR.background};
   box-shadow: 0.5rem 0 1.5rem rgba(135, 135, 135, 0.7);
   border-radius: 2rem 2rem 0 0;
@@ -202,7 +202,7 @@ const ContenTitleContainer = styled.div`
   height: 2.5%;
 `;
 
-const ContentTitle = styled.div`
+const Title = styled.div`
   width: 90%;
   margin: 0 auto;
 
@@ -242,7 +242,7 @@ const ContentTitle = styled.div`
   }
 `;
 
-const ContentContainer = styled.div`
+const ContentBody = styled.div`
   background: ${COLOR.background};
 
   position: absolute;
