@@ -2,12 +2,14 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { getPostBattleData } from './api';
-import { PostBattleInfo } from './types';
-import MyBattleList from './mybattleList';
+
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 import Header from '@/components/common/Header';
 import { COLOR } from '@/constants/color';
+
+import { getPostBattleData } from './api';
+import MyBattleList from './mybattleList';
+import { PostBattleInfo } from './types';
 
 function PostBattle() {
   const router = useRouter();

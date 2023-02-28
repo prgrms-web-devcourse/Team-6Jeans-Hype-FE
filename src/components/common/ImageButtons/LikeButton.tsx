@@ -19,7 +19,7 @@ function Like({ size, initCount, isClicked, onClick }: Props) {
 
   return (
     <LikeContainer onClick={handleClick} size={size}>
-      <img src={`/images/like-icon-${state.isClicked ? 'on' : 'off'}.svg`} />
+      <img src={`/images/like-icon-${state.isClicked ? 'on' : 'off'}.svg`} alt='img' />
       <div>{state.count}</div>
     </LikeContainer>
   );

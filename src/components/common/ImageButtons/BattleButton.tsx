@@ -1,5 +1,4 @@
 import { COLOR } from '@/constants/color';
-import useLike from '@/hooks/useLike';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -11,7 +10,7 @@ interface Props {
 function Battle({ size, battleAbility, onClick }: Props) {
   return (
     <BattleContainer onClick={onClick} size={size} battleAbility={battleAbility}>
-      <img src={`/images/fire-icon${battleAbility ? '' : '-gray'}.svg`} />
+      <img src={`/images/fire-icon${battleAbility ? '' : '-gray'}.svg`} alt='img' />
       <div>{battleAbility ? '대결신청' : '대결불가'}</div>
     </BattleContainer>
   );

@@ -36,7 +36,7 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
 
       onChangeMusicInfo(newMusic);
     }
-  }, [isLoading]);
+  });
 
   return (
     <CreateContainer onSubmit={onSubmit}>

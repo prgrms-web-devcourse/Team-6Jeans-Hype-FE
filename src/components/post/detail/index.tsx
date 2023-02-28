@@ -1,13 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
-import { getPostDetailData } from './api';
-import MusicInfo from './musicInfo';
-import { useRouter } from 'next/router';
-import { PostDetail } from './types';
 import styled from '@emotion/styled';
-import { COLOR } from '@/constants/color';
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
+
+import Header from '@/components/common/Header';
 import Battle from '@/components/common/ImageButtons/BattleButton';
 import Like from '@/components/common/ImageButtons/LikeButton';
-import Header from '@/components/common/Header';
+import { COLOR } from '@/constants/color';
+
+import { getPostDetailData } from './api';
+import MusicInfo from './musicInfo';
+import { PostDetail } from './types';
 
 function PostDetail() {
   const router = useRouter();
@@ -87,7 +89,7 @@ function PostDetail() {
                   <div>님의 한마디</div>
                 </div>
                 <div>
-                  <img src='/images/down-arrow.svg' />
+                  <img src='/images/down-arrow.png' alt='img' />
                 </div>
               </Title>
             </ContentHeader>
