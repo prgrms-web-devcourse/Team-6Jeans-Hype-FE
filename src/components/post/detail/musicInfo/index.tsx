@@ -1,3 +1,4 @@
+import AlbumPoster from '@/components/common/AlbumPoster';
 import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
 import { Music } from '../types';
@@ -8,7 +9,7 @@ function MusicInfo({ musicName, thumbnailUrl, singer }: Music) {
       <MusicItem>
         <MusicTitle>노래 제목 : {musicName}</MusicTitle>
         <MusicSinger>가수 : {singer}</MusicSinger>
-        <MusicThumbnail src={thumbnailUrl} />
+        <AlbumPoster lazy={true} size={20} src={thumbnailUrl} />
       </MusicItem>
     </MusicInfoContainer>
   );
@@ -27,6 +28,7 @@ const MusicItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 4rem;
 `;
 
 const MusicTitle = styled.div`
@@ -49,16 +51,4 @@ const MusicSinger = styled.div`
   text-align: center;
 
   color: ${COLOR.white};
-`;
-
-const MusicThumbnail = styled.div<{ src: string }>`
-  background-image: url('http://www.akbobada.com/home/akbobada/archive/akbo/img/20150115102222.jpg');
-  background-position: center center;
-
-  filter: drop-shadow(0 0 1.5rem rgba(158, 158, 158, 0.25));
-  border-radius: 1rem;
-
-  width: 20rem;
-  height: 20rem;
-  margin-bottom: 4rem;
 `;

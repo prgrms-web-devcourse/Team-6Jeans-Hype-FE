@@ -7,14 +7,25 @@ interface Props {
   subButtonType?: 'image' | 'text';
   subButtonValue?: string;
   onClickSubButton?: any; //어떤 이벤트가 들어올지 몰라서 일단 any로 뒀음
+  selectedColor: 'white' | 'deepblue';
 }
 
-const Header = ({ shouldNeedBack = true, title, subButtonType = 'text', subButtonValue, onClickSubButton }: Props) => {
+const Header = ({
+  shouldNeedBack = true,
+  title,
+  subButtonType = 'text',
+  subButtonValue,
+  onClickSubButton,
+  selectedColor,
+}: Props) => {
   return (
     <HeaderContainer>
       {shouldNeedBack && (
         <button onClick={() => history.back()}>
-          <img src={'/images/back-icon.svg'} style={{ width: '100%' }} />
+          <img
+            src={selectedColor === 'white' ? '/images/back-white-icon.svg' : '/images/back-deepblue-icon.svg'}
+            style={{ width: '100%' }}
+          />
         </button>
       )}
       {title && <H1>{title}</H1>}
