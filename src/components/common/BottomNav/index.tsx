@@ -52,12 +52,14 @@ const BottomNavContainer = styled.div`
   width: 100%;
   max-width: 76.8rem;
   position: fixed;
+  left: 0;
   bottom: 0;
 
   display: flex;
   box-shadow: 0.5rem 0 1.5rem rgba(135, 135, 135, 0.7);
   border-radius: 2rem 2rem 0 0;
-  height: 8rem; ;
+  height: 8rem;
+  background-color: ${COLOR.white};
 `;
 
 const Buttons = styled.div`
