@@ -28,9 +28,15 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
   return (
     <VoteResultModal>
       {isLoading ? (
+<<<<<<< HEAD
         <div>skeleton으로 교체 예정</div>
       ) : (
         <VoteResultContainer>
+=======
+        <div>로딩중입니다만</div>
+      ) : (
+        <>
+>>>>>>> 45bee6d (feat: 숏폼 디자인 및 기능 임시)
           <AlbumPoster lazy={true} src={voteResult?.albumCoverUrl} size={10} />
           <Title>{voteResult?.title}</Title>
           <StaticText>를 선택하셨습니다.</StaticText>
@@ -39,7 +45,11 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
             <img src={'/images/linear-gradient-logo.svg'} alt='img' />
             {clickSide === 'right' ? selected : opposite}
           </Votes>
+<<<<<<< HEAD
         </VoteResultContainer>
+=======
+        </>
+>>>>>>> 45bee6d (feat: 숏폼 디자인 및 기능 임시)
       )}
     </VoteResultModal>
   );
@@ -50,7 +60,11 @@ export default VoteResult;
 const backgroundFade = keyframes`
   0% {
     background: ${COLOR.background};
+<<<<<<< HEAD
     opacity: 0;
+=======
+    opacity: 0.96;
+>>>>>>> 45bee6d (feat: 숏폼 디자인 및 기능 임시)
   }
   20% {
     background: ${COLOR.blue}
@@ -70,6 +84,7 @@ const VoteResultModal = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+<<<<<<< HEAD
   animation: ${backgroundFade} 2s ease;
   z-index: 99;
 `;
@@ -80,6 +95,14 @@ const VoteResultContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+=======
+  animation: ${backgroundFade} 3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+>>>>>>> 45bee6d (feat: 숏폼 디자인 및 기능 임시)
 `;
 
 const Title = styled.div`
