@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+
 import { getPostBattleData } from './api';
 import MusicInfo from './musicinfo';
 import MyBattleList from './mybattleList';

@@ -1,6 +1,7 @@
-import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+
+import { COLOR } from '@/constants/color';
 
 interface Props {
   shouldNeedBack?: boolean;

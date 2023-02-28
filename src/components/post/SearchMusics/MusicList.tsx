@@ -4,9 +4,9 @@ import { memo } from 'react';
 
 import MusicListSkeleton from '@/components/common/skeleton/MusicList';
 import { COLOR } from '@/constants/color';
-import { getMusicData } from '../api';
 
 import Card from '../../common/MusicCard';
+import { getMusicData } from '../api';
 import { Music } from './types';
 
 interface Props {

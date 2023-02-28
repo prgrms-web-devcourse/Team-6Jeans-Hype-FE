@@ -1,5 +1,7 @@
-import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
+
+import { COLOR } from '@/constants/color';
+
 import { BattleMusicInfo } from '../types';
 
 function MusicInfo({ musicName, musicUrl, thumbnailUrl, singer }: BattleMusicInfo) {
