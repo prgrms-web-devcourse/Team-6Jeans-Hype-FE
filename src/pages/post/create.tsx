@@ -1,4 +1,3 @@
-import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 import PostCreate from '@/components/post/create/index';
 import usePostCreate from '@/hooks/useCreatePost';
@@ -8,7 +7,7 @@ function Create() {
 
   return (
     <>
-      <Header title='추천 글쓰기' subButtonValue='완료' onClickSubButton={onSubmit} />
+      <Header title='추천 글쓰기' backUrl='/post/searchMusics' subButtonValue='완료' onClickSubButton={onSubmit} />
       <PostCreate
         values={values}
         onChangeValues={onChangeValues}

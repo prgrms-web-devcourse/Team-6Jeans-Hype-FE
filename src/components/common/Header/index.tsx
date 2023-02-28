@@ -1,19 +1,30 @@
 import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 interface Props {
   shouldNeedBack?: boolean;
+  backUrl?: string;
   title?: string;
   subButtonType?: 'image' | 'text';
   subButtonValue?: string;
   onClickSubButton?: any; //어떤 이벤트가 들어올지 몰라서 일단 any로 뒀음
 }
 
-const Header = ({ shouldNeedBack = true, title, subButtonType = 'text', subButtonValue, onClickSubButton }: Props) => {
+const Header = ({
+  shouldNeedBack = true,
+  backUrl,
+  title,
+  subButtonType = 'text',
+  subButtonValue,
+  onClickSubButton,
+}: Props) => {
+  const router = useRouter();
+
   return (
     <HeaderContainer>
-      {shouldNeedBack && (
-        <button onClick={() => history.back()} style={{ cursor: 'pointer' }}>
+      {shouldNeedBack && backUrl && (
+        <button onClick={() => router.push(backUrl)} style={{ cursor: 'pointer' }}>
           <img src={'/images/back-icon.svg'} style={{ width: '100%' }} />
         </button>
       )}

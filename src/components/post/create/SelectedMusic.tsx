@@ -1,6 +1,7 @@
 import AlbumPoster from '@/components/common/AlbumPoster';
 import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 import { Music } from './types';
 
@@ -13,13 +14,14 @@ interface Url {
 }
 
 function SelectedMusic({ selectedMusic }: Props) {
+  const router = useRouter();
   const { trackName, artistName, previewUrl, artworkUrl100 } = selectedMusic;
 
   return (
     <div>
       <Header>
         <span>선택한 음악</span>
-        <button onClick={() => history.back()} style={{ cursor: 'pointer' }}>
+        <button onClick={() => router.push('/post/searchMusics')} style={{ cursor: 'pointer' }}>
           <img src={'/images/post-cancel-button.svg'} />
         </button>
       </Header>

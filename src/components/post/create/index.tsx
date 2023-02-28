@@ -27,11 +27,11 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
   useEffect(() => {
     if (!isLoading) {
       const newMusic: Music = {
-        trackId: musicDetail.trackId,
-        trackName: musicDetail.trackName,
-        artistName: musicDetail.artistName,
-        artworkUrl100: musicDetail.artworkUrl100,
-        previewUrl: musicDetail.previewUrl,
+        trackId: musicDetail?.trackId,
+        trackName: musicDetail?.trackName,
+        artistName: musicDetail?.artistName,
+        artworkUrl100: musicDetail?.artworkUrl100,
+        previewUrl: musicDetail?.previewUrl,
       };
 
       onChangeMusicInfo(newMusic);
@@ -40,7 +40,7 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
 
   return (
     <CreateContainer onSubmit={onSubmit}>
-      <Row>{isLoading ? <div>로딩중,,,</div> : <SelectedMusic selectedMusic={values.musicInfo} />}</Row>
+      <Row>{!isLoading && <SelectedMusic selectedMusic={values.musicInfo} />}</Row>
       <Row>
         <Genres title='장르 선택' onChange={onChangeValues} />
       </Row>
