@@ -9,24 +9,27 @@ import { useState } from 'react';
 import Battles from '../common/Battles';
 
 function PostList() {
-  const [genre, setGenre] = useState('all');
-  
-  const router = useRouter();
-  const { battle } = router.query;
+  const [genre, setGenre] = useState('');
+  const [isPossibleBattle, setIsPossibleBattle] = useState<boolean | undefined>(undefined);
 
-  const { data: postFeed, isLoading } = useQuery<PostInfo[]>(['postfeed', genre, battle], () => {
-    const possibleStatus = battle === 'true' ? true : battle === 'false' ? false : undefined;
-    return getPostFeedData(genre, possibleStatus);
+  const router = useRouter();
+
+  const { data: postFeed } = useQuery<PostInfo[]>(['postfeed', genre, isPossibleBattle], () => {
+    return getPostFeedData({ genre, isPossibleBattle });
   });
 
   const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setGenre(e.target.value);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedGenre = e.target.value;
+
+    setGenre(selectedGenre);
+  };
 
   return (
     <Container>
       <Genres title='장르 선택' onChange={onChange} />
-      <Battles />
+      <Battles setIsPossibleBattle={setIsPossibleBattle} />
       <Title>
         <div>한눈에 보는 추천</div>
         <Filter>
