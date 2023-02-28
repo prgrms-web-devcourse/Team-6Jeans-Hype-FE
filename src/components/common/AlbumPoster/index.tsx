@@ -7,7 +7,7 @@ const LOAD_IMG_EVENT_TYPE = 'loadImage';
 interface Props {
   lazy: boolean;
   threshold?: number;
-  src: string;
+  src: string | undefined;
   size: number;
   blur?: boolean;
 }
