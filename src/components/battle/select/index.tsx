@@ -1,4 +1,3 @@
-import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useRef } from 'react';
 
@@ -18,18 +17,24 @@ const TEMP =
 
 function Select() {
   const { visible, onClick } = useVoteResult();
-  const tmpRef = useRef();
+  const tmpRef = useRef<HTMLSpanElement>(null);
 
+  //임시 코드입니다
   const onClickTemp = async () => {
-    tmpRef.current.style.zIndex = `999`;
-    for (let i = 30; i <= 50; i++) {
-      tmpRef.current.style.left = `${i}%`;
-      await sleep(1);
+    const tempElement = tmpRef.current;
+
+    if (tempElement) {
+      tempElement.style.zIndex = `999`;
+      for (let i = 30; i <= 50; i++) {
+        tempElement.style.left = `${i}%`;
+        await sleep(1);
+      }
+      onClick();
+      tempElement.style.left = `30%`;
+      tempElement.style.zIndex = `1`;
     }
-    onClick();
-    tmpRef.current.style.left = `30%`;
-    tmpRef.current.style.zIndex = `1`;
   };
+
   return (
     <>
       <SelectContainer>
