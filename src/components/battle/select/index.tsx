@@ -1,3 +1,4 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useRef } from 'react';
 
@@ -7,31 +8,25 @@ import useVoteResult from '@/hooks/useVoteResult';
 
 import VoteResult from '../voteResult';
 
-function sleep(ms: number) {
-  //sleep 함수
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 const TEMP =
   'https://is3-ssl.mzstatic.com/image/thumb/Music112/v4/52/6e/b5/526eb565-8444-3ec2-0392-c3ed55feb0b9/cover_KM0015957_1.jpg/100x100bb.jpg';
 
 function Select() {
   const { visible, onClick } = useVoteResult();
-  const tmpRef = useRef<HTMLSpanElement>(null);
+  const refForMove = useRef<HTMLSpanElement>(null);
 
-  //임시 코드입니다
   const onClickTemp = async () => {
-    const tempElement = tmpRef.current;
+    const target = refForMove.current;
 
-    if (tempElement) {
-      tempElement.style.zIndex = `999`;
-      for (let i = 30; i <= 50; i++) {
-        tempElement.style.left = `${i}%`;
-        await sleep(1);
-      }
-      onClick();
-      tempElement.style.left = `30%`;
-      tempElement.style.zIndex = `1`;
+    if (target) {
+      const { className } = target;
+
+      target.className = `${className} active`;
+
+      setTimeout(() => {
+        onClick();
+        target.className = `${className}`;
+      }, 50);
     }
   };
 
@@ -39,7 +34,7 @@ function Select() {
     <>
       <SelectContainer>
         <Genres onChange={() => console.log('click-genre')} />
-        <TempContainer onClick={onClickTemp} ref={tmpRef}>
+        <TempContainer onClick={onClickTemp} id='move' ref={refForMove}>
           <AlbumPoster lazy={true} src={TEMP} size={10} />
         </TempContainer>
       </SelectContainer>
@@ -50,11 +45,23 @@ function Select() {
 
 export default Select;
 
+const move = keyframes`
+  0% {
+    left:30%;
+  }
+  100% {
+    left:50%;
+  }
+`;
+
 const SelectContainer = styled.div``;
 
 const TempContainer = styled.span`
   position: absolute;
-  transform: translate(-50%, -50%);
-  top: 39%;
+  transform: translateX(-50%);
+  top: 150px;
   left: 30%;
+  &.active {
+    animation: ${move} 0.2s ease;
+  }
 `;
