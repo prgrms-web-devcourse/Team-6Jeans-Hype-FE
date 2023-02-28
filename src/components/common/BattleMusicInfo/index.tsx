@@ -1,7 +1,8 @@
-import { BattleMusicInfo } from '@/components/post/battle/types';
-import { COLOR } from '@/constants/color';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+
+import { BattleMusicInfo } from '@/components/post/battle/types';
+import { COLOR } from '@/constants/color';
 
 interface Prop {
   music: BattleMusicInfo;

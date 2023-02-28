@@ -1,6 +1,7 @@
+import styled from '@emotion/styled';
+
 import { COLOR } from '@/constants/color';
 import useLike from '@/hooks/useLike';
-import styled from '@emotion/styled';
 
 interface Props {
   size: number;

@@ -1,6 +1,8 @@
+import styled from '@emotion/styled';
+
 import { Music } from '@/components/post/SearchMusics/types';
 import { COLOR } from '@/constants/color';
-import styled from '@emotion/styled';
+
 import AlbumPoster from '../AlbumPoster';
 
 interface Prop {

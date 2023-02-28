@@ -1,7 +1,8 @@
-import AlbumPoster from '@/components/common/AlbumPoster';
-import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+
+import AlbumPoster from '@/components/common/AlbumPoster';
+import { COLOR } from '@/constants/color';
 
 import { Music } from './types';
 

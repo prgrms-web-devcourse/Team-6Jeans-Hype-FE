@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 
 import { getGenres } from '@/components/post/api';
 import { COLOR } from '@/constants/color';
 import useGenre from '@/hooks/useGenre';
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
 
 interface Props {
   shouldNeedAll?: boolean;
