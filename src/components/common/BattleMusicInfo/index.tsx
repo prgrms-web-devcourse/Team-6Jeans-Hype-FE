@@ -1,25 +1,36 @@
+import { BattleMusicInfo } from '@/components/post/battle/types';
 import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
-import { BattleMusicInfo } from '../types';
 
-function MusicInfo({ musicName, musicUrl, albumCoverUrl, singer }: BattleMusicInfo) {
+interface Prop {
+  music: BattleMusicInfo;
+  onClick?(): void;
+}
+
+const BattleMusicInfo = ({ music, onClick }: Prop) => {
+  const { albumCoverUrl, musicUrl, musicName, singer } = music;
+
+  const handleClick = () => {
+    onClick?.();
+  };
+
   return (
-    <Container>
+    <Container onClick={handleClick}>
       <Wrapper>
         <Thumbnail src={albumCoverUrl}>
           <PlayIcon value={musicUrl}>
             <audio src={musicUrl} controls loop></audio>
           </PlayIcon>
-          <PlusIcon src='/images/plus-music.png' value={musicUrl} />
+          <PlusIcon src='/images/plus-music.svg' value={musicUrl} />
         </Thumbnail>
         <Title>{musicName}</Title>
         <Singer>{singer}</Singer>
       </Wrapper>
     </Container>
   );
-}
+};
 
-export default MusicInfo;
+export default BattleMusicInfo;
 
 const Container = styled.div`
   width: 45%;

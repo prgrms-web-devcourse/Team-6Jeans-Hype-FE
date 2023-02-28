@@ -3,9 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { getPostBattleData } from './api';
-import MusicInfo from './musicinfo';
 import { PostBattleInfo } from './types';
 import MyBattleList from './mybattleList';
+import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 
 function PostBattle() {
   const router = useRouter();
@@ -32,18 +32,8 @@ function PostBattle() {
       <Musics>
         {battleMusic && (
           <>
-            <MusicInfo
-              musicName={battleMusic.music.musicName}
-              musicUrl={battleMusic.music.musicUrl}
-              albumCoverUrl={battleMusic.music.albumCoverUrl}
-              singer={battleMusic.music.singer}
-            />
-            <MusicInfo
-              musicName={myListMusic.musicName}
-              musicUrl={myListMusic.musicUrl}
-              albumCoverUrl={myListMusic.albumCoverUrl}
-              singer={myListMusic.singer}
-            />
+            <BattleMusicInfo music={battleMusic.music} />
+            <BattleMusicInfo music={myListMusic} onClick={() => console.log('select song')} />
           </>
         )}
       </Musics>
