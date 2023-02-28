@@ -50,7 +50,7 @@ export default VoteResult;
 const backgroundFade = keyframes`
   0% {
     background: ${COLOR.background};
-    opacity: 0.96;
+    opacity: 0;
   }
   20% {
     background: ${COLOR.blue}
@@ -70,8 +70,8 @@ const VoteResultModal = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  animation: ${backgroundFade} 3s ease;
-  z-index: 99; ;
+  animation: ${backgroundFade} 2s ease;
+  z-index: 99;
 `;
 
 const VoteResultContainer = styled.div`
