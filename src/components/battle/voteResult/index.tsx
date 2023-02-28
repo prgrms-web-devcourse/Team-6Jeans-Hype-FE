@@ -28,9 +28,9 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
   return (
     <VoteResultModal>
       {isLoading ? (
-        <div>로딩중입니다만</div>
+        <div>skeleton으로 교체 예정</div>
       ) : (
-        <>
+        <VoteResultContainer>
           <AlbumPoster lazy={true} src={voteResult?.albumCoverUrl} size={10} />
           <Title>{voteResult?.title}</Title>
           <StaticText>를 선택하셨습니다.</StaticText>
@@ -39,7 +39,7 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
             <img src={'/images/linear-gradient-logo.svg'} alt='img' />
             {clickSide === 'right' ? selected : opposite}
           </Votes>
-        </>
+        </VoteResultContainer>
       )}
     </VoteResultModal>
   );
@@ -71,11 +71,15 @@ const VoteResultModal = styled.div`
   width: 100%;
   height: 100%;
   animation: ${backgroundFade} 3s ease;
+  z-index: 99; ;
+`;
+
+const VoteResultContainer = styled.div`
+  position: relative;
+  top: 150px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  z-index: 99; ;
 `;
 
 const Title = styled.div`

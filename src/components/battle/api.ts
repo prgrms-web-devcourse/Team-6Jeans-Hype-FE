@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const ADDRESS = process.env.NEXT_PUBLIC_API_ENDPOINT;
-const SERVER = process.env.NEXT_PUBLIC_SERVER_ENDPOINT;
+const ADDRESS = process.env.NEXT_PUBLIC_MUSIC_SEARCH_API_URL;
+const SERVER = process.env.NEXT_PUBLIC_API_URL;
 
 interface Vote {
   title: string;
