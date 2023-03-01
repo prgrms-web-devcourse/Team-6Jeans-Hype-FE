@@ -7,7 +7,7 @@ function SearchMusics() {
 
   return (
     <>
-      <Header title='추천 글쓰기' shouldNeedBack={false} selectedColor='deepblue' />
+      <Header title='추천 글쓰기' shouldNeedBack={false} />
       <PostSearchMusics
         keyword={keyword}
         tmpKeyword={tmpKeyword}

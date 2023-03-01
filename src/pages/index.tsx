@@ -24,7 +24,6 @@ export default function Home() {
         subButtonValue={'/images/search-icon.svg'}
         subButtonType='image'
         onClickSubButton={() => console.log('click!!')}
-        selectedColor='deepblue'
       />
 
       <Header
@@ -32,10 +31,9 @@ export default function Home() {
         title='테스트용2'
         subButtonValue='complete'
         onClickSubButton={() => console.log('click!!')}
-        selectedColor='deepblue'
       />
 
-      <Header shouldNeedBack={true} selectedColor='deepblue' />
+      <Header shouldNeedBack={true} />
       <BottomNav />
     </>
   );

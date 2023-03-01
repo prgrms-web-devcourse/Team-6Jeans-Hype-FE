@@ -7,7 +7,7 @@ interface Props {
   subButtonType?: 'image' | 'text';
   subButtonValue?: string;
   onClickSubButton?: any; //어떤 이벤트가 들어올지 몰라서 일단 any로 뒀음
-  selectedColor: 'white' | 'deepblue';
+  selectedColor?: 'white' | 'deepblue';
 }
 
 const Header = ({
@@ -16,14 +16,14 @@ const Header = ({
   subButtonType = 'text',
   subButtonValue,
   onClickSubButton,
-  selectedColor,
+  selectedColor = 'deepblue',
 }: Props) => {
   return (
     <HeaderContainer>
       {shouldNeedBack && (
         <button onClick={() => history.back()}>
           <img
-            src={selectedColor === 'white' ? '/images/back-white-icon.svg' : '/images/back-deepblue-icon.svg'}
+            src={selectedColor === 'deepblue' ? '/images/back-deepblue-icon.svg' : '/images/back-white-icon.svg'}
             style={{ width: '100%' }}
           />
         </button>

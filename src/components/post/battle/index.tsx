@@ -33,7 +33,7 @@ function PostBattle() {
 
   return (
     <Container>
-      <Header title='대결 신청' subButtonValue='완료' onClickSubButton='' selectedColor='deepblue' />
+      <Header title='대결 신청' subButtonValue='완료' />
       <Title>What&apos;s next?</Title>
       <Musics>
         {battleMusic && (

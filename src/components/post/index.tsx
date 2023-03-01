@@ -37,7 +37,7 @@ function PostList() {
           <img src='./images/down-arrow.png' alt='필터 버튼' />
         </Filter>
       </Title>
-      <Genres title='' onChange={onChange} />
+      <Genres onChange={onChange} />
       <FeedPostList>
         {postFeed?.map(
           ({ postId, music: { thumbnailUrl, singer, musicName, genre }, likeCount, isBattlePossible, nickname }) => (

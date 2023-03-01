@@ -24,7 +24,7 @@ function PostDetail() {
   return (
     <Container>
       <Wrapper>
-        <Header title='' subButtonValue='' onClickSubButton='' selectedColor='white' />
+        <Header selectedColor='white' />
 
         {postDetail && (
           <MusicInfo
