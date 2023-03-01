@@ -13,7 +13,7 @@ function PostBattle() {
   const [myListMusic, setMyListMusic] = useState({
     musicName: '내 대결 곡 고르기',
     musicUrl: '',
-    albumCoverUrl: '',
+    thumbnailUrl: '',
     singer: '',
   });
 
