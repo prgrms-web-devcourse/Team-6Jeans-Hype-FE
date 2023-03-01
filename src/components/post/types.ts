@@ -1,3 +1,11 @@
+export interface PostAPI {
+  success: boolean;
+  message: string;
+  data: {
+    posts: PostInfo;
+  };
+}
+
 export interface PostInfo {
   postId: number;
   music: MusicInfo;
@@ -8,7 +16,7 @@ export interface PostInfo {
 
 export interface MusicInfo {
   musicName: string;
-  thumbnailUrl: string;
+  albumCoverUrl: string;
   singer: string;
   genre: string;
 }

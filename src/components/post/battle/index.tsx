@@ -22,17 +22,13 @@ function PostBattle() {
     singer: '',
   });
 
-  const { data: battleMusic } = useQuery<PostBattleInfo>(
+  const { data: battleMusic } = useQuery<any>(
     ['post', 'battle', postId],
     () => getPostBattleData(parseInt(postId as string)),
     {
       enabled: !!postId,
     },
   );
-
-  const navigatePostMyBattleList = () => {
-    router.push(`/post/battle/mybattlelist?postId=${postId}&genre=${battleMusic?.music.genre?.genreName}`);
-  };
 
   return (
     <Container>
@@ -46,7 +42,7 @@ function PostBattle() {
           </>
         )}
       </Musics>
-      <MyBattleList genre={battleMusic?.music.genre?.genreName} />
+      <MyBattleList genre={battleMusic?.music.genre?.genreValue} />
     </Container>
   );
 }

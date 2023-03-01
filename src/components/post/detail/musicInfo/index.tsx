@@ -3,13 +3,13 @@ import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
 import { Music } from '../types';
 
-function MusicInfo({ musicName, thumbnailUrl, singer }: Music) {
+function MusicInfo({ musicName, albumCoverUrl, singer }: Music) {
   return (
     <Container>
       <Wrap>
         <Title>노래 제목 : {musicName}</Title>
         <Singer>가수 : {singer}</Singer>
-        <AlbumPoster lazy={true} size={20} src={thumbnailUrl} />
+        <AlbumPoster lazy={true} size={20} src={albumCoverUrl} />
       </Wrap>
     </Container>
   );

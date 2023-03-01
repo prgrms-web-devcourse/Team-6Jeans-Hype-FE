@@ -9,19 +9,22 @@ import { COLOR } from '@/constants/color';
 
 import { getPostDetailData } from './api';
 import MusicInfo from './musicInfo';
-import { PostDetail } from './types';
 
 function PostDetail() {
   const router = useRouter();
   const { postId } = router.query;
 
-  const { data: postDetail } = useQuery<PostDetail>(
+  const { data: postDetail } = useQuery<any>(
     ['post', 'detail', postId],
     () => getPostDetailData(parseInt(postId as string)),
     {
       enabled: !!postId,
     },
   );
+
+  const navigatePostBattle = () => {
+    router.push(`/post/battle?postId=${postId}`);
+  };
 
   return (
     <Container>
@@ -32,7 +35,7 @@ function PostDetail() {
           <MusicInfo
             musicName={postDetail.music.musicName}
             musicUrl={postDetail.music.musicUrl}
-            thumbnailUrl={postDetail.music.thumbnailUrl}
+            albumCoverUrl={postDetail.music.albumCoverUrl}
             singer={postDetail.music.singer}
             genre={postDetail.music.genre}
           />
@@ -69,13 +72,7 @@ function PostDetail() {
           </Icon>
 
           <Icon>
-            <Battle
-              size={1.5}
-              battleAbility={true}
-              onClick={() => {
-                console.log('배틀 신청');
-              }}
-            />
+            <Battle size={1.5} battleAbility={true} onClick={navigatePostBattle} />
           </Icon>
         </PostDetailEvent>
 

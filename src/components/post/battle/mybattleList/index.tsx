@@ -1,10 +1,8 @@
-import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
-
+import AlbumPoster from '@/components/common/AlbumPoster';
 import { COLOR } from '@/constants/color';
 import useConfirmModal from '@/hooks/useConfirmModal';
-
-import { MyBattlePostInfo } from '../types';
+import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
 import { getMyBattleListData } from './api';
 
 interface Props {
@@ -14,7 +12,7 @@ interface Props {
 function MyBattleList({ genre }: Props) {
   const { musicData, isOpened, onClickBattleButton, onClickConfirmButton, onClickCancelButton } = useConfirmModal();
 
-  const { data: myBattleMusicList } = useQuery<MyBattlePostInfo[]>(
+  const { data: myBattleMusicList } = useQuery<any>(
     ['post', 'battle', genre],
     () => getMyBattleListData(genre as string),
     {
@@ -27,12 +25,12 @@ function MyBattleList({ genre }: Props) {
       <Title>내 음악 목록</Title>
       <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
-          myBattleMusicList.map((list: MyBattlePostInfo) => (
+          myBattleMusicList.map((list: any) => (
             <Post
               key={list.postId}
               onClick={() => onClickBattleButton({ title: list.music.musicName, singer: list.music.singer })}
             >
-              <Thumbnail>{list.music.thumbnailUrl}</Thumbnail>
+              <AlbumPoster lazy={true} size={5} src={list.music.albumCoverUrl} />
               <TitleSinger>
                 <div>{list.music.musicName}</div>
                 <div>{list.music.singer}</div>
@@ -99,19 +97,9 @@ const Post = styled.div`
   padding: 0.5rem;
 `;
 
-const Thumbnail = styled.div`
-  background-image: url('http://www.akbobada.com/home/akbobada/archive/akbo/img/20150115102222.jpg');
-  background-position: center center;
-
-  border: 0.5px solid #dddddd;
-  border-radius: 1rem;
-
-  width: 5rem;
-  height: 5rem;
-  margin-right: 2rem;
-`;
-
 const TitleSinger = styled.div`
+  margin-left: 2rem;
+
   & div:first-of-type {
     font-style: normal;
     font-weight: 500;

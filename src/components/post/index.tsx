@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getPostFeedData } from './api';
-import { PostInfo } from './types';
+
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { COLOR } from '@/constants/color';
@@ -13,23 +13,27 @@ import BottomNav from '../common/BottomNav';
 import AlbumPoster from '../common/AlbumPoster';
 
 function PostList() {
-  const [genre, setGenre] = useState('all');
+  const [genre, setGenre] = useState('');
+  const [isPossibleBattle, setIsPossibleBattle] = useState<boolean | undefined>(undefined);
 
   const router = useRouter();
-  const { battle } = router.query;
 
-  const { data: postFeed, isLoading } = useQuery<PostInfo[]>(['postfeed', genre, battle], () => {
-    const possibleStatus = battle === 'true' ? true : battle === 'false' ? false : undefined;
-    return getPostFeedData(genre, possibleStatus);
+  const { data: postFeed } = useQuery<any>(['postfeed', genre, isPossibleBattle], () => {
+    return getPostFeedData({ genre, isPossibleBattle });
   });
 
   const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setGenre(e.target.value);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedGenre = e.target.value;
+
+    setGenre(selectedGenre);
+  };
 
   return (
     <Container>
-      {/* <Battles /> */}
+      <Genres title='장르 선택' onChange={onChange} />
+      <Battles setIsPossibleBattle={setIsPossibleBattle} />
       <Title>
         <div>한눈에 보는 추천</div>
         <Filter>
@@ -40,7 +44,13 @@ function PostList() {
       <Genres onChange={onChange} />
       <FeedPostList>
         {postFeed?.map(
-          ({ postId, music: { thumbnailUrl, singer, musicName, genre }, likeCount, isBattlePossible, nickname }) => (
+          ({
+            postId,
+            music: { albumCoverUrl, singer, musicName, genre },
+            likeCount,
+            isBattlePossible,
+            nickname,
+          }: any) => (
             <Post key={postId} onClick={() => navigatePostDetail(postId)}>
               <PostHead>
                 <PostHeadInfo>
