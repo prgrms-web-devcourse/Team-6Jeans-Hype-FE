@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 
-import ResultCard from './ResultCard';
+import { COLOR } from '@/constants/color';
 
+import DefaultImage from '../../../public/images/default-profile.svg';
+import ResultCard from './ResultCard';
 interface ResultCard {
   title: string;
   icon: string;
@@ -21,6 +23,15 @@ function UserHeader() {
   return (
     <Container>
       <Wrapper>
+        <UserContainer>
+          <DefaultProfile>
+            <DefaultImage />
+          </DefaultProfile>
+          <Info>
+            <Name>아몰랑인데요?</Name>
+            <RestTicket>남은 대결권 2</RestTicket>
+          </Info>
+        </UserContainer>
         <CardConatiner>
           <ResultCard type='ranking' />
           <ResultCard type='point' />
@@ -41,10 +52,51 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 90%;
   margin: 0 auto;
+  padding-top: 2rem;
+`;
+
+const UserContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-left: 1.8rem;
+  padding: 3rem 0;
 `;
 
 const CardConatiner = styled.div`
   display: flex;
   justify-content: center;
   gap: 1.4rem;
+  padding: 1rem 0;
+`;
+
+const DefaultProfile = styled.div`
+  width: 7.7rem;
+  height: 7.7rem;
+  border-radius: 50%;
+  background-color: ${COLOR.white};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 15px rgba(158, 158, 158, 0.25);
+`;
+
+const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const Name = styled.h1`
+  font-weight: 500;
+  font-size: 1.7rem;
+  color: ${COLOR.white};
+`;
+
+const RestTicket = styled.div`
+  width: fit-content;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.4rem 1.3rem;
+  border-radius: 5rem;
+  color: ${COLOR.white};
 `;
