@@ -2,6 +2,38 @@ import styled from '@emotion/styled';
 
 import useToggle from '@/hooks/useToggle';
 
+interface ToggleProps {
+  name: string;
+  on?: boolean;
+  disabled: boolean;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+}
+
+function Toggle({ name, on = false, disabled, onChange }: ToggleProps) {
+  const { state, toggle } = useToggle(on);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    toggle();
+    onChange?.(e);
+  };
+
+  return (
+    <ToggleContainer>
+      <ToggleInput
+        type='checkbox'
+        name={name}
+        checked={state}
+        disabled={disabled}
+        onChange={handleChange}
+        style={{ display: 'none' }}
+      />
+      <ToggleSwitch />
+    </ToggleContainer>
+  );
+}
+
+export default Toggle;
+
 const ToggleContainer = styled.label`
   display: inline-block;
   cursor: pointer;
@@ -50,35 +82,3 @@ const ToggleInput = styled.input`
     }
   }
 `;
-
-interface ToggleProps {
-  name: string;
-  on?: boolean;
-  disabled: boolean;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-}
-
-function Toggle({ name, on = false, disabled, onChange }: ToggleProps) {
-  const { state, toggle } = useToggle(on);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    toggle();
-    onChange?.(e);
-  };
-
-  return (
-    <ToggleContainer>
-      <ToggleInput
-        type='checkbox'
-        name={name}
-        checked={state}
-        disabled={disabled}
-        onChange={handleChange}
-        style={{ display: 'none' }}
-      />
-      <ToggleSwitch />
-    </ToggleContainer>
-  );
-}
-
-export default Toggle;

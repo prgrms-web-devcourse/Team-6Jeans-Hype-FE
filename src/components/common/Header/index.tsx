@@ -1,8 +1,11 @@
-import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+
+import { COLOR } from '@/constants/color';
 
 interface Props {
   shouldNeedBack?: boolean;
+  backUrl?: string;
   title?: string;
   subButtonType?: 'image' | 'text';
   subButtonValue?: string;
@@ -12,26 +15,25 @@ interface Props {
 
 const Header = ({
   shouldNeedBack = true,
+  backUrl,
   title,
   subButtonType = 'text',
   subButtonValue,
   onClickSubButton,
-  selectedColor = 'deepblue',
 }: Props) => {
+  const router = useRouter();
+
   return (
     <HeaderContainer>
-      {shouldNeedBack && (
-        <button onClick={() => history.back()}>
-          <img
-            src={selectedColor === 'deepblue' ? '/images/back-deepblue-icon.svg' : '/images/back-white-icon.svg'}
-            style={{ width: '100%' }}
-          />
+      {shouldNeedBack && backUrl && (
+        <button onClick={() => router.push(backUrl)} style={{ cursor: 'pointer' }}>
+          <img src={'/images/back-icon.svg'} style={{ width: '100%' }} alt='img' />
         </button>
       )}
       {title && <H1>{title}</H1>}
       {subButtonValue && (
         <SubButton onClick={onClickSubButton}>
-          {subButtonType === 'image' ? <img src={subButtonValue} /> : <span>{subButtonValue}</span>}
+          {subButtonType === 'image' ? <img src={subButtonValue} alt='img' /> : <span>{subButtonValue}</span>}
         </SubButton>
       )}
     </HeaderContainer>
@@ -66,4 +68,5 @@ const SubButton = styled.button`
   font-size: 1.5rem;
   color: ${COLOR.deepBlue};
   right: 0%;
+  cursor: pointer;
 `;

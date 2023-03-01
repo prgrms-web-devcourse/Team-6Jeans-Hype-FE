@@ -1,6 +1,7 @@
+import styled from '@emotion/styled';
+
 import { COLOR } from '@/constants/color';
 import useLike from '@/hooks/useLike';
-import styled from '@emotion/styled';
 
 interface Props {
   size: number;
@@ -19,7 +20,7 @@ function Like({ size, initCount, isClicked, onClick }: Props) {
 
   return (
     <LikeContainer onClick={handleClick} size={size}>
-      <img src={`/images/like-icon-${state.isClicked ? 'on' : 'off'}.svg`} />
+      <img src={`/images/like-icon-${state.isClicked ? 'on' : 'off'}.svg`} alt='img' />
       <div>{state.count}</div>
     </LikeContainer>
   );
