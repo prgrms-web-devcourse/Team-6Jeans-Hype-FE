@@ -1,7 +1,9 @@
-import { COLOR } from '@/constants/color';
-import useConfirmModal from '@/hooks/useConfirmModal';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+
+import { COLOR } from '@/constants/color';
+import useConfirmModal from '@/hooks/useConfirmModal';
+
 import { MyBattlePostInfo } from '../types';
 import { getMyBattleListData } from './api';
 

@@ -76,15 +76,12 @@ const VoteResultModal = styled.div`
 
 const VoteResultContainer = styled.div`
   position: relative;
-  top: 170px;
+  top: calc(50% + 5rem);
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-<<<<<<< HEAD
-  animation: ${backgroundFade} 3s ease;
   z-index: 99; ;
-=======
->>>>>>> 45b6c60f0a3551e5c6390fd00c77eabfe56f6699
 `;
 
 const Title = styled.div`

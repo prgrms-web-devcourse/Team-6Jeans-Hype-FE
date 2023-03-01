@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 import Genres from '@/components/common/Genres';
+import { COLOR } from '@/constants/color';
 import useVoteResult from '@/hooks/useVoteResult';
 
 import VoteResult from '../voteResult';
@@ -41,6 +42,7 @@ function Select() {
             <BattleMusicInfo music={TEMP_OBJECT2} onClick={onClickMusic} clickSide='right' />
           </BattleContainer>
         </Section>
+        <Skip>건너뛰기</Skip>
       </SelectContainer>
       {visible && <VoteResult battleId={1234} votedPostId={1234} clickSide='right' />}
     </>
@@ -58,9 +60,21 @@ const SelectContainer = styled.div`
 
 const Section = styled.div`
   position: absolute;
-  width: 100%;
+  width: calc(100% - 4rem);
   top: 50%;
   transform: translateY(-50%);
+`;
+
+const Skip = styled.div`
+  position: absolute;
+  width: calc(100% - 4rem);
+  top: 75%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: ${COLOR.blue};
+  cursor: pointer;
 `;
 
 const Text = styled.div`
