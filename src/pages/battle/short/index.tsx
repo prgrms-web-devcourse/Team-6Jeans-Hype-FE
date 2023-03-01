@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 
 import Select from '@/components/battle/select';
+import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 
 function Short() {
@@ -14,6 +15,7 @@ function Short() {
         onClickSubButton={() => router.push(`/post/battle/list`)}
       />
       <Select />
+      <BottomNav />
     </>
   );
 }

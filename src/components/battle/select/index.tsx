@@ -1,10 +1,10 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 import Genres from '@/components/common/Genres';
 import useVoteResult from '@/hooks/useVoteResult';
 
-import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 import VoteResult from '../voteResult';
 
 const TEMP =
@@ -34,10 +34,13 @@ function Select() {
     <>
       <SelectContainer>
         <Genres onChange={() => console.log('click-genre')} />
-        <BattleContainer>
-          <BattleMusicInfo music={TEMP_OBJECT} onClick={onClickMusic} clickSide='left' />
-          <BattleMusicInfo music={TEMP_OBJECT2} onClick={onClickMusic} clickSide='right' />
-        </BattleContainer>
+        <Section>
+          <Text>What’s your Hype Music?</Text>
+          <BattleContainer>
+            <BattleMusicInfo music={TEMP_OBJECT} onClick={onClickMusic} clickSide='left' />
+            <BattleMusicInfo music={TEMP_OBJECT2} onClick={onClickMusic} clickSide='right' />
+          </BattleContainer>
+        </Section>
       </SelectContainer>
       {visible && <VoteResult battleId={1234} votedPostId={1234} clickSide='right' />}
     </>
@@ -46,21 +49,28 @@ function Select() {
 
 export default Select;
 
-const move = keyframes`
-  0% {
-    left:30%;
-  }
-  15% {
-    left:50%;
-  }
-  100% {
-    left:50%;
-  }
-`;
-
 const SelectContainer = styled.div`
   width: calc(100% - 4rem);
+  height: calc(100vh - 14rem);
   padding: 2rem;
+  position: relative;
+`;
+
+const Section = styled.div`
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+const Text = styled.div`
+  font-size: 1.7rem;
+  background: linear-gradient(98.38deg, #7d74dc -1.83%, #7697ec 86.44%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  white-space: nowrap;
+  font-weight: 600;
+  text-align: center;
 `;
 
 const BattleContainer = styled.div`
