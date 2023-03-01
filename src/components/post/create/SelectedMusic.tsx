@@ -9,10 +9,6 @@ interface Props {
   selectedMusic: Music;
 }
 
-interface Url {
-  src: string;
-}
-
 function SelectedMusic({ selectedMusic }: Props) {
   const { trackName, artistName, previewUrl, artworkUrl100 } = selectedMusic;
 
