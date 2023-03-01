@@ -1,15 +1,16 @@
-import { useQuery } from '@tanstack/react-query';
-import { getPostFeedData } from './api';
-import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
-import { COLOR } from '@/constants/color';
-import Genres from '../common/Genres';
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
-import Battles from '../common/Battles';
-import TextDivider from '../common/TextDivider';
-import Battle from '../common/ImageButtons/BattleButton';
-import BottomNav from '../common/BottomNav';
+
+import { COLOR } from '@/constants/color';
+
 import AlbumPoster from '../common/AlbumPoster';
+import BottomNav from '../common/BottomNav';
+import Genres from '../common/Genres';
+import Battle from '../common/ImageButtons/BattleButton';
+import TextDivider from '../common/TextDivider';
+import { getPostFeedData } from './api';
 import { PostInfo } from './types';
 
 function PostList() {
