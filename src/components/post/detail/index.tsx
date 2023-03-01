@@ -61,7 +61,7 @@ function PostDetail() {
 
         {postDetail?.content && (
           <PostDetailContent>
-            <ContenHeader>
+            <ContentHeader>
               <Title>
                 <div></div>
                 <div>
@@ -72,7 +72,7 @@ function PostDetail() {
                   <img src='/images/down-arrow.svg' />
                 </div>
               </Title>
-            </ContenHeader>
+            </ContentHeader>
 
             <ContentBody>
               <Content>{postDetail.content}</Content>
@@ -189,7 +189,7 @@ const PostPlayIcon = styled.div`
 
 const PostDetailContent = styled.div``;
 
-const ContenHeader = styled.div`
+const ContentHeader = styled.div`
   background: ${COLOR.background};
   box-shadow: 0.5rem 0 1.5rem rgba(135, 135, 135, 0.7);
   border-radius: 2rem 2rem 0 0;
