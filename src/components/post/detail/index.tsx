@@ -5,6 +5,9 @@ import { useRouter } from 'next/router';
 import { PostDetail } from './types';
 import styled from '@emotion/styled';
 import { COLOR } from '@/constants/color';
+import Battle from '@/components/common/ImageButtons/BattleButton';
+import Like from '@/components/common/ImageButtons/LikeButton';
+import Header from '@/components/common/Header';
 
 function PostDetail() {
   const router = useRouter();
@@ -21,7 +24,7 @@ function PostDetail() {
   return (
     <Container>
       <Wrapper>
-        <PrevButton src='/images/prev-button.png' />
+        <Header selectedColor='white' />
 
         {postDetail && (
           <MusicInfo
@@ -46,17 +49,32 @@ function PostDetail() {
         </MusicPlayStatus>
 
         <PostDetailEvent>
-          <PostIcon>
-            <img src='/images/white-full-heart.png' alt='좋아요 아이콘' />
-            <span>15</span>
-          </PostIcon>
-          <PostPlayIcon>
-            <audio src={postDetail?.music.musicUrl} controls loop></audio>
-          </PostPlayIcon>
-          <PostIcon>
-            <img src='/images/white-fire.png' alt='대결 아이콘' />
-            <span>15</span>
-          </PostIcon>
+          <Icon>
+            <Like
+              size={2}
+              initCount={15}
+              isClicked={true}
+              onClick={() => {
+                console.log('좋아요');
+              }}
+            />
+          </Icon>
+
+          <Icon>
+            <PostPlayIcon>
+              <audio src={postDetail?.music.musicUrl} controls loop></audio>
+            </PostPlayIcon>
+          </Icon>
+
+          <Icon>
+            <Battle
+              size={1.5}
+              battleAbility={true}
+              onClick={() => {
+                console.log('배틀 신청');
+              }}
+            />
+          </Icon>
         </PostDetailEvent>
 
         {postDetail?.content && (
@@ -155,20 +173,10 @@ const PostDetailEvent = styled.div`
   margin: 0 auto;
 `;
 
-const PostIcon = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: ${COLOR.white};
-
-  & img {
-    margin-bottom: 0.5rem;
-  }
-  & span {
-    font-weight: 500;
-    font-size: 0.9rem;
-    line-height: 1.4rem;
-    text-align: center;
-    letter-spacing: -0.01em;
+const Icon = styled.div`
+  &:first-of-type,
+  &:last-of-type {
+    width: 18%;
   }
 `;
 
@@ -209,7 +217,7 @@ const ContentTitle = styled.div`
   display: flex;
   align-items: center;
 
-  & div:nth-child(1) {
+  & div:nth-of-type(1) {
     width: 25%;
   }
 
