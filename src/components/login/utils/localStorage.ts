@@ -1,5 +1,5 @@
 import { isServerSide } from '@/utils';
-const ACCESS_TOKEN_KEY = 'serviceAccessToken';
+const ACCESS_TOKEN_KEY = 'accessToken';
 
 export const tokenStorage = {
   get() {
