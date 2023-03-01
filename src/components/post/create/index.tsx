@@ -23,7 +23,7 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
     ['musicDetail', trackId],
     () => getMusicDetailData(trackId as string),
     {
-      onSuccess: () => {
+      onSuccess: (musicDetail) => {
         const newMusic: Music = {
           trackId: musicDetail?.trackId,
           trackName: musicDetail?.trackName,

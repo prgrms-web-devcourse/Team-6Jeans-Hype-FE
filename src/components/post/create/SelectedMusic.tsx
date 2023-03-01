@@ -95,8 +95,6 @@ const TrackName = styled.div`
 `;
 
 const ArtistName = styled.div`
-  font-family: 'Poppins_500';
-  font-style: normal;
   font-weight: 500;
   font-size: 1.2rem;
   line-height: 1.8rem;
