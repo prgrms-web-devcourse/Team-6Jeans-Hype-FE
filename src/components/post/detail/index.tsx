@@ -14,7 +14,7 @@ function PostDetail() {
   const router = useRouter();
   const { postId } = router.query;
 
-  const { data: postDetail } = useQuery<any>(
+  const { data: postDetail } = useQuery(
     ['post', 'detail', postId],
     () => getPostDetailData(parseInt(postId as string)),
     {
