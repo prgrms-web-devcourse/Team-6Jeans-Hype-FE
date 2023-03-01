@@ -18,7 +18,7 @@ function PostList() {
 
   const router = useRouter();
 
-  const { data: postFeed } = useQuery(['postfeed', genre, isPossibleBattle], () => {
+  const { data: postFeed } = useQuery<any>(['postfeed', genre, isPossibleBattle], () => {
     return getPostFeedData({ genre, isPossibleBattle });
   });
 
@@ -44,7 +44,13 @@ function PostList() {
       <Genres onChange={onChange} />
       <FeedPostList>
         {postFeed?.map(
-          ({ postId, music: { albumCoverUrl, singer, musicName, genre }, likeCount, isBattlePossible, nickname }) => (
+          ({
+            postId,
+            music: { albumCoverUrl, singer, musicName, genre },
+            likeCount,
+            isBattlePossible,
+            nickname,
+          }: any) => (
             <Post key={postId} onClick={() => navigatePostDetail(postId)}>
               <PostHead>
                 <PostHeadInfo>

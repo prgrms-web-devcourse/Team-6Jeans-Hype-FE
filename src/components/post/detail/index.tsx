@@ -14,7 +14,7 @@ function PostDetail() {
   const router = useRouter();
   const { postId } = router.query;
 
-  const { data: postDetail } = useQuery(
+  const { data: postDetail } = useQuery<any>(
     ['post', 'detail', postId],
     () => getPostDetailData(parseInt(postId as string)),
     {
@@ -72,11 +72,7 @@ function PostDetail() {
           </Icon>
 
           <Icon>
-            <Battle
-              size={1.5}
-              battleAbility={true}
-              onClick={navigatePostBattle}
-            />
+            <Battle size={1.5} battleAbility={true} onClick={navigatePostBattle} />
           </Icon>
         </PostDetailEvent>
 

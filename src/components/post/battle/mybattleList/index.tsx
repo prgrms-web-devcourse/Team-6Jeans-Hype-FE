@@ -12,16 +12,20 @@ interface Props {
 function MyBattleList({ genre }: Props) {
   const { musicData, isOpened, onClickBattleButton, onClickConfirmButton, onClickCancelButton } = useConfirmModal();
 
-  const { data: myBattleMusicList } = useQuery(['post', 'battle', genre], () => getMyBattleListData(genre as string), {
-    enabled: !!genre,
-  });
+  const { data: myBattleMusicList } = useQuery<any>(
+    ['post', 'battle', genre],
+    () => getMyBattleListData(genre as string),
+    {
+      enabled: !!genre,
+    },
+  );
 
   return (
     <Container>
       <Title>내 음악 목록</Title>
       <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
-          myBattleMusicList.map((list: MyBattlePostInfo) => (
+          myBattleMusicList.map((list: any) => (
             <Post
               key={list.postId}
               onClick={() => onClickBattleButton({ title: list.music.musicName, singer: list.music.singer })}

@@ -9,7 +9,7 @@ function MusicInfo({ musicName, albumCoverUrl, singer }: Music) {
       <Wrap>
         <Title>노래 제목 : {musicName}</Title>
         <Singer>가수 : {singer}</Singer>
-        <AlbumPoster lazy={true} size={20} src={thumbnailUrl} />
+        <AlbumPoster lazy={true} size={20} src={albumCoverUrl} />
       </Wrap>
     </Container>
   );

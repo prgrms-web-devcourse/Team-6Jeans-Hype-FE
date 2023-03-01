@@ -22,7 +22,7 @@ function PostBattle() {
     singer: '',
   });
 
-  const { data: battleMusic } = useQuery(
+  const { data: battleMusic } = useQuery<any>(
     ['post', 'battle', postId],
     () => getPostBattleData(parseInt(postId as string)),
     {
