@@ -2,14 +2,11 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 import Header from '@/components/common/Header';
 import { COLOR } from '@/constants/color';
-
 import { getPostBattleData } from './api';
 import MyBattleList from './mybattleList';
-import { PostBattleInfo } from './types';
 
 function PostBattle() {
   const router = useRouter();
@@ -20,9 +17,10 @@ function PostBattle() {
     musicUrl: '',
     thumbnailUrl: '',
     singer: '',
+    // albumCoverUrl: '',
   });
 
-  const { data: battleMusic } = useQuery<any>(
+  const { data: battleMusic } = useQuery(
     ['post', 'battle', postId],
     () => getPostBattleData(parseInt(postId as string)),
     {
@@ -74,6 +72,8 @@ const Title = styled.div`
 
 const Musics = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
   margin-bottom: 4rem;
 `;

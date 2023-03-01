@@ -1,5 +1,4 @@
 import { axiosInstance } from '@/api';
-import axios from 'axios';
 import { MyBattlePosAPI } from '../types';
 
 const SERVER = process.env.NEXT_PUBLIC_API_URL;
