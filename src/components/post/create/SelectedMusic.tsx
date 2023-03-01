@@ -1,6 +1,7 @@
+import styled from '@emotion/styled';
+
 import AlbumPoster from '@/components/common/AlbumPoster';
 import { COLOR } from '@/constants/color';
-import styled from '@emotion/styled';
 
 import { Music } from './types';
 
@@ -25,7 +26,7 @@ function SelectedMusic({ selectedMusic }: Props) {
       </Header>
       <SelectedMusicInfo>
         <PosterAndPreview>
-          <AlbumPoster lazy={true} src={artworkUrl100} size={12} blur={true} />
+          <AlbumPoster lazy={true} src={artworkUrl100} size={10} blur={true} />
           <Player>
             <audio src={previewUrl} controls loop />
           </Player>
