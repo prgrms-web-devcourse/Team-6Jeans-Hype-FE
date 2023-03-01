@@ -15,7 +15,7 @@ const TEMP2 =
   'https://is3-ssl.mzstatic.com/image/thumb/Music112/v4/52/6e/b5/526eb565-8444-3ec2-0392-c3ed55feb0b9/cover_KM0015957_1.jpg/100x100bb.jpg';
 
 function Select() {
-  const { visible, onClickMusic } = useVoteResult();
+  const { visible, position, onClickMusic } = useVoteResult();
 
   const TEMP_OBJECT = {
     musicName: '신경 쓸 게 많아서 (Feat. The Quiett)',
@@ -38,13 +38,13 @@ function Select() {
         <Section>
           <Text>What’s your Hype Music?</Text>
           <BattleContainer>
-            <BattleMusicInfo music={TEMP_OBJECT} onClick={onClickMusic} clickSide='left' />
-            <BattleMusicInfo music={TEMP_OBJECT2} onClick={onClickMusic} clickSide='right' />
+            <BattleMusicInfo music={TEMP_OBJECT} onClick={(e) => onClickMusic(e, 'left')} clickSide='left' />
+            <BattleMusicInfo music={TEMP_OBJECT2} onClick={(e) => onClickMusic(e, 'right')} clickSide='right' />
           </BattleContainer>
         </Section>
         <Skip>건너뛰기</Skip>
       </SelectContainer>
-      {visible && <VoteResult battleId={1234} votedPostId={1234} clickSide='right' />}
+      {visible && <VoteResult battleId={1234} votedPostId={1234} clickSide={position} />}
     </>
   );
 }

@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 const useVoteResult = () => {
   const [visible, setVisible] = useState<boolean>();
+  const [position, setPosition] = useState<'left' | 'right'>();
 
   const onVote = () => {
     setVisible((prev) => !prev);
@@ -11,7 +12,9 @@ const useVoteResult = () => {
     }, 1800);
   };
 
-  const onClickMusic = (e: any) => {
+  const onClickMusic = (e: any, clickSide: 'left' | 'right') => {
+    setPosition(clickSide);
+
     const { target } = e;
 
     if (target) {
@@ -35,7 +38,7 @@ const useVoteResult = () => {
     }
   };
 
-  return { visible, onClickMusic };
+  return { visible, position, onClickMusic };
 };
 
 export default useVoteResult;

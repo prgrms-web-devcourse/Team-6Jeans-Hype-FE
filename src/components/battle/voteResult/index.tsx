@@ -10,7 +10,7 @@ import { createBattleVote } from '../api';
 interface Props {
   battleId: number;
   votedPostId: number;
-  clickSide: 'left' | 'right';
+  clickSide: 'left' | 'right' | undefined;
 }
 
 function VoteResult({ battleId, votedPostId, clickSide }: Props) {
