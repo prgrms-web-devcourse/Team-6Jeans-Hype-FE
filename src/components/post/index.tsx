@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { getPostFeedData } from './api';
-
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { COLOR } from '@/constants/color';
@@ -11,6 +10,7 @@ import TextDivider from '../common/TextDivider';
 import Battle from '../common/ImageButtons/BattleButton';
 import BottomNav from '../common/BottomNav';
 import AlbumPoster from '../common/AlbumPoster';
+import { PostInfo } from './types';
 
 function PostList() {
   const [genre, setGenre] = useState('');
@@ -18,7 +18,7 @@ function PostList() {
 
   const router = useRouter();
 
-  const { data: postFeed } = useQuery<any>(['postfeed', genre, isPossibleBattle], () => {
+  const { data: postFeed } = useQuery(['postfeed', genre, isPossibleBattle], () => {
     return getPostFeedData({ genre, isPossibleBattle });
   });
 
@@ -32,8 +32,6 @@ function PostList() {
 
   return (
     <Container>
-      <Genres title='장르 선택' onChange={onChange} />
-      <Battles setIsPossibleBattle={setIsPossibleBattle} />
       <Title>
         <div>한눈에 보는 추천</div>
         <Filter>
@@ -42,6 +40,8 @@ function PostList() {
         </Filter>
       </Title>
       <Genres onChange={onChange} />
+      <Battles setIsPossibleBattle={setIsPossibleBattle} />
+
       <FeedPostList>
         {postFeed?.map(
           ({
@@ -50,7 +50,7 @@ function PostList() {
             likeCount,
             isBattlePossible,
             nickname,
-          }: any) => (
+          }: PostInfo) => (
             <Post key={postId} onClick={() => navigatePostDetail(postId)}>
               <PostHead>
                 <PostHeadInfo>
@@ -106,6 +106,7 @@ const Title = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1rem;
 
   & > div:first-of-type {
     font-weight: 700;

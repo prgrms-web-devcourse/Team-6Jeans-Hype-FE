@@ -2,7 +2,7 @@ export interface PostAPI {
   success: boolean;
   message: string;
   data: {
-    posts: PostInfo;
+    posts: PostInfo[];
   };
 }
 
