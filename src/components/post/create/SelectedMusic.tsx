@@ -18,7 +18,7 @@ function SelectedMusic({ selectedMusic }: Props) {
     <div>
       <Header>
         <span>선택한 음악</span>
-        <button onClick={() => router.push('/post/searchMusics')} style={{ cursor: 'pointer' }}>
+        <button type='button' onClick={() => router.push('/post/searchMusics')} style={{ cursor: 'pointer' }}>
           <img src={'/images/post-cancel-button.svg'} alt='img' />
         </button>
       </Header>
