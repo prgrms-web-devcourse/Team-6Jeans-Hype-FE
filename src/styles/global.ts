@@ -14,6 +14,7 @@ export const global = css`
   html,
   body {
     max-width: 768px;
+    min-width: 350px;
     margin: 0 auto;
     height: 100%;
   }

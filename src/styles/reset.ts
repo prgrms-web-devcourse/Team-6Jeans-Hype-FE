@@ -142,6 +142,7 @@ const reset = css`
     border: none;
     resize: none;
     outline: none;
+    font-family: inherit;
   }
   a {
     color: ${COLOR.black};
