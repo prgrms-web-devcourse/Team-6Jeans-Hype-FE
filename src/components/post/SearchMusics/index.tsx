@@ -26,7 +26,7 @@ function SearchMusics({ keyword, tmpKeyword, onChangeKeyword, onClickInSearchBut
         <MusicList onClickInMusicList={onClickInMusicList} keyword={keyword} />
       ) : (
         <InitContainer>
-          <img src={'/images/translucent-logo.svg'} />
+          <img src={'/images/translucent-logo.svg'} alt='img' />
           <span>검색 후 음악을 선택하세요.</span>
         </InitContainer>
       )}

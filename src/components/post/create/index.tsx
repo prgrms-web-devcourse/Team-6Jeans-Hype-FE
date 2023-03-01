@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import Genres from '@/components/common/Genres';
-import { getMusicDetailData } from '../api';
 
 import Toggle from '../../common/Toggle';
+import { getMusicDetailData } from '../api';
 import SelectedMusic from './SelectedMusic';
 import { Music, Values } from './types';
 
@@ -27,20 +27,20 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
   useEffect(() => {
     if (!isLoading) {
       const newMusic: Music = {
-        trackId: musicDetail.trackId,
-        trackName: musicDetail.trackName,
-        artistName: musicDetail.artistName,
-        artworkUrl100: musicDetail.artworkUrl100,
-        previewUrl: musicDetail.previewUrl,
+        trackId: musicDetail?.trackId,
+        trackName: musicDetail?.trackName,
+        artistName: musicDetail?.artistName,
+        artworkUrl100: musicDetail?.artworkUrl100,
+        previewUrl: musicDetail?.previewUrl,
       };
 
       onChangeMusicInfo(newMusic);
     }
-  }, [isLoading]);
+  });
 
   return (
     <CreateContainer onSubmit={onSubmit}>
-      <Row>{isLoading ? <div>로딩중,,,</div> : <SelectedMusic selectedMusic={values.musicInfo} />}</Row>
+      <Row>{!isLoading && <SelectedMusic selectedMusic={values.musicInfo} />}</Row>
       <Row>
         <Genres title='장르 선택' onChange={onChangeValues} />
       </Row>

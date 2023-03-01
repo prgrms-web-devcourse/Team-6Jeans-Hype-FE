@@ -19,24 +19,24 @@ function MyBattleList({ genre }: Props) {
   return (
     <Container>
       <Title>내 음악 목록</Title>
-      <MyMusicList>
+      <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
           myBattleMusicList.map((list: MyBattlePostInfo) => (
-            <MusicPost
+            <Post
               key={list.postId}
               onClick={() => onClickBattleButton({ title: list.music.musicName, singer: list.music.singer })}
             >
               <AlbumPoster lazy={true} size={5} src={list.music.albumCoverUrl} />
-              <MusicTitleSinger>
+              <TitleSinger>
                 <div>{list.music.musicName}</div>
                 <div>{list.music.singer}</div>
-              </MusicTitleSinger>
-            </MusicPost>
+              </TitleSinger>
+            </Post>
           ))
         ) : (
           <div>리스트가 없습니다</div>
         )}
-      </MyMusicList>
+      </MyList>
       {isOpened && (
         <div
           style={{
@@ -77,12 +77,12 @@ const Title = styled.div`
   margin-bottom: 2rem;
 `;
 
-const MyMusicList = styled.div`
+const MyList = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const MusicPost = styled.div`
+const Post = styled.div`
   background: ${COLOR.white};
   box-shadow: 0 0 1rem rgba(226, 226, 226, 0.25);
   border-radius: 1rem;
@@ -93,7 +93,7 @@ const MusicPost = styled.div`
   padding: 0.5rem;
 `;
 
-const MusicTitleSinger = styled.div`
+const TitleSinger = styled.div`
   margin-left: 2rem;
 
   & div:first-of-type {

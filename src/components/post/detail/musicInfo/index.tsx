@@ -1,39 +1,37 @@
+import AlbumPoster from '@/components/common/AlbumPoster';
 import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
 import { Music } from '../types';
 
 function MusicInfo({ musicName, albumCoverUrl, singer }: Music) {
   return (
-    <MusicInfoContainer>
-      <MusicItem>
-        <MusicTitle>{musicName}</MusicTitle>
-        <MusicSinger>{singer}</MusicSinger>
-        <MusicThumbnail albumCoverUrl={albumCoverUrl} />
-      </MusicItem>
-    </MusicInfoContainer>
+    <Container>
+      <Wrap>
+        <Title>노래 제목 : {musicName}</Title>
+        <Singer>가수 : {singer}</Singer>
+        <AlbumPoster lazy={true} size={20} src={thumbnailUrl} />
+      </Wrap>
+    </Container>
   );
 }
 
 export default MusicInfo;
 
-interface StyleProps {
-  albumCoverUrl: string;
-}
-
-const MusicInfoContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 50%;
   margin: 8rem auto 0 auto;
 `;
 
-const MusicItem = styled.div`
+const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 4rem;
 `;
 
-const MusicTitle = styled.div`
+const Title = styled.div`
   font-style: normal;
   font-weight: 700;
   font-size: 1.5rem;
@@ -43,7 +41,7 @@ const MusicTitle = styled.div`
   color: ${COLOR.white};
 `;
 
-const MusicSinger = styled.div`
+const Singer = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 1.2rem;
@@ -53,17 +51,4 @@ const MusicSinger = styled.div`
   text-align: center;
 
   color: ${COLOR.white};
-`;
-
-const MusicThumbnail = styled.div`
-  background-image: url(${({ albumCoverUrl }: StyleProps) => albumCoverUrl});
-  background-position: center center;
-  background-repeat: no-repeat;
-
-  filter: drop-shadow(0 0 1.5rem rgba(158, 158, 158, 0.25));
-  border-radius: 1rem;
-
-  width: 20rem;
-  height: 20rem;
-  margin-bottom: 4rem;
 `;

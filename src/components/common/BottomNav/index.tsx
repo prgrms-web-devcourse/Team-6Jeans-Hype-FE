@@ -1,7 +1,8 @@
-import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+
+import { COLOR } from '@/constants/color';
 
 interface Button {
   src: string;
@@ -11,7 +12,7 @@ interface Button {
 
 const buttonList = [
   { src: 'main', text: '메인', path: '/' },
-  { src: 'battle', text: '대결', path: '/tmp' },
+  { src: 'battle', text: '대결', path: '/battle/short' },
   { src: 'share', text: '공유', path: '/post/searchMusics' },
   { src: 'feed', text: '피드', path: '/post' },
   { src: 'mypage', text: '마이페이지', path: '/tmp' },
@@ -52,12 +53,15 @@ const BottomNavContainer = styled.div`
   width: 100%;
   max-width: 76.8rem;
   position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 0;
 
   display: flex;
   box-shadow: 0.5rem 0 1.5rem rgba(135, 135, 135, 0.7);
   border-radius: 2rem 2rem 0 0;
-  height: 8rem; ;
+  height: 8rem;
+  background-color: ${COLOR.white};
 `;
 
 const Buttons = styled.div`
