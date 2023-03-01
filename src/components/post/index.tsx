@@ -34,20 +34,20 @@ function PostList() {
         <div>한눈에 보는 추천</div>
         <Filter>
           <div>최신순</div>
-          <img src='./images/down-arrow.png' alt='필터 버튼' />
+          <img src='./images/down-arrow-gray.svg' alt='필터 버튼' />
         </Filter>
       </Title>
       <Genres onChange={onChange} />
       <FeedPostList>
         {postFeed?.map(
           ({ postId, music: { thumbnailUrl, singer, musicName, genre }, likeCount, isBattlePossible, nickname }) => (
-            <FeedPost key={postId} onClick={() => navigatePostDetail(postId)}>
-              <FeedPostHead>
-                <FeedPostHeadInfo>
+            <Post key={postId} onClick={() => navigatePostDetail(postId)}>
+              <PostHead>
+                <PostHeadInfo>
                   <TextDivider text1={nickname} text2='2020-02-05' />
-                </FeedPostHeadInfo>
-              </FeedPostHead>
-              <FeedPostBody>
+                </PostHeadInfo>
+              </PostHead>
+              <PostBody>
                 <AlbumPoster
                   lazy={true}
                   size={8}
@@ -75,8 +75,8 @@ function PostList() {
                     }}
                   />
                 </PostIcons>
-              </FeedPostBody>
-            </FeedPost>
+              </PostBody>
+            </Post>
           ),
         )}
       </FeedPostList>
@@ -128,19 +128,19 @@ const FeedPostList = styled.div`
   margin-top: 1rem;
 `;
 
-const FeedPost = styled.div`
+const Post = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
 
-const FeedPostHead = styled.div`
+const PostHead = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 1rem;
 `;
 
-const FeedPostHeadInfo = styled.div`
+const PostHeadInfo = styled.div`
   display: flex;
   align-items: center;
 
@@ -163,10 +163,10 @@ const FeedPostHeadInfo = styled.div`
   }
 `;
 
-const FeedPostBody = styled.div`
+const PostBody = styled.div`
   display: flex;
   align-items: center;
-  background: #ffffff;
+  background: ${COLOR.white};
   box-shadow: 0px 0px 10px rgba(226, 226, 226, 0.25);
   border-radius: 1rem;
 

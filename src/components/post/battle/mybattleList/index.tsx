@@ -23,24 +23,24 @@ function MyBattleList({ genre }: Props) {
   return (
     <Container>
       <Title>내 음악 목록</Title>
-      <MyMusicList>
+      <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
           myBattleMusicList.map((list: MyBattlePostInfo) => (
-            <MusicPost
+            <Post
               key={list.postId}
               onClick={() => onClickBattleButton({ title: list.music.musicName, singer: list.music.singer })}
             >
-              <MusicThumbnail>{list.music.thumbnailUrl}</MusicThumbnail>
-              <MusicTitleSinger>
+              <Thumbnail>{list.music.thumbnailUrl}</Thumbnail>
+              <TitleSinger>
                 <div>{list.music.musicName}</div>
                 <div>{list.music.singer}</div>
-              </MusicTitleSinger>
-            </MusicPost>
+              </TitleSinger>
+            </Post>
           ))
         ) : (
           <div>리스트가 없습니다</div>
         )}
-      </MyMusicList>
+      </MyList>
       {isOpened && (
         <div
           style={{
@@ -81,12 +81,12 @@ const Title = styled.div`
   margin-bottom: 2rem;
 `;
 
-const MyMusicList = styled.div`
+const MyList = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const MusicPost = styled.div`
+const Post = styled.div`
   background: ${COLOR.white};
   box-shadow: 0 0 1rem rgba(226, 226, 226, 0.25);
   border-radius: 1rem;
@@ -97,7 +97,7 @@ const MusicPost = styled.div`
   padding: 0.5rem;
 `;
 
-const MusicThumbnail = styled.div`
+const Thumbnail = styled.div`
   background-image: url('http://www.akbobada.com/home/akbobada/archive/akbo/img/20150115102222.jpg');
   background-position: center center;
 
@@ -109,7 +109,7 @@ const MusicThumbnail = styled.div`
   margin-right: 2rem;
 `;
 
-const MusicTitleSinger = styled.div`
+const TitleSinger = styled.div`
   & div:first-of-type {
     font-style: normal;
     font-weight: 500;
