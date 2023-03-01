@@ -6,8 +6,7 @@ interface Props {
 
 function Battles({ setIsPossibleBattle }: Props) {
   const changeBattleStatus = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (e.currentTarget.value === '대결 가능') setIsPossibleBattle(true);
-    else setIsPossibleBattle(false);
+    setIsPossibleBattle(e.currentTarget.value === '대결 가능');
   };
 
   return (

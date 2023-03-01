@@ -1,3 +1,11 @@
+export interface PostAPI {
+  success: boolean;
+  message: string;
+  data: {
+    posts: PostInfo;
+  };
+}
+
 export interface PostInfo {
   postId: number;
   music: MusicInfo;

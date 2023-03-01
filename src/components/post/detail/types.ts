@@ -1,3 +1,9 @@
+export interface PostDetailAPI {
+  success: boolean;
+  message: string;
+  data: PostDetail;
+}
+
 export interface PostDetail {
   music: Music;
   likeCount: number;

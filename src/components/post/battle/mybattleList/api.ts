@@ -1,4 +1,6 @@
+import { axiosInstance } from '@/api';
 import axios from 'axios';
+import { MyBattlePosAPI } from '../types';
 
 const SERVER = process.env.NEXT_PUBLIC_API_URL;
 
@@ -7,7 +9,9 @@ const TEMP_TOKEN =
 
 export const getMyBattleListData = async (genre: string) => {
   try {
-    const response = await axios.get(`${SERVER}/posts/battle/candidates`, {
+    const { data } = await axiosInstance.request<MyBattlePosAPI>({
+      method: 'GET',
+      url: `${SERVER}/posts/battle/candidates`,
       params: { genre },
       headers: {
         'Content-Type': 'application/json',
@@ -15,8 +19,8 @@ export const getMyBattleListData = async (genre: string) => {
       },
     });
 
-    if (response.data.success) {
-      return response.data.data.posts;
+    if (data.success) {
+      return data.data.posts;
     } else {
       return [];
     }

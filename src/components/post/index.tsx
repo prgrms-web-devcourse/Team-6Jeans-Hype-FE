@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getPostFeedData } from './api';
-import { PostInfo } from './types';
+
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { COLOR } from '@/constants/color';
@@ -14,7 +14,7 @@ function PostList() {
 
   const router = useRouter();
 
-  const { data: postFeed } = useQuery<PostInfo[]>(['postfeed', genre, isPossibleBattle], () => {
+  const { data: postFeed } = useQuery(['postfeed', genre, isPossibleBattle], () => {
     return getPostFeedData({ genre, isPossibleBattle });
   });
 

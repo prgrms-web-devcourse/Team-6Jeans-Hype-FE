@@ -1,17 +1,18 @@
+import { axiosInstance } from '@/api';
 import axios from 'axios';
+import { PostBattleAPI } from './types';
 
 const SERVER = process.env.NEXT_PUBLIC_API_URL;
 
 export const getPostBattleData = async (postId: number) => {
   try {
-    const response = await axios.get(`${SERVER}/posts/${postId}`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const { data } = await axiosInstance.request<PostBattleAPI>({
+      method: 'GET',
+      url: `${SERVER}/posts/${postId}`,
     });
 
-    if (response.data.success) {
-      return response.data.data;
+    if (data.success) {
+      return data.data;
     } else {
       return [];
     }

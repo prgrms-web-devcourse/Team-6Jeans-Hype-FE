@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { Music } from '../types';
 
 function MusicInfo({ musicName, albumCoverUrl, singer }: Music) {
-  console.log(albumCoverUrl);
   return (
     <MusicInfoContainer>
       <MusicItem>

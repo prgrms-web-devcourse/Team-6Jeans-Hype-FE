@@ -1,4 +1,6 @@
+import { axiosInstance } from '@/api';
 import axios from 'axios';
+import { PostAPI } from './types';
 
 import { Values } from './create/types';
 
@@ -15,18 +17,17 @@ interface Props {
 
 export const getPostFeedData = async ({ genre, isPossibleBattle }: Props) => {
   try {
-    const response = await axios.get(`${SERVER}/posts`, {
+    const { data } = await axiosInstance.request<PostAPI>({
+      method: 'GET',
+      url: `${SERVER}/posts`,
       params: {
         genre,
         possible: isPossibleBattle,
       },
-      headers: {
-        'Content-Type': 'application/json',
-      },
     });
 
-    if (response.data.success) {
-      return response.data.data.posts;
+    if (data.success) {
+      return data.data.posts;
     } else {
       return [];
     }

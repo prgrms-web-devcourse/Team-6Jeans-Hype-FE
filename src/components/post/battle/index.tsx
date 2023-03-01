@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { getPostBattleData } from './api';
-import { PostBattleInfo } from './types';
 import MyBattleList from './mybattleList';
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 
@@ -18,7 +17,7 @@ function PostBattle() {
     singer: '',
   });
 
-  const { data: battleMusic } = useQuery<PostBattleInfo>(
+  const { data: battleMusic } = useQuery(
     ['post', 'battle', postId],
     () => getPostBattleData(parseInt(postId as string)),
     {

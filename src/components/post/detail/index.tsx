@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { getPostDetailData } from './api';
 import MusicInfo from './musicInfo';
 import { useRouter } from 'next/router';
-import { PostDetail } from './types';
 import styled from '@emotion/styled';
 import { COLOR } from '@/constants/color';
 
@@ -10,7 +9,7 @@ function PostDetail() {
   const router = useRouter();
   const { postId } = router.query;
 
-  const { data: postDetail } = useQuery<PostDetail>(
+  const { data: postDetail } = useQuery(
     ['post', 'detail', postId],
     () => getPostDetailData(parseInt(postId as string)),
     {
