@@ -53,7 +53,7 @@ const AlbumPoster = ({ lazy, threshold = 0.5, src, size, blur = false }: Props) 
   return (
     <ImgContainer ref={imgRef} size={size} style={{ opacity: loaded ? 1 : 0 }}>
       {blur && <div />}
-      <img src={loaded ? src : '/images/translucent-logo.svg'} alt='albumPoster' />
+      <img src={loaded ? src : '/images/translucent-logo.svg'} />
     </ImgContainer>
   );
 };
@@ -68,7 +68,7 @@ interface StyleProps {
 const ImgContainer = styled.div`
   width: ${({ size }: StyleProps) => `${size}rem`};
   height: ${({ size }: StyleProps) => `${size}rem`};
-  border-radius: 1rem;
+  border-radius: 10px;
   background: #fff;
   filter: drop-shadow(0px 0px 15px rgba(158, 158, 158, 0.25));
 
@@ -80,17 +80,16 @@ const ImgContainer = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 1rem;
+    border-radius: 10px;
   }
 
   & > img {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: calc(100% - 10px);
+    max-height: calc(100% - 10px);
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     object-fit: cover;
-    border-radius: 1rem;
   }
 `;
