@@ -43,9 +43,10 @@ const Header = ({
 export default Header;
 
 const HeaderContainer = styled.div`
+  width: calc(100% - 4rem);
   height: 6rem;
+  padding: 0 2rem;
   display: flex;
-  width: 100%;
   justify-content: space-between;
   margin-bottom: 1.5rem;
   align-items: center;

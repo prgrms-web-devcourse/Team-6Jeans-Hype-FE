@@ -53,7 +53,7 @@ const AlbumPoster = ({ lazy, threshold = 0.5, src, size, blur = false }: Props) 
   return (
     <ImgContainer ref={imgRef} size={size} style={{ opacity: loaded ? 1 : 0 }}>
       {blur && <div />}
-      <img src={loaded ? src : '/images/translucent-logo.svg'} alt='img' />
+      <img src={loaded ? src : '/images/translucent-logo.svg'} />
     </ImgContainer>
   );
 };

@@ -24,7 +24,7 @@ function SelectedMusic({ selectedMusic }: Props) {
       </Header>
       <SelectedMusicInfo>
         <PosterAndPreview>
-          <AlbumPoster lazy={true} src={artworkUrl100} size={12} blur={true} />
+          <AlbumPoster lazy={true} src={artworkUrl100} size={10} blur={true} />
           <Player>
             <audio src={previewUrl} controls loop />
           </Player>

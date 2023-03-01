@@ -39,8 +39,7 @@ const Card = styled.div`
   display: flex;
   align-items: center;
   margin: 1rem 0;
-  padding: 0.3rem;
-  height: 7rem;
+  height: 6.4rem;
   box-shadow: 0 0 1rem rgba(226, 226, 226, 0.25);
   background-color: ${COLOR.white};
   border-radius: 1rem;
