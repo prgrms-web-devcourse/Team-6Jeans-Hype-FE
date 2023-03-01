@@ -20,7 +20,7 @@ const BattleMusicInfo = ({ music, onClick, clickSide }: Prop) => {
   return (
     <Container>
       <Wrapper onClick={handleClick} className='container'>
-        <Thumbnail src={music.albumCoverUrl} clickSide={clickSide}>
+        <Thumbnail src={thumbnailUrl} clickSide={clickSide}>
           <PlayIcon value={musicUrl}>
             <audio src={musicUrl} controls loop></audio>
           </PlayIcon>
