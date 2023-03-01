@@ -3,9 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { getPostBattleData } from './api';
-import MusicInfo from './musicinfo';
 import { PostBattleInfo } from './types';
 import MyBattleList from './mybattleList';
+import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 import Header from '@/components/common/Header';
 
 function PostBattle() {
@@ -38,19 +38,8 @@ function PostBattle() {
       <Musics>
         {battleMusic && (
           <>
-            <MusicInfo
-              musicName={battleMusic.music.musicName}
-              musicUrl={battleMusic.music.musicUrl}
-              thumbnailUrl={battleMusic.music.thumbnailUrl}
-              singer={battleMusic.music.singer}
-            />
-            <MusicInfo
-              musicName={myListMusic.musicName}
-              musicUrl={myListMusic.musicUrl}
-              thumbnailUrl={myListMusic.thumbnailUrl}
-              singer={myListMusic.singer}
-            />
-            {/* <button onClick={navigatePostMyBattleList}>내 대결 곡 고르기</button> */}
+            <BattleMusicInfo music={battleMusic.music} />
+            <BattleMusicInfo music={myListMusic} onClick={() => console.log('select song')} />
           </>
         )}
       </Musics>
