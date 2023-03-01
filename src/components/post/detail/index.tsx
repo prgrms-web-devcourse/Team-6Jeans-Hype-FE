@@ -80,14 +80,12 @@ function PostDetail() {
           <PostDetailContent>
             <ContentHeader>
               <Title>
-                <div></div>
-                <div>
-                  <div>{postDetail?.nickname}</div>
-                  <div>님의 한마디</div>
-                </div>
-                <div>
+                <Info>
+                  <strong>{postDetail?.nickname}</strong> 님의 한마디
+                </Info>
+                <ImageWrapper>
                   <img src='/images/down-arrow.svg' alt='img' />
-                </div>
+                </ImageWrapper>
               </Title>
             </ContentHeader>
 
@@ -210,43 +208,22 @@ const ContentHeader = styled.div`
 `;
 
 const Title = styled.div`
-  width: 90%;
-  margin: 0 auto;
-
   display: flex;
   align-items: center;
+  justify-content: center;
+  position: relative;
+`;
 
-  & div:nth-of-type(1) {
-    width: 25%;
+const Info = styled.div`
+  font-size: 1.3rem;
+  & > strong {
+    font-weight: 600;
   }
+`;
 
-  & div:nth-of-type(2) {
-    width: 50%;
-
-    font-style: normal;
-    font-size: 1.5rem;
-    line-height: 2.2rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: ${COLOR.deepBlue};
-
-    & div:nth-of-type(1) {
-      font-weight: 700;
-    }
-    & div:nth-of-type(2) {
-      font-weight: 500;
-      margin-left: -0.5rem;
-    }
-  }
-
-  & div:nth-of-type(3) {
-    width: 25%;
-    text-align: right;
-    cursor: pointer;
-  }
+const ImageWrapper = styled.div`
+  position: absolute;
+  right: 3rem;
 `;
 
 const ContentBody = styled.div`

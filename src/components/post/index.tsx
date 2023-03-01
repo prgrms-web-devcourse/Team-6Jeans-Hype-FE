@@ -40,7 +40,7 @@ function PostList() {
         </Filter>
       </Title>
       <Genres onChange={onChange} />
-      <Battles setIsPossibleBattle={setIsPossibleBattle} />
+      {/* <Battles setIsPossibleBattle={setIsPossibleBattle} /> */}
 
       <FeedPostList>
         {postFeed?.map(
@@ -58,11 +58,7 @@ function PostList() {
                 </PostHeadInfo>
               </PostHead>
               <PostBody>
-                <AlbumPoster
-                  lazy={true}
-                  size={8}
-                  src='http://www.akbobada.com/home/akbobada/archive/akbo/img/20150115102222.jpg'
-                />
+                <AlbumPoster lazy={true} size={8} src={albumCoverUrl} />
                 <PostmusicInfo>
                   <div>{musicName}</div>
                   <div>
@@ -70,13 +66,13 @@ function PostList() {
                   </div>
                 </PostmusicInfo>
                 <PostIcons>
-                  <Battle
+                  {/* <Battle
                     size={1}
                     battleAbility={false}
                     onClick={() => {
                       console.log('배틀 신청');
                     }}
-                  />
+                  /> */}
                   <Battle
                     size={1}
                     battleAbility={false}
@@ -99,14 +95,15 @@ export default PostList;
 
 const Container = styled.div`
   width: 90%;
-  margin: 2rem auto;
+  margin: 0 auto;
+  padding: 2rem 0;
 `;
 
 const Title = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 
   & > div:first-of-type {
     font-weight: 700;
@@ -136,7 +133,10 @@ const Filter = styled.div`
 const FeedPostList = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 1rem;
+  gap: 1rem;
+
+  margin-top: 5rem;
+  padding-bottom: 8rem;
 `;
 
 const Post = styled.div`
