@@ -17,16 +17,20 @@ const useVoteResult = () => {
     if (target) {
       const parent = target.closest('.container');
       const newTarget = parent.firstChild;
-      const tmpClassName = newTarget.className;
 
-      newTarget.className = `${tmpClassName} active`;
+      const savedClassName = newTarget.className;
+      const savedHTML = newTarget.innerHTML;
+
+      newTarget.className = `${savedClassName} active`;
+      newTarget.innerHTML = '';
 
       setTimeout(() => {
         onVote();
       }, 200);
 
       setTimeout(() => {
-        newTarget.className = `${tmpClassName}`;
+        newTarget.className = savedClassName;
+        newTarget.innerHTML = savedHTML;
       }, 1800);
     }
   };
