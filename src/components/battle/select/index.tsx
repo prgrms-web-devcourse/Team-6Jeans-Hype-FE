@@ -67,9 +67,10 @@ const Section = styled.div`
 
 const Skip = styled.div`
   position: absolute;
-  width: calc(100% - 4rem);
+  width: 20rem;
+  left: 50%;
   top: 75%;
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
   text-align: center;
   font-weight: 700;
   font-size: 1.3rem;
