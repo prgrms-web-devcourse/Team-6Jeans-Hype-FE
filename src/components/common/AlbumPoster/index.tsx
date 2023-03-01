@@ -68,7 +68,7 @@ interface StyleProps {
 const ImgContainer = styled.div`
   width: ${({ size }: StyleProps) => `${size}rem`};
   height: ${({ size }: StyleProps) => `${size}rem`};
-  border-radius: 10px;
+  border-radius: 1rem;
   background: #fff;
   filter: drop-shadow(0px 0px 15px rgba(158, 158, 158, 0.25));
 
@@ -80,16 +80,17 @@ const ImgContainer = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    border-radius: 1rem;
   }
 
   & > img {
-    max-width: calc(100% - 10px);
-    max-height: calc(100% - 10px);
+    max-width: 100%;
+    max-height: 100%;
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     object-fit: cover;
+    border-radius: 1rem;
   }
 `;
