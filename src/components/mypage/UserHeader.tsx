@@ -57,9 +57,10 @@ const Wrapper = styled.div`
 
 const UserContainer = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 2rem;
-  margin-left: 1.8rem;
+  margin-left: -11.5rem;
   padding: 3rem 0;
 `;
 
