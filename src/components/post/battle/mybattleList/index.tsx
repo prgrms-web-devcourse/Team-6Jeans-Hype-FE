@@ -8,9 +8,10 @@ import { getMyBattleListData } from './api';
 
 interface Props {
   genre?: string;
+  listView: boolean;
 }
 
-function MyBattleList({ genre }: Props) {
+function MyBattleList({ genre, listView }: Props) {
   const { musicData, isOpened, onClickBattleButton, onClickConfirmButton, onClickCancelButton } = useConfirmModal();
 
   const { data: myBattleMusicList } = useQuery(['post', 'battle', genre], () => getMyBattleListData(genre as string), {
@@ -18,7 +19,7 @@ function MyBattleList({ genre }: Props) {
   });
 
   return (
-    <Container>
+    <Container listView={listView}>
       <Title>내 음악 목록</Title>
       <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
@@ -61,7 +62,13 @@ function MyBattleList({ genre }: Props) {
 
 export default MyBattleList;
 
-const Container = styled.div``;
+interface StyleProps {
+  listView: boolean;
+}
+
+const Container = styled.div`
+  display: ${({ listView }: StyleProps) => (listView ? 'block' : 'none')};
+`;
 
 const Title = styled.div`
   font-style: normal;

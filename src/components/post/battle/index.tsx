@@ -11,6 +11,7 @@ import MyBattleList from './mybattleList';
 function PostBattle() {
   const router = useRouter();
   const { postId } = router.query;
+  const [listView, setListView] = useState(false);
 
   const [myListMusic, setMyListMusic] = useState({
     musicName: '내 대결 곡 고르기',
@@ -19,6 +20,8 @@ function PostBattle() {
     singer: '',
     // albumCoverUrl: '',
   });
+
+  const renderMyList = () => setListView(true);
 
   const { data: battleMusic } = useQuery(
     ['post', 'battle', postId],
@@ -36,11 +39,11 @@ function PostBattle() {
         {battleMusic && (
           <>
             <BattleMusicInfo music={battleMusic.music} />
-            <BattleMusicInfo music={myListMusic} onClick={() => console.log('select song')} />
+            <BattleMusicInfo music={myListMusic} onClick={renderMyList} />
           </>
         )}
       </Musics>
-      <MyBattleList genre={battleMusic?.music.genre?.genreValue} />
+      <MyBattleList genre={battleMusic?.music.genre?.genreValue} listView={listView} />
     </Container>
   );
 }
