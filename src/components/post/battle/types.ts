@@ -2,7 +2,7 @@ export interface MyBattlePosAPI {
   success: boolean;
   message: string;
   data: {
-    posts: MyBattlePostInfo;
+    posts: MyBattlePostInfo[];
   };
 }
 

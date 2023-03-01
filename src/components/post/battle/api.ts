@@ -1,5 +1,4 @@
 import { axiosInstance } from '@/api';
-import axios from 'axios';
 import { PostBattleAPI } from './types';
 
 const SERVER = process.env.NEXT_PUBLIC_API_URL;
@@ -14,7 +13,7 @@ export const getPostBattleData = async (postId: number) => {
     if (data.success) {
       return data.data;
     } else {
-      return [];
+      return null;
     }
   } catch {
     throw new Error('데이터 요청 실패');

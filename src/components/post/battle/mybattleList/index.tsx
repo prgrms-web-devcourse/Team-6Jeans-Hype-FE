@@ -3,6 +3,7 @@ import { COLOR } from '@/constants/color';
 import useConfirmModal from '@/hooks/useConfirmModal';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import { MyBattlePostInfo } from '../types';
 import { getMyBattleListData } from './api';
 
 interface Props {
@@ -12,28 +13,22 @@ interface Props {
 function MyBattleList({ genre }: Props) {
   const { musicData, isOpened, onClickBattleButton, onClickConfirmButton, onClickCancelButton } = useConfirmModal();
 
-  const { data: myBattleMusicList } = useQuery<any>(
-    ['post', 'battle', genre],
-    () => getMyBattleListData(genre as string),
-    {
-      enabled: !!genre,
-    },
-  );
+  const { data: myBattleMusicList } = useQuery(['post', 'battle', genre], () => getMyBattleListData(genre as string), {
+    enabled: !!genre,
+  });
 
   return (
     <Container>
       <Title>내 음악 목록</Title>
       <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
-          myBattleMusicList.map((list: any) => (
-            <Post
-              key={list.postId}
-              onClick={() => onClickBattleButton({ title: list.music.musicName, singer: list.music.singer })}
-            >
-              <AlbumPoster lazy={true} size={5} src={list.music.albumCoverUrl} />
+          myBattleMusicList.map(({ postId, music: { musicName, singer, thumbnailUrl } }: MyBattlePostInfo) => (
+            <Post key={postId} onClick={() => onClickBattleButton({ title: musicName, singer: singer })}>
+              <AlbumPoster lazy={true} size={5} src={thumbnailUrl} />
+              {/* <AlbumPoster lazy={true} size={5} src={albumCoverUrl} /> */}
               <TitleSinger>
-                <div>{list.music.musicName}</div>
-                <div>{list.music.singer}</div>
+                <div>{musicName}</div>
+                <div>{singer}</div>
               </TitleSinger>
             </Post>
           ))
