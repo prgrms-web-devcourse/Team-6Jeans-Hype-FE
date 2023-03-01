@@ -1,3 +1,5 @@
+import '../../public/fonts/font.css';
+
 import { Global } from '@emotion/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
