@@ -3,10 +3,6 @@ import { useRouter } from 'next/router';
 
 import { COLOR } from '@/constants/color';
 
-import { COLOR } from '@/constants/color';
-
-import { COLOR } from '@/constants/color';
-
 interface Props {
   shouldNeedBack?: boolean;
   backUrl?: string;
