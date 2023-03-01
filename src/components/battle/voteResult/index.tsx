@@ -80,8 +80,11 @@ const VoteResultContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+<<<<<<< HEAD
   animation: ${backgroundFade} 3s ease;
   z-index: 99; ;
+=======
+>>>>>>> 45b6c60f0a3551e5c6390fd00c77eabfe56f6699
 `;
 
 const Title = styled.div`
