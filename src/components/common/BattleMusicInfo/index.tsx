@@ -1,11 +1,11 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { BattleMusicInfo } from '@/components/post/battle/types';
+import { BattleMusic } from '@/components/post/battle/types';
 import { COLOR } from '@/constants/color';
 
 interface Prop {
-  music: BattleMusicInfo;
+  music: BattleMusic;
   onClick?(e: any): void;
   clickSide?: 'left' | 'right' | undefined;
 }

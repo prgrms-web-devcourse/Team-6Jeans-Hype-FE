@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
+import { BattleMusic } from './types';
 import Header from '@/components/common/Header';
 import { COLOR } from '@/constants/color';
 import { getPostBattleData } from './api';
@@ -13,7 +14,7 @@ function PostBattle() {
   const { postId } = router.query;
   const [listView, setListView] = useState(false);
 
-  const [myListMusic, setMyListMusic] = useState({
+  const [selectedMyMusic, setSelectedMyMusic] = useState<BattleMusic>({
     musicName: '내 대결 곡 고르기',
     musicUrl: '',
     thumbnailUrl: '',
@@ -39,11 +40,15 @@ function PostBattle() {
         {battleMusic && (
           <>
             <BattleMusicInfo music={battleMusic.music} />
-            <BattleMusicInfo music={myListMusic} onClick={renderMyList} />
+            <BattleMusicInfo music={selectedMyMusic} onClick={renderMyList} />
           </>
         )}
       </Musics>
-      <MyBattleList genre={battleMusic?.music.genre?.genreValue} listView={listView} />
+      <MyBattleList
+        genre={battleMusic?.music.genre?.genreValue}
+        listView={listView}
+        setSelectedMyMusic={setSelectedMyMusic}
+      />
     </Container>
   );
 }

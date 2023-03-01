@@ -3,16 +3,17 @@ import { COLOR } from '@/constants/color';
 import useConfirmModal from '@/hooks/useConfirmModal';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { MyBattlePostInfo } from '../types';
+import { BattleMusic, MyBattlePostInfo } from '../types';
 import { getMyBattleListData } from './api';
 
 interface Props {
   genre?: string;
   listView: boolean;
+  setSelectedMyMusic: React.Dispatch<React.SetStateAction<BattleMusic>>;
 }
 
-function MyBattleList({ genre, listView }: Props) {
-  const { musicData, isOpened, onClickBattleButton, onClickConfirmButton, onClickCancelButton } = useConfirmModal();
+function MyBattleList({ genre, listView, setSelectedMyMusic }: Props) {
+  const { musicData, isOpened, onClickPost, onClickConfirmButton, onClickCancelButton } = useConfirmModal();
 
   const { data: myBattleMusicList } = useQuery(['post', 'battle', genre], () => getMyBattleListData(genre as string), {
     enabled: !!genre,
@@ -24,7 +25,19 @@ function MyBattleList({ genre, listView }: Props) {
       <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
           myBattleMusicList.map(({ postId, music: { musicName, singer, thumbnailUrl } }: MyBattlePostInfo) => (
-            <Post key={postId} onClick={() => onClickBattleButton({ title: musicName, singer: singer })}>
+            <Post
+              key={postId}
+              onClick={() =>
+                onClickPost({
+                  musicName,
+                  singer,
+                  thumbnailUrl:
+                    'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/6f/1e/16/6f1e16a4-dd86-fe26-9ffc-5d2411cecc56/Cover.jpg/100x100bb.jpg',
+                  musicUrl:
+                    'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/f8/bc/4b/f8bc4b45-5ee4-5805-f74f-3675b099eeb0/mzaf_5690449198553966261.plus.aac.p.m4a',
+                })
+              }
+            >
               <AlbumPoster lazy={true} size={5} src={thumbnailUrl} />
               {/* <AlbumPoster lazy={true} size={5} src={albumCoverUrl} /> */}
               <TitleSinger>
@@ -49,10 +62,10 @@ function MyBattleList({ genre, listView }: Props) {
             margin: '0 auto',
           }}
         >
-          <span>{`[${musicData.singer}]${musicData.title}`}</span>
+          <span>{`[${musicData.singer}]${musicData.musicName}`}</span>
           <span>선택 하시겠습니까?</span>
 
-          <button onClick={onClickConfirmButton}>예</button>
+          <button onClick={() => onClickConfirmButton(setSelectedMyMusic)}>예</button>
           <button onClick={onClickCancelButton}>취소</button>
         </div>
       )}
