@@ -11,6 +11,7 @@ import Genres from '../common/Genres';
 import Battle from '../common/ImageButtons/BattleButton';
 import TextDivider from '../common/TextDivider';
 import { getPostFeedData } from './api';
+import { PostInfo } from './types';
 
 function PostList() {
   const [genre, setGenre] = useState('');
