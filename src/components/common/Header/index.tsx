@@ -5,6 +5,8 @@ import { COLOR } from '@/constants/color';
 
 import { COLOR } from '@/constants/color';
 
+import { COLOR } from '@/constants/color';
+
 interface Props {
   shouldNeedBack?: boolean;
   backUrl?: string;
