@@ -13,9 +13,9 @@ interface Button {
 const buttonList = [
   { src: 'main', text: '메인', path: '/' },
   { src: 'battle', text: '대결', path: '/battle/short' },
-  { src: 'share', text: '공유', path: '/post/searchMusics' },
+  { src: 'share', text: '추천', path: '/post/searchMusics' },
   { src: 'feed', text: '피드', path: '/post' },
-  { src: 'mypage', text: '마이페이지', path: '/tmp' },
+  { src: 'mypage', text: '마이페이지', path: '/mypage' },
 ];
 
 const BottomNav = () => {
