@@ -76,7 +76,8 @@ const VoteResultModal = styled.div`
 
 const VoteResultContainer = styled.div`
   position: relative;
-  top: calc(50% + 5.3rem);
+  height: 39.2rem;
+  top: calc(50% + 9rem);
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
