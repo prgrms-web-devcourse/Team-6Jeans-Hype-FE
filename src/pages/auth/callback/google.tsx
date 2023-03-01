@@ -17,7 +17,7 @@ export default function GoogleAuthCallbackPage() {
   if (typeof token === 'string') {
     setAccessToken(token);
     router.push('/');
-  } else {
+  } else if (router.isReady) {
     return (
       <Container>
         <Text>로그인에 실패했습니다</Text>
