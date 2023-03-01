@@ -40,7 +40,7 @@ function PostList() {
           <img src='./images/down-arrow-gray.svg' alt='필터 버튼' />
         </Filter>
       </Title>
-      <Genres onChange={onChange} />
+      <Genres onChange={onChange} shouldNeedAll={true} />
       {/* <Battles setIsPossibleBattle={setIsPossibleBattle} /> */}
 
       <FeedPostList>

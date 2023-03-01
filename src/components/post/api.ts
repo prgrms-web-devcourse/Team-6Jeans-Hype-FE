@@ -115,9 +115,9 @@ export const createPost = async (data: Values) => {
         },
       },
     );
-
+    console.log(response);
     if (response.data.success) {
-      return response.data.success;
+      return response.data;
     } else {
       return false;
     }
