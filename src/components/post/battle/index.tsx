@@ -2,9 +2,14 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+
+import BattleMusicInfo from '@/components/common/BattleMusicInfo';
+import Header from '@/components/common/Header';
+import { COLOR } from '@/constants/color';
+
 import { getPostBattleData } from './api';
 import MyBattleList from './mybattleList';
-import BattleMusicInfo from '@/components/common/BattleMusicInfo';
+import { PostBattleInfo } from './types';
 
 function PostBattle() {
   const router = useRouter();
@@ -27,6 +32,7 @@ function PostBattle() {
 
   return (
     <Container>
+      <Header title='대결 신청' subButtonValue='완료' />
       <Title>What&apos;s next?</Title>
       <Musics>
         {battleMusic && (
@@ -58,7 +64,7 @@ const Title = styled.div`
   justify-content: center;
   align-items: center;
 
-  background: linear-gradient(98.38deg, #7d74dc -1.83%, #7697ec 86.44%);
+  background: linear-gradient(98.38deg, ${COLOR.purple} -1.83%, ${COLOR.blue} 86.44%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

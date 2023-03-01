@@ -1,9 +1,14 @@
+import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
+
+import Header from '@/components/common/Header';
+import Battle from '@/components/common/ImageButtons/BattleButton';
+import Like from '@/components/common/ImageButtons/LikeButton';
+import { COLOR } from '@/constants/color';
+
 import { getPostDetailData } from './api';
 import MusicInfo from './musicInfo';
-import { useRouter } from 'next/router';
-import styled from '@emotion/styled';
-import { COLOR } from '@/constants/color';
 
 function PostDetail() {
   const router = useRouter();
@@ -24,7 +29,7 @@ function PostDetail() {
   return (
     <Container>
       <Wrapper>
-        <PrevButton src='/images/prev-button.png' />
+        <Header selectedColor='white' />
 
         {postDetail && (
           <MusicInfo
@@ -36,50 +41,63 @@ function PostDetail() {
           />
         )}
 
-        <MusicPlayStatus>
-          <MusicPlayBar>
+        <PlayStatus>
+          <PlayBar>
             <div></div>
             <div></div>
             <div></div>
-          </MusicPlayBar>
-          <MusicPlayTime>
+          </PlayBar>
+          <PlayTime>
             <div>1:46</div>
             <div>4:10</div>
-          </MusicPlayTime>
-        </MusicPlayStatus>
+          </PlayTime>
+        </PlayStatus>
 
         <PostDetailEvent>
-          <PostIcon>
-            <img src='/images/white-full-heart.png' alt='좋아요 아이콘' />
-            <span>15</span>
-          </PostIcon>
-          <PostPlayIcon>
-            <audio src={postDetail?.music.musicUrl} controls loop></audio>
-          </PostPlayIcon>
-          <PostIcon onClick={navigatePostBattle}>
-            <img src='/images/white-fire.png' alt='대결 아이콘' />
-            <span>15</span>
-          </PostIcon>
+          <Icon>
+            <Like
+              size={2}
+              initCount={15}
+              isClicked={true}
+              onClick={() => {
+                console.log('좋아요');
+              }}
+            />
+          </Icon>
+
+          <Icon>
+            <PostPlayIcon>
+              <audio src={postDetail?.music.musicUrl} controls loop></audio>
+            </PostPlayIcon>
+          </Icon>
+
+          <Icon>
+            <Battle
+              size={1.5}
+              battleAbility={true}
+              onClick={navigatePostBattle}
+            />
+          </Icon>
         </PostDetailEvent>
 
         {postDetail?.content && (
           <PostDetailContent>
-            <ContenTitleContainer>
-              <ContentTitle>
+            <ContentHeader>
+              <Title>
                 <div></div>
                 <div>
                   <div>{postDetail?.nickname}</div>
                   <div>님의 한마디</div>
                 </div>
                 <div>
-                  <img src='/images/down-arrow.png' />
+                  <img src='/images/down-arrow.png' alt='img' />
                 </div>
-              </ContentTitle>
-            </ContenTitleContainer>
+              </Title>
+            </ContentHeader>
 
-            <ContentContainer>
+            <ContentBody>
               <Content>{postDetail.content}</Content>
-            </ContentContainer>
+            </ContentBody>
           </PostDetailContent>
         )}
       </Wrapper>
@@ -108,14 +126,14 @@ const PrevButton = styled.img`
   height: 2rem;
 `;
 
-const MusicPlayStatus = styled.div`
+const PlayStatus = styled.div`
   display: flex;
   flex-direction: column;
   width: 65%;
   margin: 0 auto 2rem auto;
 `;
 
-const MusicPlayBar = styled.div`
+const PlayBar = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
@@ -143,7 +161,7 @@ const MusicPlayBar = styled.div`
   }
 `;
 
-const MusicPlayTime = styled.div`
+const PlayTime = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -158,20 +176,10 @@ const PostDetailEvent = styled.div`
   margin: 0 auto;
 `;
 
-const PostIcon = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: ${COLOR.white};
-
-  & img {
-    margin-bottom: 0.5rem;
-  }
-  & span {
-    font-weight: 500;
-    font-size: 0.9rem;
-    line-height: 1.4rem;
-    text-align: center;
-    letter-spacing: -0.01em;
+const Icon = styled.div`
+  &:first-of-type,
+  &:last-of-type {
+    width: 18%;
   }
 `;
 
@@ -192,8 +200,8 @@ const PostPlayIcon = styled.div`
 
 const PostDetailContent = styled.div``;
 
-const ContenTitleContainer = styled.div`
-  background: #fbfbff;
+const ContentHeader = styled.div`
+  background: ${COLOR.background};
   box-shadow: 0.5rem 0 1.5rem rgba(135, 135, 135, 0.7);
   border-radius: 2rem 2rem 0 0;
   padding: 2rem 0;
@@ -205,14 +213,14 @@ const ContenTitleContainer = styled.div`
   height: 2.5%;
 `;
 
-const ContentTitle = styled.div`
+const Title = styled.div`
   width: 90%;
   margin: 0 auto;
 
   display: flex;
   align-items: center;
 
-  & div:nth-child(1) {
+  & div:nth-of-type(1) {
     width: 25%;
   }
 
@@ -245,8 +253,8 @@ const ContentTitle = styled.div`
   }
 `;
 
-const ContentContainer = styled.div`
-  background: #fbfbff;
+const ContentBody = styled.div`
+  background: ${COLOR.background};
 
   position: absolute;
   left: 0;

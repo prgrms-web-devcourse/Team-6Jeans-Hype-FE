@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { COLOR } from '../constants/color';
+import { COLOR } from '@/constants/color';
 
 const reset = css`
   html,
@@ -87,14 +87,11 @@ const reset = css`
     margin: 0;
     padding: 0;
     border: 0;
-    font: inherit;
     vertical-align: baseline;
+    font-family: inherit;
   }
   body {
-    background-color: ${COLOR.background};
-    color: ${COLOR.deepBlue};
     font-family: 'Poppins', 'Noto Sans KR', sans-serif;
-    font-style: normal;
   }
   /* HTML5 display-role reset for older browsers */
   article,
@@ -134,17 +131,17 @@ const reset = css`
     background-color: transparent;
     padding: 0;
     margin: 0;
-    font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+    font-family: inherit;
   }
   input {
     border: none;
     outline: none;
+    font-family: inherit;
   }
   textarea {
     border: none;
     resize: none;
     outline: none;
-    font-family: 'Poppins', 'Noto Sans KR', sans-serif;
   }
   a {
     color: ${COLOR.black};

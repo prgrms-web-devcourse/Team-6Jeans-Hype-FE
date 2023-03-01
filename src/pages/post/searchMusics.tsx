@@ -7,7 +7,7 @@ function SearchMusics() {
 
   return (
     <>
-      <Header title='추천 글쓰기' shouldNeedBack={false} />
+      <Header title='추천 글쓰기' backUrl='/' />
       <PostSearchMusics
         keyword={keyword}
         tmpKeyword={tmpKeyword}

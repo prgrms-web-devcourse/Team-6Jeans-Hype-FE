@@ -7,6 +7,10 @@ import { COLOR } from '@/constants/color';
 import Genres from '../common/Genres';
 import { useState } from 'react';
 import Battles from '../common/Battles';
+import TextDivider from '../common/TextDivider';
+import Battle from '../common/ImageButtons/BattleButton';
+import BottomNav from '../common/BottomNav';
+import AlbumPoster from '../common/AlbumPoster';
 
 function PostList() {
   const [genre, setGenre] = useState('');
@@ -34,46 +38,53 @@ function PostList() {
         <div>한눈에 보는 추천</div>
         <Filter>
           <div>최신순</div>
-          <img src='./images/down-arrow.png' alt='필터 버튼' />
+          <img src='./images/down-arrow-gray.svg' alt='필터 버튼' />
         </Filter>
       </Title>
+      <Genres onChange={onChange} />
       <FeedPostList>
         {postFeed?.map(
           ({ postId, music: { albumCoverUrl, singer, musicName, genre }, likeCount, isBattlePossible, nickname }) => (
-            <FeedPost key={postId} onClick={() => navigatePostDetail(postId)}>
-              <FeedPostHead>
-                <FeedPostHeadInfo>
-                  <div>{nickname}</div>
-                  <Divider />
-                  <div>2023-02-25</div>
-                </FeedPostHeadInfo>
-                <FeedPostHeadBattle>대결 신청</FeedPostHeadBattle>
-              </FeedPostHead>
-              <FeedPostBody>
-                <PostmusicThumbnailUrl src={albumCoverUrl} />
+            <Post key={postId} onClick={() => navigatePostDetail(postId)}>
+              <PostHead>
+                <PostHeadInfo>
+                  <TextDivider text1={nickname} text2='2020-02-05' />
+                </PostHeadInfo>
+              </PostHead>
+              <PostBody>
+                <AlbumPoster
+                  lazy={true}
+                  size={8}
+                  src='http://www.akbobada.com/home/akbobada/archive/akbo/img/20150115102222.jpg'
+                />
                 <PostmusicInfo>
                   <div>{musicName}</div>
                   <div>
-                    <div>{singer}</div>
-                    <Divider />
-                    <div>{genre}</div>
+                    <TextDivider text1={singer} text2={genre} />
                   </div>
                 </PostmusicInfo>
                 <PostIcons>
-                  <PostIcon>
-                    <img src='./images/fire.png' alt='대결 아이콘' />
-                    <span>15</span>
-                  </PostIcon>
-                  <PostIcon>
-                    <img src='./images/heart.png' alt='좋아요 아이콘' />
-                    <span>15</span>
-                  </PostIcon>
+                  <Battle
+                    size={1}
+                    battleAbility={false}
+                    onClick={() => {
+                      console.log('배틀 신청');
+                    }}
+                  />
+                  <Battle
+                    size={1}
+                    battleAbility={false}
+                    onClick={() => {
+                      console.log('배틀 신청');
+                    }}
+                  />
                 </PostIcons>
-              </FeedPostBody>
-            </FeedPost>
+              </PostBody>
+            </Post>
           ),
         )}
       </FeedPostList>
+      <BottomNav />
     </Container>
   );
 }
@@ -121,27 +132,19 @@ const FeedPostList = styled.div`
   margin-top: 1rem;
 `;
 
-const FeedPost = styled.div`
+const Post = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
 
-const FeedPostHead = styled.div`
+const PostHead = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 1rem;
 `;
 
-const Divider = styled.div`
-  width: 0.25rem;
-  height: 0.25rem;
-  margin: 0 0.75rem;
-  border-radius: 50%;
-  background-color: ${COLOR.gray};
-`;
-
-const FeedPostHeadInfo = styled.div`
+const PostHeadInfo = styled.div`
   display: flex;
   align-items: center;
 
@@ -164,41 +167,21 @@ const FeedPostHeadInfo = styled.div`
   }
 `;
 
-const FeedPostHeadBattle = styled.div`
-  font-weight: 700;
-  font-size: 0.8rem;
-  line-height: 1.2rem;
-
-  text-align: center;
-  letter-spacing: -0.01em;
-
-  color: ${COLOR.blue};
-`;
-
-const FeedPostBody = styled.div`
+const PostBody = styled.div`
   display: flex;
   align-items: center;
-  background: #ffffff;
+  background: ${COLOR.white};
   box-shadow: 0px 0px 10px rgba(226, 226, 226, 0.25);
   border-radius: 1rem;
 
-  padding: 0.5rem 2rem 0.5rem 0.5rem;
+  padding-right: 2rem;
   margin: 1rem 0;
-`;
-
-const PostmusicThumbnailUrl = styled.div<{ src: string }>`
-  background-image: url('http://www.akbobada.com/home/akbobada/archive/akbo/img/20150115102222.jpg');
-  background-position: center center;
-  border: 0.5px solid #dddddd;
-  border-radius: 1rem;
-  width: 6rem;
-  height: 6rem;
 `;
 
 const PostmusicInfo = styled.div`
   display: flex;
   flex-direction: column;
-  width: 65%;
+  width: 70%;
   margin-left: 2rem;
 
   & > div:first-of-type {
@@ -225,24 +208,8 @@ const PostmusicInfo = styled.div`
 const PostIcons = styled.div`
   display: flex;
   align-items: center;
-`;
 
-const PostIcon = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: ${COLOR.blue};
-  padding: 0 0.75rem;
-
-  & img {
-    margin-bottom: 0.5rem;
-  }
-
-  & span {
-    font-weight: 500;
-    font-size: 0.9rem;
-    line-height: 1.4rem;
-
-    text-align: center;
-    letter-spacing: -0.01em;
+  & div:first-of-type {
+    margin-right: 0.25rem;
   }
 `;
