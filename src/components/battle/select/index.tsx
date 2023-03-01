@@ -53,23 +53,24 @@ export default Select;
 
 const SelectContainer = styled.div`
   width: calc(100% - 4rem);
-  height: calc(100vh - 14rem);
-  padding: 2rem;
-  position: relative;
+  height: calc(100vh - 16rem);
+  padding: 0 2rem;
 `;
 
 const Section = styled.div`
   position: absolute;
-  width: calc(100% - 4rem);
+  width: 33.5rem;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const Skip = styled.div`
   position: absolute;
-  width: calc(100% - 4rem);
+  width: 20rem;
+  left: 50%;
   top: 75%;
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
   text-align: center;
   font-weight: 700;
   font-size: 1.3rem;

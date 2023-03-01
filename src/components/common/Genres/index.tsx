@@ -19,13 +19,8 @@ interface Genre {
 }
 
 function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChange }: Props) {
-  const [targetGenres, setTargetGenres] = useState<Genre[]>([]);
   const { selectedValue, onClick } = useGenre();
-  const { data: genres, isLoading } = useQuery(['genres'], () => getGenres(), {
-    onSuccess: () => {
-      setTargetGenres(shouldNeedAll ? [{ genreValue: 'ALL', genreName: 'ALL' }, ...genres] : genres);
-    },
-  });
+  const { data: genres, isLoading } = useQuery(['genres'], getGenres);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onClick(e);
@@ -43,7 +38,20 @@ function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChan
       <GenreContainer>
         <fieldset>
           <RadioGroup>
-            {targetGenres?.map((genre: Genre, i: number) => (
+            {shouldNeedAll && (
+              <div>
+                <Input
+                  type='radio'
+                  id='genre_all'
+                  name='genre'
+                  value='All'
+                  onChange={handleChange}
+                  checked={selectedValue === 'All' ? true : false}
+                />
+                <Label htmlFor='genre_all'>All</Label>
+              </div>
+            )}
+            {genres?.map((genre: Genre, i: number) => (
               <div key={i}>
                 <Input
                   type='radio'

@@ -28,10 +28,7 @@ const Header = ({
     <HeaderContainer>
       {shouldNeedBack && backUrl && (
         <button onClick={() => router.push(backUrl)} style={{ cursor: 'pointer' }}>
-          <img
-            src={selectedColor === 'deepblue' ? '/images/back-deepblue-icon.svg' : '/images/back-white-icon.svg'}
-            style={{ width: '100%' }}
-          />
+          <img src={`/images/back-${selectedColor}-icon.svg`} style={{ width: '100%' }} />
         </button>
       )}
       {title && <H1>{title}</H1>}
@@ -49,15 +46,12 @@ export default Header;
 const HeaderContainer = styled.div`
   width: calc(100% - 4rem);
   height: 6rem;
-  padding: 0 2rem;
+  margin: 0 2rem;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.5rem;
   align-items: center;
   position: relative;
-
-  & > h1 {
-  }
 `;
 
 const H1 = styled.h1`

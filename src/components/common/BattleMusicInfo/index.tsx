@@ -50,6 +50,7 @@ const moveLeft = keyframes`
 
 const moveRight = keyframes`
   0% {
+    z-index: 99;
     left:0%;
   }
   15% {
