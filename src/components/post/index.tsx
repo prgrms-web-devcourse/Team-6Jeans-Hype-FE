@@ -1,28 +1,22 @@
-import { useQuery } from '@tanstack/react-query';
-import { getPostFeedData } from './api';
-import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
-import { COLOR } from '@/constants/color';
-import Genres from '../common/Genres';
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import Battles from '../common/Battles';
-import TextDivider from '../common/TextDivider';
-import Battle from '../common/ImageButtons/BattleButton';
-import BottomNav from '../common/BottomNav';
-import AlbumPoster from '../common/AlbumPoster';
-import { PostInfo } from './types';
+
+import BottomNav from '@/components/common/BottomNav';
+import Genres from '@/components/common/Genres';
+import RecommendationPost from '@/components/common/RecommendationPost';
+import { PostInfo } from '@/components/post/types';
+import { COLOR } from '@/constants/color';
+
+import { getPostFeedData } from './api';
 
 function PostList() {
   const [genre, setGenre] = useState('');
   const [isPossibleBattle, setIsPossibleBattle] = useState<boolean | undefined>(undefined);
 
-  const router = useRouter();
-
   const { data: postFeed } = useQuery(['postfeed', genre, isPossibleBattle], () => {
     return getPostFeedData({ genre, isPossibleBattle });
   });
-
-  const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedGenre = e.target.value;
@@ -51,38 +45,14 @@ function PostList() {
             isBattlePossible,
             nickname,
           }: PostInfo) => (
-            <Post key={postId} onClick={() => navigatePostDetail(postId)}>
-              <PostHead>
-                <PostHeadInfo>
-                  <TextDivider text1={nickname} text2='2020-02-05' />
-                </PostHeadInfo>
-              </PostHead>
-              <PostBody>
-                <AlbumPoster lazy={true} size={8} src={albumCoverUrl} />
-                <PostmusicInfo>
-                  <div>{musicName}</div>
-                  <div>
-                    <TextDivider text1={singer} text2={genre} />
-                  </div>
-                </PostmusicInfo>
-                <PostIcons>
-                  {/* <Battle
-                    size={1}
-                    battleAbility={false}
-                    onClick={() => {
-                      console.log('배틀 신청');
-                    }}
-                  /> */}
-                  <Battle
-                    size={1}
-                    battleAbility={false}
-                    onClick={() => {
-                      console.log('배틀 신청');
-                    }}
-                  />
-                </PostIcons>
-              </PostBody>
-            </Post>
+            <RecommendationPost
+              key={postId}
+              postId={postId}
+              music={{ albumCoverUrl, singer, musicName, genre }}
+              likeCount={likeCount}
+              isBattlePossible={isBattlePossible}
+              nickname={nickname}
+            />
           ),
         )}
       </FeedPostList>
@@ -137,86 +107,4 @@ const FeedPostList = styled.div`
 
   margin-top: 5rem;
   padding-bottom: 8rem;
-`;
-
-const Post = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-
-const PostHead = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 0 1rem;
-`;
-
-const PostHeadInfo = styled.div`
-  display: flex;
-  align-items: center;
-
-  & div:first-of-type {
-    font-weight: 500;
-    font-size: 1.3rem;
-    line-height: 1.4rem;
-    display: flex;
-    align-items: center;
-
-    color: ${COLOR.deepBlue};
-  }
-
-  & div:nth-of-type(3) {
-    font-weight: 400;
-    font-size: 0.8rem;
-    line-height: 1.2rem;
-
-    color: ${COLOR.gray};
-  }
-`;
-
-const PostBody = styled.div`
-  display: flex;
-  align-items: center;
-  background: ${COLOR.white};
-  box-shadow: 0px 0px 10px rgba(226, 226, 226, 0.25);
-  border-radius: 1rem;
-
-  padding-right: 2rem;
-  margin: 1rem 0;
-`;
-
-const PostmusicInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 70%;
-  margin-left: 2rem;
-
-  & > div:first-of-type {
-    font-weight: 500;
-    font-size: 1.6rem;
-    line-height: 1.7rem;
-    margin-bottom: 0.5rem;
-
-    color: ${COLOR.deepBlue};
-  }
-
-  & > div:last-child {
-    font-weight: 500;
-    font-size: 1.2rem;
-    line-height: 1.8rem;
-
-    color: ${COLOR.gray};
-
-    display: flex;
-    align-items: center;
-  }
-`;
-
-const PostIcons = styled.div`
-  display: flex;
-  align-items: center;
-
-  & div:first-of-type {
-    margin-right: 0.25rem;
-  }
 `;
