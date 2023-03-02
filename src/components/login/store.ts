@@ -28,3 +28,8 @@ export const accessTokenAtom = atom<string | null>({
     },
   ],
 });
+
+export const isOpenedAuthRequiredModalAtom = atom<boolean>({
+  key: 'isOpenedLoginModal',
+  default: false,
+});
