@@ -1,4 +1,3 @@
-import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
@@ -6,40 +5,33 @@ import Genres from '@/components/common/Genres';
 import { COLOR } from '@/constants/color';
 import useVoteResult from '@/hooks/useVoteResult';
 
+import { useQuery } from '@tanstack/react-query';
+import { getBattle } from '../api';
 import VoteResult from '../voteResult';
-
-const TEMP =
-  'https://is5-ssl.mzstatic.com/image/thumb/Music122/v4/ca/20/55/ca205584-83ae-8be5-a415-03df7baae6cb/8809658318466_Cover.jpg/100x100bb.jpg';
-
-const TEMP2 =
-  'https://is3-ssl.mzstatic.com/image/thumb/Music112/v4/52/6e/b5/526eb565-8444-3ec2-0392-c3ed55feb0b9/cover_KM0015957_1.jpg/100x100bb.jpg';
 
 function Select() {
   const { visible, position, onClickMusic } = useVoteResult();
+  const { data: battleList, isLoading } = useQuery(['battleList'], getBattle);
 
-  const TEMP_OBJECT = {
-    musicName: '신경 쓸 게 많아서 (Feat. The Quiett)',
-    musicUrl: 'test',
-    thumbnailUrl: TEMP,
-    singer: 'Gist',
-  };
-
-  const TEMP_OBJECT2 = {
-    musicName: '떠나 (Prod. PATEKO (파테코))',
-    musicUrl: 'test',
-    thumbnailUrl: TEMP2,
-    singer: 'THAMA, Jayci yucca (제이씨 유카)',
-  };
-
-  return (
+  return isLoading || battleList === false ? (
+    <>로딩중...</>
+  ) : (
     <>
       <SelectContainer>
         <Genres onChange={() => console.log('click-genre')} />
         <Section>
           <Text>What’s your Hype Music?</Text>
           <BattleContainer>
-            <BattleMusicInfo music={TEMP_OBJECT} onClick={(e) => onClickMusic(e, 'left')} clickSide='left' />
-            <BattleMusicInfo music={TEMP_OBJECT2} onClick={(e) => onClickMusic(e, 'right')} clickSide='right' />
+            <BattleMusicInfo
+              music={battleList?.challenged.music}
+              onClick={(e) => onClickMusic(e, 'left')}
+              clickSide='left'
+            />
+            <BattleMusicInfo
+              music={battleList?.challenging.music}
+              onClick={(e) => onClickMusic(e, 'right')}
+              clickSide='right'
+            />
           </BattleContainer>
         </Section>
         <Skip>건너뛰기</Skip>

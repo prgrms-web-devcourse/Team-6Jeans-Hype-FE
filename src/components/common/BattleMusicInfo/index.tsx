@@ -11,7 +11,7 @@ interface Prop {
 }
 
 const BattleMusicInfo = ({ music, onClick, clickSide }: Prop) => {
-  const { thumbnailUrl, musicUrl, musicName, singer } = music;
+  const { albumCoverUrl, musicUrl, musicName, singer } = music;
 
   const handleClick = (e: any) => {
     onClick?.(e);
@@ -20,7 +20,7 @@ const BattleMusicInfo = ({ music, onClick, clickSide }: Prop) => {
   return (
     <Container>
       <Wrapper onClick={handleClick} className='container'>
-        <Thumbnail src={thumbnailUrl} clickSide={clickSide}>
+        <Thumbnail src={albumCoverUrl} clickSide={clickSide}>
           {/* <Thumbnail src={albumCoverUrl} clickSide={clickSide}> */}
           <PlayIcon value={musicUrl}>
             <audio src={musicUrl} controls loop></audio>
