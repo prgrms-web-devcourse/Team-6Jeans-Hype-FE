@@ -15,12 +15,17 @@ interface Button {
 const BottomNav = () => {
   const router = useRouter();
   const { pathname } = router;
-  const { requireAuth, isLoggedIn } = useAuth();
+  const { openAuthRequiredModal, isLoggedIn } = useAuth();
 
   const buttonList: Button[] = [
     { src: 'main', text: '메인', path: '/' },
     { src: 'battle', text: '대결', path: '/battle/short' },
-    { src: 'share', text: '추천', path: isLoggedIn ? '/post/searchMusics' : '', onClick: () => requireAuth() },
+    {
+      src: 'share',
+      text: '추천',
+      path: isLoggedIn ? '/post/searchMusics' : '',
+      onClick: () => isLoggedIn || openAuthRequiredModal(),
+    },
     { src: 'feed', text: '피드', path: '/post' },
     { src: 'mypage', text: '마이페이지', path: '/mypage' },
   ];

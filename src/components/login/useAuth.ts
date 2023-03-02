@@ -8,17 +8,13 @@ export default function useAuth() {
   const setIsOpenedAuthRequiredModal = useSetRecoilState(isOpenedAuthRequiredModalAtom);
   const accessToken = useRecoilValue(accessTokenAtom);
 
-  const requireAuth = () => {
-    if (!isLoggedIn) {
-      setIsOpenedAuthRequiredModal(true);
-      return false;
-    }
-    return true;
+  const openAuthRequiredModal = () => {
+    setIsOpenedAuthRequiredModal(true);
   };
 
   useEffect(() => {
     setIsLoggedIn(!!accessToken);
   }, [accessToken]);
 
-  return { requireAuth, isLoggedIn };
+  return { openAuthRequiredModal, isLoggedIn };
 }
