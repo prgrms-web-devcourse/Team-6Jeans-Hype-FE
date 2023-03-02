@@ -30,6 +30,6 @@ export const accessTokenAtom = atom<string | null>({
 });
 
 export const isOpenedAuthRequiredModalAtom = atom<boolean>({
-  key: 'isOpenedLoginModal',
+  key: 'isOpenedAuthRequiredModal',
   default: false,
 });
