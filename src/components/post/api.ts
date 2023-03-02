@@ -38,7 +38,9 @@ export const getPostFeedData = async ({ genre, isPossibleBattle }: Props) => {
 
 export const getMusicData = async (keyword: string) => {
   try {
-    const response = await axios.get(`${ADDRESS}/search`, {
+    const response = await axiosInstance.request({
+      method: 'GET',
+      url: `${ADDRESS}/search`,
       params: {
         term: keyword,
         country: 'KR',
@@ -59,7 +61,9 @@ export const getMusicData = async (keyword: string) => {
 
 export const getMusicDetailData = async (trackId: string) => {
   try {
-    const response = await axios.get(`${ADDRESS}/lookup`, {
+    const response = await axiosInstance.request({
+      method: 'GET',
+      url: `${ADDRESS}/lookup`,
       params: {
         id: trackId,
         country: 'KR',
@@ -78,7 +82,10 @@ export const getMusicDetailData = async (trackId: string) => {
 
 export const getGenres = async () => {
   try {
-    const response = await axios.get(`${SERVER}/genres`);
+    const response = await axiosInstance.request({
+      method: 'GET',
+      url: `${SERVER}/genres`,
+    });
 
     if (response.data.success) {
       return response.data.data.genres;
@@ -105,17 +112,11 @@ export const createPost = async (data: Values) => {
       content: description,
     };
 
-    //로그인 되면 교체될 부분입니다
-    const response = await axios.post(
-      `${SERVER}/posts`,
-      { ...body },
-      {
-        headers: {
-          Authorization: `Bearer ${TEMP_TOKEN}`,
-        },
-      },
-    );
-    console.log(response);
+    const response = await axiosInstance.request({
+      method: 'POST',
+      url: `${SERVER}/posts`,
+      data: body,
+    });
     if (response.data.success) {
       return response.data;
     } else {
