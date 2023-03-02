@@ -5,12 +5,13 @@ import useLike from '@/hooks/useLike';
 
 interface Props {
   size: number;
+  color: 'white' | 'purple';
   initCount: number;
   isClicked: boolean;
   onClick?(): void;
 }
 
-function Like({ size, initCount, isClicked, onClick }: Props) {
+function Like({ size, initCount, color, isClicked, onClick }: Props) {
   const { state, onClickLike } = useLike({ initCount, isClicked });
 
   const handleClick = () => {
@@ -19,9 +20,9 @@ function Like({ size, initCount, isClicked, onClick }: Props) {
   };
 
   return (
-    <LikeContainer onClick={handleClick} size={size}>
-      <img src={`/images/like-icon-${state.isClicked ? 'on' : 'off'}.svg`} alt='img' />
-      <div>{state.count}</div>
+    <LikeContainer onClick={handleClick}>
+      <Image size={size} src={`/images/like-icon-${state.isClicked ? 'on' : 'off'}-${color}.svg`} alt='img' />
+      <Text color={color}>{state.count}</Text>
     </LikeContainer>
   );
 }
@@ -29,22 +30,23 @@ function Like({ size, initCount, isClicked, onClick }: Props) {
 export default Like;
 
 interface StyleProp {
-  size: number;
+  size?: number;
+  color?: 'white' | 'purple';
 }
 
 const LikeContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
 
-  & > img {
-    width: ${({ size }: StyleProp) => `${size}rem;`};
-  }
-
-  & > div {
-    text-align: center;
-    color: ${COLOR.white};
-    font-size: 1rem;
-    padding-top: 0.3rem;
-  }
+const Image = styled.img`
+  width: ${({ size }: StyleProp) => `${size}rem;`};
+`;
+const Text = styled.div`
+  text-align: center;
+  color: ${({ color }: StyleProp) => (color === 'white' ? COLOR.white : COLOR.purple)};
+  font-size: 1rem;
+  padding-top: 0.3rem;
+  text-align: center;
 `;

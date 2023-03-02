@@ -58,6 +58,7 @@ function PostDetail() {
             <Like
               size={2}
               initCount={15}
+              color='white'
               isClicked={true}
               onClick={() => {
                 console.log('좋아요');
@@ -72,7 +73,7 @@ function PostDetail() {
           </Icon>
 
           <Icon>
-            <Battle size={1.5} battleAbility={true} onClick={navigatePostBattle} />
+            <Battle size={1.5} color='white' battleAbility={true} onClick={navigatePostBattle} />
           </Icon>
         </PostDetailEvent>
 

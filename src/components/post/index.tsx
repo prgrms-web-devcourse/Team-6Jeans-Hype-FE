@@ -9,6 +9,7 @@ import AlbumPoster from '../common/AlbumPoster';
 import BottomNav from '../common/BottomNav';
 import Genres from '../common/Genres';
 import Battle from '../common/ImageButtons/BattleButton';
+import Like from '../common/ImageButtons/LikeButton';
 import TextDivider from '../common/TextDivider';
 import { getPostFeedData } from './api';
 import { PostInfo } from './types';
@@ -63,7 +64,7 @@ function PostList() {
                 <PostmusicInfo>
                   <div>{musicName}</div>
                   <div>
-                    <TextDivider text1={singer} text2={genre} />
+                    <TextDivider text1={singer} text2={genre.genreName} />
                   </div>
                 </PostmusicInfo>
                 <PostIcons>
@@ -76,10 +77,18 @@ function PostList() {
                   /> */}
                   <Battle
                     size={1}
-                    battleAbility={false}
+                    battleAbility={isBattlePossible}
+                    color='blue'
                     onClick={() => {
                       console.log('배틀 신청');
                     }}
+                  />
+                  <Like
+                    size={1.5}
+                    initCount={likeCount}
+                    color='purple'
+                    isClicked={false}
+                    onClick={() => console.log('todo 좋아요 관련 api 연결하기')}
                   />
                 </PostIcons>
               </PostBody>
@@ -216,8 +225,6 @@ const PostmusicInfo = styled.div`
 const PostIcons = styled.div`
   display: flex;
   align-items: center;
-
-  & div:first-of-type {
-    margin-right: 0.25rem;
-  }
+  width: 8rem;
+  justify-content: space-between;
 `;
