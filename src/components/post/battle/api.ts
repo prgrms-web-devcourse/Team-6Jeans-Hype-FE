@@ -10,9 +10,6 @@ export const getPostBattleData = async (postId: number) => {
     const { data } = await axiosInstance.request<PostBattleAPI>({
       method: 'GET',
       url: `${SERVER}/posts/${postId}`,
-      headers: {
-        Authorization: `Bearer ${TEMP_TOKEN}`,
-      },
     });
 
     if (data.success) {
@@ -25,7 +22,7 @@ export const getPostBattleData = async (postId: number) => {
   }
 };
 
-export const createBattle = async (challengedPostId, challengingPostId) => {
+export const createBattle = async (challengedPostId: number, challengingPostId: number) => {
   const body = {
     challengedPostId,
     challengingPostId,
@@ -35,9 +32,6 @@ export const createBattle = async (challengedPostId, challengingPostId) => {
     const response = await axiosInstance.request({
       method: 'POST',
       url: `${SERVER}/battles`,
-      headers: {
-        Authorization: `Bearer ${TEMP_TOKEN}`,
-      },
       data: { ...body },
     });
 
