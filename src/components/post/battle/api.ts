@@ -25,12 +25,7 @@ export const getPostBattleData = async (postId: number) => {
   }
 };
 
-interface BattlesRequestBody {
-  challengedPostId: number;
-  challengingPostId: number;
-}
-
-export const createBattle = async ({ challengedPostId, challengingPostId }: BattlesRequestBody) => {
+export const createBattle = async (challengedPostId, challengingPostId) => {
   const body = {
     challengedPostId,
     challengingPostId,
