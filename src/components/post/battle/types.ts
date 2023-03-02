@@ -37,3 +37,11 @@ export interface BattleGenreInfo {
   genreValue: string;
   genreName: string;
 }
+
+export interface BattleApplyModal {
+  postId: number;
+  musicName: string;
+  musicUrl?: string;
+  thumbnailUrl: string;
+  singer: string;
+}

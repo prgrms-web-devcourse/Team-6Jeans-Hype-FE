@@ -3,17 +3,21 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
-import { BattleMusic } from './types';
+import { BattleMusic, BattleApplyModal } from './types';
 import Header from '@/components/common/Header';
 import { COLOR } from '@/constants/color';
 import { getPostBattleData } from './api';
 import MyBattleList from './mybattleList';
+import { createBattle } from './api';
 
 function PostBattle() {
   const router = useRouter();
-  const { postId } = router.query;
+  const { postId: selectedOpponentMusicId } = router.query;
+
+  const [buttonText, setButtonText] = useState('');
   const [listView, setListView] = useState(false);
 
+  const [selectedMyMusicId, setSelectedMyMusicId] = useState(0);
   const [selectedMyMusic, setSelectedMyMusic] = useState<BattleMusic>({
     musicName: '내 대결 곡 고르기',
     musicUrl: '',
@@ -24,17 +28,39 @@ function PostBattle() {
 
   const renderMyList = () => setListView(true);
 
+  const updateMyMusicCard = (musicData: BattleApplyModal) => {
+    const { postId, musicName, musicUrl, thumbnailUrl, singer } = musicData;
+
+    setSelectedMyMusicId(postId);
+    setSelectedMyMusic({
+      musicName,
+      musicUrl,
+      thumbnailUrl,
+      singer,
+    });
+    setButtonText('확인');
+  };
+
+  // react-query Mutation 도입 고민
+  const applyBattle = async () => {
+    await createBattle({
+      challengedPostId: parseInt(selectedOpponentMusicId as string),
+      challengingPostId: selectedMyMusicId,
+    });
+    alert('대결 신청 완료!');
+  };
+
   const { data: battleMusic } = useQuery(
-    ['post', 'battle', postId],
-    () => getPostBattleData(parseInt(postId as string)),
+    ['post', 'battle', selectedOpponentMusicId],
+    () => getPostBattleData(parseInt(selectedOpponentMusicId as string)),
     {
-      enabled: !!postId,
+      enabled: !!selectedOpponentMusicId,
     },
   );
 
   return (
     <Container>
-      <Header title='대결 신청' subButtonValue='완료' />
+      <Header title='대결 신청' subButtonValue={buttonText} onClickSubButton={applyBattle} />
       <Title>What&apos;s next?</Title>
       <Musics>
         {battleMusic && (
@@ -47,7 +73,7 @@ function PostBattle() {
       <MyBattleList
         genre={battleMusic?.music.genre?.genreValue}
         listView={listView}
-        setSelectedMyMusic={setSelectedMyMusic}
+        updateMyMusicCard={updateMyMusicCard}
       />
     </Container>
   );
