@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import FireIcon from 'public/images/fire-icon.svg';
 
 import { COLOR } from '@/constants/color';
 
@@ -12,12 +13,7 @@ interface Props {
 function Battle({ size, color, battleAbility, onClick }: Props) {
   return (
     <BattleContainer onClick={onClick}>
-      <Image
-        src={`/images/fire-icon-${battleAbility ? color : 'gray'}.svg`}
-        alt='img'
-        size={size}
-        battleAbility={battleAbility}
-      />
+      <StyledFireIcon size={size} color={color} battleAbility={battleAbility} />
       <Text battleAbility={battleAbility} color={color}>
         {battleAbility ? '대결신청' : '대결불가'}
       </Text>
@@ -39,11 +35,6 @@ const BattleContainer = styled.div`
   align-items: center;
 `;
 
-const Image = styled.img`
-  width: ${({ size }: StyleProp) => `${size}rem;`};
-  filter: ${({ battleAbility }: StyleProp) => (battleAbility ? `grayscale(0%)` : `grayscale(100%)`)};
-`;
-
 const Text = styled.div`
   text-align: center;
   color: ${({ battleAbility, color }: StyleProp) => {
@@ -52,4 +43,14 @@ const Text = styled.div`
     return battleAbility ? targetColor : COLOR.gray;
   }};
   padding-top: 0.6rem;
+`;
+
+const StyledFireIcon = styled(FireIcon)<{ color: string; size: number; battleAbility: boolean }>`
+  width: ${(props) => `${props.size}rem`};
+  height: ${(props) => `${props.size * 1.3}rem`};
+  stroke: ${(props) => {
+    const targetColor = props.color === 'white' ? COLOR.white : COLOR.blue;
+
+    return props.battleAbility ? targetColor : COLOR.gray;
+  }};
 `;

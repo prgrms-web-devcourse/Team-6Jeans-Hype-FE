@@ -68,21 +68,6 @@ function PostList() {
                   </div>
                 </PostmusicInfo>
                 <PostIcons>
-                  {/* <Battle
-                    size={1}
-                    battleAbility={false}
-                    onClick={() => {
-                      console.log('배틀 신청');
-                    }}
-                  /> */}
-                  <Battle
-                    size={1}
-                    battleAbility={isBattlePossible}
-                    color='blue'
-                    onClick={() => {
-                      console.log('배틀 신청');
-                    }}
-                  />
                   <Like
                     size={1.5}
                     initCount={likeCount}
@@ -90,6 +75,16 @@ function PostList() {
                     isClicked={false}
                     onClick={() => console.log('todo 좋아요 관련 api 연결하기')}
                   />
+                  {isBattlePossible && (
+                    <Battle
+                      size={1}
+                      battleAbility={isBattlePossible}
+                      color='blue'
+                      onClick={() => {
+                        console.log('배틀 신청');
+                      }}
+                    />
+                  )}
                 </PostIcons>
               </PostBody>
             </Post>
@@ -227,4 +222,5 @@ const PostIcons = styled.div`
   align-items: center;
   width: 8rem;
   justify-content: space-between;
+  flex-direction: row-reverse;
 `;

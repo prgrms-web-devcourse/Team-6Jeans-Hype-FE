@@ -56,7 +56,7 @@ function PostDetail() {
         <PostDetailEvent>
           <Icon>
             <Like
-              size={2}
+              size={2.2}
               initCount={15}
               color='white'
               isClicked={true}
