@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import BackIcon from 'public/images/arrow-left.svg';
 import { FC } from 'react';
 
 import { COLOR } from '@/constants/color';
@@ -21,13 +22,13 @@ const Header: FC<Props> = ({
   subButtonType = 'text',
   subButtonValue,
   onClickSubButton,
-  color = 'deepblue',
+  color = COLOR.deepBlue,
 }) => {
   return (
     <Container>
       {shouldNeedBack && (
         <Link href={backUrl ?? ''}>
-          <img src={`/images/back-${color}-icon.svg`} style={{ width: '100%' }} />
+          <StyledBackIcon color={color} />
         </Link>
       )}
       {title && <H1>{title}</H1>}
@@ -67,4 +68,10 @@ const SubButton = styled.button`
   color: ${COLOR.deepBlue};
   right: 0%;
   cursor: pointer;
+`;
+
+const StyledBackIcon = styled(BackIcon)<{ color: string }>`
+  & > path {
+    stroke: ${({ color }) => color};
+  }
 `;
