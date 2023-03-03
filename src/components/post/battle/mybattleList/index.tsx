@@ -9,11 +9,10 @@ import { getMyBattleListData } from './api';
 
 interface Props {
   genre?: string;
-  listView: boolean;
   updateMyMusicCard: (musicData: BattleApplyModal) => void;
 }
 
-function MyBattleList({ genre, listView, updateMyMusicCard }: Props) {
+function MyBattleList({ genre, updateMyMusicCard }: Props) {
   const [modalStatus, setModalStatus] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalMusicData, setModalMusicData] = useState<BattleApplyModal>({
@@ -55,7 +54,7 @@ function MyBattleList({ genre, listView, updateMyMusicCard }: Props) {
   });
 
   return (
-    <Container listView={listView}>
+    <Container>
       <Title>내 음악 목록</Title>
       <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
@@ -101,13 +100,7 @@ function MyBattleList({ genre, listView, updateMyMusicCard }: Props) {
 
 export default MyBattleList;
 
-interface StyleProps {
-  listView: boolean;
-}
-
-const Container = styled.div`
-  display: ${({ listView }: StyleProps) => (listView ? 'block' : 'none')};
-`;
+const Container = styled.div``;
 
 const Title = styled.div`
   font-style: normal;

@@ -15,7 +15,7 @@ function BattleForm() {
   const { postId: selectedOpponentMusicId } = router.query;
 
   const [isReadySubmit, setIsReadySubmit] = useState(false);
-  const [listViewStattus, setListViewStatus] = useState(false);
+  const [isVisibleMusicList, setIsVisibleMusicList] = useState(false);
 
   const [selectedMyMusicId, setSelectedMyMusicId] = useState(0);
   const [selectedMyMusic, setSelectedMyMusic] = useState<BattleMusic>({
@@ -26,7 +26,7 @@ function BattleForm() {
     // albumCoverUrl: '',
   });
 
-  const renderMyList = () => setListViewStatus(true);
+  const renderMyList = () => setIsVisibleMusicList(true);
 
   const updateMyMusicCard = (musicData: BattleApplyModal) => {
     const { postId, musicName, musicUrl, thumbnailUrl, singer } = musicData;
@@ -66,11 +66,9 @@ function BattleForm() {
           </>
         )}
       </Musics>
-      <MyBattleList
-        genre={battleMusic?.music.genre?.genreValue}
-        listView={listViewStattus}
-        updateMyMusicCard={updateMyMusicCard}
-      />
+      {isVisibleMusicList && (
+        <MyBattleList genre={battleMusic?.music.genre?.genreValue} updateMyMusicCard={updateMyMusicCard} />
+      )}
     </Container>
   );
 }
