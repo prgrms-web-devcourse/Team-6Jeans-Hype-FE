@@ -17,8 +17,8 @@ function BattleForm() {
   const [isReadySubmit, setIsReadySubmit] = useState(false);
   const [isVisibleMusicList, setIsVisibleMusicList] = useState(false);
 
-  const [selectedMyMusicId, setSelectedMyMusicId] = useState(0);
-  const [selectedMyMusic, setSelectedMyMusic] = useState<BattleMusic>({
+  const [selectedMyMusic, setSelectedMyMusic] = useState<BattleApplyModal>({
+    postId: 0,
     musicName: '내 대결 곡 고르기',
     musicUrl: '',
     thumbnailUrl: '',
@@ -29,20 +29,12 @@ function BattleForm() {
   const renderMyList = () => setIsVisibleMusicList(true);
 
   const updateMyMusicCard = (musicData: BattleApplyModal) => {
-    const { postId, musicName, musicUrl, thumbnailUrl, singer } = musicData;
-
-    setSelectedMyMusicId(postId);
-    setSelectedMyMusic({
-      musicName,
-      musicUrl,
-      thumbnailUrl,
-      singer,
-    });
+    setSelectedMyMusic(musicData);
     setIsReadySubmit(true);
   };
 
   const applyBattle = async () => {
-    await createBattle(parseInt(selectedOpponentMusicId as string), selectedMyMusicId);
+    await createBattle(parseInt(selectedOpponentMusicId as string), selectedMyMusic.postId);
     alert('대결 신청 완료!');
   };
 
