@@ -64,8 +64,8 @@ export const TEMP_DUMMY = [
       postId: 2,
       music: {
         musicId: '46564353',
-        singer: '아가미',
-        title: '쏜애플',
+        singer: '쏜애플',
+        title: '아가미',
         musicUrl:
           'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/9e/0d/97/9e0d972b-0405-31c5-1e2d-42d8507c3ea6/mzaf_13637269421332642120.plus.aac.p.m4a',
         albumCoverUrl:

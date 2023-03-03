@@ -4,10 +4,6 @@ import { useState } from 'react';
 import { getBattle } from '@/components/battle/api';
 import { Battles } from '@/components/battle/types';
 
-interface Data {
-  data: Battles;
-}
-
 const useVoteResult = () => {
   const {
     data: musicData,
@@ -15,14 +11,14 @@ const useVoteResult = () => {
     refetch,
   } = useQuery<Battles>(['battleList'], getBattle, {
     onSuccess: () => {
-      setLoading(true);
+      setIsLoadingState(true);
       setTimeout(() => {
-        setLoading(false);
+        setIsLoadingState(false);
       }, 500);
     },
   });
 
-  const [loading, setLoading] = useState<boolean>(isLoading);
+  const [isLoadingState, setIsLoadingState] = useState<boolean>(isLoading);
 
   const [resultVisible, setResultVisible] = useState<boolean>(false);
 
@@ -61,14 +57,14 @@ const useVoteResult = () => {
   };
 
   const onClickSkip = () => {
-    setLoading(true);
+    setIsLoadingState(true);
     refetch();
     setTimeout(() => {
-      setLoading(false);
+      setIsLoadingState(false);
     }, 500);
   };
 
-  return { musicData, loading, resultVisible, position, onClickMusic, onClickSkip };
+  return { musicData, isLoadingState, resultVisible, position, onClickMusic, onClickSkip };
 };
 
 export default useVoteResult;

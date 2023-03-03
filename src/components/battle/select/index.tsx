@@ -9,7 +9,7 @@ import useVoteResult from '@/hooks/useVoteResult';
 import VoteResult from '../voteResult';
 
 function Select() {
-  const { musicData, loading, resultVisible, position, onClickMusic, onClickSkip } = useVoteResult();
+  const { musicData, isLoadingState, resultVisible, position, onClickMusic, onClickSkip } = useVoteResult();
 
   return (
     <>
@@ -18,7 +18,7 @@ function Select() {
         <Section>
           <Text>What’s your Hype Music?</Text>
           <BattleContainer>
-            {loading ? (
+            {isLoadingState ? (
               <>
                 <AlbumPoster />
                 <AlbumPoster />
