@@ -77,8 +77,10 @@ function PostDetail() {
           </Icon>
 
           <Icon>
-            {postDetail?.isBattlePossible && (
+            {postDetail?.isBattlePossible ? (
               <Battle size={1.5} color='white' battleAbility={true} onClick={navigatePostBattle} />
+            ) : (
+              <Battle size={1.5} color='white' battleAbility={false} />
             )}
           </Icon>
         </PostDetailEvent>
