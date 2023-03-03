@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { COLOR } from '@/constants/color';
 
 import AlbumPoster from '../common/AlbumPoster';
-import BottomNav from '../common/BottomNav';
 import Genres from '../common/Genres';
 import Battle from '../common/ImageButtons/BattleButton';
 import Like from '../common/ImageButtons/LikeButton';
@@ -99,7 +98,6 @@ function PostList() {
             ),
           )}
       </FeedPostList>
-      <BottomNav />
     </Container>
   );
 }
