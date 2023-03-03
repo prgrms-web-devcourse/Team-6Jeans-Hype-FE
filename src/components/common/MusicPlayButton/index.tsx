@@ -9,7 +9,7 @@ function MusicPlayButton({ src }: Props) {
   const [musicPlayStatus, setMusicPlayStatus] = useState(true);
 
   const onClickPlayButton = () => {
-    const $audioElement = document.getElementById('audio');
+    const $audioElement = document.getElementById('audio') as HTMLAudioElement;
 
     if (musicPlayStatus) $audioElement?.play();
     else $audioElement?.pause();
