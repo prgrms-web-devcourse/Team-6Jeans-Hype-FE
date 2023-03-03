@@ -11,7 +11,7 @@ interface Prop {
 }
 
 const BattleMusicInfo = ({ music, onClick, clickSide }: Prop) => {
-  const { albumCoverUrl, musicUrl, musicName, singer } = music;
+  const { albumCoverUrl, musicUrl, title, singer } = music;
 
   const handleClick = (e: any) => {
     onClick?.(e);
@@ -27,7 +27,7 @@ const BattleMusicInfo = ({ music, onClick, clickSide }: Prop) => {
           </PlayIcon>
           <PlusIcon src='/images/plus-music.svg' value={musicUrl} />
         </Thumbnail>
-        <Title>{musicName}</Title>
+        <Title>{title}</Title>
         <Singer>{singer}</Singer>
       </Wrapper>
     </Container>

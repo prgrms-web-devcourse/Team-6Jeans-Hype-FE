@@ -2,41 +2,48 @@ import styled from '@emotion/styled';
 
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 import Genres from '@/components/common/Genres';
+import AlbumPoster from '@/components/common/skeleton/AlbumPoster';
 import { COLOR } from '@/constants/color';
 import useVoteResult from '@/hooks/useVoteResult';
 
-import { useQuery } from '@tanstack/react-query';
-import { getBattle } from '../api';
 import VoteResult from '../voteResult';
 
 function Select() {
-  const { visible, position, onClickMusic } = useVoteResult();
-  const { data: battleList, isLoading } = useQuery(['battleList'], getBattle);
+  const { musicData, loading, resultVisible, position, onClickMusic, onClickSkip } = useVoteResult();
 
-  return isLoading || battleList === false ? (
-    <>로딩중...</>
-  ) : (
+  return (
     <>
       <SelectContainer>
         <Genres onChange={() => console.log('click-genre')} />
         <Section>
           <Text>What’s your Hype Music?</Text>
           <BattleContainer>
-            <BattleMusicInfo
-              music={battleList?.challenged.music}
-              onClick={(e) => onClickMusic(e, 'left')}
-              clickSide='left'
-            />
-            <BattleMusicInfo
-              music={battleList?.challenging.music}
-              onClick={(e) => onClickMusic(e, 'right')}
-              clickSide='right'
-            />
+            {loading ? (
+              <>
+                <AlbumPoster />
+                <AlbumPoster />
+              </>
+            ) : musicData === undefined ? (
+              <div>대결할 음악이 없어요</div>
+            ) : (
+              <>
+                <BattleMusicInfo
+                  music={musicData?.challenged.music}
+                  onClick={(e) => onClickMusic(e, 'left')}
+                  clickSide='left'
+                />
+                <BattleMusicInfo
+                  music={musicData?.challenging.music}
+                  onClick={(e) => onClickMusic(e, 'right')}
+                  clickSide='right'
+                />
+              </>
+            )}
           </BattleContainer>
         </Section>
-        <Skip>건너뛰기</Skip>
+        <Skip onClick={onClickSkip}>건너뛰기</Skip>
       </SelectContainer>
-      {visible && <VoteResult battleId={1234} votedPostId={1234} clickSide={position} />}
+      {resultVisible && <VoteResult battleId={1234} votedPostId={1234} clickSide={position} />}
     </>
   );
 }

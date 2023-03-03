@@ -1,3 +1,4 @@
+import { BattleMusicInfo } from '../post/battle/types';
 import { GenreInfo } from '../post/types';
 
 export interface Battles {
@@ -9,15 +10,7 @@ export interface Battles {
 
 export interface BattleDetail {
   postId: number;
-  music: Music;
-}
-export interface Music {
-  musicId: string;
-  title: string;
-  singer: string;
-  albumCoverUrl: string;
-  musicUrl: string;
-  genre: GenreInfo;
+  music: BattleMusicInfo;
 }
 
 export interface Vote {
