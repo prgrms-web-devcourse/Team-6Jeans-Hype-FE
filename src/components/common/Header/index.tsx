@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import BackIcon from 'public/images/arrow-left.svg';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { COLOR } from '@/constants/color';
 
@@ -9,21 +9,11 @@ interface Props {
   shouldNeedBack?: boolean;
   backUrl?: string;
   title?: string;
-  subButtonType?: 'image' | 'text';
-  subButtonValue?: string;
-  onClickSubButton?: any; //어떤 이벤트가 들어올지 몰라서 일단 any로 뒀음
+  actionButton?: ReactNode;
   color?: 'white' | 'deepblue';
 }
 
-const Header: FC<Props> = ({
-  shouldNeedBack = true,
-  backUrl,
-  title,
-  subButtonType = 'text',
-  subButtonValue,
-  onClickSubButton,
-  color = COLOR.deepBlue,
-}) => {
+const Header: FC<Props> = ({ shouldNeedBack = true, backUrl, title, actionButton, color = COLOR.deepBlue }) => {
   return (
     <Container>
       {shouldNeedBack && (
@@ -32,11 +22,7 @@ const Header: FC<Props> = ({
         </Link>
       )}
       {title && <H1>{title}</H1>}
-      {subButtonValue && (
-        <SubButton onClick={onClickSubButton}>
-          {subButtonType === 'image' ? <img src={subButtonValue} alt='img' /> : <span>{subButtonValue}</span>}
-        </SubButton>
-      )}
+      {actionButton}
     </Container>
   );
 };
@@ -60,14 +46,6 @@ const H1 = styled.h1`
   font-weight: bold;
   transform: translateX(-50%);
   left: 50%;
-`;
-
-const SubButton = styled.button`
-  position: absolute;
-  font-size: 1.5rem;
-  color: ${COLOR.deepBlue};
-  right: 0%;
-  cursor: pointer;
 `;
 
 const StyledBackIcon = styled(BackIcon)<{ color: string }>`
