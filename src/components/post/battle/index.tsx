@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 import Header from '@/components/common/Header';
+import HeaderSubmitButton from '@/components/common/Header/SubmitButton';
 import { COLOR } from '@/constants/color';
 
 import { getPostBattleData } from './api';
@@ -30,9 +31,13 @@ function PostBattle() {
     },
   );
 
+  const submit = () => {
+    // TODO: api 요청 코드 추가
+  };
+
   return (
     <Container>
-      <Header title='대결 신청' subButtonValue='완료' />
+      <Header title='대결 신청' actionButton={<HeaderSubmitButton onClick={submit} />} />
       <Title>What&apos;s next?</Title>
       <Musics>
         {battleMusic && (
