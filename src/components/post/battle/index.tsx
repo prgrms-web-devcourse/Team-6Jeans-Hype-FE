@@ -10,11 +10,11 @@ import { getPostBattleData } from './api';
 import MyBattleList from './mybattleList';
 import { createBattle } from './api';
 
-function PostBattle() {
+function BattleForm() {
   const router = useRouter();
   const { postId: selectedOpponentMusicId } = router.query;
 
-  const [buttonText, setButtonText] = useState('');
+  const [isReadySubmit, setIsReadySubmit] = useState(false);
   const [listViewStattus, setListViewStatus] = useState(false);
 
   const [selectedMyMusicId, setSelectedMyMusicId] = useState(0);
@@ -38,7 +38,7 @@ function PostBattle() {
       thumbnailUrl,
       singer,
     });
-    setButtonText('확인');
+    setIsReadySubmit(true);
   };
 
   const applyBattle = async () => {
@@ -56,7 +56,7 @@ function PostBattle() {
 
   return (
     <Container>
-      <Header title='대결 신청' subButtonValue={buttonText} onClickSubButton={applyBattle} />
+      <Header title='대결 신청' subButtonValue={isReadySubmit ? '확인' : ''} onClickSubButton={applyBattle} />
       <Title>What&apos;s next?</Title>
       <Musics>
         {battleMusic && (
@@ -75,7 +75,7 @@ function PostBattle() {
   );
 }
 
-export default PostBattle;
+export default BattleForm;
 
 const Container = styled.div`
   width: 90%;
