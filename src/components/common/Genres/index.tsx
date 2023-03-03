@@ -25,6 +25,8 @@ function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChan
     onSuccess: (genres) => {
       setTargetGenres(shouldNeedAll ? [{ genreValue: 'ALL', genreName: 'ALL' }, ...genres] : genres);
     },
+    cacheTime: Infinity,
+    staleTime: Infinity,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
