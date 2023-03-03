@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { FC } from 'react';
 
 import { COLOR } from '@/constants/color';
 
@@ -13,7 +14,7 @@ interface Props {
   selectedColor?: 'white' | 'deepblue';
 }
 
-const Header = ({
+const Header: FC<Props> = ({
   shouldNeedBack = true,
   backUrl,
   title,
@@ -21,7 +22,7 @@ const Header = ({
   subButtonValue,
   onClickSubButton,
   selectedColor = 'deepblue',
-}: Props) => {
+}) => {
   const router = useRouter();
 
   return (
