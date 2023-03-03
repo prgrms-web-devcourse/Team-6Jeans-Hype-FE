@@ -53,49 +53,51 @@ function PostList() {
       {/* <Battles setIsPossibleBattle={setIsPossibleBattle} /> */}
 
       <FeedPostList>
-        {postFeed?.map(
-          ({
-            postId,
-            music: { albumCoverUrl, singer, title, genre },
-            likeCount,
-            isBattlePossible,
-            nickname,
-          }: PostInfo) => (
-            <Post key={postId} onClick={(e) => checkEventBubbling(e, postId)}>
-              <PostHead>
-                <PostHeadInfo>
-                  <TextDivider text1={nickname} text2='2020-02-05' />
-                </PostHeadInfo>
-              </PostHead>
-              <PostBody>
-                <AlbumPoster lazy={true} size={8} src={albumCoverUrl} />
-                <PostmusicInfo>
-                  <div>{title}</div>
-                  <div>
-                    <TextDivider text1={singer} text2={genre.genreName} />
-                  </div>
-                </PostmusicInfo>
-                <PostIcons>
-                  <Like
-                    size={1.5}
-                    initCount={likeCount}
-                    color='purple'
-                    isClicked={false}
-                    onClick={() => console.log('todo 좋아요 관련 api 연결하기')}
-                  />
-                  {isBattlePossible && (
-                    <Battle
-                      size={1}
-                      battleAbility={isBattlePossible}
-                      color='blue'
-                      onClick={() => navigatePostBattle(postId)}
+        {postFeed
+          ?.sort((a, b) => b.postId - a.postId)
+          .map(
+            ({
+              postId,
+              music: { albumCoverUrl, singer, title, genre },
+              likeCount,
+              isBattlePossible,
+              nickname,
+            }: PostInfo) => (
+              <Post key={postId} onClick={(e) => checkEventBubbling(e, postId)}>
+                <PostHead>
+                  <PostHeadInfo>
+                    <TextDivider text1={nickname} text2='2020-02-05' />
+                  </PostHeadInfo>
+                </PostHead>
+                <PostBody>
+                  <AlbumPoster lazy={true} size={8} src={albumCoverUrl} />
+                  <PostmusicInfo>
+                    <div>{title}</div>
+                    <div>
+                      <TextDivider text1={singer} text2={genre.genreName} />
+                    </div>
+                  </PostmusicInfo>
+                  <PostIcons>
+                    <Like
+                      size={1.5}
+                      initCount={likeCount}
+                      color='purple'
+                      isClicked={false}
+                      onClick={() => console.log('todo 좋아요 관련 api 연결하기')}
                     />
-                  )}
-                </PostIcons>
-              </PostBody>
-            </Post>
-          ),
-        )}
+                    {isBattlePossible && (
+                      <Battle
+                        size={1}
+                        battleAbility={isBattlePossible}
+                        color='blue'
+                        onClick={() => navigatePostBattle(postId)}
+                      />
+                    )}
+                  </PostIcons>
+                </PostBody>
+              </Post>
+            ),
+          )}
       </FeedPostList>
       <BottomNav />
     </Container>
