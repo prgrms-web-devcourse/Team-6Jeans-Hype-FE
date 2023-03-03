@@ -25,7 +25,7 @@ export interface PostBattleInfo {
   content?: string;
 }
 
-export interface BattleMusicInfo {
+export interface BattleMusic {
   musicId?: string;
   title: string;
   musicUrl?: string;
