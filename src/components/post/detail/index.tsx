@@ -78,30 +78,34 @@ function PostDetail() {
           </Icon>
         </PostDetailEvent>
 
-        {postDetail?.content && (
-          <PostDetailContent>
-            <ContentHeader>
-              <Title>
-                <Info>
-                  <strong>{postDetail?.nickname}</strong> 님의 한마디
-                </Info>
-                <ImageWrapper>
-                  <img src='/images/down-arrow.svg' alt='img' />
-                </ImageWrapper>
-              </Title>
-            </ContentHeader>
+        <PostDetailContent>
+          <ContentHeader isContent={!!postDetail?.content}>
+            <Title>
+              <Info>
+                <strong>{postDetail?.nickname} 님의</strong> {postDetail?.content === '' ? '추천' : '한마디'}
+              </Info>
+              <ImageWrapper isContent={!!postDetail?.content}>
+                <img src='/images/down-arrow.svg' alt='img' />
+              </ImageWrapper>
+            </Title>
+          </ContentHeader>
 
+          {postDetail?.content && (
             <ContentBody>
               <Content>{postDetail.content}</Content>
             </ContentBody>
-          </PostDetailContent>
-        )}
+          )}
+        </PostDetailContent>
       </Wrapper>
     </Container>
   );
 }
 
 export default PostDetail;
+
+interface StyleProp {
+  isContent: boolean;
+}
 
 const Container = styled.div`
   display: flex;
@@ -189,7 +193,7 @@ const ContentHeader = styled.div`
 
   position: absolute;
   left: 0;
-  bottom: 12.5%;
+  bottom: ${({ isContent }: StyleProp) => (isContent ? '12.5%' : '0')};
   width: 100%;
   height: 2.5%;
 `;
@@ -211,6 +215,7 @@ const Info = styled.div`
 const ImageWrapper = styled.div`
   position: absolute;
   right: 3rem;
+  display: ${({ isContent }: StyleProp) => (isContent ? 'block' : 'none')};
 `;
 
 const ContentBody = styled.div`
