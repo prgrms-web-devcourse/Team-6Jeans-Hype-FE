@@ -41,7 +41,6 @@ function PostBattle() {
     setButtonText('확인');
   };
 
-  // react-query Mutation 도입 고민
   const applyBattle = async () => {
     await createBattle(parseInt(selectedOpponentMusicId as string), selectedMyMusicId);
     alert('대결 신청 완료!');

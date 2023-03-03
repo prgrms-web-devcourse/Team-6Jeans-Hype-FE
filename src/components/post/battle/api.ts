@@ -2,8 +2,6 @@ import { axiosInstance } from '@/api';
 import { PostBattleAPI } from './types';
 
 const SERVER = process.env.NEXT_PUBLIC_API_URL;
-const TEMP_TOKEN =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjc3NDg1MTUwLCJleHAiOjE2NzgzNDkxNTB9.1UtakWRXOkrN-IGZ7V7fWh0YhC4WzBS6M31FxTnPceKLW-IqvD8sTVlQIDEDfmbqxDdqqWnOVH4i0i0k1KuYlg';
 
 export const getPostBattleData = async (postId: number) => {
   try {
@@ -23,16 +21,14 @@ export const getPostBattleData = async (postId: number) => {
 };
 
 export const createBattle = async (challengedPostId: number, challengingPostId: number) => {
-  const body = {
-    challengedPostId,
-    challengingPostId,
-  };
-
   try {
     const response = await axiosInstance.request({
       method: 'POST',
       url: `${SERVER}/battles`,
-      data: { ...body },
+      data: {
+        challengedPostId,
+        challengingPostId,
+      },
     });
 
     if (response.data.success) {
