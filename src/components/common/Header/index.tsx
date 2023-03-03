@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { FC } from 'react';
 
 import { COLOR } from '@/constants/color';
@@ -23,14 +23,12 @@ const Header: FC<Props> = ({
   onClickSubButton,
   color = 'deepblue',
 }) => {
-  const router = useRouter();
-
   return (
     <Container>
-      {shouldNeedBack && backUrl && (
-        <button onClick={() => router.push(backUrl)} style={{ cursor: 'pointer' }}>
+      {shouldNeedBack && (
+        <Link href={backUrl ?? ''}>
           <img src={`/images/back-${color}-icon.svg`} style={{ width: '100%' }} />
-        </button>
+        </Link>
       )}
       {title && <H1>{title}</H1>}
       {subButtonValue && (
