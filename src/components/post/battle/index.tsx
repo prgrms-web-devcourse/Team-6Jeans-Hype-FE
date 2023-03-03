@@ -2,9 +2,11 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 import Header from '@/components/common/Header';
 import { COLOR } from '@/constants/color';
+
 import { getPostBattleData } from './api';
 import MyBattleList from './mybattleList';
 
