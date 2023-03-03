@@ -11,8 +11,14 @@ interface Props {
 }
 
 function Battle({ size, color, battleAbility, onClick }: Props) {
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    onClick?.();
+  };
+
   return (
-    <BattleContainer onClick={onClick}>
+    <BattleContainer onClick={handleClick}>
       <StyledFireIcon size={size} color={color} ability={battleAbility.toString()} />
       <Text ability={battleAbility} color={color}>
         {battleAbility ? '대결신청' : '대결불가'}

@@ -15,7 +15,7 @@ export interface PostInfo {
 }
 
 export interface MusicInfo {
-  musicName: string;
+  title: string;
   albumCoverUrl: string;
   singer: string;
   genre: genreInfo;

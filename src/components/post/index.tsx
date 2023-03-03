@@ -20,17 +20,25 @@ function PostList() {
 
   const router = useRouter();
 
-  const { data: postFeed } = useQuery(['postfeed', genre, isPossibleBattle], () => {
-    return getPostFeedData({ genre, isPossibleBattle });
-  });
-
-  const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
-
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedGenre = e.target.value;
 
     setGenre(selectedGenre);
   };
+
+  const checkEventBubbling = (e: React.MouseEvent<HTMLDivElement>, postId: number) => {
+    if (e.defaultPrevented) return;
+
+    navigatePostDetail(postId);
+  };
+
+  const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
+
+  const navigatePostBattle = (postId: number) => router.push(`/post/battle?postId=${postId}`);
+
+  const { data: postFeed } = useQuery(['postfeed', genre, isPossibleBattle], () => {
+    return getPostFeedData({ genre, isPossibleBattle });
+  });
 
   return (
     <Container>
@@ -48,12 +56,12 @@ function PostList() {
         {postFeed?.map(
           ({
             postId,
-            music: { albumCoverUrl, singer, musicName, genre },
+            music: { albumCoverUrl, singer, title, genre },
             likeCount,
             isBattlePossible,
             nickname,
           }: PostInfo) => (
-            <Post key={postId} onClick={() => navigatePostDetail(postId)}>
+            <Post key={postId} onClick={(e) => checkEventBubbling(e, postId)}>
               <PostHead>
                 <PostHeadInfo>
                   <TextDivider text1={nickname} text2='2020-02-05' />
@@ -62,7 +70,7 @@ function PostList() {
               <PostBody>
                 <AlbumPoster lazy={true} size={8} src={albumCoverUrl} />
                 <PostmusicInfo>
-                  <div>{musicName}</div>
+                  <div>{title}</div>
                   <div>
                     <TextDivider text1={singer} text2={genre.genreName} />
                   </div>
@@ -80,9 +88,7 @@ function PostList() {
                       size={1}
                       battleAbility={isBattlePossible}
                       color='blue'
-                      onClick={() => {
-                        console.log('배틀 신청');
-                      }}
+                      onClick={() => navigatePostBattle(postId)}
                     />
                   )}
                 </PostIcons>
