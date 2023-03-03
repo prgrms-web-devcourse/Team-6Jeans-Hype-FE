@@ -6,33 +6,33 @@ interface Props {
 }
 
 function MusicPlayButton({ src }: Props) {
-  const [musicPlayStatus, setMusicPlayStatus] = useState(true);
+  const [isMusicPlay, setIsMusicPlay] = useState(true);
 
   const onClickPlayButton = () => {
     const $audioElement = document.getElementById('audio') as HTMLAudioElement;
 
-    if (musicPlayStatus) $audioElement?.play();
+    if (isMusicPlay) $audioElement?.play();
     else $audioElement?.pause();
 
-    setMusicPlayStatus((prev) => !prev);
+    setIsMusicPlay((prev) => !prev);
   };
 
   return (
-    <PostPlayIcon>
+    <PlayIcon>
       <audio src={src} id='audio' controls loop></audio>
       <img
-        src={`/images/${musicPlayStatus ? 'play-button' : 'google-logo'}.svg`}
+        src={`/images/${isMusicPlay ? 'play-button' : 'google-logo'}.svg`}
         alt='play button'
         onClick={onClickPlayButton}
       />
       ;
-    </PostPlayIcon>
+    </PlayIcon>
   );
 }
 
 export default MusicPlayButton;
 
-const PostPlayIcon = styled.div`
+const PlayIcon = styled.div`
   width: 4rem;
   height: 4rem;
   overflow: hidden;
