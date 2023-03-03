@@ -21,7 +21,7 @@ const Header: FC<Props> = ({ shouldNeedBack = true, backUrl, title, actionButton
           <StyledBackIcon color={color} />
         </Link>
       )}
-      {title && <H1>{title}</H1>}
+      {title && <H1 color={color}>{title}</H1>}
       {actionButton}
     </Container>
   );
@@ -40,12 +40,13 @@ const Container = styled.div`
   position: relative;
 `;
 
-const H1 = styled.h1`
+const H1 = styled.h1<{ color: string }>`
   position: absolute;
   font-size: 1.8rem;
   font-weight: bold;
   transform: translateX(-50%);
   left: 50%;
+  color: ${({ color }) => color};
 `;
 
 const StyledBackIcon = styled(BackIcon)<{ color: string }>`
