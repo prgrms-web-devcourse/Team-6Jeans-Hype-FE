@@ -10,8 +10,11 @@ import { COLOR } from '@/constants/color';
 import { getPostDetailData } from './api';
 import MusicInfo from './musicInfo';
 import MusicPlayButton from '@/components/common/MusicPlayButton';
+import { useState } from 'react';
 
 function PostDetail() {
+  const [isRenderPostContent, setIsRenderPostContent] = useState(true);
+
   const router = useRouter();
   const { postId } = router.query;
 
@@ -26,6 +29,8 @@ function PostDetail() {
   const navigatePostBattle = () => {
     router.push(`/post/battle?postId=${postId}`);
   };
+
+  const toggleContentViewStatus = () => setIsRenderPostContent((prev) => !prev);
 
   return (
     <Container>
@@ -79,22 +84,20 @@ function PostDetail() {
         </PostDetailEvent>
 
         <PostDetailContent>
-          <ContentHeader isContent={!!postDetail?.content}>
+          <ContentHeader isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
             <Title>
               <Info>
                 <strong>{postDetail?.nickname} 님의</strong> {postDetail?.content === '' ? '추천' : '한마디'}
               </Info>
-              <ImageWrapper isContent={!!postDetail?.content}>
-                <img src='/images/down-arrow.svg' alt='img' />
+              <ImageWrapper isContent={!!postDetail?.content} onClick={toggleContentViewStatus}>
+                <img src={`/images/${isRenderPostContent ? 'down' : 'up'}-arrow.svg`} alt='img' />
               </ImageWrapper>
             </Title>
           </ContentHeader>
 
-          {postDetail?.content && (
-            <ContentBody>
-              <Content>{postDetail.content}</Content>
-            </ContentBody>
-          )}
+          <ContentBody isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
+            <Content value={`${postDetail?.content}`} />
+          </ContentBody>
         </PostDetailContent>
       </Wrapper>
     </Container>
@@ -104,7 +107,8 @@ function PostDetail() {
 export default PostDetail;
 
 interface StyleProp {
-  isContent: boolean;
+  isContent?: boolean;
+  isContentViewStatus?: boolean;
 }
 
 const Container = styled.div`
@@ -193,7 +197,7 @@ const ContentHeader = styled.div`
 
   position: absolute;
   left: 0;
-  bottom: ${({ isContent }: StyleProp) => (isContent ? '12.5%' : '0')};
+  bottom: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? '12.5%' : '0')};
   width: 100%;
   height: 2.5%;
 `;
@@ -226,14 +230,17 @@ const ContentBody = styled.div`
   bottom: 0;
   width: 100%;
   height: 13.5%;
+
+  display: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? 'flex' : 'none')};
+  justify-content: center;
 `;
 
-const Content = styled.div`
+const Content = styled.textarea`
   border: 0.4px solid rgba(125, 116, 220, 0.4);
   border-radius: 1rem;
   padding: 1rem;
   width: 90%;
-  margin: 1.5rem auto 0 auto;
+  margin: 1.5rem 0;
 
   font-style: normal;
   font-weight: 500;
