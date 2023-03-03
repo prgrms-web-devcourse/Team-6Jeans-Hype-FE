@@ -14,7 +14,13 @@ interface Props {
   color?: string;
 }
 
-const Header: FC<Props> = ({ shouldNeedBack = true, backUrl, title, actionButton, color = COLOR.deepBlue }) => {
+const Header: FC<Props> = ({
+  shouldNeedBack = true,
+  backUrl,
+  title,
+  actionButton: ActionButton,
+  color = COLOR.deepBlue,
+}) => {
   const router = useRouter();
 
   const BackButton = backUrl ? (
@@ -29,7 +35,7 @@ const Header: FC<Props> = ({ shouldNeedBack = true, backUrl, title, actionButton
     <Container>
       {shouldNeedBack && BackButton}
       {title && <H1 color={color}>{title}</H1>}
-      {actionButton}
+      {ActionButton}
     </Container>
   );
 };
