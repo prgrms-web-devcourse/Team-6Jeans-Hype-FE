@@ -10,7 +10,7 @@ interface Props {
   backUrl?: string;
   title?: string;
   actionButton?: ReactNode;
-  color?: 'white' | 'deepblue';
+  color?: string;
 }
 
 const Header: FC<Props> = ({ shouldNeedBack = true, backUrl, title, actionButton, color = COLOR.deepBlue }) => {
