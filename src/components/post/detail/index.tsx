@@ -72,7 +72,9 @@ function PostDetail() {
           </Icon>
 
           <Icon>
-            <Battle size={1.5} color='white' battleAbility={true} onClick={navigatePostBattle} />
+            {postDetail?.isBattlePossible && (
+              <Battle size={1.5} color='white' battleAbility={true} onClick={navigatePostBattle} />
+            )}
           </Icon>
         </PostDetailEvent>
 
@@ -158,17 +160,22 @@ const PlayTime = styled.div`
 
 const PostDetailEvent = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  position: relative;
 
   width: 65%;
   margin: 0 auto;
 `;
 
 const Icon = styled.div`
-  &:first-of-type,
+  &:first-of-type {
+    position: absolute;
+    left: 0;
+  }
   &:last-of-type {
-    width: 18%;
+    position: absolute;
+    right: 0;
   }
 `;
 
