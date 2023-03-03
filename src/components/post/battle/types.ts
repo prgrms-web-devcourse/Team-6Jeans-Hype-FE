@@ -41,8 +41,8 @@ export interface BattleGenreInfo {
 
 export interface BattleApplyModal {
   postId: number;
-  musicName: string;
+  title: string;
   musicUrl?: string;
-  thumbnailUrl: string;
+  albumCoverUrl: string;
   singer: string;
 }

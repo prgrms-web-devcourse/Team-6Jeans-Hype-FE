@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
-import { BattleMusic, BattleApplyModal } from './types';
+import { BattleApplyModal } from './types';
 import Header from '@/components/common/Header';
 import { COLOR } from '@/constants/color';
 
@@ -21,7 +21,7 @@ function BattleForm() {
 
   const [selectedMyMusic, setSelectedMyMusic] = useState<BattleApplyModal>({
     postId: 0,
-    musicName: '내 대결 곡 고르기',
+    title: '내 대결 곡 고르기',
     musicUrl: '',
     singer: '',
     albumCoverUrl: '',
