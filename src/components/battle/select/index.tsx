@@ -8,15 +8,23 @@ import useVoteResult from '@/hooks/useVoteResult';
 
 import VoteResult from '../voteResult';
 
-function Select() {
-  const { musicData, isLoadingState, resultVisible, position, onClickMusic, onClickSkip } = useVoteResult();
+interface Props {
+  battleId?: number | undefined;
+}
+
+function Select({ battleId }: Props) {
+  const { musicData, isLoadingState, selectedBattle, position, onClickMusic, onClickSkip } = useVoteResult(battleId);
 
   return (
     <>
       <SelectContainer>
         <Genres onChange={() => console.log('click-genre')} />
         <Section>
-          <Text>What’s your Hype Music?</Text>
+          <Text>
+            What’s your Hype Music?
+            {selectedBattle.battleId}
+            {selectedBattle.votedPostId}
+          </Text>
           <BattleContainer>
             {isLoadingState ? (
               <>
@@ -29,21 +37,24 @@ function Select() {
               <>
                 <BattleMusicInfo
                   music={musicData?.challenged.music}
-                  onClick={(e) => onClickMusic(e, 'left')}
+                  onClick={(e) => onClickMusic(e, 'left', musicData.battleId, musicData?.challenged.postId)}
                   clickSide='left'
                 />
                 <BattleMusicInfo
                   music={musicData?.challenging.music}
-                  onClick={(e) => onClickMusic(e, 'right')}
+                  onClick={(e) => onClickMusic(e, 'right', musicData.battleId, musicData?.challenging.postId)}
                   clickSide='right'
                 />
               </>
             )}
           </BattleContainer>
         </Section>
-        <Skip onClick={onClickSkip}>건너뛰기</Skip>
+        {!battleId && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
       </SelectContainer>
-      {resultVisible && <VoteResult battleId={1234} votedPostId={1234} clickSide={position} />}
+
+      {selectedBattle.battleId !== -1 && selectedBattle.votedPostId !== -1 && (
+        <VoteResult battleId={selectedBattle.battleId} votedPostId={selectedBattle.votedPostId} clickSide={position} />
+      )}
     </>
   );
 }
@@ -80,6 +91,7 @@ const Skip = styled.div`
 const Text = styled.div`
   font-size: 1.7rem;
   background: linear-gradient(98.38deg, #7d74dc -1.83%, #7697ec 86.44%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   white-space: nowrap;

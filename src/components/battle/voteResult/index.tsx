@@ -1,6 +1,7 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
 import { COLOR } from '@/constants/color';
@@ -14,6 +15,8 @@ interface Props {
 }
 
 function VoteResult({ battleId, votedPostId, clickSide }: Props) {
+  const router = useRouter();
+  console.log(router.pathname);
   const { data: voteResult, isLoading } = useQuery(
     ['voteResult', battleId],
     () => createBattleVote(battleId, votedPostId),
@@ -26,7 +29,7 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
   const opposite = <span className='opposite'>{voteResult?.oppositePostVoteCnt}</span>;
 
   return (
-    <VoteResultModal>
+    <VoteResultModal isInfinity={router.pathname === '/battle/detail'}>
       {isLoading ? (
         <div>skeleton으로 교체 예정</div>
       ) : (
@@ -74,6 +77,7 @@ const VoteResultModal = styled.div`
   width: 100%;
   height: 100%;
   animation: ${backgroundFade} 2s ease;
+  background-color: ${COLOR.purple};
   z-index: 99;
 `;
 
