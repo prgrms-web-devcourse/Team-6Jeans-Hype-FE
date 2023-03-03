@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
 import Genres from '@/components/common/Genres';
 
@@ -20,23 +19,23 @@ interface Props {
 function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Props) {
   const router = useRouter();
   const { trackId } = router.query;
-  const { data: musicDetail, isLoading } = useQuery(['musicDetail', trackId], () =>
-    getMusicDetailData(trackId as string),
+  const { data: musicDetail, isLoading } = useQuery(
+    ['musicDetail', trackId],
+    () => getMusicDetailData(trackId as string),
+    {
+      onSuccess: (musicDetail) => {
+        const newMusic: Music = {
+          trackId: musicDetail?.trackId,
+          trackName: musicDetail?.trackName,
+          artistName: musicDetail?.artistName,
+          artworkUrl100: musicDetail?.artworkUrl100,
+          previewUrl: musicDetail?.previewUrl,
+        };
+
+        onChangeMusicInfo(newMusic);
+      },
+    },
   );
-
-  useEffect(() => {
-    if (!isLoading) {
-      const newMusic: Music = {
-        trackId: musicDetail?.trackId,
-        trackName: musicDetail?.trackName,
-        artistName: musicDetail?.artistName,
-        artworkUrl100: musicDetail?.artworkUrl100,
-        previewUrl: musicDetail?.previewUrl,
-      };
-
-      onChangeMusicInfo(newMusic);
-    }
-  });
 
   return (
     <CreateContainer onSubmit={onSubmit}>

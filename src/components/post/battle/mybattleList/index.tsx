@@ -1,6 +1,10 @@
+import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
+
 import AlbumPoster from '@/components/common/AlbumPoster';
 import ConfirmModal from '@/components/common/ConfirmModal';
 import { COLOR } from '@/constants/color';
+
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -77,7 +81,7 @@ function MyBattleList({ genre, updateMyMusicCard }: Props) {
               <AlbumPoster lazy={true} size={5} src={thumbnailUrl} />
               {/* <AlbumPoster lazy={true} size={5} src={albumCoverUrl} /> */}
               <TitleSinger>
-                <div>{musicName}</div>
+                <div>{title}</div>
                 <div>{singer}</div>
               </TitleSinger>
             </Post>

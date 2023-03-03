@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { getGenres } from '@/components/post/api';
 import { COLOR } from '@/constants/color';
@@ -20,11 +20,11 @@ interface Genre {
 
 function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChange }: Props) {
   const [targetGenres, setTargetGenres] = useState<Genre[]>([]);
-  const { data: genres, isLoading } = useQuery(['genres'], () => getGenres());
   const { selectedValue, onClick } = useGenre();
-
-  useEffect(() => {
-    setTargetGenres(shouldNeedAll ? [{ genreValue: 'ALL', genreName: 'ALL' }, ...genres] : genres);
+  const { data: genres, isLoading } = useQuery(['genres'], () => getGenres(), {
+    onSuccess: (genres) => {
+      setTargetGenres(shouldNeedAll ? [{ genreValue: 'ALL', genreName: 'ALL' }, ...genres] : genres);
+    },
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

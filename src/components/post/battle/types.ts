@@ -25,10 +25,11 @@ export interface PostBattleInfo {
   content?: string;
 }
 
-export interface BattleMusic {
-  musicName: string;
+export interface BattleMusicInfo {
+  musicId?: string;
+  title: string;
   musicUrl?: string;
-  thumbnailUrl: string;
+  albumCoverUrl: string;
   singer: string;
   genre?: BattleGenreInfo;
 }

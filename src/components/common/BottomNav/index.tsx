@@ -2,25 +2,33 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import useAuth from '@/components/login/useAuth';
 import { COLOR } from '@/constants/color';
 
 interface Button {
   src: string;
   text: string;
   path: string;
+  onClick?: () => void;
 }
-
-const buttonList = [
-  { src: 'main', text: '메인', path: '/' },
-  { src: 'battle', text: '대결', path: '/battle/short' },
-  { src: 'share', text: '공유', path: '/post/searchMusics' },
-  { src: 'feed', text: '피드', path: '/post' },
-  { src: 'mypage', text: '마이페이지', path: '/tmp' },
-];
 
 const BottomNav = () => {
   const router = useRouter();
   const { pathname } = router;
+  const { openAuthRequiredModal, isLoggedIn } = useAuth();
+
+  const buttonList: Button[] = [
+    { src: 'main', text: '메인', path: '/' },
+    { src: 'battle', text: '대결', path: '/battle/short' },
+    {
+      src: 'share',
+      text: '추천',
+      path: isLoggedIn ? '/post/searchMusics' : '',
+      onClick: () => isLoggedIn || openAuthRequiredModal(),
+    },
+    { src: 'feed', text: '피드', path: '/post' },
+    { src: 'mypage', text: '마이페이지', path: '/mypage' },
+  ];
 
   return (
     <BottomNavContainer>
@@ -31,7 +39,7 @@ const BottomNav = () => {
 
           return (
             <Link href={path} legacyBehavior key={src}>
-              <Button isClicked={isClicked}>
+              <Button isClicked={isClicked} onClick={button.onClick}>
                 <img src={`/images/bottom-nav/${src}-icon${isClicked ? '' : '-off'}.svg`} />
                 <span>{text}</span>
               </Button>

@@ -18,5 +18,10 @@ export interface MusicInfo {
   musicName: string;
   albumCoverUrl: string;
   singer: string;
-  genre: string;
+  genre: GenreInfo;
+}
+
+export interface GenreInfo {
+  genreValue: string;
+  genreName: string;
 }
