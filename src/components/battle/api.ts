@@ -1,24 +1,45 @@
 import axios from 'axios';
 
-const ADDRESS = process.env.NEXT_PUBLIC_MUSIC_SEARCH_API_URL;
+import { axiosInstance } from '@/api';
+
+import { TEMP_DUMMY } from './temp_dummy';
+import { Vote } from './types';
+
 const SERVER = process.env.NEXT_PUBLIC_API_URL;
 
-interface Vote {
-  title: string;
-  albumCoverUrl: string;
-  selectedPostVoteCnt: number;
-  oppositePostVoteCnt: number;
-}
+export const getBattle = async () => {
+  try {
+    const response = await axiosInstance.request({
+      method: 'GET',
+      url: `${SERVER}/battles`,
+    });
+
+    if (response.data.success) {
+      response.data.data.battles = TEMP_DUMMY;
+      const { battles } = response.data.data;
+      const dataLength = battles.length;
+      const targetNumber = Math.floor(Math.random() * dataLength);
+      const targetData = battles[targetNumber];
+
+      return targetData;
+    } else {
+      return {};
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const createBattleVote = async (battleId: number, votedPostId: number) => {
   try {
-    // const response = await axios.post(`${SERVER}/battles/vote`);
-
-    // if (response.data.success) {
-    //   return response.data.data.genres;
-    // } else {
-    //   return [];
-    // }
+    // const response = await axiosInstance.request({
+    //   method: 'POST',
+    //   url: `${SERVER}/battles/vote`,
+    //   data: {
+    //     battleId,
+    //     votedPostId,
+    //   },
+    // });
 
     const TEMP_DUMMY: Vote = {
       title: '떠나 (Prod. PATEKO (파테코))',

@@ -53,11 +53,14 @@ const backgroundFade = keyframes`
     opacity: 0;
   }
   20% {
-    background: ${COLOR.blue}
+    background: ${COLOR.blue};  
   }
   80% {
     background: ${COLOR.purple};
-    opacity: 0.96;
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
   }
   100% {
     opacity: 0;

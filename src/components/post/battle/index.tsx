@@ -2,9 +2,11 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 import Header from '@/components/common/Header';
 import { COLOR } from '@/constants/color';
+
 import { getPostBattleData } from './api';
 import MyBattleList from './mybattleList';
 
@@ -13,11 +15,10 @@ function PostBattle() {
   const { postId } = router.query;
 
   const [myListMusic, setMyListMusic] = useState({
-    musicName: '내 대결 곡 고르기',
+    title: '내 대결 곡 고르기',
     musicUrl: '',
-    thumbnailUrl: '',
     singer: '',
-    // albumCoverUrl: '',
+    albumCoverUrl: '',
   });
 
   const { data: battleMusic } = useQuery(
