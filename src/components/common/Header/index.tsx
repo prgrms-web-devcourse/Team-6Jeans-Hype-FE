@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import BackIcon from 'public/images/arrow-left.svg';
 import { FC, ReactNode } from 'react';
 
@@ -14,13 +15,19 @@ interface Props {
 }
 
 const Header: FC<Props> = ({ shouldNeedBack = true, backUrl, title, actionButton, color = COLOR.deepBlue }) => {
+  const router = useRouter();
+
+  const BackButton = backUrl ? (
+    <Link href={backUrl}>
+      <StyledBackIcon color={color} />
+    </Link>
+  ) : (
+    <StyledBackIcon onClick={() => router.back()} color={color} />
+  );
+
   return (
     <Container>
-      {shouldNeedBack && (
-        <Link href={backUrl ?? ''}>
-          <StyledBackIcon color={color} />
-        </Link>
-      )}
+      {shouldNeedBack && BackButton}
       {title && <H1 color={color}>{title}</H1>}
       {actionButton}
     </Container>
