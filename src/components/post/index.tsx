@@ -23,7 +23,7 @@ function PostList() {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedGenre = e.target.value;
 
-    setGenre(selectedGenre);
+    selectedGenre === 'ALL' ? setGenre('') : setGenre(selectedGenre);
   };
 
   const checkEventBubbling = (e: React.MouseEvent<HTMLDivElement>, postId: number) => {
