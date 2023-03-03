@@ -1,8 +1,10 @@
+import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
+
 import AlbumPoster from '@/components/common/AlbumPoster';
 import { COLOR } from '@/constants/color';
 import useConfirmModal from '@/hooks/useConfirmModal';
-import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
+
 import { MyBattlePostInfo } from '../types';
 import { getMyBattleListData } from './api';
 
@@ -22,12 +24,12 @@ function MyBattleList({ genre }: Props) {
       <Title>내 음악 목록</Title>
       <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
-          myBattleMusicList.map(({ postId, music: { musicName, singer, thumbnailUrl } }: MyBattlePostInfo) => (
-            <Post key={postId} onClick={() => onClickBattleButton({ title: musicName, singer: singer })}>
-              <AlbumPoster lazy={true} size={5} src={thumbnailUrl} />
+          myBattleMusicList.map(({ postId, music: { title, singer, albumCoverUrl } }: MyBattlePostInfo) => (
+            <Post key={postId} onClick={() => onClickBattleButton({ title: title, singer: singer })}>
+              <AlbumPoster lazy={true} size={5} src={albumCoverUrl} />
               {/* <AlbumPoster lazy={true} size={5} src={albumCoverUrl} /> */}
               <TitleSinger>
-                <div>{musicName}</div>
+                <div>{title}</div>
                 <div>{singer}</div>
               </TitleSinger>
             </Post>
