@@ -20,11 +20,7 @@ function Select({ battleId }: Props) {
       <SelectContainer>
         <Genres onChange={() => console.log('click-genre')} />
         <Section>
-          <Text>
-            What’s your Hype Music?
-            {selectedBattle.battleId}
-            {selectedBattle.votedPostId}
-          </Text>
+          <Text>What’s your Hype Music?</Text>
           <BattleContainer>
             {isLoadingState ? (
               <>
