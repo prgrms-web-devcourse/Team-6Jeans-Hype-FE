@@ -85,14 +85,14 @@ function PostDetail() {
 
         <PostDetailContent>
           <ContentHeader isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
-            <Title>
-              <Info>
+            <ContentHeaderWrapper>
+              <Title>
                 <strong>{postDetail?.nickname} 님의</strong> {postDetail?.content === '' ? '추천' : '한마디'}
-              </Info>
-              <ImageWrapper isContent={!!postDetail?.content} onClick={toggleContentViewStatus}>
+              </Title>
+              <ToggleArrowButton isContent={!!postDetail?.content} onClick={toggleContentViewStatus}>
                 <img src={`/images/${isRenderPostContent ? 'down' : 'up'}-arrow.svg`} alt='img' />
-              </ImageWrapper>
-            </Title>
+              </ToggleArrowButton>
+            </ContentHeaderWrapper>
           </ContentHeader>
 
           <ContentBody isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
@@ -202,21 +202,21 @@ const ContentHeader = styled.div`
   height: 2.5%;
 `;
 
-const Title = styled.div`
+const ContentHeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 `;
 
-const Info = styled.div`
+const Title = styled.div`
   font-size: 1.3rem;
   & > strong {
     font-weight: 600;
   }
 `;
 
-const ImageWrapper = styled.div`
+const ToggleArrowButton = styled.div`
   position: absolute;
   right: 3rem;
   display: ${({ isContent }: StyleProp) => (isContent ? 'block' : 'none')};
