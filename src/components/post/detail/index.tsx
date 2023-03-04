@@ -96,7 +96,7 @@ function PostDetail() {
           </ContentHeader>
 
           <ContentBody isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
-            <Content value={`${postDetail?.content}`} />
+            <Content defaultValue={postDetail?.content} />
           </ContentBody>
         </PostDetailContent>
       </Wrapper>
