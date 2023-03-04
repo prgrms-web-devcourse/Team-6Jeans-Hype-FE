@@ -87,6 +87,7 @@ const MusicInfo = styled.div`
 const Title = styled.h1`
   font-weight: 500;
   font-size: 1.3rem;
+  line-height: 1.7rem;
   word-break: break-all;
 `;
 
