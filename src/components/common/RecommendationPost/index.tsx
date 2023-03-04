@@ -15,7 +15,7 @@ function RecommendationPost({ postId, music: { albumCoverUrl, singer, title }, l
   return (
     <Container key={postId}>
       <Wrapper>
-        <AlbumPoster lazy={true} size={6} src={albumCoverUrl} />
+        <AlbumPoster lazy={true} size={6} src={albumCoverUrl} onClick={() => navigatePostDetail(postId)} />
         <MusicInfo onClick={() => navigatePostDetail(postId)}>
           <Title>{title}</Title>
           <Artist>{singer}</Artist>
