@@ -3,7 +3,7 @@ import Versus from 'public/images/no-background-logo.svg';
 
 import { COLOR } from '@/constants/color';
 
-import { BattleMusic } from './types';
+import { BattleMusic } from './list/types';
 
 interface BattleCardProps {
   left: BattleMusic;

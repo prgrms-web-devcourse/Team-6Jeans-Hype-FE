@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 import ShortsIcon from 'public/images/shuffle.svg';
 
-import BattleCard from '@/components/battle/list/Card';
+import BattleCard from '@/components/battle/Card';
 import { Battle } from '@/components/battle/list/types';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
