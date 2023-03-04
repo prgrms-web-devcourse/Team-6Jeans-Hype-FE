@@ -5,11 +5,11 @@ import { useRouter } from 'next/router';
 import Header from '@/components/common/Header';
 import Battle from '@/components/common/ImageButtons/BattleButton';
 import Like from '@/components/common/ImageButtons/LikeButton';
+import MusicPlayButton from '@/components/common/MusicPlayButton';
 import { COLOR } from '@/constants/color';
 
 import { getPostDetailData } from './api';
 import MusicInfo from './musicInfo';
-import MusicPlayButton from '@/components/common/MusicPlayButton';
 
 function PostDetail() {
   const router = useRouter();
