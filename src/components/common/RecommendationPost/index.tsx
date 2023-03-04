@@ -3,130 +3,83 @@ import { useRouter } from 'next/router';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
 import Battle from '@/components/common/ImageButtons/BattleButton';
-import TextDivider from '@/components/common/TextDivider';
+import Like from '@/components/common/ImageButtons/LikeButton';
 import { PostInfo } from '@/components/post/types';
 import { COLOR } from '@/constants/color';
 
-function RecommendationPost({
-  postId,
-  music: { albumCoverUrl, singer, musicName, genre },
-  likeCount,
-  isBattlePossible,
-  nickname,
-}: PostInfo) {
+function RecommendationPost({ postId, music: { albumCoverUrl, singer, title }, likeCount }: PostInfo) {
   const router = useRouter();
 
   const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
 
   return (
-    <Post key={postId} onClick={() => navigatePostDetail(postId)}>
-      <PostHead>
-        <PostHeadInfo>
-          <TextDivider text1={nickname} text2='2020-02-05' />
-        </PostHeadInfo>
-      </PostHead>
-      <PostBody>
-        <AlbumPoster lazy={true} size={8} src={albumCoverUrl} />
-        <PostmusicInfo>
-          <div>{musicName}</div>
-          <div>
-            <TextDivider text1={singer} text2={genre} />
-          </div>
-        </PostmusicInfo>
-        <PostIcons>
+    <Container key={postId}>
+      <Wrapper>
+        <AlbumPoster lazy={true} size={6} src={albumCoverUrl} />
+        <MusicInfo onClick={() => navigatePostDetail(postId)}>
+          <Title>{title}</Title>
+          <Artist>{singer}</Artist>
+        </MusicInfo>
+        <ButtonWrapper>
           <Battle
-            size={1}
+            size={1.2}
             battleAbility={false}
             onClick={() => {
               console.log('배틀 신청');
             }}
           />
-        </PostIcons>
-      </PostBody>
-    </Post>
+          <Like
+            size={1.5}
+            color='purple'
+            initCount={likeCount}
+            isClicked={false}
+            onClick={() => console.log('todo 좋아요 관련 api 연결하기')}
+          />
+        </ButtonWrapper>
+      </Wrapper>
+    </Container>
   );
 }
 
 export default RecommendationPost;
 
-const Post = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
 
-const PostHead = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 0 1rem;
-`;
-
-const PostHeadInfo = styled.div`
-  display: flex;
-  align-items: center;
-
-  & div:first-of-type {
-    font-weight: 500;
-    font-size: 1.3rem;
-    line-height: 1.4rem;
-    display: flex;
-    align-items: center;
-
-    color: ${COLOR.deepBlue};
-  }
-
-  & div:nth-of-type(3) {
-    font-weight: 400;
-    font-size: 0.8rem;
-    line-height: 1.2rem;
-
-    color: ${COLOR.gray};
-  }
-`;
-
-const PostBody = styled.div`
-  display: flex;
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-gap: 0.3rem;
   align-items: center;
   background: ${COLOR.white};
   box-shadow: 0px 0px 10px rgba(226, 226, 226, 0.25);
   border-radius: 1rem;
-
-  padding-right: 2rem;
-  margin: 1rem 0;
+  position: relative;
 `;
 
-const PostmusicInfo = styled.div`
+const MusicInfo = styled.div`
   display: flex;
   flex-direction: column;
-  width: 70%;
-  margin-left: 2rem;
-
-  & > div:first-of-type {
-    font-weight: 500;
-    font-size: 1.6rem;
-    line-height: 1.7rem;
-    margin-bottom: 0.5rem;
-
-    color: ${COLOR.deepBlue};
-  }
-
-  & > div:last-child {
-    font-weight: 500;
-    font-size: 1.2rem;
-    line-height: 1.8rem;
-
-    color: ${COLOR.gray};
-
-    display: flex;
-    align-items: center;
-  }
+  justify-content: center;
+  gap: 0.3rem;
 `;
 
-const PostIcons = styled.div`
+const Title = styled.h1`
+  font-weight: 500;
+  font-size: 1.3rem;
+`;
+
+const Artist = styled.h2`
+  font-weight: 400;
+  font-size: 1rem;
+  color: ${COLOR.gray};
+`;
+
+const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
-
-  & div:first-of-type {
-    margin-right: 0.25rem;
-  }
+  gap: 0.7rem;
 `;

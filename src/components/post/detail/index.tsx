@@ -57,6 +57,7 @@ function PostDetail() {
           <Icon>
             <Like
               size={2}
+              color='white'
               initCount={15}
               isClicked={true}
               onClick={() => {

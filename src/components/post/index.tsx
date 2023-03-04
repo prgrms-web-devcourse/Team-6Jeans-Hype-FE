@@ -26,36 +26,26 @@ function PostList() {
 
   return (
     <Container>
-      <Title>
-        <div>한눈에 보는 추천</div>
+      <Header>
+        <Title>한눈에 보는 추천</Title>
         <Filter>
-          <div>최신순</div>
-          <img src='./images/down-arrow-gray.svg' alt='필터 버튼' />
+          최신순
+          <img src='./images/down-arrow-gray.svg' alt='필터링' />
         </Filter>
-      </Title>
+      </Header>
       <Genres onChange={onChange} />
       {/* <Battles setIsPossibleBattle={setIsPossibleBattle} /> */}
-
-      <FeedPostList>
-        {postFeed?.map(
-          ({
-            postId,
-            music: { albumCoverUrl, singer, musicName, genre },
-            likeCount,
-            isBattlePossible,
-            nickname,
-          }: PostInfo) => (
-            <RecommendationPost
-              key={postId}
-              postId={postId}
-              music={{ albumCoverUrl, singer, musicName, genre }}
-              likeCount={likeCount}
-              isBattlePossible={isBattlePossible}
-              nickname={nickname}
-            />
-          ),
-        )}
-      </FeedPostList>
+      <PostFeedList>
+        {postFeed?.map(({ postId, music, likeCount, isBattlePossible }: PostInfo) => (
+          <RecommendationPost
+            key={postId}
+            postId={postId}
+            music={music}
+            likeCount={likeCount}
+            isBattlePossible={isBattlePossible}
+          />
+        ))}
+      </PostFeedList>
       <BottomNav />
     </Container>
   );
@@ -69,42 +59,31 @@ const Container = styled.div`
   padding: 2rem 0;
 `;
 
-const Title = styled.div`
+const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin: 0.5rem 0.5rem 2rem;
+`;
 
-  & > div:first-of-type {
-    font-weight: 700;
-    font-size: 1.8rem;
-    line-height: 2.6rem;
-    text-align: center;
-    color: ${COLOR.deepBlue};
-  }
+const Title = styled.h1`
+  font-weight: 700;
+  font-size: 1.8rem;
 `;
 
 const Filter = styled.div`
   display: flex;
   align-items: center;
-
+  gap: 0.4rem;
   font-weight: 700;
   font-size: 1rem;
-  line-height: 1.4rem;
-  text-align: center;
-
   color: ${COLOR.gray};
-
-  & div {
-    margin-right: 0.5rem;
-  }
 `;
 
-const FeedPostList = styled.div`
+const PostFeedList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-
-  margin-top: 5rem;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
   padding-bottom: 8rem;
 `;
