@@ -14,6 +14,7 @@ export const accessTokenAtom = atom<string | null>({
         const token = tokenStorage.get();
         if (token !== null) {
           setSelf(token);
+          axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         }
       }
 
