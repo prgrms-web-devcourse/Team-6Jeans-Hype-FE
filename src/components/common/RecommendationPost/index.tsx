@@ -23,6 +23,7 @@ function RecommendationPost({ postId, music: { albumCoverUrl, singer, title }, l
         <ButtonWrapper>
           <Battle
             size={1.2}
+            color='blue'
             battleAbility={false}
             onClick={() => {
               console.log('배틀 신청');
