@@ -45,7 +45,7 @@ function Select({ battleId }: Props) {
             )}
           </BattleContainer>
         </Section>
-        {!battleId && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
+        {battleId ?? <Skip onClick={onClickSkip}>건너뛰기</Skip>}
       </SelectContainer>
 
       {selectedBattle.battleId !== -1 && selectedBattle.votedPostId !== -1 && (
