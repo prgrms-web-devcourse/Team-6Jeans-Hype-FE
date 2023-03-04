@@ -11,12 +11,17 @@ export interface PostInfo {
   music: MusicInfo;
   likeCount: number;
   isBattlePossible: boolean;
-  nickname: string;
+  nickname?: string;
 }
 
 export interface MusicInfo {
-  musicName: string;
+  title: string;
   albumCoverUrl: string;
   singer: string;
-  genre: string;
+  genre: GenreInfo;
+}
+
+export interface GenreInfo {
+  genreValue: string;
+  genreName: string;
 }
