@@ -30,7 +30,7 @@ function PostDetail() {
   return (
     <Container>
       <Wrapper>
-        <Header selectedColor='white' backUrl='/post' />
+        <Header color={COLOR.white} backUrl='/post' />
 
         {postDetail && (
           <MusicInfo
