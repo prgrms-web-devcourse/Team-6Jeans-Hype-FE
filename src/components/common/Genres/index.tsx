@@ -30,7 +30,7 @@ function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChan
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (disabled) {
-      alert('현재 장르 필터링 기능을 제공하지 않습니다.');
+      alert('현재 장르 필터링을 제공하지 않습니다.');
       return;
     }
 
