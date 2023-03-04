@@ -1,11 +1,11 @@
-import { axiosInstance } from '@/api';
 import axios from 'axios';
-import { PostAPI } from './types';
+
+import { axiosInstance } from '@/api';
 
 import { Values } from './create/types';
+import { PostAPI } from './types';
 
 const ADDRESS = process.env.NEXT_PUBLIC_MUSIC_SEARCH_API_URL;
-const SERVER = process.env.NEXT_PUBLIC_API_URL;
 
 const TEMP_TOKEN =
   'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjc3NDg1MTUwLCJleHAiOjE2NzgzNDkxNTB9.1UtakWRXOkrN-IGZ7V7fWh0YhC4WzBS6M31FxTnPceKLW-IqvD8sTVlQIDEDfmbqxDdqqWnOVH4i0i0k1KuYlg';
@@ -19,7 +19,7 @@ export const getPostFeedData = async ({ genre, isPossibleBattle }: Props) => {
   try {
     const { data } = await axiosInstance.request<PostAPI>({
       method: 'GET',
-      url: `${SERVER}/posts`,
+      url: `/posts`,
       params: {
         genre,
         possible: isPossibleBattle,
@@ -84,7 +84,7 @@ export const getGenres = async () => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
-      url: `${SERVER}/genres`,
+      url: `/genres`,
     });
 
     if (response.data.success) {
@@ -114,7 +114,7 @@ export const createPost = async (data: Values) => {
 
     const response = await axiosInstance.request({
       method: 'POST',
-      url: `${SERVER}/posts`,
+      url: `/posts`,
       data: body,
     });
     if (response.data.success) {
