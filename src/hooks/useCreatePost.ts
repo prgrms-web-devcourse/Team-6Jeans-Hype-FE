@@ -1,9 +1,11 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import { createPost } from '@/components/post/api';
 import { Genre, Music, Values } from '@/components/post/create/types';
 
 const usePostCreate = () => {
+  const router = useRouter();
   const [musicInfo, setMusicInfo] = useState<Music>({
     trackId: -1,
     trackName: '',
@@ -30,9 +32,7 @@ const usePostCreate = () => {
     setMusicInfo(infos);
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const onSubmit = async () => {
     const postInfo: Values = {
       musicInfo,
       selectedGenre,
@@ -44,7 +44,8 @@ const usePostCreate = () => {
     } else {
       const response = await createPost(postInfo);
       if (response) {
-        //go to post-detail
+        //to-do 추천글 상세로 이동하기
+        router.push('/post');
       }
     }
   };

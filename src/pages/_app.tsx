@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
 
+import AuthRequiredModal from '@/components/login/AuthRequiredModal';
 import { global } from '@/styles/global';
 
 const queryClient = new QueryClient({
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <RecoilRoot>
         <Global styles={global} />
         <Component {...pageProps} />
+        <AuthRequiredModal />
       </RecoilRoot>
     </QueryClientProvider>
   );

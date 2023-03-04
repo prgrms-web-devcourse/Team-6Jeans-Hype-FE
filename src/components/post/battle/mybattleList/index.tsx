@@ -1,17 +1,55 @@
-import AlbumPoster from '@/components/common/AlbumPoster';
-import { COLOR } from '@/constants/color';
-import useConfirmModal from '@/hooks/useConfirmModal';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { MyBattlePostInfo } from '../types';
+
+import AlbumPoster from '@/components/common/AlbumPoster';
+import ConfirmModal from '@/components/common/ConfirmModal';
+import { COLOR } from '@/constants/color';
+
+import { useState } from 'react';
+import { BattleApplyModal, MyBattlePostInfo } from '../types';
 import { getMyBattleListData } from './api';
 
 interface Props {
   genre?: string;
+  updateMyMusicCard: (musicData: BattleApplyModal) => void;
 }
 
-function MyBattleList({ genre }: Props) {
-  const { musicData, isOpened, onClickBattleButton, onClickConfirmButton, onClickCancelButton } = useConfirmModal();
+function MyBattleList({ genre, updateMyMusicCard }: Props) {
+  const [modalStatus, setModalStatus] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalMusicData, setModalMusicData] = useState<BattleApplyModal>({
+    postId: 0,
+    title: '',
+    musicUrl: '',
+    albumCoverUrl: '',
+    singer: '',
+    // albumCoverUrl: '',
+  });
+
+  const openPostModal = () => setModalStatus(true);
+  const closePostModal = () => setModalStatus(false);
+
+  const onClickPost = ({ postId, title, musicUrl, albumCoverUrl, singer }: BattleApplyModal) => {
+    setModalTitle(`[${singer}]${title}을 선택하셨습니다. 대결신청 하시겠습니까?`);
+
+    setModalMusicData({
+      postId,
+      title,
+      musicUrl,
+      albumCoverUrl,
+      singer,
+    });
+
+    openPostModal();
+  };
+
+  const onClickConfirm = (musicData: BattleApplyModal) => {
+    updateMyMusicCard(musicData);
+
+    closePostModal();
+  };
+
+  const onClickCancel = () => closePostModal();
 
   const { data: myBattleMusicList } = useQuery(['post', 'battle', genre], () => getMyBattleListData(genre as string), {
     enabled: !!genre,
@@ -22,12 +60,24 @@ function MyBattleList({ genre }: Props) {
       <Title>내 음악 목록</Title>
       <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
-          myBattleMusicList.map(({ postId, music: { musicName, singer, thumbnailUrl } }: MyBattlePostInfo) => (
-            <Post key={postId} onClick={() => onClickBattleButton({ title: musicName, singer: singer })}>
-              <AlbumPoster lazy={true} size={5} src={thumbnailUrl} />
-              {/* <AlbumPoster lazy={true} size={5} src={albumCoverUrl} /> */}
+          myBattleMusicList.map(({ postId, music: { title, singer, albumCoverUrl } }: MyBattlePostInfo) => (
+            <Post
+              key={postId}
+              onClick={() => {
+                const musicData = {
+                  postId,
+                  title,
+                  musicUrl:
+                    'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/f8/bc/4b/f8bc4b45-5ee4-5805-f74f-3675b099eeb0/mzaf_5690449198553966261.plus.aac.p.m4a',
+                  albumCoverUrl,
+                  singer,
+                };
+                onClickPost(musicData);
+              }}
+            >
+              <AlbumPoster lazy={true} size={5} src={albumCoverUrl} />
               <TitleSinger>
-                <div>{musicName}</div>
+                <div>{title}</div>
                 <div>{singer}</div>
               </TitleSinger>
             </Post>
@@ -36,25 +86,14 @@ function MyBattleList({ genre }: Props) {
           <div>리스트가 없습니다</div>
         )}
       </MyList>
-      {isOpened && (
-        <div
-          style={{
-            width: '100px',
-            height: '100px',
-            backgroundColor: 'wheat',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            margin: '0 auto',
-          }}
-        >
-          <span>{`[${musicData.singer}]${musicData.title}`}</span>
-          <span>선택 하시겠습니까?</span>
 
-          <button onClick={onClickConfirmButton}>예</button>
-          <button onClick={onClickCancelButton}>취소</button>
-        </div>
-      )}
+      <ConfirmModal
+        title={modalTitle}
+        musicData={modalMusicData}
+        openStatus={modalStatus}
+        onClickConfirm={onClickConfirm}
+        onClickCancel={onClickCancel}
+      />
     </Container>
   );
 }

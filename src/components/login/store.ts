@@ -23,8 +23,13 @@ export const accessTokenAtom = atom<string | null>({
           return;
         }
         tokenStorage.set(token);
-        axiosInstance.defaults.headers.common['Authorization'] = token;
+        axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + token;
       });
     },
   ],
+});
+
+export const isOpenedAuthRequiredModalAtom = atom<boolean>({
+  key: 'isOpenedAuthRequiredModal',
+  default: false,
 });

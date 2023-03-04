@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
 import Genres from '@/components/common/Genres';
 
@@ -14,32 +13,37 @@ interface Props {
   values: Values;
   onChangeValues: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   onChangeMusicInfo(music: Music): void;
-  onSubmit: React.FormEventHandler<HTMLFormElement>;
+  onSubmit: () => void;
 }
 
 function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Props) {
   const router = useRouter();
   const { trackId } = router.query;
-  const { data: musicDetail, isLoading } = useQuery(['musicDetail', trackId], () =>
-    getMusicDetailData(trackId as string),
+  const { data: musicDetail, isLoading } = useQuery(
+    ['musicDetail', trackId],
+    () => getMusicDetailData(trackId as string),
+    {
+      onSuccess: (musicDetail) => {
+        const newMusic: Music = {
+          trackId: musicDetail?.trackId,
+          trackName: musicDetail?.trackName,
+          artistName: musicDetail?.artistName,
+          artworkUrl100: musicDetail?.artworkUrl100,
+          previewUrl: musicDetail?.previewUrl,
+        };
+
+        onChangeMusicInfo(newMusic);
+      },
+    },
   );
 
-  useEffect(() => {
-    if (!isLoading) {
-      const newMusic: Music = {
-        trackId: musicDetail?.trackId,
-        trackName: musicDetail?.trackName,
-        artistName: musicDetail?.artistName,
-        artworkUrl100: musicDetail?.artworkUrl100,
-        previewUrl: musicDetail?.previewUrl,
-      };
-
-      onChangeMusicInfo(newMusic);
-    }
-  });
+  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSubmit();
+  };
 
   return (
-    <CreateContainer onSubmit={onSubmit}>
+    <CreateContainer onSubmit={submit}>
       <Row>{!isLoading && <SelectedMusic selectedMusic={values.musicInfo} />}</Row>
       <Row>
         <Genres title='장르 선택' onChange={onChangeValues} />
