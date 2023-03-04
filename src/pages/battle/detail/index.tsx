@@ -1,3 +1,6 @@
+import Link from 'next/link';
+import ShuffleIcon from 'public/images/go-to-shuffle-icon.svg';
+
 import { useRouter } from 'next/router';
 
 import Select from '@/components/battle/select';
@@ -11,9 +14,11 @@ function Detail() {
     <>
       <Header
         title='진행중인 대결'
-        subButtonType='image'
-        subButtonValue={'/images/go-to-shuffle-icon.svg'}
-        onClickSubButton={() => router.push(`/post/battle/short`)}
+        actionButton={
+          <Link href='/post/battle/short'>
+            <ShuffleIcon />
+          </Link>
+        }
       />
       <Select battleId={Number(router.query.id)} />
       <BottomNav />
