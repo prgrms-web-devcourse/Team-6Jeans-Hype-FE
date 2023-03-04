@@ -36,7 +36,7 @@ function BattleForm() {
 
   const applyBattle = async () => {
     await createBattle(parseInt(selectedOpponentMusicId as string), selectedMyMusic.postId);
-    alert('대결 신청 완료!');
+    router.push(`/post/detail?postId=${selectedOpponentMusicId}`);
   };
 
   const { data: battleMusic } = useQuery(
