@@ -39,11 +39,9 @@ function PostDetail() {
 
         {postDetail && (
           <MusicInfo
-            musicName={postDetail.music.musicName}
-            musicUrl={postDetail.music.musicUrl}
+            title={postDetail.music.title}
             albumCoverUrl={postDetail.music.albumCoverUrl}
             singer={postDetail.music.singer}
-            genre={postDetail.music.genre}
           />
         )}
 

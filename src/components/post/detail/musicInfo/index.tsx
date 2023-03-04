@@ -3,11 +3,11 @@ import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
 import { Music } from '../types';
 
-function MusicInfo({ musicName, albumCoverUrl, singer }: Music) {
+function MusicInfo({ title, albumCoverUrl, singer }: Music) {
   return (
     <Container>
       <Wrap>
-        <Title>{musicName}</Title>
+        <Title>{title}</Title>
         <Singer>{singer}</Singer>
         <AlbumPoster lazy={true} size={20} src={albumCoverUrl} />
       </Wrap>
