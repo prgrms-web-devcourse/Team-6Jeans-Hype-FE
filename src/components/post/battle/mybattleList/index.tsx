@@ -60,15 +60,14 @@ function MyBattleList({ genre, updateMyMusicCard }: Props) {
       <Title>내 음악 목록</Title>
       <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
-          myBattleMusicList.map(({ postId, music: { title, singer, albumCoverUrl } }: MyBattlePostInfo) => (
+          myBattleMusicList.map(({ postId, music: { title, singer, albumCoverUrl, musicUrl } }: MyBattlePostInfo) => (
             <Post
               key={postId}
               onClick={() => {
                 const musicData = {
                   postId,
                   title,
-                  musicUrl:
-                    'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/f8/bc/4b/f8bc4b45-5ee4-5805-f74f-3675b099eeb0/mzaf_5690449198553966261.plus.aac.p.m4a',
+                  musicUrl,
                   albumCoverUrl,
                   singer,
                 };
