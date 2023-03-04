@@ -1,16 +1,28 @@
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
+import { getBattle } from '@/components/battle/api';
+import { Battles } from '@/components/battle/types';
+
 const useVoteResult = () => {
-  const [visible, setVisible] = useState<boolean>();
+  const {
+    data: musicData,
+    isLoading,
+    refetch,
+  } = useQuery<Battles>(['battleList'], getBattle, {
+    onSuccess: () => {
+      setIsLoadingState(true);
+      setTimeout(() => {
+        setIsLoadingState(false);
+      }, 500);
+    },
+  });
+
+  const [isLoadingState, setIsLoadingState] = useState<boolean>(isLoading);
+
+  const [resultVisible, setResultVisible] = useState<boolean>(false);
+
   const [position, setPosition] = useState<'left' | 'right'>();
-
-  const onVote = () => {
-    setVisible((prev) => !prev);
-
-    setTimeout(() => {
-      setVisible((prev) => !prev);
-    }, 1800);
-  };
 
   const onClickMusic = (e: any, clickSide: 'left' | 'right') => {
     setPosition(clickSide);
@@ -28,17 +40,31 @@ const useVoteResult = () => {
       newTarget.innerHTML = '';
 
       setTimeout(() => {
-        onVote();
-      }, 200);
+        setResultVisible(true);
+      }, 400);
 
       setTimeout(() => {
+        refetch();
+      }, 1700);
+
+      setTimeout(() => {
+        setResultVisible(false);
+
         newTarget.className = savedClassName;
         newTarget.innerHTML = savedHTML;
       }, 1800);
     }
   };
 
-  return { visible, position, onClickMusic };
+  const onClickSkip = () => {
+    setIsLoadingState(true);
+    refetch();
+    setTimeout(() => {
+      setIsLoadingState(false);
+    }, 500);
+  };
+
+  return { musicData, isLoadingState, resultVisible, position, onClickMusic, onClickSkip };
 };
 
 export default useVoteResult;

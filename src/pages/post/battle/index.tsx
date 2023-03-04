@@ -1,7 +1,7 @@
-import PostBattle from '@/components/post/battle';
+import BattleForm from '@/components/post/battle';
 
 function Battle() {
-  return <PostBattle />;
+  return <BattleForm />;
 }
 
 export default Battle;

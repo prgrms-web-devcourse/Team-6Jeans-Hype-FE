@@ -9,50 +9,65 @@ import HeaderSubmitButton from '@/components/common/Header/SubmitButton';
 import { COLOR } from '@/constants/color';
 
 import { getPostBattleData } from './api';
+import { createBattle } from './api';
 import MyBattleList from './mybattleList';
+import { BattleApplyModal } from './types';
 
-function PostBattle() {
+function BattleForm() {
   const router = useRouter();
-  const { postId } = router.query;
+  const { postId: selectedOpponentMusicId } = router.query;
 
-  const [myListMusic, setMyListMusic] = useState({
-    musicName: '내 대결 곡 고르기',
+  const [isReadySubmit, setIsReadySubmit] = useState(false);
+  const [isVisibleMusicList, setIsVisibleMusicList] = useState(false);
+
+  const [selectedMyMusic, setSelectedMyMusic] = useState<BattleApplyModal>({
+    postId: 0,
+    title: '내 대결 곡 고르기',
     musicUrl: '',
-    thumbnailUrl: '',
     singer: '',
-    // albumCoverUrl: '',
+    albumCoverUrl: '',
   });
 
+  const renderMyList = () => setIsVisibleMusicList(true);
+
+  const updateMyMusicCard = (musicData: BattleApplyModal) => {
+    setSelectedMyMusic(musicData);
+    setIsReadySubmit(true);
+  };
+
+  const applyBattle = async () => {
+    await createBattle(parseInt(selectedOpponentMusicId as string), selectedMyMusic.postId);
+    alert('대결 신청 완료!');
+  };
+
   const { data: battleMusic } = useQuery(
-    ['post', 'battle', postId],
-    () => getPostBattleData(parseInt(postId as string)),
+    ['post', 'battle', selectedOpponentMusicId],
+    () => getPostBattleData(parseInt(selectedOpponentMusicId as string)),
     {
-      enabled: !!postId,
+      enabled: !!selectedOpponentMusicId,
     },
   );
 
-  const submit = () => {
-    // TODO: api 요청 코드 추가
-  };
-
   return (
     <Container>
-      <Header title='대결 신청' actionButton={<HeaderSubmitButton onClick={submit} />} />
+      <Header title='대결 신청' actionButton={<HeaderSubmitButton onClick={applyBattle} />} />
       <Title>What&apos;s next?</Title>
       <Musics>
         {battleMusic && (
           <>
             <BattleMusicInfo music={battleMusic.music} />
-            <BattleMusicInfo music={myListMusic} onClick={() => console.log('select song')} />
+            <BattleMusicInfo music={selectedMyMusic} onClick={renderMyList} />
           </>
         )}
       </Musics>
-      <MyBattleList genre={battleMusic?.music.genre?.genreValue} />
+      {isVisibleMusicList && (
+        <MyBattleList genre={battleMusic?.music.genre?.genreValue} updateMyMusicCard={updateMyMusicCard} />
+      )}
     </Container>
   );
 }
 
-export default PostBattle;
+export default BattleForm;
 
 const Container = styled.div`
   width: 90%;
