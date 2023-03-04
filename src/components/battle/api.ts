@@ -1,21 +1,14 @@
-import axios from 'axios';
-
 import { axiosInstance } from '@/api';
 
-import { TEMP_DUMMY } from './temp_dummy';
-import { Battles, Vote } from './types';
-import { tokenStorage } from '../login/utils/localStorage';
-
 const SERVER = process.env.NEXT_PUBLIC_API_URL;
+
+const exceptList: number[] = [];
 
 export const getRandomBattle = async () => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
       url: `${SERVER}/battles/details`,
-      headers: {
-        Authorization: 'Bearer ' + tokenStorage.get(), //the token is a variable which holds the token
-      },
     });
 
     if (response.data.success) {
@@ -23,7 +16,16 @@ export const getRandomBattle = async () => {
 
       if (battles.length) {
         const dataLength = battles.length;
-        const targetNumber = Math.floor(Math.random() * dataLength);
+        let targetNumber = Math.floor(Math.random() * dataLength);
+
+        while (exceptList.indexOf(targetNumber) !== -1) {
+          targetNumber = Math.floor(Math.random() * dataLength);
+          if (exceptList.length === dataLength) {
+            exceptList.length = 0;
+          }
+        }
+        exceptList.push(targetNumber);
+
         const targetData = battles[targetNumber];
         return targetData;
       } else {
@@ -62,9 +64,6 @@ export const createBattleVote = async (battleId: number, votedPostId: number) =>
       data: {
         battleId,
         votedPostId,
-      },
-      headers: {
-        Authorization: 'Bearer ' + tokenStorage.get(), //the token is a variable which holds the token
       },
     });
 

@@ -103,7 +103,7 @@ export const createPost = async (data: Values) => {
 
     const body = {
       musicId: musicInfo.trackId,
-      musicName: musicInfo.trackName,
+      title: musicInfo.trackName,
       musicUrl: musicInfo.previewUrl,
       albumCoverUrl: musicInfo.artworkUrl100,
       singer: musicInfo.artistName,

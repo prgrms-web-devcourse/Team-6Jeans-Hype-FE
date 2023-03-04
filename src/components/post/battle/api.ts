@@ -1,4 +1,5 @@
 import { axiosInstance } from '@/api';
+import { tokenStorage } from '@/components/login/utils/localStorage';
 import { PostBattleAPI } from './types';
 
 const SERVER = process.env.NEXT_PUBLIC_API_URL;
@@ -28,6 +29,9 @@ export const createBattle = async (challengedPostId: number, challengingPostId: 
       data: {
         challengedPostId,
         challengingPostId,
+      },
+      params: {
+        Authorization: `Bearer ${tokenStorage.get()}`,
       },
     });
 
