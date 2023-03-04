@@ -49,7 +49,12 @@ function BattleForm() {
 
   return (
     <Container>
-      <Header title='대결 신청' subButtonValue={isReadySubmit ? '확인' : ''} onClickSubButton={applyBattle} />
+      <Header
+        backUrl={`/post/detail?postId=${selectedOpponentMusicId}`}
+        title='대결 신청'
+        subButtonValue={isReadySubmit ? '확인' : ''}
+        onClickSubButton={applyBattle}
+      />
       <Title>What&apos;s next?</Title>
       <Musics>
         {battleMusic && (
