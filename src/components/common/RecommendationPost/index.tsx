@@ -7,36 +7,46 @@ import Like from '@/components/common/ImageButtons/LikeButton';
 import { PostInfo } from '@/components/post/types';
 import { COLOR } from '@/constants/color';
 
-function RecommendationPost({ postId, music: { albumCoverUrl, singer, title }, likeCount }: PostInfo) {
+function RecommendationPost({
+  postId,
+  music: { albumCoverUrl, singer, title },
+  likeCount,
+  isBattlePossible,
+}: PostInfo) {
   const router = useRouter();
 
   const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
 
   return (
-    <Container key={postId}>
+    <Container key={postId} onClick={() => navigatePostDetail(postId)}>
       <Wrapper>
-        <AlbumPoster lazy={true} size={6} src={albumCoverUrl} onClick={() => navigatePostDetail(postId)} />
-        <MusicInfo onClick={() => navigatePostDetail(postId)}>
-          <Title>{title}</Title>
-          <Artist>{singer}</Artist>
-        </MusicInfo>
-        <ButtonWrapper>
-          <Battle
-            size={1.2}
-            color='blue'
-            battleAbility={false}
-            onClick={() => {
-              console.log('배틀 신청');
-            }}
-          />
-          <Like
-            size={1.5}
-            color='purple'
-            initCount={likeCount}
-            isClicked={false}
-            onClick={() => console.log('todo 좋아요 관련 api 연결하기')}
-          />
-        </ButtonWrapper>
+        <AlbumPoster lazy={true} size={6} src={albumCoverUrl} />
+        <Content>
+          <MusicInfo>
+            <Title>{title}</Title>
+            <Artist>{singer}</Artist>
+          </MusicInfo>
+          <ButtonWrapper>
+            {isBattlePossible && (
+              <Battle
+                size={1.2}
+                color='blue'
+                battleAbility={true}
+                onClick={() => {
+                  console.log('배틀 신청');
+                }}
+              />
+            )}
+
+            <Like
+              size={1.5}
+              color='purple'
+              initCount={likeCount}
+              isClicked={false}
+              onClick={() => console.log('todo 좋아요 관련 api 연결하기')}
+            />
+          </ButtonWrapper>
+        </Content>
       </Wrapper>
     </Container>
   );
@@ -51,14 +61,20 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  grid-gap: 0.3rem;
+  display: flex;
   align-items: center;
   background: ${COLOR.white};
   box-shadow: 0px 0px 10px rgba(226, 226, 226, 0.25);
   border-radius: 1rem;
-  position: relative;
+`;
+
+const Content = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  width: calc(100% - 7rem);
+  gap: 2rem;
 `;
 
 const MusicInfo = styled.div`
@@ -71,6 +87,7 @@ const MusicInfo = styled.div`
 const Title = styled.h1`
   font-weight: 500;
   font-size: 1.3rem;
+  word-break: break-all;
 `;
 
 const Artist = styled.h2`
@@ -82,5 +99,5 @@ const Artist = styled.h2`
 const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.7rem;
+  gap: 1rem;
 `;
