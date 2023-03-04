@@ -10,6 +10,7 @@ interface Props {
   shouldNeedFilter?: boolean;
   title?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  disabled?: boolean;
 }
 
 interface Genre {
@@ -17,7 +18,7 @@ interface Genre {
   genreValue: string;
 }
 
-function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChange }: Props) {
+function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChange, disabled }: Props) {
   const { selectedValue, onClick } = useGenre();
   const { data: genres, isLoading } = useQuery(['genres'], () => getGenres(), {
     select: (genres) => {
@@ -28,6 +29,11 @@ function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChan
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (disabled) {
+      alert('현재 장르 필터링 기능을 제공하지 않습니다.');
+      return;
+    }
+
     onClick(e);
     onChange?.(e);
   };
