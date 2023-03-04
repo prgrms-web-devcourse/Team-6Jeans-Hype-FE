@@ -27,7 +27,6 @@ export interface PostBattleInfo {
 
 export interface BattleMusic {
   musicId?: number;
-
   title: string;
   musicUrl?: string;
   albumCoverUrl: string;

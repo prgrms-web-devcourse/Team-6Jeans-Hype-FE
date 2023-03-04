@@ -27,7 +27,7 @@ function Select({ battleId }: Props) {
                 <AlbumPoster />
                 <AlbumPoster />
               </>
-            ) : musicData === undefined ? (
+            ) : musicData == null ? (
               <div>대결할 음악이 없어요</div>
             ) : (
               <>
@@ -45,7 +45,7 @@ function Select({ battleId }: Props) {
             )}
           </BattleContainer>
         </Section>
-        {battleId ?? <Skip onClick={onClickSkip}>건너뛰기</Skip>}
+        {!battleId && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
       </SelectContainer>
 
       {selectedBattle.battleId !== -1 && selectedBattle.votedPostId !== -1 && (
