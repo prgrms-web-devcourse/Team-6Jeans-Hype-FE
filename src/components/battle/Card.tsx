@@ -46,7 +46,7 @@ const Music = styled.div`
 `;
 
 const AlbumPoster = styled.img`
-  border-radius: 10px;
+  border-radius: 1rem;
   height: 6.5rem;
   width: 6.5rem;
   object-fit: cover;
