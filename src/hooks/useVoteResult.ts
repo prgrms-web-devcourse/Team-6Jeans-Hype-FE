@@ -1,15 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
-import { getBattle } from '@/components/battle/api';
+import { getBattleDeatil, getRandomBattle } from '@/components/battle/api';
 import { Battles } from '@/components/battle/types';
 
-const useVoteResult = () => {
+interface SelectedBattle {
+  battleId: number;
+  votedPostId: number;
+}
+
+const useVoteResult = (initBattleId?: number) => {
   const {
     data: musicData,
     isLoading,
     refetch,
-  } = useQuery<Battles>(['battleList'], getBattle, {
+  } = useQuery<Battles>(['battleList'], () => (initBattleId ? getBattleDeatil(initBattleId) : getRandomBattle()), {
     onSuccess: () => {
       setIsLoadingState(true);
       setTimeout(() => {
@@ -20,11 +25,14 @@ const useVoteResult = () => {
 
   const [isLoadingState, setIsLoadingState] = useState<boolean>(isLoading);
 
-  const [resultVisible, setResultVisible] = useState<boolean>(false);
+  const [selectedBattle, setSelectedBattle] = useState<SelectedBattle>({
+    battleId: -1,
+    votedPostId: -1,
+  });
 
   const [position, setPosition] = useState<'left' | 'right'>();
 
-  const onClickMusic = (e: any, clickSide: 'left' | 'right') => {
+  const onClickMusic = (e: any, clickSide: 'left' | 'right', battleId: number, votedPostId: number) => {
     setPosition(clickSide);
 
     const { target } = e;
@@ -40,19 +48,24 @@ const useVoteResult = () => {
       newTarget.innerHTML = '';
 
       setTimeout(() => {
-        setResultVisible(true);
+        setSelectedBattle({ battleId, votedPostId });
       }, 400);
 
-      setTimeout(() => {
-        refetch();
-      }, 1700);
+      if (initBattleId === undefined) {
+        setTimeout(() => {
+          refetch();
+        }, 1700);
 
-      setTimeout(() => {
-        setResultVisible(false);
+        setTimeout(() => {
+          setSelectedBattle({
+            battleId: -1,
+            votedPostId: -1,
+          });
 
-        newTarget.className = savedClassName;
-        newTarget.innerHTML = savedHTML;
-      }, 1800);
+          newTarget.className = savedClassName;
+          newTarget.innerHTML = savedHTML;
+        }, 1800);
+      }
     }
   };
 
@@ -64,7 +77,7 @@ const useVoteResult = () => {
     }, 500);
   };
 
-  return { musicData, isLoadingState, resultVisible, position, onClickMusic, onClickSkip };
+  return { musicData, isLoadingState, selectedBattle, position, onClickMusic, onClickSkip };
 };
 
 export default useVoteResult;
