@@ -2,8 +2,6 @@ import { axiosInstance } from '@/api';
 import { tokenStorage } from '@/components/login/utils/localStorage';
 import { PostBattleAPI } from './types';
 
-import { PostBattleAPI } from './types';
-
 export const getPostBattleData = async (postId: number) => {
   try {
     const { data } = await axiosInstance.request<PostBattleAPI>({
