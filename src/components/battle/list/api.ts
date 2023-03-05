@@ -35,7 +35,7 @@ export const getBattleList = async (genre?: GenreName): Promise<Battle[]> => {
         singer: battle.challenging.singer,
       },
       isProgress: battle.isProgress,
-      genre: battle.genre,
+      genre: battle.genre.genreName,
     };
   });
 };
