@@ -13,11 +13,11 @@ export interface PostDetail {
 }
 
 export interface Music {
-  musicName: string;
-  musicUrl: string;
+  title: string;
+  musicUrl?: string;
   albumCoverUrl: string;
   singer: string;
-  genre: Genre;
+  genre?: Genre;
 }
 
 export interface Genre {
