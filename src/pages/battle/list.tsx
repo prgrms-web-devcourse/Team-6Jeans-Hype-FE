@@ -3,48 +3,15 @@ import Link from 'next/link';
 import ShortsIcon from 'public/images/shuffle.svg';
 
 import BattleCard from '@/components/battle/Card';
+import { useGetBattleList } from '@/components/battle/list/hooks/useGetBattles';
 import { Battle } from '@/components/battle/list/types';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
 
 export default function BattleListPage() {
-  const BATTLE_LIST_DUMMY: Battle[] = [
-    {
-      id: 1,
-      challenged: {
-        albumCoverImage:
-          'https://lh3.googleusercontent.com/oWkokJPvuAfoePrq3Y1uxiCFBUGCHWYqO-2HNyt6H2wHowRiMwWkahp6ccKyqtyTm8y9q_CvDlA7Gqc=w544-h544-l90-rj',
-        title: '건물 사이에 피어난 장미',
-        singer: 'H1-KEY',
-      },
-      challenging: {
-        albumCoverImage:
-          'https://lh3.googleusercontent.com/wO1e34ZIcA1kJp5IXYqt2JGE2IxrajoiHM_04M9Pgk8RqSxVBsAw1EK4DOuzb_r6NG1d8f9LHN4pcTLo=w544-h544-l90-rj',
-        title: 'Impurities',
-        singer: 'LE SSERAFIM',
-      },
-      isProgress: true,
-      genre: 'K-POP',
-    },
-    {
-      id: 2,
-      challenged: {
-        albumCoverImage:
-          'https://lh3.googleusercontent.com/oWkokJPvuAfoePrq3Y1uxiCFBUGCHWYqO-2HNyt6H2wHowRiMwWkahp6ccKyqtyTm8y9q_CvDlA7Gqc=w544-h544-l90-rj',
-        title: '건물 사이에 피어난 장미',
-        singer: 'H1-KEY',
-      },
-      challenging: {
-        albumCoverImage:
-          'https://lh3.googleusercontent.com/wO1e34ZIcA1kJp5IXYqt2JGE2IxrajoiHM_04M9Pgk8RqSxVBsAw1EK4DOuzb_r6NG1d8f9LHN4pcTLo=w544-h544-l90-rj',
-        title: 'Impurities',
-        singer: 'LE SSERAFIM',
-      },
-      isProgress: true,
-      genre: 'K-POP',
-    },
-  ];
+  const { data: battleList } = useGetBattleList();
+
   return (
     <>
       <Header
@@ -58,7 +25,7 @@ export default function BattleListPage() {
       <Container>
         <Genres shouldNeedAll />
         <BattleList>
-          {BATTLE_LIST_DUMMY.map(({ challenged, challenging, id, isProgress }: Battle) => (
+          {battleList?.map(({ challenged, challenging, id, isProgress }: Battle) => (
             <BattleCard {...{ challenged, challenging, id, isProgress }} key={id} />
           ))}
         </BattleList>
