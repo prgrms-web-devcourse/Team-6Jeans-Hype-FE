@@ -40,6 +40,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3.7rem;
+  padding-bottom: 8rem;
 `;
 
 const BattleList = styled.div`
