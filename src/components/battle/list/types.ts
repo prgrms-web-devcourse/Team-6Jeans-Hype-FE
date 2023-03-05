@@ -5,6 +5,9 @@ export interface BattleMusic {
 }
 
 export interface Battle {
-  left: BattleMusic;
-  right: BattleMusic;
+  challenged: BattleMusic;
+  challenging: BattleMusic;
+  id: number;
+  isProgress: boolean;
+  genre: GenreName;
 }
