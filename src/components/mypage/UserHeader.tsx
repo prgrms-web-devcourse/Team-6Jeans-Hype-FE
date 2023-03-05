@@ -24,26 +24,24 @@ function UserHeader() {
   const { data: userProfile } = useQuery(['userProfile'], getUserProfile);
 
   return (
-    userProfile && (
-      <Container>
-        <Wrapper>
-          <UserContainer>
-            <DefaultProfile>
-              <img src={userProfile.profileImageUrl} alt='profile' />
-            </DefaultProfile>
-            <Info>
-              <Name>{userProfile.nickname}</Name>
-              <RestTicket>남은 대결권 {userProfile.countOfChanllenge}</RestTicket>
-            </Info>
-          </UserContainer>
-          <CardConatiner>
-            <ResultCard type='ranking' info={userProfile.ranking} />
-            <ResultCard type='point' info={userProfile.victoryPoint} />
-            <ResultCard type='history' info={userProfile.victoryCount} />
-          </CardConatiner>
-        </Wrapper>
-      </Container>
-    )
+    <Container>
+      <Wrapper>
+        <UserContainer>
+          <DefaultProfile>
+            <img src={userProfile?.profileImageUrl} alt='profile' />
+          </DefaultProfile>
+          <Info>
+            <Name>{userProfile?.nickname}</Name>
+            <RestTicket>남은 대결권 {userProfile?.countOfChanllenge}</RestTicket>
+          </Info>
+        </UserContainer>
+        <CardConatiner>
+          <ResultCard type='ranking' info={userProfile?.ranking} />
+          <ResultCard type='point' info={userProfile?.victoryPoint} />
+          <ResultCard type='history' info={userProfile?.victoryCount} />
+        </CardConatiner>
+      </Wrapper>
+    </Container>
   );
 }
 
