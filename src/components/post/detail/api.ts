@@ -6,7 +6,7 @@ export const getPostDetailData = async (postId: number) => {
   try {
     const { data } = await axiosInstance.request<PostDetailAPI>({
       method: 'GET',
-      url: `$/posts/${postId}`,
+      url: `/posts/${postId}`,
     });
 
     if (data.success) {

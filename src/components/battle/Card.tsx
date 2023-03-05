@@ -6,23 +6,25 @@ import { COLOR } from '@/constants/color';
 import { BattleMusic } from './list/types';
 
 interface BattleCardProps {
-  left: BattleMusic;
-  right: BattleMusic;
+  id: number;
+  challenged: BattleMusic;
+  challenging: BattleMusic;
+  isProgress: boolean;
 }
 
-export default function BattleCard({ left, right }: BattleCardProps) {
+export default function BattleCard({ challenged, challenging }: BattleCardProps) {
   return (
     <Container>
       <Music>
-        <AlbumPoster src={left.albumCoverImage} alt='album-cover' />
-        <Title>{left.title}</Title>
-        <Singer>{left.singer}</Singer>
+        <AlbumPoster src={challenged.albumCoverImage} alt='album-cover' />
+        <Title>{challenged.title}</Title>
+        <Singer>{challenged.singer}</Singer>
       </Music>
       <StyledVersus />
       <Music>
-        <AlbumPoster src={right.albumCoverImage} alt='album-cover' />
-        <Title>{right.title}</Title>
-        <Singer>{right.singer}</Singer>
+        <AlbumPoster src={challenging.albumCoverImage} alt='album-cover' />
+        <Title>{challenging.title}</Title>
+        <Singer>{challenging.singer}</Singer>
       </Music>
     </Container>
   );
