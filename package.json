@@ -26,7 +26,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "recoil": "^0.7.6",
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "zod": "^3.21.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",
