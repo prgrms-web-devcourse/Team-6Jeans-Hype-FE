@@ -1,13 +1,12 @@
 import { axiosInstance } from '@/api';
-import { PostDetailAPI } from './types';
 
-const SERVER = process.env.NEXT_PUBLIC_API_URL;
+import { PostDetailAPI } from './types';
 
 export const getPostDetailData = async (postId: number) => {
   try {
     const { data } = await axiosInstance.request<PostDetailAPI>({
       method: 'GET',
-      url: `${SERVER}/posts/${postId}`,
+      url: `$/posts/${postId}`,
     });
 
     if (data.success) {

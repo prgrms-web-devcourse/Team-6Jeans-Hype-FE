@@ -21,7 +21,7 @@ function PostList() {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedGenre = e.target.value;
 
-    setGenre(selectedGenre);
+    selectedGenre === 'ALL' ? setGenre('') : setGenre(selectedGenre);
   };
 
   return (

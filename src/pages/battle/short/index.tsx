@@ -11,7 +11,7 @@ function Short() {
       <Header
         title='진행 중인 대결'
         actionButton={
-          <Link href='/post/battle/list'>
+          <Link href='/battle/list'>
             <ListIcon />
           </Link>
         }

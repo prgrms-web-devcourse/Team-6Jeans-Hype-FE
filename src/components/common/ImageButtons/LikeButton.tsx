@@ -16,7 +16,9 @@ interface Props {
 function Like({ size, color, initCount, isClicked, onClick }: Props) {
   const { state, onClickLike } = useLike({ initCount, isClicked });
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
     onClickLike();
     onClick?.();
   };

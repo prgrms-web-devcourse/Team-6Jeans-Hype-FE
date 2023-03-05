@@ -9,7 +9,7 @@ function MusicPlayButton({ src }: Props) {
   const [isMusicPlay, setIsMusicPlay] = useState(true);
 
   const onClickPlayButton = () => {
-    const $audioElement = document.getElementById('audio') as HTMLAudioElement;
+    const $audioElement = document.getElementById(`audio${src}`) as HTMLAudioElement;
 
     if (isMusicPlay) $audioElement?.play();
     else $audioElement?.pause();
@@ -19,7 +19,7 @@ function MusicPlayButton({ src }: Props) {
 
   return (
     <PlayIcon>
-      <audio src={src} id='audio' controls loop></audio>
+      <audio src={src} id={`audio${src}`} controls loop></audio>
       <img
         src={`/images/${isMusicPlay ? 'play-button' : 'google-logo'}.svg`}
         alt='play button'

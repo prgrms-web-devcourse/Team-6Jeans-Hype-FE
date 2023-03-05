@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 
 import { BattleMusic } from '@/components/post/battle/types';
 import { COLOR } from '@/constants/color';
+import MusicPlayButton from '../MusicPlayButton';
 
 interface Prop {
   music: BattleMusic;
@@ -21,10 +22,10 @@ const BattleMusicInfo = ({ music, onClick, clickSide }: Prop) => {
     <Container>
       <Wrapper onClick={handleClick} className='container'>
         <Thumbnail src={albumCoverUrl} clickSide={clickSide}>
-          {/* <Thumbnail src={albumCoverUrl} clickSide={clickSide}> */}
           <PlayIcon value={musicUrl}>
-            <audio src={musicUrl} controls loop></audio>
+            <MusicPlayButton key={title} src={musicUrl} />
           </PlayIcon>
+
           <PlusIcon src='/images/plus-music.svg' value={musicUrl} />
         </Thumbnail>
         <Title>{title}</Title>
@@ -99,23 +100,12 @@ const Thumbnail = styled.div<{ src: string; clickSide: 'left' | 'right' | undefi
 `;
 
 const PlayIcon = styled.div<{ value: string | undefined }>`
-  width: 4rem;
-  height: 4rem;
-  overflow: hidden;
-  border-radius: 50%;
-  border: 1px solid #cccccc;
-  box-sizing: content-box;
-
-  & audio {
-    margin-top: -0.75rem;
-    margin-left: -0.6rem;
-    display: ${(prop) => (prop.value === '' ? 'none' : 'block')};
-  }
-
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  display: ${(prop) => (prop.value === '' ? 'none' : 'block')};
 `;
 
 const PlusIcon = styled.img<{ value: string | undefined }>`
@@ -123,6 +113,7 @@ const PlusIcon = styled.img<{ value: string | undefined }>`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
   display: ${(prop) => (prop.value === '' ? 'block' : 'none')};
 `;
 
