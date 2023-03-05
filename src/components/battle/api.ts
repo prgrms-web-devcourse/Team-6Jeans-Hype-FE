@@ -3,7 +3,7 @@ import { Battles } from './types';
 
 const SERVER = process.env.NEXT_PUBLIC_API_URL;
 const exceptList: number[] = [];
-let prevGenre: string = '';
+let prevGenre = '';
 
 export const getRandomBattle = async (selectedGenre: string) => {
   try {
