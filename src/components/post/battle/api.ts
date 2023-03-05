@@ -1,13 +1,12 @@
 import { axiosInstance } from '@/api';
-import { PostBattleAPI } from './types';
 
-const SERVER = process.env.NEXT_PUBLIC_API_URL;
+import { PostBattleAPI } from './types';
 
 export const getPostBattleData = async (postId: number) => {
   try {
     const { data } = await axiosInstance.request<PostBattleAPI>({
       method: 'GET',
-      url: `${SERVER}/posts/${postId}`,
+      url: `/posts/${postId}`,
     });
 
     if (data.success) {
@@ -24,7 +23,7 @@ export const createBattle = async (challengedPostId: number, challengingPostId: 
   try {
     const response = await axiosInstance.request({
       method: 'POST',
-      url: `${SERVER}/battles`,
+      url: `/battles`,
       data: {
         challengedPostId,
         challengingPostId,

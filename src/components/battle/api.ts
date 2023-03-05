@@ -5,13 +5,11 @@ import { axiosInstance } from '@/api';
 import { TEMP_DUMMY } from './temp_dummy';
 import { Battles, Vote } from './types';
 
-const SERVER = process.env.NEXT_PUBLIC_API_URL;
-
 export const getRandomBattle = async () => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
-      url: `${SERVER}/battles`,
+      url: `/battles`,
     });
 
     if (response.data.success) {

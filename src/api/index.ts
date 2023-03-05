@@ -1,8 +1,9 @@
 import axios from 'axios';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export const axiosInstance = axios.create({
-  // TODO: 서버 배포되면 .env.local에 baseURL 넣어서 가져와야 함.
-  baseURL: 'temp',
+  baseURL: API_URL,
   headers: {
     'Accept': '*/*',
     'Content-Type': 'application/json',
