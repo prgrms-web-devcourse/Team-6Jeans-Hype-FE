@@ -16,6 +16,7 @@ function RecommendationPost({
   const router = useRouter();
 
   const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
+  const navigatePostBattle = (postId: number) => router.push(`/post/battle?postId=${postId}`);
 
   return (
     <Container key={postId} onClick={() => navigatePostDetail(postId)}>
@@ -33,7 +34,7 @@ function RecommendationPost({
                 color='blue'
                 battleAbility={true}
                 onClick={() => {
-                  console.log('배틀 신청');
+                  navigatePostBattle(postId);
                 }}
               />
             )}
