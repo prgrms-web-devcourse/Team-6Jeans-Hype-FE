@@ -4,8 +4,9 @@ import { Battles, Vote } from './types';
 
 const SERVER = process.env.NEXT_PUBLIC_API_URL;
 const exceptList: number[] = [];
+let prevGenre: string = '';
 
-export const getRandomBattle = async () => {
+export const getRandomBattle = async (selectedGenre: string) => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
@@ -15,11 +16,17 @@ export const getRandomBattle = async () => {
     if (response.data.success) {
       const { battles } = response.data.data;
 
-      if (battles.length) {
-        const dataLength = battles.length;
+      const filteredBattles =
+        selectedGenre === 'ALL'
+          ? battles
+          : battles.filter((battle: Battles) => battle.battleGenre.genreValue === selectedGenre);
 
-        if (exceptList.length === dataLength) {
+      if (filteredBattles.length) {
+        const dataLength = filteredBattles.length;
+
+        if (exceptList.length === dataLength || prevGenre !== selectedGenre) {
           exceptList.length = 0;
+          prevGenre = selectedGenre;
         }
 
         let targetNumber = Math.floor(Math.random() * dataLength);
@@ -30,7 +37,7 @@ export const getRandomBattle = async () => {
 
         exceptList.push(targetNumber);
 
-        return battles[targetNumber];
+        return filteredBattles[targetNumber];
       } else {
         return null;
       }

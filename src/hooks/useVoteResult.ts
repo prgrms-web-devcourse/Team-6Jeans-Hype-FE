@@ -10,27 +10,35 @@ interface SelectedBattle {
 }
 
 const useVoteResult = (initBattleId?: number) => {
+  const [selectedGenre, setSelectedGenre] = useState<string>('ALL');
   const {
     data: musicData,
     isLoading,
     refetch,
-  } = useQuery<Battles>(['battleList'], () => (initBattleId ? getBattleDetail(initBattleId) : getRandomBattle()), {
-    onSuccess: () => {
-      setIsLoadingState(true);
-      setTimeout(() => {
-        setIsLoadingState(false);
-      }, 500);
+  } = useQuery<Battles>(
+    ['battleList', selectedGenre],
+    () => (initBattleId ? getBattleDetail(initBattleId) : getRandomBattle(selectedGenre)),
+    {
+      onSuccess: () => {
+        setIsLoadingState(true);
+        setTimeout(() => {
+          setIsLoadingState(false);
+        }, 500);
+      },
     },
-  });
+  );
 
+  const [position, setPosition] = useState<'left' | 'right'>();
   const [isLoadingState, setIsLoadingState] = useState<boolean>(isLoading);
-
   const [selectedBattle, setSelectedBattle] = useState<SelectedBattle>({
     battleId: -1,
     votedPostId: -1,
   });
 
-  const [position, setPosition] = useState<'left' | 'right'>();
+  const onClickGenre = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsLoadingState(true);
+    setSelectedGenre(e.target.value);
+  };
 
   const onClickMusic = (e: any, clickSide: 'left' | 'right', battleId: number, votedPostId: number) => {
     setPosition(clickSide);
@@ -77,7 +85,7 @@ const useVoteResult = (initBattleId?: number) => {
     }, 500);
   };
 
-  return { musicData, isLoadingState, selectedBattle, position, onClickMusic, onClickSkip };
+  return { musicData, isLoadingState, selectedBattle, position, onClickGenre, onClickMusic, onClickSkip };
 };
 
 export default useVoteResult;
