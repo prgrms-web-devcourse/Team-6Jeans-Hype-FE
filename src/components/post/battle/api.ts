@@ -1,5 +1,5 @@
 import { axiosInstance } from '@/api';
-
+import { tokenStorage } from '@/components/login/utils/localStorage';
 import { PostBattleAPI } from './types';
 
 export const getPostBattleData = async (postId: number) => {
@@ -27,6 +27,9 @@ export const createBattle = async (challengedPostId: number, challengingPostId: 
       data: {
         challengedPostId,
         challengingPostId,
+      },
+      params: {
+        Authorization: `Bearer ${tokenStorage.get()}`,
       },
     });
 

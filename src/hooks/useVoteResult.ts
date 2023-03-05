@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
-import { getBattleDeatil, getRandomBattle } from '@/components/battle/api';
+import { getBattleDetail, getRandomBattle } from '@/components/battle/api';
 import { Battles } from '@/components/battle/types';
 
 interface SelectedBattle {
@@ -14,7 +14,7 @@ const useVoteResult = (initBattleId?: number) => {
     data: musicData,
     isLoading,
     refetch,
-  } = useQuery<Battles>(['battleList'], () => (initBattleId ? getBattleDeatil(initBattleId) : getRandomBattle()), {
+  } = useQuery<Battles>(['battleList'], () => (initBattleId ? getBattleDetail(initBattleId) : getRandomBattle()), {
     onSuccess: () => {
       setIsLoadingState(true);
       setTimeout(() => {
