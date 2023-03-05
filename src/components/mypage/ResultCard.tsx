@@ -6,10 +6,11 @@ import { RESULT_CARD_INFO, ResultCardType } from './UserHeader';
 
 interface Props {
   type: ResultCardType;
+  info: number;
 }
 
-function ResultCard({ type }: Props) {
-  const { title, icon, info, isHistory } = RESULT_CARD_INFO[type];
+function ResultCard({ type, info }: Props) {
+  const { title, icon, isHistory } = RESULT_CARD_INFO[type];
   return (
     <Container>
       <Title>{title}</Title>

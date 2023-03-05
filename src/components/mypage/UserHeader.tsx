@@ -1,44 +1,49 @@
 import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
 
 import { COLOR } from '@/constants/color';
 
-import DefaultImage from '../../../public/images/default-profile.svg';
+import { getUserProfile } from './api';
 import ResultCard from './ResultCard';
+
 interface ResultCard {
   title: string;
   icon: string;
-  info: string;
   isHistory?: boolean;
 }
 
 export type ResultCardType = 'ranking' | 'point' | 'history';
 
 export const RESULT_CARD_INFO: Record<ResultCardType, ResultCard> = {
-  ranking: { title: '랭킹', icon: 'images/rank.svg', info: '2' },
-  point: { title: '포인트', icon: 'images/point.svg', info: '381738173817' },
-  history: { title: '전적', icon: 'images/history.svg', info: '109', isHistory: true },
+  ranking: { title: '랭킹', icon: 'images/rank.svg' },
+  point: { title: '포인트', icon: 'images/point.svg' },
+  history: { title: '전적', icon: 'images/history.svg', isHistory: true },
 };
 
 function UserHeader() {
+  const { data: userProfile } = useQuery(['userProfile'], getUserProfile);
+
   return (
-    <Container>
-      <Wrapper>
-        <UserContainer>
-          <DefaultProfile>
-            <DefaultImage />
-          </DefaultProfile>
-          <Info>
-            <Name>아몰랑인데요?</Name>
-            <RestTicket>남은 대결권 2</RestTicket>
-          </Info>
-        </UserContainer>
-        <CardConatiner>
-          <ResultCard type='ranking' />
-          <ResultCard type='point' />
-          <ResultCard type='history' />
-        </CardConatiner>
-      </Wrapper>
-    </Container>
+    userProfile && (
+      <Container>
+        <Wrapper>
+          <UserContainer>
+            <DefaultProfile>
+              <img src={userProfile.profileImageUrl} alt='profile' />
+            </DefaultProfile>
+            <Info>
+              <Name>{userProfile.nickname}</Name>
+              <RestTicket>남은 대결권 {userProfile.countOfChanllenge}</RestTicket>
+            </Info>
+          </UserContainer>
+          <CardConatiner>
+            <ResultCard type='ranking' info={userProfile.ranking} />
+            <ResultCard type='point' info={userProfile.victoryPoint} />
+            <ResultCard type='history' info={userProfile.victoryCount} />
+          </CardConatiner>
+        </Wrapper>
+      </Container>
+    )
   );
 }
 
@@ -73,14 +78,16 @@ const CardConatiner = styled.div`
 `;
 
 const DefaultProfile = styled.div`
-  width: 7.7rem;
-  height: 7.7rem;
-  border-radius: 50%;
-  background-color: ${COLOR.white};
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0px 0px 15px rgba(158, 158, 158, 0.25);
+
+  & > img {
+    width: 7.7rem;
+    height: 7.7rem;
+    border-radius: 50%;
+  }
 `;
 
 const Info = styled.div`
