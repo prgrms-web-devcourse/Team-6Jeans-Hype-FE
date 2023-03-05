@@ -1,7 +1,6 @@
 import { axiosInstance } from '@/api';
 import { Battles } from './types';
 
-const SERVER = process.env.NEXT_PUBLIC_API_URL;
 const exceptList: number[] = [];
 let prevGenre = '';
 
@@ -9,7 +8,7 @@ export const getRandomBattle = async (selectedGenre: string) => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
-      url: `${SERVER}/battles/details`,
+      url: `/battles/details`,
     });
 
     if (response.data.success) {
@@ -52,7 +51,7 @@ export const getBattleDetail = async (battleId: number) => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
-      url: `${SERVER}/battles/${battleId}`,
+      url: `/battles/${battleId}`,
     });
 
     if (response.data.success) {
@@ -69,7 +68,7 @@ export const createBattleVote = async (battleId: number, votedPostId: number) =>
   try {
     const response = await axiosInstance.request({
       method: 'POST',
-      url: `${SERVER}/battles/vote`,
+      url: `/battles/vote`,
       data: {
         battleId,
         votedPostId,
