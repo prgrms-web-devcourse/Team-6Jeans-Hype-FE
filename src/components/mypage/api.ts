@@ -1,6 +1,6 @@
 import { axiosInstance } from '@/api';
 
-import { MyPostAPI } from './types';
+import { MyPostAPI, ProfileAPI } from './types';
 
 export const getPostFeedLimit = async () => {
   try {
@@ -14,8 +14,22 @@ export const getPostFeedLimit = async () => {
 
     if (data.success) {
       return data.data.myPosts;
-    } else {
-      return [];
+    }
+    return [];
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getUserProfile = async () => {
+  try {
+    const { data } = await axiosInstance.request<ProfileAPI>({
+      method: 'GET',
+      url: `members/profile`,
+    });
+
+    if (data.success) {
+      return data.data;
     }
   } catch (error) {
     console.error(error);

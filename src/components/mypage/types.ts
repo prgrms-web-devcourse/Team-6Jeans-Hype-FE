@@ -7,3 +7,18 @@ export interface MyPostAPI {
     myPosts: PostInfo[];
   };
 }
+
+export interface ProfileAPI {
+  success: boolean;
+  message: string;
+  data: UserInfo;
+}
+
+export interface UserInfo {
+  nickname: string;
+  profileImageUrl: string;
+  ranking: number;
+  victoryPoint: number;
+  victoryCount: number;
+  countOfChanllenge?: number;
+}
