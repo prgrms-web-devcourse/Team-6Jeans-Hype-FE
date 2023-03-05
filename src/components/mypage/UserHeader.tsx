@@ -45,14 +45,14 @@ function UserHeader() {
 export default UserHeader;
 
 const Container = styled.div`
-  height: 40vh;
+  height: fit-content;
   background: linear-gradient(130.7deg, #a274dc -10.45%, #658df4 122.15%);
+  padding: 2rem 0;
 `;
 
 const Wrapper = styled.div`
   width: 90%;
   margin: 0 auto;
-  padding-top: 2rem;
 `;
 
 const UserContainer = styled.div`
@@ -69,6 +69,7 @@ const CardConatiner = styled.div`
   justify-content: center;
   gap: 1.4rem;
   padding: 1rem 0;
+  padding-bottom: 7rem;
 `;
 
 const DefaultProfile = styled.div`

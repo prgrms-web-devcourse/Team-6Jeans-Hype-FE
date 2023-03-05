@@ -10,7 +10,6 @@ interface Props {
   src: string | undefined;
   size: number;
   blur?: boolean;
-  onClick?: () => void;
 }
 
 const onIntersection: IntersectionObserverCallback = (entries, io) => {
@@ -22,7 +21,7 @@ const onIntersection: IntersectionObserverCallback = (entries, io) => {
   });
 };
 
-const AlbumPoster = ({ lazy, threshold = 0.5, src, size, blur = false, onClick }: Props) => {
+const AlbumPoster = ({ lazy, threshold = 0.5, src, size, blur = false }: Props) => {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
@@ -52,7 +51,7 @@ const AlbumPoster = ({ lazy, threshold = 0.5, src, size, blur = false, onClick }
   }, [lazy, threshold]);
 
   return (
-    <ImgContainer ref={imgRef} size={size} style={{ opacity: loaded ? 1 : 0 }} onClick={onClick}>
+    <ImgContainer ref={imgRef} size={size} style={{ opacity: loaded ? 1 : 0 }}>
       {blur && <div />}
       <img src={loaded ? src : '/images/translucent-logo.svg'} />
     </ImgContainer>
