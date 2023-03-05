@@ -1,25 +1,30 @@
 import { axiosInstance } from '@/api';
-import { TEMP_DUMMY } from './temp_dummy';
-import { Battles, Vote } from './types';
+import { Battles } from './types';
 
-const SERVER = process.env.NEXT_PUBLIC_API_URL;
 const exceptList: number[] = [];
+let prevGenre = '';
 
-export const getRandomBattle = async () => {
+export const getRandomBattle = async (selectedGenre: string) => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
-      url: `${SERVER}/battles/details`,
+      url: `/battles/details`,
     });
 
     if (response.data.success) {
       const { battles } = response.data.data;
 
-      if (battles.length) {
-        const dataLength = battles.length;
+      const filteredBattles =
+        selectedGenre === 'ALL'
+          ? battles
+          : battles.filter((battle: Battles) => battle.battleGenre.genreValue === selectedGenre);
 
-        if (exceptList.length === dataLength) {
+      if (filteredBattles.length) {
+        const dataLength = filteredBattles.length;
+
+        if (exceptList.length === dataLength || prevGenre !== selectedGenre) {
           exceptList.length = 0;
+          prevGenre = selectedGenre;
         }
 
         let targetNumber = Math.floor(Math.random() * dataLength);
@@ -30,7 +35,7 @@ export const getRandomBattle = async () => {
 
         exceptList.push(targetNumber);
 
-        return battles[targetNumber];
+        return filteredBattles[targetNumber];
       } else {
         return null;
       }
@@ -46,7 +51,7 @@ export const getBattleDetail = async (battleId: number) => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
-      url: `${SERVER}/battles/${battleId}`,
+      url: `/battles/${battleId}`,
     });
 
     if (response.data.success) {
@@ -63,20 +68,12 @@ export const createBattleVote = async (battleId: number, votedPostId: number) =>
   try {
     const response = await axiosInstance.request({
       method: 'POST',
-      url: `${SERVER}/battles/vote`,
+      url: `/battles/vote`,
       data: {
         battleId,
         votedPostId,
       },
     });
-
-    // const TEMP_DUMMY: Vote = {
-    //   title: '떠나 (Prod. PATEKO (파테코))',
-    //   albumCoverUrl:
-    //     'https://is3-ssl.mzstatic.com/image/thumb/Music112/v4/52/6e/b5/526eb565-8444-3ec2-0392-c3ed55feb0b9/cover_KM0015957_1.jpg/100x100bb.jpg',
-    //   selectedPostVoteCnt: 175,
-    //   oppositePostVoteCnt: 253,
-    // };
 
     if (response.data.success) {
       return response.data.data;

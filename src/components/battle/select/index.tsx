@@ -13,12 +13,13 @@ interface Props {
 }
 
 function Select({ battleId }: Props) {
-  const { musicData, isLoadingState, selectedBattle, position, onClickMusic, onClickSkip } = useVoteResult(battleId);
+  const { musicData, isLoadingState, selectedBattle, position, onClickGenre, onClickMusic, onClickSkip } =
+    useVoteResult(battleId);
 
   return (
     <>
       <SelectContainer>
-        <Genres onChange={() => console.log('click-genre')} />
+        <Genres onChange={onClickGenre} shouldNeedAll />
         <Section>
           <Text>What’s your Hype Music?</Text>
           <BattleContainer>

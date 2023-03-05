@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const useGenre = () => {
-  const [selectedValue, setSelectedValue] = useState<string>();
+  const [selectedValue, setSelectedValue] = useState<string>('ALL');
   const onClick = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(e.target.value);
   };
