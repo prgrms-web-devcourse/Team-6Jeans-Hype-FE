@@ -19,7 +19,7 @@ function Select({ battleId }: Props) {
   return (
     <>
       <SelectContainer>
-        <Genres onChange={onClickGenre} shouldNeedAll={true} />
+        <Genres onChange={onClickGenre} shouldNeedAll />
         <Section>
           <Text>What’s your Hype Music?</Text>
           <BattleContainer>
