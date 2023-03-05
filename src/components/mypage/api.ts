@@ -1,6 +1,6 @@
 import { axiosInstance } from '@/api';
 
-import { MyPostAPI, ProfileAPI } from './types';
+import { MyBattleAPI, MyPostAPI, ProfileAPI } from './types';
 
 export const getPostFeedLimit = async () => {
   try {
@@ -30,6 +30,26 @@ export const getUserProfile = async () => {
 
     if (data.success) {
       return data.data;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getBattlesLimit = async () => {
+  try {
+    const { data } = await axiosInstance.request<MyBattleAPI>({
+      method: 'GET',
+      url: `/members/battles`,
+      params: {
+        limit: '2',
+      },
+    });
+
+    if (data.success) {
+      return data.data.battles;
+    } else {
+      return [];
     }
   } catch (error) {
     console.error(error);
