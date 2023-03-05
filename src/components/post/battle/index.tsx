@@ -4,13 +4,13 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
-import { BattleApplyModal } from './types';
-import Header from '@/components/common/Header';
+import HeaderSubmitButton from '@/components/common/Header/SubmitButton';
 import { COLOR } from '@/constants/color';
 
 import { getPostBattleData } from './api';
-import MyBattleList from './mybattleList';
 import { createBattle } from './api';
+import MyBattleList from './mybattleList';
+import { BattleApplyModal } from './types';
 
 function BattleForm() {
   const router = useRouter();
@@ -49,12 +49,6 @@ function BattleForm() {
 
   return (
     <Container>
-      <Header
-        backUrl={`/post/detail?postId=${selectedOpponentMusicId}`}
-        title='대결 신청'
-        subButtonValue={isReadySubmit ? '확인' : ''}
-        onClickSubButton={applyBattle}
-      />
       <Title>What&apos;s next?</Title>
       <Musics>
         {battleMusic && (

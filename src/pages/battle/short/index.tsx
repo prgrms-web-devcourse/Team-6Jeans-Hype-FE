@@ -1,18 +1,20 @@
-import { useRouter } from 'next/router';
+import Link from 'next/link';
+import ListIcon from 'public/images/go-to-list-icon.svg';
 
 import Select from '@/components/battle/select';
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 
 function Short() {
-  const router = useRouter();
   return (
     <>
       <Header
-        title='진행중인 대결'
-        subButtonType='image'
-        subButtonValue={'/images/go-to-list-icon.svg'}
-        onClickSubButton={() => router.push(`/post/battle/list`)}
+        title='진행 중인 대결'
+        actionButton={
+          <Link href='/battle/list'>
+            <ListIcon />
+          </Link>
+        }
       />
       <Select />
       <BottomNav />

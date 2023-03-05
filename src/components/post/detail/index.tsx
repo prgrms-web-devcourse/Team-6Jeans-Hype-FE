@@ -1,17 +1,20 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import Header from '@/components/common/Header';
 import Battle from '@/components/common/ImageButtons/BattleButton';
 import Like from '@/components/common/ImageButtons/LikeButton';
+import MusicPlayButton from '@/components/common/MusicPlayButton';
 import { COLOR } from '@/constants/color';
 
 import { getPostDetailData } from './api';
 import MusicInfo from './musicInfo';
-import MusicPlayButton from '@/components/common/MusicPlayButton';
 
 function PostDetail() {
+  const [isRenderPostContent, setIsRenderPostContent] = useState(true);
+
   const router = useRouter();
   const { postId } = router.query;
 
@@ -27,18 +30,18 @@ function PostDetail() {
     router.push(`/post/battle?postId=${postId}`);
   };
 
+  const toggleContentViewStatus = () => setIsRenderPostContent((prev) => !prev);
+
   return (
     <Container>
       <Wrapper>
-        <Header selectedColor='white' backUrl='/post' />
+        <Header color={COLOR.white} backUrl='/post' />
 
         {postDetail && (
           <MusicInfo
-            musicName={postDetail.music.musicName}
-            musicUrl={postDetail.music.musicUrl}
+            title={postDetail.music.title}
             albumCoverUrl={postDetail.music.albumCoverUrl}
             singer={postDetail.music.singer}
-            genre={postDetail.music.genre}
           />
         )}
 
@@ -72,34 +75,41 @@ function PostDetail() {
           </Icon>
 
           <Icon>
-            <Battle size={1.5} color='white' battleAbility={true} onClick={navigatePostBattle} />
+            {postDetail?.isBattlePossible ? (
+              <Battle size={1.5} color='white' battleAbility={true} onClick={navigatePostBattle} />
+            ) : (
+              <Battle size={1.5} color='white' battleAbility={false} />
+            )}
           </Icon>
         </PostDetailEvent>
 
-        {postDetail?.content && (
-          <PostDetailContent>
-            <ContentHeader>
+        <PostDetailContent>
+          <ContentHeader isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
+            <ContentHeaderWrapper>
               <Title>
-                <Info>
-                  <strong>{postDetail?.nickname}</strong> 님의 한마디
-                </Info>
-                <ImageWrapper>
-                  <img src='/images/down-arrow.svg' alt='img' />
-                </ImageWrapper>
+                <strong>{postDetail?.nickname} 님의</strong> {postDetail?.content === '' ? '추천' : '한마디'}
               </Title>
-            </ContentHeader>
+              <ToggleArrowButton isContent={!!postDetail?.content} onClick={toggleContentViewStatus}>
+                <img src={`/images/${isRenderPostContent ? 'down' : 'up'}-arrow.svg`} alt='img' />
+              </ToggleArrowButton>
+            </ContentHeaderWrapper>
+          </ContentHeader>
 
-            <ContentBody>
-              <Content>{postDetail.content}</Content>
-            </ContentBody>
-          </PostDetailContent>
-        )}
+          <ContentBody isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
+            <Content defaultValue={postDetail?.content} />
+          </ContentBody>
+        </PostDetailContent>
       </Wrapper>
     </Container>
   );
 }
 
 export default PostDetail;
+
+interface StyleProp {
+  isContent?: boolean;
+  isContentViewStatus?: boolean;
+}
 
 const Container = styled.div`
   display: flex;
@@ -158,17 +168,22 @@ const PlayTime = styled.div`
 
 const PostDetailEvent = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  position: relative;
 
   width: 65%;
   margin: 0 auto;
 `;
 
 const Icon = styled.div`
-  &:first-of-type,
+  &:first-of-type {
+    position: absolute;
+    left: 0;
+  }
   &:last-of-type {
-    width: 18%;
+    position: absolute;
+    right: 0;
   }
 `;
 
@@ -182,28 +197,29 @@ const ContentHeader = styled.div`
 
   position: absolute;
   left: 0;
-  bottom: 12.5%;
+  bottom: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? '12.5%' : '0')};
   width: 100%;
   height: 2.5%;
 `;
 
-const Title = styled.div`
+const ContentHeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 `;
 
-const Info = styled.div`
+const Title = styled.div`
   font-size: 1.3rem;
   & > strong {
     font-weight: 600;
   }
 `;
 
-const ImageWrapper = styled.div`
+const ToggleArrowButton = styled.div`
   position: absolute;
   right: 3rem;
+  display: ${({ isContent }: StyleProp) => (isContent ? 'block' : 'none')};
 `;
 
 const ContentBody = styled.div`
@@ -214,14 +230,17 @@ const ContentBody = styled.div`
   bottom: 0;
   width: 100%;
   height: 13.5%;
+
+  display: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? 'flex' : 'none')};
+  justify-content: center;
 `;
 
-const Content = styled.div`
+const Content = styled.textarea`
   border: 0.4px solid rgba(125, 116, 220, 0.4);
   border-radius: 1rem;
   padding: 1rem;
   width: 90%;
-  margin: 1.5rem auto 0 auto;
+  margin: 1.5rem 0;
 
   font-style: normal;
   font-weight: 500;

@@ -1,6 +1,7 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
 import { COLOR } from '@/constants/color';
@@ -14,6 +15,9 @@ interface Props {
 }
 
 function VoteResult({ battleId, votedPostId, clickSide }: Props) {
+  const router = useRouter();
+  const isDetail = router.pathname === '/battle/detail';
+
   const { data: voteResult, isLoading } = useQuery(
     ['voteResult', battleId],
     () => createBattleVote(battleId, votedPostId),
@@ -26,7 +30,7 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
   const opposite = <span className='opposite'>{voteResult?.oppositePostVoteCnt}</span>;
 
   return (
-    <VoteResultModal>
+    <VoteResultModal className={isDetail ? 'infinity' : undefined}>
       {isLoading ? (
         <div>skeleton으로 교체 예정</div>
       ) : (
@@ -39,6 +43,7 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
             <img src={'/images/linear-gradient-logo.svg'} alt='img' />
             {clickSide === 'right' ? selected : opposite}
           </Votes>
+          {isDetail && <Back onClick={() => router.push('/post') /*list로 가도록 교체 예정*/}>돌아가기</Back>}
         </VoteResultContainer>
       )}
     </VoteResultModal>
@@ -49,21 +54,32 @@ export default VoteResult;
 
 const backgroundFade = keyframes`
   0% {
-    background: ${COLOR.background};
+    background-position:0% 50%;
     opacity: 0;
   }
-  20% {
-    background: ${COLOR.blue};  
+  50%{
+    background-position:100% 50%;
   }
-  80% {
-    background: ${COLOR.purple};
-    opacity: 1;
-  }
-  85% {
+  80%{
     opacity: 1;
   }
   100% {
-    opacity: 0;
+    opacity: 0.96;
+    background-position:0% 50%
+  }
+`;
+
+const backgroundFadeInfinity = keyframes`
+  0%{
+    opacity: 0.96;
+    background-position:0% 50%
+  }
+  50%{
+    background-position:100% 50%
+  }
+  100%{
+    opacity: 0.96;
+    background-position:0% 50%
   }
 `;
 
@@ -73,8 +89,17 @@ const VoteResultModal = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  background: linear-gradient(130.7deg, rgba(162, 116, 220, 1) -10.45%, rgba(101, 141, 244, 1) 122.15%);
+  background-size: 800% 800%;
   animation: ${backgroundFade} 2s ease;
   z-index: 99;
+
+  &.infinity {
+    animation-name: ${backgroundFade}, ${backgroundFadeInfinity};
+    animation-delay: 0s, 2s;
+    animation-duration: 2s, 2s;
+    animation-iteration-count: 1, infinite;
+  }
 `;
 
 const VoteResultContainer = styled.div`
@@ -85,7 +110,8 @@ const VoteResultContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 99; ;
+  z-index: 99;
+  animation: name duration timing-function delay iteration-count direction fill-mode;
 `;
 
 const Title = styled.div`
@@ -126,4 +152,14 @@ const Votes = styled.div`
   .opposite {
     color: ${COLOR.lightGray};
   }
+`;
+
+const Back = styled.div`
+  color: ${COLOR.background};
+  margin-top: 10rem;
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+  letter-spacing: 0.1rem;
+  cursor: pointer;
 `;
