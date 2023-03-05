@@ -3,11 +3,11 @@ import axios from 'axios';
 import { axiosInstance } from '@/api';
 
 import { TEMP_DUMMY } from './temp_dummy';
-import { Vote } from './types';
+import { Battles, Vote } from './types';
 
 const SERVER = process.env.NEXT_PUBLIC_API_URL;
 
-export const getBattle = async () => {
+export const getRandomBattle = async () => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
@@ -25,6 +25,31 @@ export const getBattle = async () => {
     } else {
       return {};
     }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getBattleDeatil = async (battleId: number) => {
+  try {
+    // const response = await axiosInstance.request({
+    //   method: 'GET',
+    //   url: `${SERVER}/battles/${battleId}`,
+    // });
+
+    //임시 더미
+    const tmp = TEMP_DUMMY.find((battle: any) => battle.battleId === battleId);
+    return tmp;
+
+    // if (response.data.success) {
+    //   response.data.data.battles = TEMP_DUMMY;
+    //   const { battles } = response.data.data;
+    //   const targetData = battles.find((battle: Battles) => battle.battleId === battleId);
+
+    //   return targetData;
+    // } else {
+    //   return {};
+    // }
   } catch (error) {
     console.error(error);
   }

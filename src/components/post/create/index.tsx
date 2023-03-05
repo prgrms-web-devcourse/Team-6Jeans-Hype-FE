@@ -13,7 +13,7 @@ interface Props {
   values: Values;
   onChangeValues: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   onChangeMusicInfo(music: Music): void;
-  onSubmit: React.FormEventHandler<HTMLFormElement>;
+  onSubmit: () => void;
 }
 
 function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Props) {
@@ -37,8 +37,13 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
     },
   );
 
+  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSubmit();
+  };
+
   return (
-    <CreateContainer onSubmit={onSubmit}>
+    <CreateContainer onSubmit={submit}>
       <Row>{!isLoading && <SelectedMusic selectedMusic={values.musicInfo} />}</Row>
       <Row>
         <Genres title='장르 선택' onChange={onChangeValues} />
