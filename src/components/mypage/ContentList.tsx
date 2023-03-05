@@ -9,7 +9,7 @@ interface Props {
   children: ReactNode;
 }
 
-function List({ title, children }: Props) {
+function ContentList({ title, children }: Props) {
   return (
     <Container title={title}>
       <Header>
@@ -24,7 +24,7 @@ function List({ title, children }: Props) {
   );
 }
 
-export default List;
+export default ContentList;
 
 const Container = styled.div<{ title: string }>`
   width: 90%;

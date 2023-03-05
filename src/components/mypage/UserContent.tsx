@@ -3,14 +3,14 @@ import { useQuery } from '@tanstack/react-query';
 
 import RecommendationPost from '../common/RecommendationPost';
 import { getPostFeedLimit } from './api';
-import List from './List';
+import ContentList from './ContentList';
 
 function UserContent() {
   const { data: postFeedLimit } = useQuery(['postfeedlimit'], getPostFeedLimit);
 
   return (
     <Container>
-      <List title='대결'>
+      <ContentList title='대결'>
         {/* 추후 대결 컴포넌트로 바꿀 예정 */}
         {postFeedLimit?.map(({ postId, music, likeCount }) => (
           <RecommendationPost
@@ -21,8 +21,8 @@ function UserContent() {
             isBattlePossible={false}
           />
         ))}
-      </List>
-      <List title='추천'>
+      </ContentList>
+      <ContentList title='추천'>
         {postFeedLimit?.map(({ postId, music, likeCount }) => (
           <RecommendationPost
             key={postId}
@@ -32,7 +32,7 @@ function UserContent() {
             isBattlePossible={false}
           />
         ))}
-      </List>
+      </ContentList>
     </Container>
   );
 }
