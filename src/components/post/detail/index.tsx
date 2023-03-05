@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import Header from '@/components/common/Header';
 import Battle from '@/components/common/ImageButtons/BattleButton';
@@ -10,8 +11,6 @@ import { COLOR } from '@/constants/color';
 
 import { getPostDetailData } from './api';
 import MusicInfo from './musicInfo';
-import MusicPlayButton from '@/components/common/MusicPlayButton';
-import { useState } from 'react';
 
 function PostDetail() {
   const [isRenderPostContent, setIsRenderPostContent] = useState(true);
