@@ -2,9 +2,8 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 import ShortsIcon from 'public/images/shuffle.svg';
 
-import BattleCard from '@/components/battle/Card';
+import BattleList from '@/components/battle/list';
 import { useGetBattleList } from '@/components/battle/list/hooks/useGetBattles';
-import { Battle } from '@/components/battle/list/types';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
@@ -24,11 +23,7 @@ export default function BattleListPage() {
       />
       <Container>
         <Genres shouldNeedAll />
-        <BattleList>
-          {battleList?.map(({ challenged, challenging, id, isProgress }: Battle) => (
-            <BattleCard {...{ challenged, challenging, id, isProgress }} key={id} />
-          ))}
-        </BattleList>
+        {battleList && <BattleList battleList={battleList} />}
       </Container>
       <BottomNav />
     </>
@@ -40,10 +35,4 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3.7rem;
-`;
-
-const BattleList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
 `;
