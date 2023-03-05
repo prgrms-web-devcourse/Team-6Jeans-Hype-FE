@@ -16,23 +16,25 @@ export const getRandomBattle = async () => {
 
       if (battles.length) {
         const dataLength = battles.length;
+
+        if (exceptList.length === dataLength) {
+          exceptList.length = 0;
+        }
+
         let targetNumber = Math.floor(Math.random() * dataLength);
 
         while (exceptList.indexOf(targetNumber) !== -1) {
           targetNumber = Math.floor(Math.random() * dataLength);
-          if (exceptList.length === dataLength) {
-            exceptList.length = 0;
-          }
         }
+
         exceptList.push(targetNumber);
 
-        const targetData = battles[targetNumber];
-        return targetData;
+        return battles[targetNumber];
       } else {
         return null;
       }
     } else {
-      return {};
+      return null;
     }
   } catch (error) {
     console.error(error);
