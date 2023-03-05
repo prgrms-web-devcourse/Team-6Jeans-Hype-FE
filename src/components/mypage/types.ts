@@ -22,6 +22,7 @@ export interface UserInfo {
   victoryCount: number;
   countOfChanllenge?: number;
 }
+
 export interface MyBattleAPI {
   success: boolean;
   message: string;
