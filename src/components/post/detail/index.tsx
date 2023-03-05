@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Header from '@/components/common/Header';
 import Battle from '@/components/common/ImageButtons/BattleButton';
 import Like from '@/components/common/ImageButtons/LikeButton';
+import MusicPlayButton from '@/components/common/MusicPlayButton';
 import { COLOR } from '@/constants/color';
 
 import { getPostDetailData } from './api';
@@ -29,7 +30,7 @@ function PostDetail() {
   return (
     <Container>
       <Wrapper>
-        <Header selectedColor='white' backUrl='/post' />
+        <Header color={COLOR.white} backUrl='/post' />
 
         {postDetail && (
           <MusicInfo
@@ -67,9 +68,7 @@ function PostDetail() {
           </Icon>
 
           <Icon>
-            <PostPlayIcon>
-              <audio src={postDetail?.music.musicUrl} controls loop></audio>
-            </PostPlayIcon>
+            <MusicPlayButton src={postDetail?.music.musicUrl} />
           </Icon>
 
           <Icon>
@@ -114,11 +113,6 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 90%;
   margin: 2rem auto 0 auto;
-`;
-
-const PrevButton = styled.img`
-  width: 1.5rem;
-  height: 2rem;
 `;
 
 const PlayStatus = styled.div`
@@ -175,21 +169,6 @@ const Icon = styled.div`
   &:first-of-type,
   &:last-of-type {
     width: 18%;
-  }
-`;
-
-const PostPlayIcon = styled.div`
-  width: 4rem;
-  height: 4rem;
-  overflow: hidden;
-  border-radius: 50%;
-  border: 1px solid #cccccc;
-  box-sizing: content-box;
-
-  & audio {
-    margin-top: -0.75rem;
-    margin-left: -0.6rem;
-    display: block;
   }
 `;
 

@@ -12,10 +12,6 @@ export const getMyBattleListData = async (genre: string) => {
       method: 'GET',
       url: `${SERVER}/posts/battle/candidates`,
       params: { genre },
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${TEMP_TOKEN}`,
-      },
     });
 
     if (data.success) {

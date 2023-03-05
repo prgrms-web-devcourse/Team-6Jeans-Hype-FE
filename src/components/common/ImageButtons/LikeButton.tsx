@@ -13,7 +13,7 @@ interface Props {
   onClick?(): void;
 }
 
-function Like({ size, initCount, color, isClicked, onClick }: Props) {
+function Like({ size, color, initCount, isClicked, onClick }: Props) {
   const { state, onClickLike } = useLike({ initCount, isClicked });
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -53,7 +53,6 @@ const Text = styled.div`
   color: ${({ color }: StyleProp) => (color === 'white' ? COLOR.white : COLOR.purple)};
   font-size: 1rem;
   padding-top: 0.3rem;
-  text-align: center;
 `;
 
 const StyledLikeOnIcon = styled(LikeOnIcon)<{ color: string; size: number }>`

@@ -1,17 +1,17 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { BattleMusicInfo } from '@/components/post/battle/types';
+import { BattleMusic } from '@/components/post/battle/types';
 import { COLOR } from '@/constants/color';
 
 interface Prop {
-  music: BattleMusicInfo;
+  music: BattleMusic;
   onClick?(e: any): void;
   clickSide?: 'left' | 'right' | undefined;
 }
 
 const BattleMusicInfo = ({ music, onClick, clickSide }: Prop) => {
-  const { thumbnailUrl, musicUrl, musicName, singer } = music;
+  const { albumCoverUrl, musicUrl, title, singer } = music;
 
   const handleClick = (e: any) => {
     onClick?.(e);
@@ -20,14 +20,14 @@ const BattleMusicInfo = ({ music, onClick, clickSide }: Prop) => {
   return (
     <Container>
       <Wrapper onClick={handleClick} className='container'>
-        <Thumbnail src={thumbnailUrl} clickSide={clickSide}>
+        <Thumbnail src={albumCoverUrl} clickSide={clickSide}>
           {/* <Thumbnail src={albumCoverUrl} clickSide={clickSide}> */}
           <PlayIcon value={musicUrl}>
             <audio src={musicUrl} controls loop></audio>
           </PlayIcon>
           <PlusIcon src='/images/plus-music.svg' value={musicUrl} />
         </Thumbnail>
-        <Title>{musicName}</Title>
+        <Title>{title}</Title>
         <Singer>{singer}</Singer>
       </Wrapper>
     </Container>

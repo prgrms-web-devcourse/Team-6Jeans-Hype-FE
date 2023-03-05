@@ -14,21 +14,23 @@ export interface PostBattleAPI {
 
 export interface MyBattlePostInfo {
   postId: number;
-  music: BattleMusicInfo;
+  music: BattleMusic;
 }
 
 export interface PostBattleInfo {
-  music: BattleMusicInfo;
+  music: BattleMusic;
   likeCount: number;
   isBattlePossible: boolean;
   nickname: string;
   content?: string;
 }
 
-export interface BattleMusicInfo {
-  musicName: string;
+export interface BattleMusic {
+  musicId?: number;
+
+  title: string;
   musicUrl?: string;
-  thumbnailUrl: string;
+  albumCoverUrl: string;
   singer: string;
   genre?: BattleGenreInfo;
 }
@@ -36,4 +38,12 @@ export interface BattleMusicInfo {
 export interface BattleGenreInfo {
   genreValue: string;
   genreName: string;
+}
+
+export interface BattleApplyModal {
+  postId: number;
+  title: string;
+  musicUrl?: string;
+  albumCoverUrl: string;
+  singer: string;
 }

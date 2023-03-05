@@ -1,35 +1,19 @@
-import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 import Genres from '@/components/common/Genres';
+import AlbumPoster from '@/components/common/skeleton/AlbumPoster';
 import { COLOR } from '@/constants/color';
 import useVoteResult from '@/hooks/useVoteResult';
 
 import VoteResult from '../voteResult';
 
-const TEMP =
-  'https://is5-ssl.mzstatic.com/image/thumb/Music122/v4/ca/20/55/ca205584-83ae-8be5-a415-03df7baae6cb/8809658318466_Cover.jpg/100x100bb.jpg';
+interface Props {
+  battleId?: number | undefined;
+}
 
-const TEMP2 =
-  'https://is3-ssl.mzstatic.com/image/thumb/Music112/v4/52/6e/b5/526eb565-8444-3ec2-0392-c3ed55feb0b9/cover_KM0015957_1.jpg/100x100bb.jpg';
-
-function Select() {
-  const { visible, position, onClickMusic } = useVoteResult();
-
-  const TEMP_OBJECT = {
-    musicName: '신경 쓸 게 많아서 (Feat. The Quiett)',
-    musicUrl: 'test',
-    thumbnailUrl: TEMP,
-    singer: 'Gist',
-  };
-
-  const TEMP_OBJECT2 = {
-    musicName: '떠나 (Prod. PATEKO (파테코))',
-    musicUrl: 'test',
-    thumbnailUrl: TEMP2,
-    singer: 'THAMA, Jayci yucca (제이씨 유카)',
-  };
+function Select({ battleId }: Props) {
+  const { musicData, isLoadingState, selectedBattle, position, onClickMusic, onClickSkip } = useVoteResult(battleId);
 
   return (
     <>
@@ -38,13 +22,35 @@ function Select() {
         <Section>
           <Text>What’s your Hype Music?</Text>
           <BattleContainer>
-            <BattleMusicInfo music={TEMP_OBJECT} onClick={(e) => onClickMusic(e, 'left')} clickSide='left' />
-            <BattleMusicInfo music={TEMP_OBJECT2} onClick={(e) => onClickMusic(e, 'right')} clickSide='right' />
+            {isLoadingState ? (
+              <>
+                <AlbumPoster />
+                <AlbumPoster />
+              </>
+            ) : musicData === undefined ? (
+              <div>대결할 음악이 없어요</div>
+            ) : (
+              <>
+                <BattleMusicInfo
+                  music={musicData?.challenged.music}
+                  onClick={(e) => onClickMusic(e, 'left', musicData.battleId, musicData?.challenged.postId)}
+                  clickSide='left'
+                />
+                <BattleMusicInfo
+                  music={musicData?.challenging.music}
+                  onClick={(e) => onClickMusic(e, 'right', musicData.battleId, musicData?.challenging.postId)}
+                  clickSide='right'
+                />
+              </>
+            )}
           </BattleContainer>
         </Section>
-        <Skip>건너뛰기</Skip>
+        {battleId ?? <Skip onClick={onClickSkip}>건너뛰기</Skip>}
       </SelectContainer>
-      {visible && <VoteResult battleId={1234} votedPostId={1234} clickSide={position} />}
+
+      {selectedBattle.battleId !== -1 && selectedBattle.votedPostId !== -1 && (
+        <VoteResult battleId={selectedBattle.battleId} votedPostId={selectedBattle.votedPostId} clickSide={position} />
+      )}
     </>
   );
 }
@@ -81,6 +87,7 @@ const Skip = styled.div`
 const Text = styled.div`
   font-size: 1.7rem;
   background: linear-gradient(98.38deg, #7d74dc -1.83%, #7697ec 86.44%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   white-space: nowrap;

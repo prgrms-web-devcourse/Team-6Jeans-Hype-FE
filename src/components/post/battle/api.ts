@@ -19,3 +19,24 @@ export const getPostBattleData = async (postId: number) => {
     throw new Error('데이터 요청 실패');
   }
 };
+
+export const createBattle = async (challengedPostId: number, challengingPostId: number) => {
+  try {
+    const response = await axiosInstance.request({
+      method: 'POST',
+      url: `${SERVER}/battles`,
+      data: {
+        challengedPostId,
+        challengingPostId,
+      },
+    });
+
+    if (response.data.success) {
+      return response.data.success;
+    } else {
+      return false;
+    }
+  } catch {
+    throw new Error('데이터 요청 실패');
+  }
+};

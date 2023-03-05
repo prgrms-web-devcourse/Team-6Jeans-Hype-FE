@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import { createPost } from '@/components/post/api';
 import { Genre, Music, Values } from '@/components/post/create/types';
@@ -32,9 +32,7 @@ const usePostCreate = () => {
     setMusicInfo(infos);
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const onSubmit = async () => {
     const postInfo: Values = {
       musicInfo,
       selectedGenre,
