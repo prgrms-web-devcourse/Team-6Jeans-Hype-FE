@@ -11,7 +11,7 @@ export interface MyPostAPI {
 export interface ProfileAPI {
   success: boolean;
   message: string;
-  data: UserInfo[];
+  data: UserInfo;
 }
 
 export interface UserInfo {

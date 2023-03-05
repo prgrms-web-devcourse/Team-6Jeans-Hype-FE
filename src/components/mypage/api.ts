@@ -31,7 +31,6 @@ export const getUserProfile = async () => {
     if (data.success) {
       return data.data;
     }
-    return [];
   } catch (error) {
     console.error(error);
   }
