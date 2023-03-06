@@ -45,7 +45,7 @@ export default Header;
 const Container = styled.div`
   width: calc(100% - 4rem);
   height: 6rem;
-  margin: 0 2rem;
+  margin: 0 1rem;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.5rem;
@@ -56,7 +56,7 @@ const Container = styled.div`
 const H1 = styled.h1<{ color: string }>`
   position: absolute;
   font-size: 1.8rem;
-  font-weight: bold;
+  font-weight: 700;
   transform: translateX(-50%);
   left: 50%;
   color: ${({ color }) => color};
