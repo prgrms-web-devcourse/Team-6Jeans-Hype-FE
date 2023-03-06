@@ -61,7 +61,6 @@ function BattleForm() {
       {isVisibleMusicList && (
         <MyBattleList genre={battleMusic?.music.genre?.genreValue} updateMyMusicCard={updateMyMusicCard} />
       )}
-      <button onClick={applyBattle}>applyBattle</button>
     </Container>
   );
 }
