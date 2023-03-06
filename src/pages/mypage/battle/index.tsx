@@ -1,29 +1,19 @@
 import styled from '@emotion/styled';
-import Link from 'next/link';
-import ShortsIcon from 'public/images/shuffle.svg';
 
 import BattleList from '@/components/battle/list';
-import { useGetBattleList } from '@/components/battle/list/hooks/useGetBattles';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
+import { useGetMyBattleList } from '@/components/mypage/battle/useGetMyBattleList';
 
-export default function BattleListPage() {
-  const { data: battleList } = useGetBattleList();
-
+export default function MyBattleListPage() {
+  const { data: myBattleList } = useGetMyBattleList();
   return (
     <>
-      <Header
-        title='진행 중인 대결'
-        actionButton={
-          <Link href='/battle/short'>
-            <ShortsIcon />
-          </Link>
-        }
-      />
+      <Header title='참여한 대결' />
       <Container>
         <Genres shouldNeedAll />
-        {battleList && <BattleList battleList={battleList} />}
+        {myBattleList && <BattleList battleList={myBattleList} />}
       </Container>
       <BottomNav />
     </>
