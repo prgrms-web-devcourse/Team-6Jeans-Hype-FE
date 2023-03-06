@@ -1,24 +1,34 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 
-import RecommendationPost from '../common/RecommendationPost';
-import { getPostFeedLimit } from './api';
+import BattleCard from '@/components/battle/Card';
+import RecommendationPost from '@/components/common/RecommendationPost';
+
+import { getBattlesLimit, getPostFeedLimit } from './api';
 import ContentList from './ContentList';
 
 function UserContent() {
   const { data: postFeedLimit } = useQuery(['postfeedlimit'], getPostFeedLimit);
+  const { data: battleLimit } = useQuery(['battlelimit'], getBattlesLimit);
 
   return (
     <Container>
       <ContentList title='대결'>
-        {/* 추후 대결 컴포넌트로 바꿀 예정 */}
-        {postFeedLimit?.map(({ postId, music, likeCount }) => (
-          <RecommendationPost
-            key={postId}
-            postId={postId}
-            music={music}
-            likeCount={likeCount}
-            isBattlePossible={false}
+        {battleLimit?.map(({ battleId, challenging, challenged, battleStatus }) => (
+          <BattleCard
+            key={battleId}
+            id={battleId}
+            challenging={{
+              albumCoverImage: challenging.albumUrl,
+              title: challenging.title,
+              singer: challenging.singer,
+            }}
+            challenged={{
+              albumCoverImage: challenged.albumUrl,
+              title: challenged.title,
+              singer: challenged.singer,
+            }}
+            isProgress={battleStatus === 'PROGRESS'}
           />
         ))}
       </ContentList>

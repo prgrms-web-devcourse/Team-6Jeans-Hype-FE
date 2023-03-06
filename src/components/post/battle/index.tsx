@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
+import Header from '@/components/common/Header';
 import HeaderSubmitButton from '@/components/common/Header/SubmitButton';
 import { COLOR } from '@/constants/color';
 
@@ -49,6 +50,11 @@ function BattleForm() {
 
   return (
     <Container>
+      <Header
+        title='대결 신청'
+        backUrl={`/post/detail?postId=${selectedOpponentMusicId}`}
+        actionButton={isReadySubmit && <HeaderSubmitButton onClick={applyBattle} />}
+      />
       <Title>What&apos;s next?</Title>
       <Musics>
         {battleMusic && (
