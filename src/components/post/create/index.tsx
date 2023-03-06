@@ -8,6 +8,7 @@ import Toggle from '../../common/Toggle';
 import { getMusicDetailData } from '../api';
 import SelectedMusic from './SelectedMusic';
 import { Music, Values } from './types';
+import Box from '@/components/common/skeleton/Box';
 
 interface Props {
   values: Values;
@@ -44,7 +45,17 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
 
   return (
     <CreateContainer onSubmit={submit}>
-      <Row>{!isLoading && <SelectedMusic selectedMusic={values.musicInfo} />}</Row>
+      <Row>
+        {isLoading ? (
+          <>
+            <SkeletonContainer>
+              <Box width={100} height={100} />
+            </SkeletonContainer>
+          </>
+        ) : (
+          <SelectedMusic selectedMusic={values.musicInfo} />
+        )}
+      </Row>
       <Row>
         <Genres title='장르 선택' onChange={onChangeValues} />
       </Row>
@@ -86,6 +97,12 @@ const Row = styled.div`
   }
   &:last-child {
   }
+`;
+
+const SkeletonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 `;
 
 const Description = styled.textarea`

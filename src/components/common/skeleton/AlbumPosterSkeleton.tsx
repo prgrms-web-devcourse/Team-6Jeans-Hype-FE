@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import Box from './Box';
 
-const AlbumPoster = ({ line = 3, ...props }) => {
+const AlbumPosterSkeleton = ({ line = 3, ...props }) => {
   return (
     <MusicContainer {...props}>
       <AlbumContainer>
@@ -21,7 +21,7 @@ const AlbumPoster = ({ line = 3, ...props }) => {
   );
 };
 
-export default AlbumPoster;
+export default AlbumPosterSkeleton;
 
 const MusicContainer = styled.div`
   width: 11rem;
