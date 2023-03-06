@@ -96,7 +96,7 @@ function PostDetail() {
           </ContentHeader>
 
           <ContentBody isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
-            <Content defaultValue={postDetail?.content} />
+            <Content>{postDetail?.content}</Content>
           </ContentBody>
         </PostDetailContent>
       </Wrapper>
@@ -209,6 +209,7 @@ const ContentHeaderWrapper = styled.div`
 
 const Title = styled.div`
   font-size: 1.3rem;
+
   & > strong {
     font-weight: 600;
   }
@@ -238,17 +239,13 @@ const ContentBody = styled.div`
   justify-content: center;
 `;
 
-const Content = styled.textarea`
+const Content = styled.p`
   border: 0.4px solid rgba(125, 116, 220, 0.4);
   border-radius: 1rem;
-  padding: 1rem;
-  width: 90%;
-  margin: 1.5rem 0;
-
-  font-style: normal;
+  padding: 1.3rem 1.7rem;
+  margin: 0.5rem 2rem 2rem;
+  width: 100%;
   font-weight: 500;
   font-size: 1.3rem;
   line-height: 1.9rem;
-
-  color: ${COLOR.deepBlue};
 `;
