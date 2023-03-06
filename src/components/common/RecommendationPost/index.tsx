@@ -15,11 +15,15 @@ function RecommendationPost({
 }: PostInfo) {
   const router = useRouter();
 
-  const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
+  const navigatePostDetail = (e: React.MouseEvent<HTMLDivElement>, postId: number) => {
+    if (e.defaultPrevented) return;
+
+    router.push(`/post/detail?postId=${postId}`);
+  };
   const navigatePostBattle = (postId: number) => router.push(`/post/battle?postId=${postId}`);
 
   return (
-    <Container key={postId} onClick={() => navigatePostDetail(postId)}>
+    <Container key={postId} onClick={(e) => navigatePostDetail(e, postId)}>
       <Wrapper>
         <AlbumPoster lazy={true} size={6} src={albumCoverUrl} />
         <Content>
@@ -59,6 +63,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  cursor: pointer;
 `;
 
 const Wrapper = styled.div`
