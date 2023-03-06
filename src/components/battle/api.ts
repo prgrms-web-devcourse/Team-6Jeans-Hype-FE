@@ -14,26 +14,22 @@ export const getRandomBattle = async (selectedGenre: string) => {
     if (response.data.success) {
       const { battles } = response.data.data;
 
-      const filteredBattles =
+      if (selectedGenre !== prevGenre || exceptList.length === battles.length) {
+        exceptList.length = 0;
+        prevGenre = selectedGenre;
+      }
+
+      const filteredByGenreBattles =
         selectedGenre === 'ALL'
           ? battles
           : battles.filter((battle: Battles) => battle.battleGenre.genreValue === selectedGenre);
 
+      const filteredBattles = filteredByGenreBattles.filter((battle: Battles) => !exceptList.includes(battle.battleId));
+
       if (filteredBattles.length) {
-        const dataLength = filteredBattles.length;
+        const targetNumber = Math.floor(Math.random() * filteredBattles.length);
 
-        if (exceptList.length === dataLength || prevGenre !== selectedGenre) {
-          exceptList.length = 0;
-          prevGenre = selectedGenre;
-        }
-
-        let targetNumber = Math.floor(Math.random() * dataLength);
-
-        while (exceptList.indexOf(targetNumber) !== -1) {
-          targetNumber = Math.floor(Math.random() * dataLength);
-        }
-
-        exceptList.push(targetNumber);
+        exceptList.push(filteredBattles[targetNumber].battleId);
 
         return filteredBattles[targetNumber];
       } else {
@@ -76,6 +72,7 @@ export const createBattleVote = async (battleId: number, votedPostId: number) =>
     });
 
     if (response.data.success) {
+      exceptList.length = 0;
       return response.data.data;
     } else {
       return {};
