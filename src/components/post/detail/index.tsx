@@ -85,12 +85,12 @@ function PostDetail() {
 
         <PostDetailContent>
           <ContentHeader isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
-            <ContentHeaderWrapper>
+            <ContentHeaderWrapper onClick={toggleContentViewStatus}>
               <Title>
                 <strong>{postDetail?.nickname} 님의</strong> {postDetail?.content === '' ? '추천' : '한마디'}
               </Title>
-              <ToggleArrowButton isContent={!!postDetail?.content} onClick={toggleContentViewStatus}>
-                <img src={`/images/${isRenderPostContent ? 'down' : 'up'}-arrow.svg`} alt='img' />
+              <ToggleArrowButton isContent={!!postDetail?.content}>
+                <ToggleImage src='/images/down-arrow.svg' alt='img' isRenderPostContent={isRenderPostContent} />
               </ToggleArrowButton>
             </ContentHeaderWrapper>
           </ContentHeader>
@@ -109,9 +109,11 @@ export default PostDetail;
 interface StyleProp {
   isContent?: boolean;
   isContentViewStatus?: boolean;
+  isRenderPostContent?: boolean;
 }
 
 const Container = styled.div`
+  overflow-y: hidden;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -198,6 +200,7 @@ const ContentHeader = styled.div`
   position: absolute;
   left: 0;
   bottom: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? '12.5%' : '0')};
+  transition: bottom 0.3s ease-out;
   width: 100%;
   height: 2.5%;
 `;
@@ -207,6 +210,7 @@ const ContentHeaderWrapper = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  cursor: pointer;
 `;
 
 const Title = styled.div`
@@ -222,16 +226,21 @@ const ToggleArrowButton = styled.div`
   display: ${({ isContent }: StyleProp) => (isContent ? 'block' : 'none')};
 `;
 
+const ToggleImage = styled.img`
+  transform: rotate(${({ isRenderPostContent }: StyleProp) => (isRenderPostContent ? '0turn' : '-0.5turn')});
+  transition: transform 0.3s ease;
+`;
+
 const ContentBody = styled.div`
   background: ${COLOR.background};
 
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? '0' : '-12.5%')};
   width: 100%;
   height: 13.5%;
-
-  display: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? 'flex' : 'none')};
+  display: flex;
+  transition: bottom 0.3s ease-out;
   justify-content: center;
 `;
 
