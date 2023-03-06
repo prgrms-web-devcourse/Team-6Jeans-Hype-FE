@@ -55,10 +55,11 @@ const moveRight = keyframes`
     left:0%;
   }
   15% {
-    left:55%;
+    left:56%;
   }
   100% {
-    left:55%;
+    z-index: 99;
+    left:56%;
   }
 `;
 
