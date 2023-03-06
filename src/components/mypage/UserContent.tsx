@@ -11,26 +11,25 @@ function UserContent() {
   const { data: postFeedLimit } = useQuery(['postfeedlimit'], getPostFeedLimit);
   const { data: battleLimit } = useQuery(['battlelimit'], getBattlesLimit);
 
-  const battleList = battleLimit?.map((battle) => ({
-    id: battle.battleId,
-    isProgress: battle.battleStatus === 'PROGRESS',
-    challenging: {
-      albumCoverImage: battle.challenging.albumUrl,
-      title: battle.challenging.title,
-      singer: battle.challenging.singer,
-    },
-    challenged: {
-      albumCoverImage: battle.challenged.albumUrl,
-      title: battle.challenged.title,
-      singer: battle.challenged.singer,
-    },
-  }));
-
   return (
     <Container>
       <ContentList title='대결'>
-        {battleList?.map(({ id, challenging, challenged, isProgress }) => (
-          <BattleCard key={id} id={id} challenging={challenging} challenged={challenged} isProgress={isProgress} />
+        {battleLimit?.map(({ battleId, challenging, challenged, battleStatus }) => (
+          <BattleCard
+            key={battleId}
+            id={battleId}
+            challenging={{
+              albumCoverImage: challenging.albumUrl,
+              title: challenging.title,
+              singer: challenging.singer,
+            }}
+            challenged={{
+              albumCoverImage: challenged.albumUrl,
+              title: challenged.title,
+              singer: challenged.singer,
+            }}
+            isProgress={battleStatus === 'PROGRESS'}
+          />
         ))}
       </ContentList>
       <ContentList title='추천'>
