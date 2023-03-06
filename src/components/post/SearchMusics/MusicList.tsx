@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
-import MusicListSkeleton from '@/components/common/skeleton/MusicList';
+import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
 import { COLOR } from '@/constants/color';
 
 import Card from '../../common/MusicCard';

@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getGenres } from '@/components/post/api';
 import { COLOR } from '@/constants/color';
 import useGenre from '@/hooks/useGenre';
+import GenreSkeleton from '../skeleton/GenreSkeleton';
 
 interface Props {
   shouldNeedAll?: boolean;
@@ -39,12 +40,14 @@ function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChan
   };
 
   return isLoading ? (
-    <></>
+    <>
+      <GenreSkeleton />
+    </>
   ) : (
     <>
       <Titles>
         {title && <Title>{title}</Title>}
-        {shouldNeedFilter && <Filter>최신순 ▽</Filter> /*mvp에선 구현 안해도 되니 영역만 잡아두었음 */}
+        {shouldNeedFilter && <Filter>최신순 ▽</Filter>}
       </Titles>
       <GenreContainer>
         <fieldset>

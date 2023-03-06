@@ -9,12 +9,13 @@ import { PostInfo } from '@/components/post/types';
 import { COLOR } from '@/constants/color';
 
 import { getPostFeedData } from './api';
+import MusicListSkeleton from '../common/skeleton/MusicListSkeleton';
 
 function PostList() {
   const [genre, setGenre] = useState('');
   const [isPossibleBattle, setIsPossibleBattle] = useState<boolean | undefined>(undefined);
 
-  const { data: postFeed } = useQuery(['postfeed', genre, isPossibleBattle], () => {
+  const { data: postFeed, isLoading } = useQuery(['postfeed', genre, isPossibleBattle], () => {
     return getPostFeedData({ genre, isPossibleBattle });
   });
 
@@ -36,15 +37,23 @@ function PostList() {
       <Genres onChange={onChange} />
       {/* <Battles setIsPossibleBattle={setIsPossibleBattle} /> */}
       <PostFeedList>
-        {postFeed?.map(({ postId, music, likeCount, isBattlePossible }: PostInfo) => (
-          <RecommendationPost
-            key={postId}
-            postId={postId}
-            music={music}
-            likeCount={likeCount}
-            isBattlePossible={isBattlePossible}
-          />
-        ))}
+        {isLoading ? (
+          <>
+            <MusicListSkeleton />
+            <MusicListSkeleton />
+            <MusicListSkeleton />
+          </>
+        ) : (
+          postFeed?.map(({ postId, music, likeCount, isBattlePossible }: PostInfo) => (
+            <RecommendationPost
+              key={postId}
+              postId={postId}
+              music={music}
+              likeCount={likeCount}
+              isBattlePossible={isBattlePossible}
+            />
+          ))
+        )}
       </PostFeedList>
       <BottomNav />
     </Container>

@@ -8,6 +8,7 @@ import { COLOR } from '@/constants/color';
 import { useState } from 'react';
 import { BattleApplyModal, MyBattlePostInfo } from '../types';
 import { getMyBattleListData } from './api';
+import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
 
 interface Props {
   genre?: string;
@@ -51,9 +52,23 @@ function MyBattleList({ genre, updateMyMusicCard }: Props) {
 
   const onClickCancel = () => closePostModal();
 
-  const { data: myBattleMusicList } = useQuery(['post', 'battle', genre], () => getMyBattleListData(genre as string), {
-    enabled: !!genre,
-  });
+  const { data: myBattleMusicList, isLoading } = useQuery(
+    ['post', 'battle', genre],
+    () => getMyBattleListData(genre as string),
+    {
+      enabled: !!genre,
+    },
+  );
+
+  if (isLoading) {
+    return (
+      <>
+        <MusicListSkeleton />
+        <MusicListSkeleton />
+        <MusicListSkeleton />
+      </>
+    );
+  }
 
   return (
     <Container>
