@@ -196,7 +196,7 @@ const ContentHeader = styled.div`
   bottom: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? '12.5%' : '0')};
   transition: bottom 0.3s ease-out;
   width: 100%;
-  height: 2.5%;
+  max-height: 4rem;
 `;
 
 const ContentHeaderWrapper = styled.div`
@@ -209,6 +209,8 @@ const ContentHeaderWrapper = styled.div`
 
 const Title = styled.div`
   font-size: 1.3rem;
+  max-width: 70%;
+  text-align: center;
 
   & > strong {
     font-weight: 600;
