@@ -29,11 +29,13 @@ export default ContentList;
 const Container = styled.div<{ title: string }>`
   width: 90%;
   height: fit-content;
+  min-height: 10rem;
   background: ${COLOR.background};
   box-shadow: 0px 0px 15px rgba(158, 158, 158, 0.25);
   margin: 0 auto;
   border-radius: 1rem;
   margin-top: ${(props) => props.title === '대결' && '-5rem'};
+  position: relative;
 `;
 
 const Header = styled.div`

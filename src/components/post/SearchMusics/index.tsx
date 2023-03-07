@@ -25,7 +25,9 @@ function SearchMusics({ keyword, tmpKeyword, onChangeKeyword, onClickInSearchBut
       {keyword ? (
         <MusicList onClickInMusicList={onClickInMusicList} keyword={keyword} />
       ) : (
-        <NoContent width={8} text='검색 후 음악을 선택해주세요.' isImage={true} />
+        <Container>
+          <NoContent width={8} text='검색 후 음악을 선택해주세요.' isImage={true} />
+        </Container>
       )}
     </MusicSearchContainer>
   );
@@ -41,4 +43,14 @@ const MusicSearchContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const Container = styled.div`
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 `;
