@@ -8,7 +8,7 @@ interface Props {
 function MusicPlayButton({ src }: Props) {
   const [isMusicPlay, setIsMusicPlay] = useState(true);
 
-  const onClickPlayButton = (e: React.MouseEvent<HTMLImageElement>) => {
+  const onClickPlayButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     const $audioElement = document.getElementById(`audio${src}`) as HTMLAudioElement;
@@ -21,13 +21,10 @@ function MusicPlayButton({ src }: Props) {
 
   return (
     <PlayIcon>
-      <audio src={src} id={`audio${src}`} controls loop></audio>
-      <img
-        src={`/images/${isMusicPlay ? 'play-button' : 'google-logo'}.svg`}
-        alt='play button'
-        onClick={(e) => onClickPlayButton(e)}
-      />
-      ;
+      <Audio src={src} id={`audio${src}`} controls loop />
+      <Button onClick={(e) => onClickPlayButton(e)}>
+        <Image src={`/images/${isMusicPlay ? 'play-button' : 'pause-button'}.svg`} alt='play button' />
+      </Button>
     </PlayIcon>
   );
 }
@@ -35,22 +32,26 @@ function MusicPlayButton({ src }: Props) {
 export default MusicPlayButton;
 
 const PlayIcon = styled.div`
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
   overflow: hidden;
   position: relative;
+`;
 
-  & audio {
-    opacity: 0;
-  }
+const Audio = styled.audio`
+  opacity: 0;
+`;
 
-  & img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+const Button = styled.button`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+`;
 
-    width: 7rem;
-    height: 7rem;
-  }
+const Image = styled.img`
+  height: 5rem;
+  filter: drop-shadow(0px 0px 10px rgba(43, 43, 43, 0.25));
 `;
