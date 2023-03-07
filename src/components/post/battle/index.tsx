@@ -11,6 +11,7 @@ import { getPostBattleData } from './api';
 import { createBattle } from './api';
 import MyBattleList from './mybattleList';
 import { BattleApplyModal } from './types';
+import Header from '@/components/common/Header';
 
 function BattleForm() {
   const router = useRouter();
@@ -35,13 +36,19 @@ function BattleForm() {
   };
 
   const applyBattle = async () => {
-    await createBattle(parseInt(selectedOpponentMusicId as string), selectedMyMusic.postId);
+    if (typeof selectedOpponentMusicId !== 'string') return;
+
+    await createBattle(+selectedOpponentMusicId, selectedMyMusic.postId);
     router.push(`/post/detail?postId=${selectedOpponentMusicId}`);
   };
 
   const { data: battleMusic } = useQuery(
     ['post', 'battle', selectedOpponentMusicId],
-    () => getPostBattleData(parseInt(selectedOpponentMusicId as string)),
+    () => {
+      if (typeof selectedOpponentMusicId !== 'string') return;
+
+      return getPostBattleData(+selectedOpponentMusicId);
+    },
     {
       enabled: !!selectedOpponentMusicId,
     },
@@ -49,6 +56,11 @@ function BattleForm() {
 
   return (
     <Container>
+      <Header
+        title='대결 신청'
+        backUrl={`/post/detail?postId=${selectedOpponentMusicId}`}
+        actionButton={isReadySubmit && <HeaderSubmitButton onClick={applyBattle} />}
+      />
       <Title>What&apos;s next?</Title>
       <Musics>
         {battleMusic && (
