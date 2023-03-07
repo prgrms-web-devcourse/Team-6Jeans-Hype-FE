@@ -52,7 +52,7 @@ const useVoteResult = (initBattleId?: number) => {
 
     if (target) {
       const parent = target.closest('.container');
-      const newTarget = Array.prototype.slice.call(parent?.childNodes, 0)[0];
+      const newTarget = parent?.firstElementChild;
 
       if (newTarget) {
         const savedClassName = newTarget.className;
