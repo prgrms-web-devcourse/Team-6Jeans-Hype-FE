@@ -109,9 +109,6 @@ export const getMyRanking = async () => {
     const { data } = await axiosInstance.request<ProfileAPI>({
       method: 'GET',
       url: `members/profile`,
-      headers: {
-        Authorization: 'Bearer ' + tokenStorage.get(), //임시
-      },
     });
 
     if (data.success) {
