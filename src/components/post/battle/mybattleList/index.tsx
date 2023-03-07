@@ -17,22 +17,18 @@ interface Props {
 
 function MyBattleList({ genre, updateMyMusicCard }: Props) {
   const [modalStatus, setModalStatus] = useState(false);
-  const [modalTitle, setModalTitle] = useState('');
   const [modalMusicData, setModalMusicData] = useState<BattleApplyModal>({
     postId: 0,
     title: '',
     musicUrl: '',
     albumCoverUrl: '',
     singer: '',
-    // albumCoverUrl: '',
   });
 
   const openPostModal = () => setModalStatus(true);
   const closePostModal = () => setModalStatus(false);
 
   const onClickPost = ({ postId, title, musicUrl, albumCoverUrl, singer }: BattleApplyModal) => {
-    setModalTitle(`[${singer}]${title}을 선택하셨습니다.\n 대결신청 하시겠습니까?`);
-
     setModalMusicData({
       postId,
       title,
@@ -103,7 +99,7 @@ function MyBattleList({ genre, updateMyMusicCard }: Props) {
 
       <ConfirmModal
         isOpened={modalStatus}
-        text={modalTitle}
+        text={`[${modalMusicData.singer}]${modalMusicData.title}을 선택하셨습니다.\n 대결신청 하시겠습니까?`}
         onClickCancel={onClickCancel}
         onClickConfirm={onClickConfirm}
       />
