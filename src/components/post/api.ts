@@ -10,19 +10,13 @@ const ADDRESS = process.env.NEXT_PUBLIC_MUSIC_SEARCH_API_URL;
 const TEMP_TOKEN =
   'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjc3NDg1MTUwLCJleHAiOjE2NzgzNDkxNTB9.1UtakWRXOkrN-IGZ7V7fWh0YhC4WzBS6M31FxTnPceKLW-IqvD8sTVlQIDEDfmbqxDdqqWnOVH4i0i0k1KuYlg';
 
-interface Props {
-  genre: string;
-  isPossibleBattle?: boolean;
-}
-
-export const getPostFeedData = async ({ genre, isPossibleBattle }: Props) => {
+export const getPostFeedData = async (genre: string) => {
   try {
     const { data } = await axiosInstance.request<PostAPI>({
       method: 'GET',
       url: `/posts`,
       params: {
         genre,
-        possible: isPossibleBattle,
       },
     });
 
