@@ -15,6 +15,8 @@ const BattleMusicInfo = ({ music, onClick, clickSide }: Prop) => {
   const { albumCoverUrl, musicUrl, title, singer } = music;
 
   const handleClick = (e: any) => {
+    if (e.defaultPrevented) return;
+
     onClick?.(e);
   };
 
@@ -73,6 +75,8 @@ const Container = styled.div`
   box-shadow: 0px 0px 1.5rem rgba(158, 158, 158, 0.25);
   border-radius: 1rem;
   position: relative;
+
+  cursor: pointer;
 `;
 
 const Wrapper = styled.div`
