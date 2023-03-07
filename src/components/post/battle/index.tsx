@@ -49,50 +49,47 @@ function BattleForm() {
   );
 
   return (
-    <Container>
+    <>
       <Header
         title='대결 신청'
         backUrl={`/post/detail?postId=${selectedOpponentMusicId}`}
         actionButton={isReadySubmit && <HeaderSubmitButton onClick={applyBattle} />}
       />
-      <Title>What&apos;s next?</Title>
-      <Musics>
-        {battleMusic && (
-          <>
-            <BattleMusicInfo music={battleMusic.music} />
-            <BattleMusicInfo music={selectedMyMusic} onClick={renderMyList} />
-          </>
+      <Wrapper>
+        <Title>What&apos;s next?</Title>
+        <Musics>
+          {battleMusic && (
+            <>
+              <BattleMusicInfo music={battleMusic.music} />
+              <BattleMusicInfo music={selectedMyMusic} onClick={renderMyList} />
+            </>
+          )}
+        </Musics>
+        {isVisibleMusicList && (
+          <MyBattleList genre={battleMusic?.music.genre?.genreValue} updateMyMusicCard={updateMyMusicCard} />
         )}
-      </Musics>
-      {isVisibleMusicList && (
-        <MyBattleList genre={battleMusic?.music.genre?.genreValue} updateMyMusicCard={updateMyMusicCard} />
-      )}
-    </Container>
+      </Wrapper>
+    </>
   );
 }
 
 export default BattleForm;
 
-const Container = styled.div`
+const Wrapper = styled.div`
   width: 90%;
   margin: 0 auto;
 `;
 
 const Title = styled.div`
-  font-style: normal;
   font-weight: 600;
   font-size: 1.7rem;
-  line-height: 2.6rem;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   background: linear-gradient(98.38deg, ${COLOR.purple} -1.83%, ${COLOR.blue} 86.44%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-
   margin-bottom: 7rem;
 `;
 

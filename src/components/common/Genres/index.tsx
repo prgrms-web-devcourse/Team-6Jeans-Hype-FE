@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getGenres } from '@/components/post/api';
 import { COLOR } from '@/constants/color';
 import useGenre from '@/hooks/useGenre';
+
 import GenreSkeleton from '../skeleton/GenreSkeleton';
 
 interface Props {
@@ -77,6 +78,8 @@ export default Genres;
 const GenreContainer = styled.div`
   width: 100%;
   overflow-x: scroll;
+  margin-bottom: 2rem;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -100,11 +103,10 @@ const Filter = styled.div`
 
 const RadioGroup = styled.div`
   height: 2.6rem;
-  padding: 0.2rem;
   display: flex;
   align-items: center;
   align-items: flex-start;
-  padding: 0.2rem 0;
+
   & > div:first-of-type > label {
     margin-left: 0;
   }

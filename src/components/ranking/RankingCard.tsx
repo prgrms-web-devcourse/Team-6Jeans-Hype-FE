@@ -59,7 +59,6 @@ const Nickname = styled.div`
   font-weight: 700;
   font-size: 1.1rem;
   line-height: 1.6rem;
-  letter-spacing: 0.05rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
