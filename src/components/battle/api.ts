@@ -1,4 +1,5 @@
 import { axiosInstance } from '@/api';
+
 import { Battles } from './types';
 
 const exceptList: number[] = [];
@@ -6,13 +7,13 @@ let prevGenre = '';
 
 export const getRandomBattle = async (selectedGenre: string) => {
   try {
-    const response = await axiosInstance.request({
+    const { data } = await axiosInstance.request({
       method: 'GET',
       url: `/battles/details`,
     });
 
-    if (response.data.success) {
-      const { battles } = response.data.data;
+    if (data.success) {
+      const { battles } = data.data;
 
       if (selectedGenre !== prevGenre || exceptList.length === battles.length) {
         exceptList.length = 0;
@@ -62,7 +63,7 @@ export const getBattleDetail = async (battleId: number) => {
 
 export const createBattleVote = async (battleId: number, votedPostId: number) => {
   try {
-    const response = await axiosInstance.request({
+    const { data } = await axiosInstance.request({
       method: 'POST',
       url: `/battles/vote`,
       data: {
@@ -71,9 +72,9 @@ export const createBattleVote = async (battleId: number, votedPostId: number) =>
       },
     });
 
-    if (response.data.success) {
+    if (data.success) {
       exceptList.length = 0;
-      return response.data.data;
+      return data.data;
     } else {
       return {};
     }

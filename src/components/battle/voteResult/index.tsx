@@ -2,11 +2,13 @@ import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
+import LinearGradientLogo from 'public/images/linear-gradient-logo.svg';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
 import { COLOR } from '@/constants/color';
 
 import { createBattleVote } from '../api';
+import { Vote } from '../types';
 
 interface Props {
   battleId: number;
@@ -18,7 +20,7 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
   const router = useRouter();
   const isDetail = router.pathname === '/battle/detail';
 
-  const { data: voteResult, isLoading } = useQuery(
+  const { data: voteResult, isLoading } = useQuery<Vote>(
     ['voteResult', battleId],
     () => createBattleVote(battleId, votedPostId),
     {
@@ -40,7 +42,7 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
           <StaticText>를 선택하셨습니다.</StaticText>
           <Votes>
             {clickSide === 'left' ? selected : opposite}
-            <img src={'/images/linear-gradient-logo.svg'} alt='img' />
+            <StyledIcon />
             {clickSide === 'right' ? selected : opposite}
           </Votes>
           {isDetail && <Back onClick={() => router.push('/post') /*list로 가도록 교체 예정*/}>돌아가기</Back>}
@@ -55,6 +57,9 @@ export default VoteResult;
 const backgroundFade = keyframes`
   0% {
     background-position:0% 50%;
+    opacity: 0;
+  }
+  20% {
     opacity: 0;
   }
   50%{
@@ -152,6 +157,10 @@ const Votes = styled.div`
   .opposite {
     color: ${COLOR.lightGray};
   }
+`;
+
+const StyledIcon = styled(LinearGradientLogo)`
+  width: 3.2rem;
 `;
 
 const Back = styled.div`
