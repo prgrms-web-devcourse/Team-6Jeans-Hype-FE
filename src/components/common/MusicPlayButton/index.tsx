@@ -8,7 +8,7 @@ interface Props {
 function MusicPlayButton({ src }: Props) {
   const [isMusicPlay, setIsMusicPlay] = useState(true);
 
-  const onClickPlayButton = (e: React.MouseEvent<HTMLImageElement>) => {
+  const onClickPlayButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     const $audioElement = document.getElementById(`audio${src}`) as HTMLAudioElement;
@@ -22,7 +22,7 @@ function MusicPlayButton({ src }: Props) {
   return (
     <PlayIcon>
       <Audio src={src} id={`audio${src}`} controls loop />
-      <Button onClick={onClickPlayButton}>
+      <Button onClick={(e) => onClickPlayButton(e)}>
         <Image src={`/images/${isMusicPlay ? 'play-button' : 'pause-button'}.svg`} alt='play button' />
       </Button>
     </PlayIcon>
