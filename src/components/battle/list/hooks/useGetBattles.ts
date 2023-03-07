@@ -10,5 +10,7 @@ export const useGetBattleList = (genre?: GenreValue) => {
       const data = await getBattleList(genre);
       return data;
     },
+    staleTime: 60000,
+    cacheTime: 60000,
   });
 };
