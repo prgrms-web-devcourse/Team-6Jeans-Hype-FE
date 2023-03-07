@@ -13,7 +13,7 @@ export default function AuthRequiredPage({ children }: AuthRequiredPageProps) {
   const router = useRouter();
 
   useEffect(() => {
-    if (router.isReady && accessToken === null) {
+    if (accessToken === null) {
       router.replace('/login');
     }
   }, [router, router.isReady, accessToken]);
