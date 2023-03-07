@@ -1,3 +1,5 @@
+import { GENRE_NAME_LIST, GENRE_VALUE_LIST } from './constants';
+
 export interface BattleMusic {
   albumCoverImage: string;
   title: string;
@@ -12,17 +14,10 @@ export interface Battle {
   genre: GenreName;
 }
 
-export type GenreName =
-  | '힙합/랩'
-  | '락/메탈'
-  | '인디/어쿠스틱'
-  | '발라드'
-  | '트로트'
-  | 'K-POP'
-  | 'R&B'
-  | '재즈'
-  | 'J-POP'
-  | '클래식'
-  | 'EDM'
-  | 'POP'
-  | '기타';
+export type GenreName = typeof GENRE_NAME_LIST[number];
+
+export type GenreValue = typeof GENRE_VALUE_LIST[number];
+
+export const isGenreValue = (name: string): name is GenreValue => {
+  return GENRE_VALUE_LIST.includes(name as GenreValue);
+};
