@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 import ShortsIcon from 'public/images/shuffle.svg';
 import { useEffect, useState } from 'react';
-import { RemoveScroll } from 'react-remove-scroll';
 
 import { BATTLE_STATUS_NAME_LIST, BATTLE_STATUS_VALUE_MAP } from '@/components/battle/constants';
 import BattleList from '@/components/battle/list';
@@ -52,7 +51,7 @@ export default function BattleListPage() {
           </Link>
         }
       />
-      <Container className={RemoveScroll.classNames.fullWidth}>
+      <Container>
         <StyledGenres shouldNeedAll onChange={onChangeGenre} />
         <Filter selected={selectedStatus} options={BATTLE_STATUS_NAME_LIST} onChange={onChangeFilter} />
         {battleList && <StyledBattleList battleList={battleList} />}
