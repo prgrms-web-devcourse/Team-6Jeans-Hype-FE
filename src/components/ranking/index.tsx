@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import { useQueries } from '@tanstack/react-query';
 
+import { COLOR } from '@/constants/color';
+
 import MusicListSkeleton from '../common/skeleton/MusicListSkeleton';
 import { getMyRanking, getUserRanking } from './api';
 import RankingCard from './RankingCard';
@@ -13,16 +15,22 @@ function Ranking() {
     ],
   });
 
+  if (isLoading1 && isLoading2) {
+    return (
+      <>
+        <MusicListSkeleton />
+        <MusicListSkeleton />
+        <MusicListSkeleton />
+      </>
+    );
+  }
+
   return (
     <RankingContainer>
-      {isLoading1 && isLoading2 ? (
-        <>
-          <MusicListSkeleton />
-          <MusicListSkeleton />
-          <MusicListSkeleton />
-        </>
+      {userRanking?.ranking.length ? (
+        userRanking.ranking.map((user) => <RankingCard user={user} key={user.memberId} myRanking={myRanking} />)
       ) : (
-        userRanking?.ranking.map((user) => <RankingCard user={user} key={user.memberId} myRanking={myRanking} />)
+        <Empty>등록된 유저가 없습니다</Empty>
       )}
     </RankingContainer>
   );
@@ -37,4 +45,14 @@ const RankingContainer = styled.div`
   padding: 0 2rem;
   height: calc(100% - 10rem);
   overflow-y: scroll;
+`;
+
+const Empty = styled.div`
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+  letter-spacing: 0.1rem;
+  color: ${COLOR.gray};
 `;
