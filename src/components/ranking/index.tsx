@@ -14,7 +14,6 @@ function Ranking() {
         { queryKey: ['userRanking'], queryFn: getUserRanking },
         { queryKey: ['myRanking'], queryFn: getMyRanking },
       ],
-      s,
     });
 
   if (isLoadingUserRanking && isLoadingMyRanking) {
