@@ -8,7 +8,9 @@ interface Props {
 function MusicPlayButton({ src }: Props) {
   const [isMusicPlay, setIsMusicPlay] = useState(true);
 
-  const onClickPlayButton = () => {
+  const onClickPlayButton = (e: React.MouseEvent<HTMLImageElement>) => {
+    e.preventDefault();
+
     const $audioElement = document.getElementById(`audio${src}`) as HTMLAudioElement;
 
     if (isMusicPlay) $audioElement?.play();
@@ -23,7 +25,7 @@ function MusicPlayButton({ src }: Props) {
       <img
         src={`/images/${isMusicPlay ? 'play-button' : 'google-logo'}.svg`}
         alt='play button'
-        onClick={onClickPlayButton}
+        onClick={(e) => onClickPlayButton(e)}
       />
       ;
     </PlayIcon>
