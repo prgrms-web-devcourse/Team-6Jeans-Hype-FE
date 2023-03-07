@@ -7,7 +7,7 @@ import { MyRanking, Ranking } from './types';
 
 interface Props {
   user: Ranking;
-  myRanking: MyRanking;
+  myRanking: MyRanking | null | undefined;
 }
 
 function RankingCard({ user, myRanking }: Props) {

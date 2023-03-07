@@ -22,9 +22,7 @@ function Ranking() {
           <MusicListSkeleton />
         </>
       ) : (
-        userRanking &&
-        myRanking &&
-        userRanking.ranking.map((user) => <RankingCard user={user} key={user.memberId} myRanking={myRanking} />)
+        userRanking?.ranking.map((user) => <RankingCard user={user} key={user.memberId} myRanking={myRanking} />)
       )}
     </RankingContainer>
   );
