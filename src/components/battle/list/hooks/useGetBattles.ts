@@ -1,14 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getBattleList } from '../api';
-import { GenreName } from '../types';
+import { GenreValue } from '../types';
 
-export const useGetBattleList = (genre?: GenreName) => {
+export const useGetBattleList = (genre?: GenreValue) => {
   return useQuery({
     queryKey: ['battleList_getBattleList', genre],
     queryFn: async () => {
-      const data = await getBattleList();
+      const data = await getBattleList(genre);
       return data;
     },
+    staleTime: 30000,
+    cacheTime: 30000,
   });
 };

@@ -1,15 +1,34 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import ShortsIcon from 'public/images/shuffle.svg';
+import { useEffect, useState } from 'react';
 
 import BattleList from '@/components/battle/list';
 import { useGetBattleList } from '@/components/battle/list/hooks/useGetBattles';
+import { GenreValue, isGenreValue } from '@/components/battle/list/types';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
 
 export default function BattleListPage() {
-  const { data: battleList } = useGetBattleList();
+  const [genreValue, setGenreValue] = useState<GenreValue | undefined>();
+  const { data: battleList, refetch: refetchBattleList } = useGetBattleList(genreValue);
+
+  const onChangeGenre = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedGenreValue = e.target.value;
+    if (selectedGenreValue === 'ALL') {
+      setGenreValue(undefined);
+      return;
+    }
+    if (!isGenreValue(selectedGenreValue)) {
+      return;
+    }
+    setGenreValue(selectedGenreValue);
+  };
+
+  useEffect(() => {
+    refetchBattleList();
+  }, [genreValue, refetchBattleList]);
 
   return (
     <>
@@ -22,7 +41,7 @@ export default function BattleListPage() {
         }
       />
       <Container>
-        <Genres shouldNeedAll />
+        <Genres shouldNeedAll onChange={onChangeGenre} />
         {battleList && <BattleList battleList={battleList} />}
       </Container>
       <BottomNav />
