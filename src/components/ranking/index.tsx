@@ -8,14 +8,16 @@ import { getMyRanking, getUserRanking } from './api';
 import RankingCard from './RankingCard';
 
 function Ranking() {
-  const [{ data: userRanking, isLoading: isLoading1 }, { data: myRanking, isLoading: isLoading2 }] = useQueries({
-    queries: [
-      { queryKey: ['userRanking'], queryFn: getUserRanking },
-      { queryKey: ['myRanking'], queryFn: getMyRanking },
-    ],
-  });
+  const [{ data: userRanking, isLoading: isLoadingUserRanking }, { data: myRanking, isLoading: isLoadingMyRanking }] =
+    useQueries({
+      queries: [
+        { queryKey: ['userRanking'], queryFn: getUserRanking },
+        { queryKey: ['myRanking'], queryFn: getMyRanking },
+      ],
+      s,
+    });
 
-  if (isLoading1 && isLoading2) {
+  if (isLoadingUserRanking && isLoadingMyRanking) {
     return (
       <>
         <MusicListSkeleton />
@@ -28,7 +30,11 @@ function Ranking() {
   return (
     <RankingContainer>
       {userRanking?.ranking.length ? (
-        userRanking.ranking.map((user) => <RankingCard user={user} key={user.memberId} myRanking={myRanking} />)
+        userRanking.ranking.map((user) => {
+          const isMyRanking = myRanking?.nickname === user.memberNickname && myRanking?.ranking === user.memberRanking;
+
+          return <RankingCard user={user} key={user.memberId} isMyRanking={isMyRanking} />;
+        })
       ) : (
         <Empty>등록된 유저가 없습니다</Empty>
       )}

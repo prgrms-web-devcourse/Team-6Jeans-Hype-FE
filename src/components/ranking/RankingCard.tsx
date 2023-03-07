@@ -1,18 +1,16 @@
 import styled from '@emotion/styled';
-import React from 'react';
 
 import { COLOR } from '@/constants/color';
 
-import { MyRanking, Ranking } from './types';
+import { Ranking } from './types';
 
 interface Props {
   user: Ranking;
-  myRanking: MyRanking | null | undefined;
+  isMyRanking: boolean;
 }
 
-function RankingCard({ user, myRanking }: Props) {
+function RankingCard({ user, isMyRanking }: Props) {
   const { memberNickname, memberPoint, memberRanking } = user;
-  const isMyRanking = myRanking?.nickname === user?.memberNickname && myRanking?.ranking === user?.memberRanking;
 
   return (
     <RankingCardContainer className={isMyRanking ? 'my' : undefined}>

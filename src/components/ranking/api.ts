@@ -1,4 +1,5 @@
 import { axiosInstance } from '@/api';
+
 import { tokenStorage } from '../login/utils/localStorage';
 import { ProfileAPI } from '../mypage/types';
 import { UserRanking } from './types';
