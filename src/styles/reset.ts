@@ -133,7 +133,8 @@ const reset = css`
     margin: 0;
     font-family: inherit;
   }
-  input {
+  input,
+  select {
     border: none;
     outline: none;
     font-family: inherit;
@@ -148,6 +149,12 @@ const reset = css`
     color: ${COLOR.black};
     text-decoration: none;
     outline: none;
+  }
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
   }
 `;
 

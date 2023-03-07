@@ -1,3 +1,5 @@
+import { BATTLE_STATUS_OPTION_LIST } from './constants';
+
 export interface Battles {
   battleId: number;
   battleGenre: GenreInfo;
@@ -30,3 +32,5 @@ export interface Vote {
   selectedPostVoteCnt: number;
   oppositePostVoteCnt: number;
 }
+
+export type BattleStatusOption = typeof BATTLE_STATUS_OPTION_LIST[number];
