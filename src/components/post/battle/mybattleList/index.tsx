@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
-import ConfirmModal from '@/components/common/ConfirmModal';
+import ConfirmModal from '@/components/common/Modal/Confirm';
 import { COLOR } from '@/constants/color';
 
 import { useState } from 'react';
@@ -31,7 +31,7 @@ function MyBattleList({ genre, updateMyMusicCard }: Props) {
   const closePostModal = () => setModalStatus(false);
 
   const onClickPost = ({ postId, title, musicUrl, albumCoverUrl, singer }: BattleApplyModal) => {
-    setModalTitle(`[${singer}]${title}을 선택하셨습니다. 대결신청 하시겠습니까?`);
+    setModalTitle(`[${singer}]${title}을 선택하셨습니다.\n 대결신청 하시겠습니까?`);
 
     setModalMusicData({
       postId,
@@ -44,8 +44,8 @@ function MyBattleList({ genre, updateMyMusicCard }: Props) {
     openPostModal();
   };
 
-  const onClickConfirm = (musicData: BattleApplyModal) => {
-    updateMyMusicCard(musicData);
+  const onClickConfirm = () => {
+    updateMyMusicCard(modalMusicData);
 
     closePostModal();
   };
@@ -102,11 +102,10 @@ function MyBattleList({ genre, updateMyMusicCard }: Props) {
       </MyList>
 
       <ConfirmModal
-        title={modalTitle}
-        musicData={modalMusicData}
-        openStatus={modalStatus}
-        onClickConfirm={onClickConfirm}
+        isOpened={modalStatus}
+        text={modalTitle}
         onClickCancel={onClickCancel}
+        onClickConfirm={onClickConfirm}
       />
     </Container>
   );
