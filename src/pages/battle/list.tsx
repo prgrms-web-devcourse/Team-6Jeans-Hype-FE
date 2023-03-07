@@ -15,10 +15,10 @@ import Header from '@/components/common/Header';
 
 export default function BattleListPage() {
   const [genreValue, setGenreValue] = useState<GenreValue | undefined>();
-  const [selectedStatus, setSelectedStatus] = useState<BattleStatusName>('진행중');
+  const [status, setStatus] = useState<BattleStatusName>('진행중');
   const { data: battleList, refetch: refetchBattleList } = useGetBattleList({
     genre: genreValue,
-    status: BATTLE_STATUS_VALUE_MAP[selectedStatus],
+    status: BATTLE_STATUS_VALUE_MAP[status],
   });
 
   const onChangeGenre = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,12 +34,12 @@ export default function BattleListPage() {
   };
 
   const onChangeFilter = (option: BattleStatusName) => {
-    setSelectedStatus(option);
+    setStatus(option);
   };
 
   useEffect(() => {
     refetchBattleList();
-  }, [genreValue, selectedStatus, refetchBattleList]);
+  }, [genreValue, status, refetchBattleList]);
 
   return (
     <>
@@ -53,7 +53,7 @@ export default function BattleListPage() {
       />
       <Container>
         <StyledGenres shouldNeedAll onChange={onChangeGenre} />
-        <Filter selected={selectedStatus} options={BATTLE_STATUS_NAME_LIST} onChange={onChangeFilter} />
+        <Filter selected={status} options={BATTLE_STATUS_NAME_LIST} onChange={onChangeFilter} />
         {battleList && <StyledBattleList battleList={battleList} />}
       </Container>
       <BottomNav />
