@@ -1,4 +1,5 @@
 import { axiosInstance } from '@/api';
+import { tokenStorage } from '../login/utils/localStorage';
 import { ProfileAPI } from '../mypage/types';
 import { UserRanking } from './types';
 
@@ -108,17 +109,14 @@ export const getMyRanking = async () => {
     const { data } = await axiosInstance.request<ProfileAPI>({
       method: 'GET',
       url: `members/profile`,
+      headers: {
+        Authorization: 'Bearer ' + tokenStorage.get(), //임시
+      },
     });
-    console.log(data.data);
-    if (data.success) {
-      //return data.data;
-    }
 
-    const tmp = {
-      nickname: '김성현',
-      ranking: 1,
-    };
-    return tmp;
+    if (data.success) {
+      return data.data;
+    }
   } catch (error) {
     console.error(error);
   }
