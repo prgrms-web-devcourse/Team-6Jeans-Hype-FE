@@ -106,13 +106,21 @@ export const getUserRanking = async () => {
 
 export const getMyRanking = async () => {
   try {
-    const { data } = await axiosInstance.request<ProfileAPI>({
-      method: 'GET',
-      url: `members/profile`,
-    });
+    const token = tokenStorage.get();
+    if (token !== null) {
+      const { data } = await axiosInstance.request<ProfileAPI>({
+        method: 'GET',
+        url: `members/profile`,
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      });
 
-    if (data.success) {
-      return data.data;
+      if (data.success) {
+        return data.data;
+      }
+    } else {
+      return null;
     }
   } catch (error) {
     console.error(error);
