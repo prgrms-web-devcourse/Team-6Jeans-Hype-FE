@@ -16,5 +16,4 @@ export default GenreSkeleton;
 
 const GenreContainer = styled.div`
   display: flex;
-  margin-top: 4rem;
 `;

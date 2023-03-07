@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getGenres } from '@/components/post/api';
 import { COLOR } from '@/constants/color';
 import useGenre from '@/hooks/useGenre';
+
 import GenreSkeleton from '../skeleton/GenreSkeleton';
 
 interface Props {
