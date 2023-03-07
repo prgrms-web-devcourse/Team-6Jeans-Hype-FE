@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useQueries } from '@tanstack/react-query';
+
 import MusicListSkeleton from '../common/skeleton/MusicListSkeleton';
 import { getMyRanking, getUserRanking } from './api';
 import RankingCard from './RankingCard';
@@ -21,7 +22,9 @@ function Ranking() {
           <MusicListSkeleton />
         </>
       ) : (
-        userRanking?.ranking.map((user) => <RankingCard user={user} key={user.memberId} myRanking={myRanking!!} />)
+        userRanking &&
+        myRanking &&
+        userRanking.ranking.map((user) => <RankingCard user={user} key={user.memberId} myRanking={myRanking} />)
       )}
     </RankingContainer>
   );

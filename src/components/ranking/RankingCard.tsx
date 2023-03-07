@@ -1,6 +1,8 @@
-import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
 import React from 'react';
+
+import { COLOR } from '@/constants/color';
+
 import { MyRanking, Ranking } from './types';
 
 interface Props {
