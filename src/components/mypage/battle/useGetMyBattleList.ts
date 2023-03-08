@@ -4,11 +4,11 @@ import { GenreName } from '@/components/battle/list/types';
 
 import { getMyBattleList } from './api';
 
-export const useGetMyBattleList = (genre?: GenreName) => {
+export const useGetMyBattleList = (options?: { genre?: GenreName; limit?: number }) => {
   return useQuery({
-    queryKey: ['battleList_getMyBattleList', genre],
+    queryKey: ['battleList_getMyBattleList', options?.genre, options?.limit],
     queryFn: async () => {
-      const data = await getMyBattleList();
+      const data = await getMyBattleList({ genre: options?.genre, limit: options?.limit });
       return data;
     },
   });

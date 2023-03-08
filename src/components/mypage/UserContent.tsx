@@ -4,31 +4,30 @@ import { useQuery } from '@tanstack/react-query';
 import BattleCard from '@/components/battle/Card';
 import RecommendationPost from '@/components/common/RecommendationPost';
 
-import { getBattlesLimit, getPostFeedLimit } from './api';
+import FinishedBattleCard from '../battle/Card/Finished';
+import { FinishedBattleMusic } from '../battle/list/types';
+import { getPostFeedLimit } from './api';
+import { useGetMyBattleList } from './battle/useGetMyBattleList';
 import ContentList from './ContentList';
 
 function UserContent() {
   const { data: postFeedLimit } = useQuery(['postfeedlimit'], getPostFeedLimit);
-  const { data: battleLimit } = useQuery(['battlelimit'], getBattlesLimit);
+  const { data: battleLimit } = useGetMyBattleList({ limit: 2 });
 
   return (
     <Container>
       <ContentList title='대결'>
-        {battleLimit?.map(({ battleId, challenging, challenged }) => (
-          <BattleCard
-            key={battleId}
-            challenging={{
-              albumCoverImage: challenging.albumUrl,
-              title: challenging.title,
-              singer: challenging.singer,
-            }}
-            challenged={{
-              albumCoverImage: challenged.albumUrl,
-              title: challenged.title,
-              singer: challenged.singer,
-            }}
-          />
-        ))}
+        {battleLimit?.map(({ id, challenging, challenged, battleStatus }) =>
+          battleStatus === 'PROGRESS' ? (
+            <BattleCard key={id} challenging={challenging} challenged={challenged} />
+          ) : (
+            <FinishedBattleCard
+              key={id}
+              challenging={challenging as FinishedBattleMusic}
+              challenged={challenged as FinishedBattleMusic}
+            />
+          ),
+        )}
       </ContentList>
       <ContentList title='추천'>
         {postFeedLimit?.map(({ postId, music, likeCount }) => (

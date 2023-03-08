@@ -21,10 +21,17 @@ const battleResponseScheme = z.object({
 });
 type BattleResponse = z.infer<typeof battleResponseScheme>;
 
-export const getMyBattleList = async (genre?: GenreName): Promise<Battle<BattleStatusValue>[]> => {
+export const getMyBattleList = async ({
+  genre,
+  limit,
+}: {
+  genre?: GenreName;
+  limit?: number;
+}): Promise<Battle<BattleStatusValue>[]> => {
   const { data } = await axiosInstance.request({
     method: 'GET',
-    url: `/members/battles${genre ? `?genre=${genre}` : ''}`,
+    url: `/members/battles`,
+    params: { genre, limit },
   });
   return data.data.battles.map((unsafeBattle: BattleResponse) => {
     const parsed = battleResponseScheme.safeParse(unsafeBattle);
