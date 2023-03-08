@@ -3,22 +3,27 @@ import Genres from '@/components/common/Genres';
 import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { getGenreTop10Data } from './api';
 
 function GenreTop10Post() {
-  const [genre, setGenre] = useState('');
+  const router = useRouter();
 
-  const { data: genreTop10Post } = useQuery(['main', 'genreTop10', genre], () => {
-    return getGenreTop10Data(genre);
-  });
+  const [genre, setGenre] = useState('');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedGenre = e.target.value;
 
     selectedGenre === 'ALL' ? setGenre('') : setGenre(selectedGenre);
   };
+
+  const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
+
+  const { data: genreTop10Post } = useQuery(['main', 'genreTop10', genre], () => {
+    return getGenreTop10Data(genre);
+  });
 
   return (
     <Container>
@@ -34,7 +39,7 @@ function GenreTop10Post() {
         }}
       >
         {genreTop10Post?.map(({ postId, music: { albumCoverUrl, title, singer } }) => (
-          <SwiperSlide key={postId}>
+          <SwiperSlide key={postId} onClick={() => navigatePostDetail(postId)}>
             <AlbumPoster lazy={true} size={12.5} src={albumCoverUrl} />
             <TitleSinger>
               <div>{title}</div>
