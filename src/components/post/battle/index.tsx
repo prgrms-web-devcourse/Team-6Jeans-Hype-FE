@@ -55,35 +55,37 @@ function BattleForm() {
   );
 
   return (
-    <Container>
+    <>
       <Header
         title='대결 신청'
         backUrl={`/post/detail?postId=${selectedOpponentMusicId}`}
         actionButton={isReadySubmit && <HeaderSubmitButton onClick={applyBattle} />}
       />
-      <Title>What&apos;s next?</Title>
-      <Musics>
-        {battleMusic && (
-          <>
-            <BattleMusicInfo music={battleMusic.music} />
-            <BattleMusicInfo music={selectedMyMusic} onClick={renderMyList} />
-          </>
+      <Wrapper>
+        <Title>What&apos;s next?</Title>
+        <Musics>
+          {battleMusic && (
+            <>
+              <BattleMusicInfo music={battleMusic.music} />
+              <BattleMusicInfo music={selectedMyMusic} onClick={renderMyList} />
+            </>
+          )}
+        </Musics>
+        {typeof selectedOpponentMusicId === 'string' && (
+          <MyBattleList
+            selectedOpponentMusicId={selectedOpponentMusicId}
+            updateMyMusicCard={updateMyMusicCard}
+            isVisibleMusicList={isVisibleMusicList}
+          />
         )}
-      </Musics>
-      {typeof selectedOpponentMusicId === 'string' && (
-        <MyBattleList
-          selectedOpponentMusicId={selectedOpponentMusicId}
-          updateMyMusicCard={updateMyMusicCard}
-          isVisibleMusicList={isVisibleMusicList}
-        />
-      )}
-    </Container>
+      </Wrapper>
+    </>
   );
 }
 
 export default BattleForm;
 
-const Container = styled.div`
+const Wrapper = styled.div`
   width: 90%;
   margin: 0 auto;
 `;
