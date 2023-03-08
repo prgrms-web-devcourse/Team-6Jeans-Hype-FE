@@ -34,7 +34,7 @@ function Short() {
           onClickSkip={onClickSkip}
         />
       </SelectContainer>
-      {battleId && votedPostId && <VoteResult battleId={battleId} votedPostId={votedPostId} clickSide={position} />}
+      {battleId && votedPostId ? <VoteResult battleId={battleId} votedPostId={votedPostId} clickSide={position} /> : ''}
       <BottomNav />
     </>
   );
@@ -45,5 +45,6 @@ export default Short;
 const SelectContainer = styled.div`
   width: calc(100% - 4rem);
   height: calc(100vh - 16rem);
+  min-height: 60rem;
   padding: 0 2rem;
 `;

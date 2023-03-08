@@ -25,21 +25,17 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
 
   return (
     <VoteResultModal className={isDetail ? 'infinity' : undefined}>
-      {isLoading ? (
-        <div>skeleton으로 교체 예정</div>
-      ) : (
-        <VoteResultContainer>
-          <AlbumPoster lazy={true} src={voteResult?.albumCoverUrl} size={10} />
-          <Title>{voteResult?.title}</Title>
-          <StaticText>를 선택하셨습니다.</StaticText>
-          <Votes>
-            {clickSide === 'left' ? selected : opposite}
-            <StyledIcon />
-            {clickSide === 'right' ? selected : opposite}
-          </Votes>
-          {isDetail && <Back onClick={() => router.push('/list')}>돌아가기</Back>}
-        </VoteResultContainer>
-      )}
+      <VoteResultContainer>
+        <AlbumPoster lazy={true} src={voteResult?.albumCoverUrl} size={10} />
+        <Title>{voteResult?.title}</Title>
+        <StaticText>를 선택하셨습니다.</StaticText>
+        <Votes>
+          {clickSide === 'left' ? selected : opposite}
+          <StyledIcon />
+          {clickSide === 'right' ? selected : opposite}
+        </Votes>
+        {isDetail && <Back onClick={() => router.push('/list')}>돌아가기</Back>}
+      </VoteResultContainer>
     </VoteResultModal>
   );
 }
@@ -103,7 +99,7 @@ const VoteResultModal = styled.div`
 const VoteResultContainer = styled.div`
   position: relative;
   height: 39.2rem;
-  top: calc(50% + 11.5rem);
+  top: calc(50% + 13rem);
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;

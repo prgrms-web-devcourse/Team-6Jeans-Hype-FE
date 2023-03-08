@@ -14,7 +14,7 @@ function Detail() {
   const router = useRouter();
   const { id } = router.query;
   const { musicData, isLoadingState, selectedBattle, position, onClickMusic, onClickSkip } = useVoteSelect(
-    id ? Number(id) : 1,
+    id ? Number(id) : 0,
   );
 
   return id ? (
@@ -37,7 +37,7 @@ function Detail() {
           onClickSkip={onClickSkip}
         />
       </SelectContainer>
-      {selectedBattle.battleId !== -1 && selectedBattle.votedPostId !== -1 && (
+      {selectedBattle.battleId !== 0 && selectedBattle.votedPostId !== 0 && (
         <VoteResult battleId={selectedBattle.battleId} votedPostId={selectedBattle.votedPostId} clickSide={position} />
       )}
       <BottomNav />
