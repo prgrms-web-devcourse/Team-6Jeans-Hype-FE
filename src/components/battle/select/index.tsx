@@ -4,18 +4,36 @@ import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 import Genres from '@/components/common/Genres';
 import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
-import useVoteResult from '@/hooks/useVoteResult';
 
+import { Battles, SelectedBattle } from '../types';
 import VoteResult from '../voteResult';
 
 interface Props {
   battleId?: number | undefined;
+  musicData: Battles | undefined;
+  isLoadingState: boolean;
+  selectedBattle: SelectedBattle;
+  position: 'left' | 'right' | undefined;
+  onClickGenre: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClickMusic: (
+    e: React.ChangeEvent<HTMLElement>,
+    clickSide: 'left' | 'right',
+    battleId: number,
+    votedPostId: number,
+  ) => void;
+  onClickSkip: () => void;
 }
 
-function Select({ battleId }: Props) {
-  const { musicData, isLoadingState, selectedBattle, position, onClickGenre, onClickMusic, onClickSkip } =
-    useVoteResult(battleId);
-
+function Select({
+  battleId,
+  musicData,
+  isLoadingState,
+  selectedBattle,
+  position,
+  onClickGenre,
+  onClickMusic,
+  onClickSkip,
+}: Props) {
   return (
     <>
       <SelectContainer>

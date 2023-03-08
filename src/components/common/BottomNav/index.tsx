@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import useAuth from '@/components/login/useAuth';
+import { tokenStorage } from '@/components/login/utils/localStorage';
 import { COLOR } from '@/constants/color';
 
 interface Button {
@@ -19,7 +20,7 @@ const BottomNav = () => {
 
   const buttonList: Button[] = [
     { src: 'main', text: '메인', path: '/' },
-    { src: 'battle', text: '대결', path: '/battle/short' },
+    { src: 'battle', text: '대결', path: tokenStorage.get() ? '/battle/short' : '/battle/list' },
     {
       src: 'share',
       text: '추천',
