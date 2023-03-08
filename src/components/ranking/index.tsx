@@ -6,6 +6,7 @@ import { COLOR } from '@/constants/color';
 import MusicListSkeleton from '../common/skeleton/MusicListSkeleton';
 import { getMyRanking, getUserRanking } from './api';
 import RankingCard from './RankingCard';
+import { Ranking } from './types';
 
 function Ranking() {
   const [{ data: userRanking, isLoading: isLoadingUserRanking }, { data: myRanking, isLoading: isLoadingMyRanking }] =
@@ -29,7 +30,7 @@ function Ranking() {
   return (
     <RankingContainer>
       {userRanking?.ranking.length ? (
-        userRanking.ranking.map((user) => {
+        userRanking.ranking.map((user: Ranking) => {
           const isMyRanking = myRanking?.nickname === user.memberNickname && myRanking?.ranking === user.memberRanking;
 
           return <RankingCard user={user} key={user.memberId} isMyRanking={isMyRanking} />;
