@@ -20,8 +20,7 @@ function ContentList({ title, children }: Props) {
     }
 
     if (title === '추천') {
-      // 다음 이슈에서 추가 예정
-      return;
+      router.push(`mypage/post`);
     }
   };
 
