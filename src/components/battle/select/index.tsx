@@ -20,38 +20,40 @@ interface Props {
 }
 
 function Select({ battleId, musicData, isLoadingState, onClickMusic, onClickSkip }: Props) {
+  if (musicData == null) {
+    return (
+      <Section>
+        <Empty>대결할 음악이 없어요</Empty>
+      </Section>
+    );
+  }
+
   return (
     <>
       <Section>
-        {musicData == null ? (
-          <Empty>대결할 음악이 없어요</Empty>
-        ) : (
-          <>
-            <Text>What’s your Hype Music?</Text>
-            <BattleContainer>
-              {isLoadingState ? (
-                <>
-                  <AlbumPoster />
-                  <AlbumPoster />
-                </>
-              ) : (
-                <>
-                  <BattleMusicInfo
-                    music={musicData?.challenged.music}
-                    onClick={(e) => onClickMusic(e, 'left', musicData.battleId, musicData?.challenged.postId)}
-                    clickSide='left'
-                  />
-                  <BattleMusicInfo
-                    music={musicData?.challenging.music}
-                    onClick={(e) => onClickMusic(e, 'right', musicData.battleId, musicData?.challenging.postId)}
-                    clickSide='right'
-                  />
-                </>
-              )}
-            </BattleContainer>
-            {!battleId && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
-          </>
-        )}
+        <Text>What’s your Hype Music?</Text>
+        <BattleContainer>
+          {isLoadingState ? (
+            <>
+              <AlbumPoster />
+              <AlbumPoster />
+            </>
+          ) : (
+            <>
+              <BattleMusicInfo
+                music={musicData?.challenged.music}
+                onClick={(e) => onClickMusic(e, 'left', musicData.battleId, musicData.challenged.postId)}
+                clickSide='left'
+              />
+              <BattleMusicInfo
+                music={musicData?.challenging.music}
+                onClick={(e) => onClickMusic(e, 'right', musicData.battleId, musicData.challenging.postId)}
+                clickSide='right'
+              />
+            </>
+          )}
+        </BattleContainer>
+        {!battleId && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
       </Section>
     </>
   );
