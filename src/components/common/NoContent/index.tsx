@@ -33,4 +33,5 @@ const Text = styled.h1`
   font-size: 1.3rem;
   font-weight: 400;
   padding: 1rem 0 2rem;
+  text-align: center;
 `;

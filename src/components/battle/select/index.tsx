@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
+import NoContent from '@/components/common/NoContent';
 import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
 
-import { Battles } from '../types';
+import { Battles } from './types';
 
 interface Props {
   battleId?: number | undefined;
@@ -23,7 +24,7 @@ function Select({ battleId, musicData, isLoadingState, onClickMusic, onClickSkip
   if (musicData == null) {
     return (
       <Section>
-        <Empty>대결할 음악이 없어요</Empty>
+        <NoContent text='대결할 음악이 없어요' isImage width={33.5} />
       </Section>
     );
   }
