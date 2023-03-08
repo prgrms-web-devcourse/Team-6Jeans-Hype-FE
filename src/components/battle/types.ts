@@ -1,3 +1,5 @@
+import { BATTLE_STATUS_NAME_LIST, BATTLE_STATUS_VALUE_LIST } from './constants';
+
 export interface Battles {
   battleId: number;
   battleGenre: GenreInfo;
@@ -30,3 +32,7 @@ export interface Vote {
   selectedPostVoteCnt: number;
   oppositePostVoteCnt: number;
 }
+
+export type BattleStatusName = typeof BATTLE_STATUS_NAME_LIST[number];
+
+export type BattleStatusValue = typeof BATTLE_STATUS_VALUE_LIST[number];

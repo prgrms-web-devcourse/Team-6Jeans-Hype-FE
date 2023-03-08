@@ -3,16 +3,23 @@ import Link from 'next/link';
 import ShortsIcon from 'public/images/shuffle.svg';
 import { useEffect, useState } from 'react';
 
+import { BATTLE_STATUS_NAME_LIST, BATTLE_STATUS_VALUE_MAP } from '@/components/battle/constants';
 import BattleList from '@/components/battle/list';
 import { useGetBattleList } from '@/components/battle/list/hooks/useGetBattles';
 import { GenreValue, isGenreValue } from '@/components/battle/list/types';
+import { BattleStatusName } from '@/components/battle/types';
 import BottomNav from '@/components/common/BottomNav';
+import Filter from '@/components/common/Filter';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
 
 export default function BattleListPage() {
   const [genreValue, setGenreValue] = useState<GenreValue | undefined>();
-  const { data: battleList, refetch: refetchBattleList } = useGetBattleList(genreValue);
+  const [status, setStatus] = useState<BattleStatusName>('진행중');
+  const { data: battleList, refetch: refetchBattleList } = useGetBattleList({
+    genre: genreValue,
+    status: BATTLE_STATUS_VALUE_MAP[status],
+  });
 
   const onChangeGenre = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedGenreValue = e.target.value;
@@ -26,14 +33,18 @@ export default function BattleListPage() {
     setGenreValue(selectedGenreValue);
   };
 
+  const onChangeFilter = (option: BattleStatusName) => {
+    setStatus(option);
+  };
+
   useEffect(() => {
     refetchBattleList();
-  }, [genreValue, refetchBattleList]);
+  }, [genreValue, status, refetchBattleList]);
 
   return (
     <>
       <Header
-        title='진행 중인 대결'
+        title='한눈에 보는 대결'
         actionButton={
           <Link href='/battle/short'>
             <ShortsIcon />
@@ -41,8 +52,9 @@ export default function BattleListPage() {
         }
       />
       <Container>
-        <Genres shouldNeedAll onChange={onChangeGenre} />
-        {battleList && <BattleList battleList={battleList} />}
+        <StyledGenres shouldNeedAll onChange={onChangeGenre} />
+        <Filter selected={status} options={BATTLE_STATUS_NAME_LIST} onChange={onChangeFilter} />
+        {battleList && <StyledBattleList battleList={battleList} />}
       </Container>
       <BottomNav />
     </>
@@ -53,6 +65,13 @@ const Container = styled.div`
   padding: 0 2rem;
   display: flex;
   flex-direction: column;
-  gap: 3.7rem;
   padding-bottom: 8rem;
+`;
+
+const StyledGenres = styled(Genres)`
+  margin-bottom: 1.4rem;
+`;
+
+const StyledBattleList = styled(BattleList)`
+  margin-top: 1.3rem;
 `;
