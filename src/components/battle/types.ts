@@ -33,6 +33,11 @@ export interface Vote {
   oppositePostVoteCnt: number;
 }
 
+export interface SelectedBattle {
+  battleId: number;
+  votedPostId: number;
+}
+
 export type BattleStatusName = typeof BATTLE_STATUS_NAME_LIST[number];
 
 export type BattleStatusValue = typeof BATTLE_STATUS_VALUE_LIST[number];

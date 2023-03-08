@@ -1,43 +1,25 @@
-import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
-import { getBattleDetail, getRandomBattle } from '@/components/battle/api';
-import { Battles } from '@/components/battle/types';
+import { SelectedBattle } from '../../types';
+import { useGetBattle } from './useGetBattle';
 
-interface SelectedBattle {
-  battleId: number;
-  votedPostId: number;
-}
-
-const useVoteResult = (initBattleId?: number) => {
+const useVoteSelect = (initBattleId?: number) => {
   const [selectedGenre, setSelectedGenre] = useState<string>('ALL');
-  const {
-    data: musicData,
-    isLoading,
-    refetch,
-  } = useQuery<Battles>(
-    ['battleList', selectedGenre],
-    () => (initBattleId ? getBattleDetail(initBattleId) : getRandomBattle(selectedGenre)),
-    {
-      onSuccess: () => {
-        setIsLoadingState(true);
-        setTimeout(() => {
-          setIsLoadingState(false);
-        }, 500);
-      },
-    },
-  );
-
   const [position, setPosition] = useState<'left' | 'right'>();
-  const [isLoadingState, setIsLoadingState] = useState<boolean>(isLoading);
+  const [isLoadingState, setIsLoadingState] = useState<boolean>(false);
   const [selectedBattle, setSelectedBattle] = useState<SelectedBattle>({
-    battleId: -1,
-    votedPostId: -1,
+    battleId: 0,
+    votedPostId: 0,
   });
+
+  const { data: musicData, refetch } = useGetBattle({ initBattleId, selectedGenre });
 
   const onClickGenre = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsLoadingState(true);
     setSelectedGenre(e.target.value);
+    setTimeout(() => {
+      setIsLoadingState(false);
+    }, 500);
   };
 
   const onClickMusic = (
@@ -70,8 +52,8 @@ const useVoteResult = (initBattleId?: number) => {
 
           setTimeout(() => {
             setSelectedBattle({
-              battleId: -1,
-              votedPostId: -1,
+              battleId: 0,
+              votedPostId: 0,
             });
 
             newTarget.className = savedClassName;
@@ -90,7 +72,15 @@ const useVoteResult = (initBattleId?: number) => {
     }, 500);
   };
 
-  return { musicData, isLoadingState, selectedBattle, position, onClickGenre, onClickMusic, onClickSkip };
+  return {
+    musicData,
+    isLoadingState,
+    selectedBattle,
+    position,
+    onClickGenre,
+    onClickMusic,
+    onClickSkip,
+  };
 };
 
-export default useVoteResult;
+export default useVoteSelect;

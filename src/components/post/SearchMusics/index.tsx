@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { memo } from 'react';
 
-import { COLOR } from '@/constants/color';
+import NoContent from '@/components/common/NoContent';
 
 import MusicList from './MusicList';
 import SearchInput from './SearchInput';
@@ -25,10 +25,9 @@ function SearchMusics({ keyword, tmpKeyword, onChangeKeyword, onClickInSearchBut
       {keyword ? (
         <MusicList onClickInMusicList={onClickInMusicList} keyword={keyword} />
       ) : (
-        <InitContainer>
-          <img src={'/images/translucent-logo.svg'} alt='img' />
-          <span>검색 후 음악을 선택하세요.</span>
-        </InitContainer>
+        <Container>
+          <NoContent width={8} text='검색 후 음악을 선택해주세요.' isImage={true} />
+        </Container>
       )}
     </MusicSearchContainer>
   );
@@ -46,19 +45,12 @@ const MusicSearchContainer = styled.div`
   align-items: center;
 `;
 
-const InitContainer = styled.div`
+const Container = styled.div`
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  & > img {
-    width: 8rem;
-  }
-  & > span {
-    padding-top: 3rem;
-    color: ${COLOR.lightGray};
-    font-size: 1.4rem;
-  }
+  gap: 1.5rem;
 `;

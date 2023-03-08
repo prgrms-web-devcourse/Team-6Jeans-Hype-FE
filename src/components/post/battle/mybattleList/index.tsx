@@ -1,38 +1,39 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
+import { useRef, useState } from 'react';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
-import ConfirmModal from '@/components/common/ConfirmModal';
+import ConfirmModal from '@/components/common/Modal/Confirm';
 import { COLOR } from '@/constants/color';
 
-import { useState } from 'react';
 import { BattleApplyModal, MyBattlePostInfo } from '../types';
 import { getMyBattleListData } from './api';
 import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
 
 interface Props {
-  genre?: string;
+  selectedOpponentMusicId: string;
   updateMyMusicCard: (musicData: BattleApplyModal) => void;
+  isVisibleMusicList: boolean;
 }
 
-function MyBattleList({ genre, updateMyMusicCard }: Props) {
+function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMusicList }: Props) {
+  const router = useRouter();
+
   const [modalStatus, setModalStatus] = useState(false);
-  const [modalTitle, setModalTitle] = useState('');
   const [modalMusicData, setModalMusicData] = useState<BattleApplyModal>({
     postId: 0,
     title: '',
     musicUrl: '',
     albumCoverUrl: '',
     singer: '',
-    // albumCoverUrl: '',
   });
+  const reRenderCount = useRef(0);
 
   const openPostModal = () => setModalStatus(true);
   const closePostModal = () => setModalStatus(false);
 
   const onClickPost = ({ postId, title, musicUrl, albumCoverUrl, singer }: BattleApplyModal) => {
-    setModalTitle(`[${singer}]${title}을 선택하셨습니다. 대결신청 하시겠습니까?`);
-
     setModalMusicData({
       postId,
       title,
@@ -44,8 +45,8 @@ function MyBattleList({ genre, updateMyMusicCard }: Props) {
     openPostModal();
   };
 
-  const onClickConfirm = (musicData: BattleApplyModal) => {
-    updateMyMusicCard(musicData);
+  const onClickConfirm = () => {
+    updateMyMusicCard(modalMusicData);
 
     closePostModal();
   };
@@ -53,12 +54,18 @@ function MyBattleList({ genre, updateMyMusicCard }: Props) {
   const onClickCancel = () => closePostModal();
 
   const { data: myBattleMusicList, isLoading } = useQuery(
-    ['post', 'battle', genre],
-    () => getMyBattleListData(genre as string),
+    ['post', 'battle', 'mylist', selectedOpponentMusicId],
+    () => getMyBattleListData(selectedOpponentMusicId),
     {
-      enabled: !!genre,
+      enabled: !!selectedOpponentMusicId,
     },
   );
+
+  if (!isLoading && !myBattleMusicList && reRenderCount.current === 0) {
+    router.push('/post');
+    alert('자신이 추천한 곡에 대결 신청을 할 수 없습니다!');
+    reRenderCount.current = 1;
+  }
 
   if (isLoading) {
     return (
@@ -71,7 +78,7 @@ function MyBattleList({ genre, updateMyMusicCard }: Props) {
   }
 
   return (
-    <Container>
+    <Container isVisibleMusicList={isVisibleMusicList}>
       <Title>내 음악 목록</Title>
       <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
@@ -102,11 +109,10 @@ function MyBattleList({ genre, updateMyMusicCard }: Props) {
       </MyList>
 
       <ConfirmModal
-        title={modalTitle}
-        musicData={modalMusicData}
-        openStatus={modalStatus}
-        onClickConfirm={onClickConfirm}
+        isOpened={modalStatus}
+        text={`[${modalMusicData.singer}]${modalMusicData.title}을 선택하셨습니다.\n 대결신청 하시겠습니까?`}
         onClickCancel={onClickCancel}
+        onClickConfirm={onClickConfirm}
       />
     </Container>
   );
@@ -114,7 +120,9 @@ function MyBattleList({ genre, updateMyMusicCard }: Props) {
 
 export default MyBattleList;
 
-const Container = styled.div``;
+const Container = styled.div<{ isVisibleMusicList: boolean }>`
+  display: ${({ isVisibleMusicList }) => (isVisibleMusicList ? 'block' : 'none')};
+`;
 
 const Title = styled.div`
   font-style: normal;

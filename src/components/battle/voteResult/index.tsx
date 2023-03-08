@@ -1,14 +1,12 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import LinearGradientLogo from 'public/images/linear-gradient-logo.svg';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
 import { COLOR } from '@/constants/color';
 
-import { createBattleVote } from '../api';
-import { Vote } from '../types';
+import { useGetVoteResult } from './hooks/useGetVoteResult';
 
 interface Props {
   battleId: number;
@@ -20,13 +18,7 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
   const router = useRouter();
   const isDetail = router.pathname === '/battle/detail';
 
-  const { data: voteResult, isLoading } = useQuery<Vote>(
-    ['voteResult', battleId],
-    () => createBattleVote(battleId, votedPostId),
-    {
-      enabled: !!battleId && !!votedPostId,
-    },
-  );
+  const { data: voteResult, isLoading } = useGetVoteResult({ battleId, votedPostId });
 
   const selected = <span className='selected'>{voteResult?.selectedPostVoteCnt}</span>;
   const opposite = <span className='opposite'>{voteResult?.oppositePostVoteCnt}</span>;
@@ -45,7 +37,7 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
             <StyledIcon />
             {clickSide === 'right' ? selected : opposite}
           </Votes>
-          {isDetail && <Back onClick={() => router.push('/post') /*list로 가도록 교체 예정*/}>돌아가기</Back>}
+          {isDetail && <Back onClick={() => router.push('/list')}>돌아가기</Back>}
         </VoteResultContainer>
       )}
     </VoteResultModal>
@@ -94,6 +86,7 @@ const VoteResultModal = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  min-height: 76rem;
   background: linear-gradient(130.7deg, rgba(162, 116, 220, 1) -10.45%, rgba(101, 141, 244, 1) 122.15%);
   background-size: 800% 800%;
   animation: ${backgroundFade} 2s ease;
@@ -110,7 +103,7 @@ const VoteResultModal = styled.div`
 const VoteResultContainer = styled.div`
   position: relative;
   height: 39.2rem;
-  top: calc(50% + 9rem);
+  top: calc(50% + 11.5rem);
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;

@@ -2,15 +2,11 @@ import { axiosInstance } from '@/api';
 
 import { MyBattlePosAPI } from '../types';
 
-const TEMP_TOKEN =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjc3NDg1MTUwLCJleHAiOjE2NzgzNDkxNTB9.1UtakWRXOkrN-IGZ7V7fWh0YhC4WzBS6M31FxTnPceKLW-IqvD8sTVlQIDEDfmbqxDdqqWnOVH4i0i0k1KuYlg';
-
-export const getMyBattleListData = async (genre: string) => {
+export const getMyBattleListData = async (selectedOpponentMusicId: string) => {
   try {
     const { data } = await axiosInstance.request<MyBattlePosAPI>({
       method: 'GET',
-      url: `/posts/battle/candidates`,
-      params: { genre },
+      url: `/posts/battle/${selectedOpponentMusicId}/candidates`,
     });
 
     if (data.success) {

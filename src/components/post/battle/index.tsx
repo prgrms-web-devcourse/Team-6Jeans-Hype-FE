@@ -36,13 +36,19 @@ function BattleForm() {
   };
 
   const applyBattle = async () => {
-    await createBattle(parseInt(selectedOpponentMusicId as string), selectedMyMusic.postId);
-    router.push(`/post/detail?postId=${selectedOpponentMusicId}`);
+    if (typeof selectedOpponentMusicId !== 'string') return;
+
+    await createBattle(+selectedOpponentMusicId, selectedMyMusic.postId);
+    router.push(`/battle/list`);
   };
 
   const { data: battleMusic } = useQuery(
     ['post', 'battle', selectedOpponentMusicId],
-    () => getPostBattleData(parseInt(selectedOpponentMusicId as string)),
+    () => {
+      if (typeof selectedOpponentMusicId !== 'string') return;
+
+      return getPostBattleData(+selectedOpponentMusicId);
+    },
     {
       enabled: !!selectedOpponentMusicId,
     },
@@ -64,8 +70,12 @@ function BattleForm() {
           </>
         )}
       </Musics>
-      {isVisibleMusicList && (
-        <MyBattleList genre={battleMusic?.music.genre?.genreValue} updateMyMusicCard={updateMyMusicCard} />
+      {typeof selectedOpponentMusicId === 'string' && (
+        <MyBattleList
+          selectedOpponentMusicId={selectedOpponentMusicId}
+          updateMyMusicCard={updateMyMusicCard}
+          isVisibleMusicList={isVisibleMusicList}
+        />
       )}
     </Container>
   );
@@ -79,20 +89,15 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  font-style: normal;
   font-weight: 600;
   font-size: 1.7rem;
-  line-height: 2.6rem;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   background: linear-gradient(98.38deg, ${COLOR.purple} -1.83%, ${COLOR.blue} 86.44%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-
   margin-bottom: 7rem;
 `;
 
