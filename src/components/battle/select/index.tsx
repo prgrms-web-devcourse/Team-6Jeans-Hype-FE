@@ -50,10 +50,10 @@ function Select({ battleId, musicData, isLoadingState, onClickMusic, onClickSkip
                 </>
               )}
             </BattleContainer>
+            {!battleId && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
           </>
         )}
       </Section>
-      {!battleId && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
     </>
   );
 }
@@ -61,7 +61,7 @@ function Select({ battleId, musicData, isLoadingState, onClickMusic, onClickSkip
 export default Select;
 
 const Section = styled.div`
-  position: absolute;
+  position: relative;
   width: 33.5rem;
   top: 50%;
   left: 50%;
@@ -70,11 +70,9 @@ const Section = styled.div`
 
 const Skip = styled.div`
   position: absolute;
-  width: 20rem;
   left: 50%;
-  top: 75%;
+  bottom: 5%;
   transform: translate(-50%, -50%);
-  text-align: center;
   font-weight: 700;
   font-size: 1.3rem;
   color: ${COLOR.blue};

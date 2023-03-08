@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import Link from 'next/link';
 import Versus from 'public/images/no-background-logo.svg';
 
 import { COLOR } from '@/constants/color';
@@ -13,23 +12,21 @@ interface BattleCardProps {
   isProgress: boolean;
 }
 
-export default function BattleCard({ id, challenged, challenging }: BattleCardProps) {
+export default function BattleCard({ challenged, challenging }: BattleCardProps) {
   return (
-    <Link href={`/battle/detail?id=${id}`}>
-      <Container>
-        <Music>
-          <AlbumPoster src={challenged.albumCoverImage} alt='album-cover' />
-          <Title>{challenged.title}</Title>
-          <Singer>{challenged.singer}</Singer>
-        </Music>
-        <StyledVersus />
-        <Music>
-          <AlbumPoster src={challenging.albumCoverImage} alt='album-cover' />
-          <Title>{challenging.title}</Title>
-          <Singer>{challenging.singer}</Singer>
-        </Music>
-      </Container>
-    </Link>
+    <Container>
+      <Music>
+        <AlbumPoster src={challenged.albumCoverImage} alt='album-cover' />
+        <Title>{challenged.title}</Title>
+        <Singer>{challenged.singer}</Singer>
+      </Music>
+      <StyledVersus />
+      <Music>
+        <AlbumPoster src={challenging.albumCoverImage} alt='album-cover' />
+        <Title>{challenging.title}</Title>
+        <Singer>{challenging.singer}</Singer>
+      </Music>
+    </Container>
   );
 }
 

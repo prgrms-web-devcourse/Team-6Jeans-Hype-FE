@@ -11,7 +11,7 @@ const useVoteResult = (initBattleId?: number) => {
     isLoading,
     refetch,
   } = useQuery<Battles>(
-    ['battleList', selectedGenre],
+    ['battleList', selectedGenre, initBattleId],
     () => (initBattleId ? getBattleDetail(initBattleId) : getRandomBattle(selectedGenre)),
     {
       onSuccess: () => {
