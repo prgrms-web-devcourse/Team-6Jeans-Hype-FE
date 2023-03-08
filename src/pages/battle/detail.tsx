@@ -28,7 +28,7 @@ function Detail() {
         }
       />
       <SelectContainer>
-        <Empty /> {/* 원래 장르가 있던 영역인데 쇼츠페이지와 디자인 통일하기 위해 장르의 height 만큼 영역 줌 */}
+        <Empty />
         <Select
           battleId={Number(router.query.id)}
           musicData={musicData}

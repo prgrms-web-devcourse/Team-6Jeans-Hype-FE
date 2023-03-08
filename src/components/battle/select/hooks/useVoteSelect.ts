@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { SelectedBattle } from '../../types';
+import { SelectedBattle } from '../types';
 import { useGetBattle } from './useGetBattle';
 
 const useVoteSelect = (initBattleId?: number) => {

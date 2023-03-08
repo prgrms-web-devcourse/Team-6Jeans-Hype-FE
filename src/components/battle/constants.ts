@@ -8,3 +8,5 @@ export const BATTLE_STATUS_VALUE_MAP: Record<BattleStatusName, BattleStatusValue
   진행종료: 'END',
   진행중: 'PROGRESS',
 };
+
+export const exceptList: number[] = [];

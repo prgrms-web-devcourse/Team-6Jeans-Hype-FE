@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import ListIcon from 'public/images/go-to-list-icon.svg';
-import { memo } from 'react';
 
 import Select from '@/components/battle/select';
 import useVoteSelect from '@/components/battle/select/hooks/useVoteSelect';

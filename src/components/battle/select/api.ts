@@ -1,8 +1,8 @@
 import { axiosInstance } from '@/api';
 
+import { exceptList } from '../constants';
 import { Battles } from './types';
 
-const exceptList: number[] = [];
 let prevGenre = '';
 
 export const getRandomBattle = async (selectedGenre: string) => {
@@ -53,28 +53,6 @@ export const getBattleDetail = async (battleId: number) => {
 
     if (response.data.success) {
       return response.data.data;
-    } else {
-      return {};
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const createBattleVote = async (battleId: number, votedPostId: number) => {
-  try {
-    const { data } = await axiosInstance.request({
-      method: 'POST',
-      url: `/battles/vote`,
-      data: {
-        battleId,
-        votedPostId,
-      },
-    });
-
-    if (data.success) {
-      exceptList.length = 0;
-      return data.data;
     } else {
       return {};
     }

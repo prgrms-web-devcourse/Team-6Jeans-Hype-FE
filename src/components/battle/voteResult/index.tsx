@@ -18,7 +18,7 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
   const router = useRouter();
   const isDetail = router.pathname === '/battle/detail';
 
-  const { data: voteResult, isLoading } = useGetVoteResult({ battleId, votedPostId });
+  const { data: voteResult } = useGetVoteResult({ battleId, votedPostId });
 
   const selected = <span className='selected'>{voteResult?.selectedPostVoteCnt}</span>;
   const opposite = <span className='opposite'>{voteResult?.oppositePostVoteCnt}</span>;
