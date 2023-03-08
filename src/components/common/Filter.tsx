@@ -11,18 +11,18 @@ interface FilterProps<T> {
 
 export default function Filter<T extends string>({ selected, options, onChange }: FilterProps<T>) {
   return (
-    <RelativeWrapper>
-      <Container value={selected} onChange={(e) => onChange(e.target.value as T)}>
+    <Container>
+      <Select value={selected} onChange={(e) => onChange(e.target.value as T)}>
         {options.map((option, index) => (
           <option key={index}>{option}</option>
         ))}
-      </Container>
+      </Select>
       <StyledBottomArrowIcon />
-    </RelativeWrapper>
+    </Container>
   );
 }
 
-const Container = styled.select`
+const Select = styled.select`
   font-weight: 700;
   font-size: 10px;
   line-height: 14px;
@@ -36,7 +36,7 @@ const Container = styled.select`
   text-align: center;
 `;
 
-const RelativeWrapper = styled.div`
+const Container = styled.div`
   position: relative;
   align-self: flex-end;
 `;
