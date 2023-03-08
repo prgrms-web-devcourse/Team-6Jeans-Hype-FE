@@ -38,14 +38,13 @@ const RankingCardContainer = styled.div`
     background: rgba(118, 151, 236, 0.1);
   }
 
-  &:nth-child(odd) > div:first-of-type {
+  &:nth-of-type(odd) > div:first-of-type {
     background: rgba(125, 116, 220, 0.29);
   }
 
   &:hover {
     background: rgba(125, 116, 220, 0.1);
-    position: relative;
-    bottom: 0.1rem;
+    transform: scale(1.02);
     transition: all 0.1s ease;
   }
 `;
