@@ -8,7 +8,7 @@ import VoteResult from '@/components/battle/voteResult';
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 import AuthRequiredPage from '@/components/login/AuthRequiredPage';
-import useVoteResult from '@/components/battle/select/hooks/useVoteResult';
+import useVoteResult from '@/components/battle/select/hooks/useVoteSelect';
 
 function Detail() {
   const router = useRouter();

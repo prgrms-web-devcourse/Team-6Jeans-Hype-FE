@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { getBattleDetail, getRandomBattle } from '../../api';
 import { Battles, SelectedBattle } from '../../types';
 
-const useVoteResult = (initBattleId?: number) => {
+const useVoteSelect = (initBattleId?: number) => {
   const [selectedGenre, setSelectedGenre] = useState<string>('ALL');
   const {
     data: musicData,
@@ -88,4 +88,4 @@ const useVoteResult = (initBattleId?: number) => {
   return { musicData, isLoadingState, selectedBattle, position, onClickGenre, onClickMusic, onClickSkip };
 };
 
-export default useVoteResult;
+export default useVoteSelect;
