@@ -13,11 +13,11 @@ import useVoteResult from '@/hooks/useVoteResult';
 
 function Detail() {
   const router = useRouter();
-
+  const { id } = router.query;
   const { musicData, isLoadingState, selectedBattle, position, onClickGenre, onClickMusic, onClickSkip } =
-    useVoteResult(router.query.id ? Number(router.query.id) : 1);
+    useVoteResult(id ? Number(id) : 1);
 
-  return router.query.id ? (
+  return id ? (
     <AuthRequiredPage>
       <Header
         title='진행중인 대결'
@@ -28,7 +28,7 @@ function Detail() {
         }
       />
       <SelectContainer>
-        <Genres onChange={onClickGenre} shouldNeedAll />
+        <Empty /> {/* 원래 장르가 있던 영역인데 쇼츠페이지와 디자인 통일하기 위해 장르의 height 만큼 영역 줌 */}
         <Select
           battleId={Number(router.query.id)}
           musicData={musicData}
@@ -54,4 +54,8 @@ const SelectContainer = styled.div`
   height: calc(100vh - 16rem);
   min-height: 60rem;
   padding: 0 2rem;
+`;
+
+const Empty = styled.div`
+  height: 3rem;
 `;
