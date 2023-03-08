@@ -117,7 +117,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: linear-gradient(130.7deg, #a274dc -10.45%, #658df4 122.15%);
   position: relative;
 `;
