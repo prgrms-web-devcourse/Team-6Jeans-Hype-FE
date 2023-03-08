@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
-import Genres from '@/components/common/Genres';
 import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
 
-import { Battles, SelectedBattle } from '../types';
+import { Battles } from '../types';
 
 interface Props {
   battleId?: number | undefined;
