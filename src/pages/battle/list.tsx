@@ -65,7 +65,7 @@ const Container = styled.div`
   padding: 0 2rem;
   display: flex;
   flex-direction: column;
-  padding-bottom: 8rem;
+  padding-bottom: 9.5rem;
 `;
 
 const StyledGenres = styled(Genres)`

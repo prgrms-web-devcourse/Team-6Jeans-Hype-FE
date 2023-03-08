@@ -34,9 +34,8 @@ function PostDetail() {
 
   return (
     <Container>
+      <Header color={COLOR.white} backUrl='/post' />
       <Wrapper>
-        <Header color={COLOR.white} backUrl='/post' />
-
         {postDetail && (
           <MusicInfo
             title={postDetail.music.title}
@@ -124,7 +123,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   width: 90%;
-  margin: 2rem auto 0;
+  margin: 0 auto;
 `;
 
 const PlayStatus = styled.div`

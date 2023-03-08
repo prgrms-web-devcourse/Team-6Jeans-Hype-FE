@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import ShuffleIcon from 'public/images/go-to-shuffle-icon.svg';
-
 import { useRouter } from 'next/router';
+import ShuffleIcon from 'public/images/go-to-shuffle-icon.svg';
 
 import Select from '@/components/battle/select';
 import BottomNav from '@/components/common/BottomNav';
@@ -13,7 +12,7 @@ function Detail() {
   return router.query.id ? (
     <>
       <Header
-        title='진행중인 대결'
+        title='진행 중인 대결'
         actionButton={
           <Link href='/post/battle/short'>
             <ShuffleIcon />

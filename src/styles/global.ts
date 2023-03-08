@@ -26,4 +26,11 @@ export const global = css`
     background-color: ${COLOR.background};
     color: ${COLOR.deepBlue};
   }
+
+  img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+  }
 `;
