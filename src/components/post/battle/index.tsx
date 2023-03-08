@@ -83,7 +83,7 @@ function BattleForm() {
 
 export default BattleForm;
 
-const Wrapper = styled.div`
+const Container = styled.div`
   width: 90%;
   margin: 0 auto;
 `;
