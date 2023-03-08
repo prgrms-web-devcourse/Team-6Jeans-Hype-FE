@@ -13,6 +13,7 @@ interface Props {
   title?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   disabled?: boolean;
+  className?: string;
 }
 
 interface Genre {
@@ -20,7 +21,7 @@ interface Genre {
   genreValue: string;
 }
 
-function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChange, disabled }: Props) {
+function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChange, disabled, className }: Props) {
   const { selectedValue, onClick } = useGenre();
   const { data: genres, isLoading } = useQuery(['genres'], () => getGenres(), {
     select: (genres) => {
@@ -50,7 +51,7 @@ function Genres({ shouldNeedAll = false, shouldNeedFilter = false, title, onChan
         {title && <Title>{title}</Title>}
         {shouldNeedFilter && <Filter>최신순 ▽</Filter>}
       </Titles>
-      <GenreContainer>
+      <GenreContainer className={className}>
         <fieldset>
           <RadioGroup>
             {genres?.map((genre: Genre, i: number) => (

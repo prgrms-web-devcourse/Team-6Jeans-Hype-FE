@@ -6,11 +6,12 @@ import BattleCard from '../Card';
 
 interface BattleListProps {
   battleList: Battle[];
+  className?: string;
 }
 
-export default function BattleList({ battleList }: BattleListProps) {
+export default function BattleList({ battleList, className }: BattleListProps) {
   return (
-    <Container>
+    <Container className={className}>
       {battleList?.map(({ challenged, challenging, id, isProgress }: Battle) => (
         <BattleCard {...{ challenged, challenging, id, isProgress }} key={id} />
       ))}

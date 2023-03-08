@@ -14,7 +14,7 @@ function RankingCard({ user, isMyRanking }: Props) {
 
   return (
     <RankingCardContainer className={isMyRanking ? 'my' : undefined}>
-      <Rank className={isMyRanking ? 'my' : undefined}>{memberRanking}</Rank>
+      <Rank>{memberRanking}</Rank>
       <Nickname>{memberNickname}</Nickname>
       <Point>{memberPoint} Points</Point>
     </RankingCardContainer>
@@ -32,14 +32,25 @@ const RankingCardContainer = styled.div`
   padding: 1rem 0;
   align-items: center;
   position: relative;
+  cursor: pointer;
 
   &.my {
     background: rgba(118, 151, 236, 0.1);
   }
+
+  &:nth-of-type(odd) > div:first-of-type {
+    background: rgba(125, 116, 220, 0.29);
+  }
+
+  &:hover {
+    background: rgba(125, 116, 220, 0.1);
+    transform: scale(1.02);
+    transition: all 0.1s ease;
+  }
 `;
 
 const Rank = styled.div`
-  background: rgba(125, 116, 220, 0.29);
+  background: rgba(118, 151, 236, 0.4);
   width: 2.4rem;
   height: 2.4rem;
   align-items: center;
@@ -49,10 +60,6 @@ const Rank = styled.div`
   font-weight: 600;
   font-size: 1.4rem;
   margin: 0 1.3rem;
-
-  &.my {
-    background: rgba(118, 151, 236, 0.4);
-  }
 `;
 
 const Nickname = styled.div`

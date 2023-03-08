@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 
 import { BattleMusic } from '@/components/post/battle/types';
 import { COLOR } from '@/constants/color';
+
 import MusicPlayButton from '../MusicPlayButton';
 
 interface Prop {
@@ -14,7 +15,7 @@ interface Prop {
 const BattleMusicInfo = ({ music, onClick, clickSide }: Prop) => {
   const { albumCoverUrl, musicUrl, title, singer } = music;
 
-  const handleClick = (e: any) => {
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     if (e.defaultPrevented) return;
 
     onClick?.(e);

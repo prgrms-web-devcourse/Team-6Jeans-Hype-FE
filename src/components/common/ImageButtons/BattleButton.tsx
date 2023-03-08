@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import FireIcon from 'public/images/fire-icon.svg';
 
 import { COLOR } from '@/constants/color';
+import useAuth from '@/components/login/useAuth';
 
 interface Props {
   size: number;
@@ -11,8 +12,15 @@ interface Props {
 }
 
 function Battle({ size, color, battleAbility, onClick }: Props) {
+  const { isLoggedIn, openAuthRequiredModal } = useAuth();
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
+
+    if (!isLoggedIn) {
+      openAuthRequiredModal();
+      return;
+    }
 
     onClick?.();
   };

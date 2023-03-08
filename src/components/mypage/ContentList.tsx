@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 import Arrow from 'public/images/arrow-right.svg';
 import { ReactNode } from 'react';
 
@@ -10,11 +11,25 @@ interface Props {
 }
 
 function ContentList({ title, children }: Props) {
+  const router = useRouter();
+
+  const navigateMyList = () => {
+    if (title === '대결') {
+      router.push(`/mypage/battle`);
+      return;
+    }
+
+    if (title === '추천') {
+      // 다음 이슈에서 추가 예정
+      return;
+    }
+  };
+
   return (
     <Container title={title}>
       <Header>
         <Title>{title} 목록</Title>
-        <Button>
+        <Button onClick={navigateMyList}>
           더보기
           <Arrow />
         </Button>

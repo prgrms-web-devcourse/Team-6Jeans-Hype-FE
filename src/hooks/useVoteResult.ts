@@ -40,39 +40,44 @@ const useVoteResult = (initBattleId?: number) => {
     setSelectedGenre(e.target.value);
   };
 
-  const onClickMusic = (e: any, clickSide: 'left' | 'right', battleId: number, votedPostId: number) => {
+  const onClickMusic = (
+    e: React.ChangeEvent<HTMLElement>,
+    clickSide: 'left' | 'right',
+    battleId: number,
+    votedPostId: number,
+  ) => {
     setPosition(clickSide);
 
     const { target } = e;
 
     if (target) {
       const parent = target.closest('.container');
-      const newTarget = parent.firstChild;
+      const newTarget = parent?.firstElementChild;
 
-      const savedClassName = newTarget.className;
-      const savedHTML = newTarget.innerHTML;
+      if (newTarget) {
+        const savedClassName = newTarget.className;
+        const savedHTML = newTarget.innerHTML;
 
-      newTarget.className = `${savedClassName} active`;
-      newTarget.innerHTML = '';
+        newTarget.className = `${savedClassName} active`;
+        newTarget.innerHTML = '';
 
-      setTimeout(() => {
         setSelectedBattle({ battleId, votedPostId });
-      }, 400);
 
-      if (initBattleId === undefined) {
-        setTimeout(() => {
-          refetch();
-        }, 1700);
+        if (initBattleId === undefined) {
+          setTimeout(() => {
+            refetch();
+          }, 1700);
 
-        setTimeout(() => {
-          setSelectedBattle({
-            battleId: -1,
-            votedPostId: -1,
-          });
+          setTimeout(() => {
+            setSelectedBattle({
+              battleId: -1,
+              votedPostId: -1,
+            });
 
-          newTarget.className = savedClassName;
-          newTarget.innerHTML = savedHTML;
-        }, 1800);
+            newTarget.className = savedClassName;
+            newTarget.innerHTML = savedHTML;
+          }, 1800);
+        }
       }
     }
   };

@@ -29,7 +29,7 @@ function Select({ battleId }: Props) {
                 <AlbumPoster />
               </>
             ) : musicData == null ? (
-              <div>대결할 음악이 없어요</div>
+              <Empty>대결할 음악이 없어요</Empty>
             ) : (
               <>
                 <BattleMusicInfo
@@ -105,4 +105,11 @@ const BattleContainer = styled.div`
   align-items: center;
   justify-content: space-around;
   margin: 0 auto;
+`;
+
+const Empty = styled.div`
+  text-align: center;
+  font-size: 1.3rem;
+  letter-spacing: 0.1rem;
+  color: ${COLOR.gray};
 `;
