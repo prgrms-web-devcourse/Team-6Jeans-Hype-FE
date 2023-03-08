@@ -14,7 +14,7 @@ function UserContent() {
   return (
     <Container>
       <ContentList title='대결'>
-        {battleLimit?.map(({ battleId, challenging, challenged, battleStatus }) => (
+        {battleLimit?.map(({ battleId, challenging, challenged }) => (
           <BattleCard
             key={battleId}
             challenging={{
@@ -27,7 +27,6 @@ function UserContent() {
               title: challenged.title,
               singer: challenged.singer,
             }}
-            isProgress={battleStatus === 'PROGRESS'}
           />
         ))}
       </ContentList>

@@ -1,3 +1,4 @@
+import { BattleStatusValue } from '../types';
 import { GENRE_NAME_LIST, GENRE_VALUE_LIST } from './constants';
 
 export interface BattleMusic {
@@ -6,11 +7,14 @@ export interface BattleMusic {
   singer: string;
 }
 
-export interface Battle {
-  challenged: BattleMusic;
-  challenging: BattleMusic;
+export interface FinishedBattleMusic extends BattleMusic {
+  isWin: boolean;
+}
+export interface Battle<T extends BattleStatusValue> {
+  challenged: T extends 'PROGRESS' ? BattleMusic : FinishedBattleMusic;
+  challenging: T extends 'PROGRESS' ? BattleMusic : FinishedBattleMusic;
   id: number;
-  isProgress: boolean;
+  battleStatus: T;
   genre: GenreName;
 }
 
