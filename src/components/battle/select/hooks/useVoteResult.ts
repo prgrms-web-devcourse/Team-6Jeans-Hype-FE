@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
-import { getBattleDetail, getRandomBattle } from '@/components/battle/api';
-import { Battles, SelectedBattle } from '@/components/battle/types';
+import { getBattleDetail, getRandomBattle } from '../../api';
+import { Battles, SelectedBattle } from '../../types';
 
 const useVoteResult = (initBattleId?: number) => {
   const [selectedGenre, setSelectedGenre] = useState<string>('ALL');
