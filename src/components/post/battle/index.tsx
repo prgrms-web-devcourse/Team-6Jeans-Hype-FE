@@ -70,8 +70,8 @@ function BattleForm() {
           </>
         )}
       </Musics>
-      {isVisibleMusicList && (
-        <MyBattleList genre={battleMusic?.music.genre?.genreValue} updateMyMusicCard={updateMyMusicCard} />
+      {isVisibleMusicList && typeof selectedOpponentMusicId === 'string' && (
+        <MyBattleList selectedOpponentMusicId={selectedOpponentMusicId} updateMyMusicCard={updateMyMusicCard} />
       )}
     </Container>
   );

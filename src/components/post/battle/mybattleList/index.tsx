@@ -11,11 +11,11 @@ import { getMyBattleListData } from './api';
 import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
 
 interface Props {
-  genre?: string;
+  selectedOpponentMusicId: string;
   updateMyMusicCard: (musicData: BattleApplyModal) => void;
 }
 
-function MyBattleList({ genre, updateMyMusicCard }: Props) {
+function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard }: Props) {
   const [modalStatus, setModalStatus] = useState(false);
   const [modalMusicData, setModalMusicData] = useState<BattleApplyModal>({
     postId: 0,
@@ -49,10 +49,10 @@ function MyBattleList({ genre, updateMyMusicCard }: Props) {
   const onClickCancel = () => closePostModal();
 
   const { data: myBattleMusicList, isLoading } = useQuery(
-    ['post', 'battle', genre],
-    () => getMyBattleListData(genre as string),
+    ['post', 'battle', 'mylist', selectedOpponentMusicId],
+    () => getMyBattleListData(selectedOpponentMusicId),
     {
-      enabled: !!genre,
+      enabled: !!selectedOpponentMusicId,
     },
   );
 
