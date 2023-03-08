@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
-import HeaderSubmitButton from '@/components/common/Header/SubmitButton';
 import Header from '@/components/common/Header';
+import HeaderSubmitButton from '@/components/common/Header/SubmitButton';
 import { COLOR } from '@/constants/color';
 
 import { getPostBattleData } from './api';
