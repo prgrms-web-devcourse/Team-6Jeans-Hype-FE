@@ -6,15 +6,11 @@ import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
 
 import { Battles, SelectedBattle } from '../types';
-import VoteResult from '../voteResult';
 
 interface Props {
   battleId?: number | undefined;
   musicData: Battles | undefined;
   isLoadingState: boolean;
-  selectedBattle: SelectedBattle;
-  position: 'left' | 'right' | undefined;
-  onClickGenre: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickMusic: (
     e: React.ChangeEvent<HTMLElement>,
     clickSide: 'left' | 'right',
@@ -24,63 +20,45 @@ interface Props {
   onClickSkip: () => void;
 }
 
-function Select({
-  battleId,
-  musicData,
-  isLoadingState,
-  selectedBattle,
-  position,
-  onClickGenre,
-  onClickMusic,
-  onClickSkip,
-}: Props) {
+function Select({ battleId, musicData, isLoadingState, onClickMusic, onClickSkip }: Props) {
   return (
     <>
-      <SelectContainer>
-        <Genres onChange={onClickGenre} shouldNeedAll />
-        <Section>
-          <Text>What’s your Hype Music?</Text>
-          <BattleContainer>
-            {isLoadingState ? (
-              <>
-                <AlbumPoster />
-                <AlbumPoster />
-              </>
-            ) : musicData == null ? (
-              <Empty>대결할 음악이 없어요</Empty>
-            ) : (
-              <>
-                <BattleMusicInfo
-                  music={musicData?.challenged.music}
-                  onClick={(e) => onClickMusic(e, 'left', musicData.battleId, musicData?.challenged.postId)}
-                  clickSide='left'
-                />
-                <BattleMusicInfo
-                  music={musicData?.challenging.music}
-                  onClick={(e) => onClickMusic(e, 'right', musicData.battleId, musicData?.challenging.postId)}
-                  clickSide='right'
-                />
-              </>
-            )}
-          </BattleContainer>
-        </Section>
-        {!battleId && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
-      </SelectContainer>
-
-      {selectedBattle.battleId !== -1 && selectedBattle.votedPostId !== -1 && (
-        <VoteResult battleId={selectedBattle.battleId} votedPostId={selectedBattle.votedPostId} clickSide={position} />
-      )}
+      <Section>
+        {musicData == null ? (
+          <Empty>대결할 음악이 없어요</Empty>
+        ) : (
+          <>
+            <Text>What’s your Hype Music?</Text>
+            <BattleContainer>
+              {isLoadingState ? (
+                <>
+                  <AlbumPoster />
+                  <AlbumPoster />
+                </>
+              ) : (
+                <>
+                  <BattleMusicInfo
+                    music={musicData?.challenged.music}
+                    onClick={(e) => onClickMusic(e, 'left', musicData.battleId, musicData?.challenged.postId)}
+                    clickSide='left'
+                  />
+                  <BattleMusicInfo
+                    music={musicData?.challenging.music}
+                    onClick={(e) => onClickMusic(e, 'right', musicData.battleId, musicData?.challenging.postId)}
+                    clickSide='right'
+                  />
+                </>
+              )}
+            </BattleContainer>
+          </>
+        )}
+      </Section>
+      {!battleId && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
     </>
   );
 }
 
 export default Select;
-
-const SelectContainer = styled.div`
-  width: calc(100% - 4rem);
-  height: calc(100vh - 16rem);
-  padding: 0 2rem;
-`;
 
 const Section = styled.div`
   position: absolute;
