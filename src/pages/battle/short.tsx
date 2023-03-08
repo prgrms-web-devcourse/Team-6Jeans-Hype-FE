@@ -4,8 +4,12 @@ import ListIcon from 'public/images/go-to-list-icon.svg';
 import Select from '@/components/battle/select';
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
+import useVoteResult from '@/hooks/useVoteResult';
 
 function Short() {
+  const { musicData, isLoadingState, selectedBattle, position, onClickGenre, onClickMusic, onClickSkip } =
+    useVoteResult();
+
   return (
     <>
       <Header
@@ -16,7 +20,15 @@ function Short() {
           </Link>
         }
       />
-      <Select />
+      <Select
+        musicData={musicData}
+        isLoadingState={isLoadingState}
+        selectedBattle={selectedBattle}
+        position={position}
+        onClickGenre={onClickGenre}
+        onClickMusic={onClickMusic}
+        onClickSkip={onClickSkip}
+      />
       <BottomNav />
     </>
   );
