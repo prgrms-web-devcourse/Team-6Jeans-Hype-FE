@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
+import { useRef, useState } from 'react';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
 import ConfirmModal from '@/components/common/Modal/Confirm';
 import { COLOR } from '@/constants/color';
 
-import { useState } from 'react';
 import { BattleApplyModal, MyBattlePostInfo } from '../types';
 import { getMyBattleListData } from './api';
 import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
@@ -13,9 +14,12 @@ import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
 interface Props {
   selectedOpponentMusicId: string;
   updateMyMusicCard: (musicData: BattleApplyModal) => void;
+  isVisibleMusicList: boolean;
 }
 
-function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard }: Props) {
+function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMusicList }: Props) {
+  const router = useRouter();
+
   const [modalStatus, setModalStatus] = useState(false);
   const [modalMusicData, setModalMusicData] = useState<BattleApplyModal>({
     postId: 0,
@@ -24,6 +28,7 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard }: Props) {
     albumCoverUrl: '',
     singer: '',
   });
+  const reRenderCount = useRef(0);
 
   const openPostModal = () => setModalStatus(true);
   const closePostModal = () => setModalStatus(false);
@@ -56,6 +61,12 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard }: Props) {
     },
   );
 
+  if (!isLoading && !myBattleMusicList && reRenderCount.current === 0) {
+    router.push('/post');
+    alert('자신이 추천한 곡에 대결 신청을 할 수 없습니다!');
+    reRenderCount.current = 1;
+  }
+
   if (isLoading) {
     return (
       <>
@@ -67,7 +78,7 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard }: Props) {
   }
 
   return (
-    <Container>
+    <Container isVisibleMusicList={isVisibleMusicList}>
       <Title>내 음악 목록</Title>
       <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
@@ -109,7 +120,9 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard }: Props) {
 
 export default MyBattleList;
 
-const Container = styled.div``;
+const Container = styled.div<{ isVisibleMusicList: boolean }>`
+  display: ${({ isVisibleMusicList }) => (isVisibleMusicList ? 'block' : 'none')};
+`;
 
 const Title = styled.div`
   font-style: normal;
