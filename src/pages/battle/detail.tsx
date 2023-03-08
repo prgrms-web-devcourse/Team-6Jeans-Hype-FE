@@ -6,16 +6,16 @@ import ShuffleIcon from 'public/images/go-to-shuffle-icon.svg';
 import Select from '@/components/battle/select';
 import VoteResult from '@/components/battle/voteResult';
 import BottomNav from '@/components/common/BottomNav';
-import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
 import AuthRequiredPage from '@/components/login/AuthRequiredPage';
-import useVoteResult from '@/hooks/useVoteResult';
+import useVoteResult from '@/components/battle/select/hooks/useVoteResult';
 
 function Detail() {
   const router = useRouter();
   const { id } = router.query;
-  const { musicData, isLoadingState, selectedBattle, position, onClickGenre, onClickMusic, onClickSkip } =
-    useVoteResult(id ? Number(id) : 1);
+  const { musicData, isLoadingState, selectedBattle, position, onClickMusic, onClickSkip } = useVoteResult(
+    id ? Number(id) : 1,
+  );
 
   return id ? (
     <AuthRequiredPage>

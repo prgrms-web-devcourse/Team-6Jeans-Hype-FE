@@ -3,11 +3,11 @@ import Link from 'next/link';
 import ListIcon from 'public/images/go-to-list-icon.svg';
 
 import Select from '@/components/battle/select';
+import useVoteResult from '@/components/battle/select/hooks/useVoteResult';
 import VoteResult from '@/components/battle/voteResult';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
-import useVoteResult from '@/hooks/useVoteResult';
 
 function Short() {
   const { musicData, isLoadingState, selectedBattle, position, onClickGenre, onClickMusic, onClickSkip } =
