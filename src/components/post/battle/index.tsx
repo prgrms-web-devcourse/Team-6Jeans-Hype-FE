@@ -11,7 +11,6 @@ import { getPostBattleData } from './api';
 import { createBattle } from './api';
 import MyBattleList from './mybattleList';
 import { BattleApplyModal } from './types';
-import Header from '@/components/common/Header';
 
 function BattleForm() {
   const router = useRouter();
