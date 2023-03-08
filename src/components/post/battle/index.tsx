@@ -39,7 +39,7 @@ function BattleForm() {
     if (typeof selectedOpponentMusicId !== 'string') return;
 
     await createBattle(+selectedOpponentMusicId, selectedMyMusic.postId);
-    router.push(`/post/detail?postId=${selectedOpponentMusicId}`);
+    router.push(`/battle/list`);
   };
 
   const { data: battleMusic } = useQuery(
