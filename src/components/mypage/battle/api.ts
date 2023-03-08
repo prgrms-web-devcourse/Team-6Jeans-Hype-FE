@@ -3,11 +3,14 @@ import { z } from 'zod';
 import { axiosInstance } from '@/api';
 import { Battle, GenreName } from '@/components/battle/list/types';
 
+import { BattleStatusValue } from './../../battle/types';
+
 const battleMusicResponseScheme = z.object({
   albumUrl: z.string(),
   singer: z.string(),
   title: z.string(),
   nickname: z.string(),
+  isWin: z.boolean(),
 });
 const battleResponseScheme = z.object({
   battleId: z.number(),
@@ -18,10 +21,17 @@ const battleResponseScheme = z.object({
 });
 type BattleResponse = z.infer<typeof battleResponseScheme>;
 
-export const getMyBattleList = async (genre?: GenreName): Promise<Battle[]> => {
+export const getMyBattleList = async ({
+  genre,
+  limit,
+}: {
+  genre?: GenreName;
+  limit?: number;
+}): Promise<Battle<BattleStatusValue>[]> => {
   const { data } = await axiosInstance.request({
     method: 'GET',
-    url: `/members/battles${genre ? `?genre=${genre}` : ''}`,
+    url: `/members/battles`,
+    params: { genre, limit },
   });
   return data.data.battles.map((unsafeBattle: BattleResponse) => {
     const parsed = battleResponseScheme.safeParse(unsafeBattle);
@@ -29,19 +39,22 @@ export const getMyBattleList = async (genre?: GenreName): Promise<Battle[]> => {
       throw parsed.error;
     }
     const { data: battle } = parsed;
+    const isProgress = battle.battleStatus === 'PROGRESS';
     return {
       id: battle.battleId,
       challenged: {
         albumCoverImage: battle.challenged.albumUrl,
         title: battle.challenged.title,
         singer: battle.challenged.singer,
+        isWin: isProgress ? undefined : battle.challenged.isWin,
       },
       challenging: {
         albumCoverImage: battle.challenging.albumUrl,
         title: battle.challenging.title,
         singer: battle.challenging.singer,
+        isWin: isProgress ? undefined : battle.challenging.isWin,
       },
-      isProgress: battle.battleStatus === 'PROGRESS',
+      battleStatus: isProgress ? 'PROGRESS' : 'END',
       genre: battle.genre.genreName,
     };
   });

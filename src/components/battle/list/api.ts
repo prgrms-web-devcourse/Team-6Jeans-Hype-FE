@@ -5,7 +5,12 @@ import { axiosInstance } from '@/api';
 import { BattleStatusValue } from '../types';
 import { Battle, GenreValue } from './types';
 
-const battleMusicResponseScheme = z.object({ albumUrl: z.string(), singer: z.string(), title: z.string() });
+const battleMusicResponseScheme = z.object({
+  albumUrl: z.string(),
+  singer: z.string(),
+  title: z.string(),
+  isWin: z.boolean(),
+});
 const battleResponseScheme = z.object({
   battleId: z.number(),
   challenged: battleMusicResponseScheme,
@@ -21,7 +26,7 @@ export const getBattleList = async ({
 }: {
   genre?: GenreValue;
   status: BattleStatusValue;
-}): Promise<Battle[]> => {
+}): Promise<Battle<typeof status>[]> => {
   const { data } = await axiosInstance.request({
     method: 'GET',
     url: `/battles`,
@@ -39,13 +44,15 @@ export const getBattleList = async ({
         albumCoverImage: battle.challenged.albumUrl,
         title: battle.challenged.title,
         singer: battle.challenged.singer,
+        isWin: battle.isProgress ? undefined : battle.challenged.isWin,
       },
       challenging: {
         albumCoverImage: battle.challenging.albumUrl,
         title: battle.challenging.title,
         singer: battle.challenging.singer,
+        isWin: battle.isProgress ? undefined : battle.challenging.isWin,
       },
-      isProgress: battle.isProgress,
+      battleStatus: battle.isProgress ? 'PROGRESS' : 'END',
       genre: battle.genre.genreName,
     };
   });

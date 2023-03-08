@@ -2,37 +2,34 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 
 import BattleCard from '@/components/battle/Card';
+import FinishedBattleCard from '@/components/battle/Card/Finished';
 import NoContent from '@/components/common/NoContent';
 import RecommendationPost from '@/components/common/RecommendationPost';
 
-import { getBattlesLimit, getPostFeedLimit } from './api';
+import { FinishedBattleMusic } from '../battle/list/types';
+import { getPostFeedLimit } from './api';
+import { useGetMyBattleList } from './battle/useGetMyBattleList';
 import ContentList from './ContentList';
 
 function UserContent() {
   const { data: postFeedLimit } = useQuery(['postfeedlimit'], getPostFeedLimit);
-  const { data: battleLimit } = useQuery(['battlelimit'], getBattlesLimit);
+  const { data: battleLimit } = useGetMyBattleList({ limit: 2 });
 
   return (
     <Container>
       <ContentList title='대결'>
         {battleLimit ? (
-          battleLimit.map(({ battleId, challenging, challenged, battleStatus }) => (
-            <BattleCard
-              key={battleId}
-              id={battleId}
-              challenging={{
-                albumCoverImage: challenging.albumUrl,
-                title: challenging.title,
-                singer: challenging.singer,
-              }}
-              challenged={{
-                albumCoverImage: challenged.albumUrl,
-                title: challenged.title,
-                singer: challenged.singer,
-              }}
-              isProgress={battleStatus === 'PROGRESS'}
-            />
-          ))
+          battleLimit.map(({ id, challenging, challenged, battleStatus }) =>
+            battleStatus === 'PROGRESS' ? (
+              <BattleCard key={id} challenging={challenging} challenged={challenged} />
+            ) : (
+              <FinishedBattleCard
+                key={id}
+                challenging={challenging as FinishedBattleMusic}
+                challenged={challenged as FinishedBattleMusic}
+              />
+            ),
+          )
         ) : (
           <Wrapper>
             <NoContent width={5} text='참여한 대결이 없습니다.' isImage={true} />
