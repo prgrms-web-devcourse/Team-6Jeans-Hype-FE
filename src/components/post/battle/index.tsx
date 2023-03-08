@@ -83,26 +83,21 @@ function BattleForm() {
 
 export default BattleForm;
 
-const Container = styled.div`
+const Wrapper = styled.div`
   width: 90%;
   margin: 0 auto;
 `;
 
 const Title = styled.div`
-  font-style: normal;
   font-weight: 600;
   font-size: 1.7rem;
-  line-height: 2.6rem;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   background: linear-gradient(98.38deg, ${COLOR.purple} -1.83%, ${COLOR.blue} 86.44%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-
   margin-bottom: 7rem;
 `;
 

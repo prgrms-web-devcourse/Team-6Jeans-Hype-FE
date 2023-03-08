@@ -39,7 +39,7 @@ const Container = styled.div<{ isOpened: boolean; isAnimation: boolean }>`
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.6);
 
-  & > *:first-child {
+  & > *:first-of-type {
     position: absolute;
     top: 50%;
     left: 50%;

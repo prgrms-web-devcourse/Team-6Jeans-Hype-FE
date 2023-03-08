@@ -34,7 +34,7 @@ const Header: FC<Props> = ({
   return (
     <Container>
       {shouldNeedBack && BackButton}
-      {title && <H1 color={color}>{title}</H1>}
+      {title && <Title color={color}>{title}</Title>}
       {ActionButton}
     </Container>
   );
@@ -43,20 +43,20 @@ const Header: FC<Props> = ({
 export default Header;
 
 const Container = styled.div`
-  width: calc(100% - 4rem);
-  height: 6rem;
-  margin: 0 2rem;
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  padding: 3rem 0;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
-  align-items: center;
+  align-items: flex-end;
   position: relative;
 `;
 
-const H1 = styled.h1<{ color: string }>`
+const Title = styled.h1<{ color: string }>`
   position: absolute;
   font-size: 1.8rem;
-  font-weight: bold;
+  font-weight: 700;
   transform: translateX(-50%);
   left: 50%;
   color: ${({ color }) => color};

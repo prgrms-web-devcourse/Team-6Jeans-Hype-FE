@@ -34,9 +34,8 @@ function PostDetail() {
 
   return (
     <Container>
+      <Header color={COLOR.white} backUrl='/post' />
       <Wrapper>
-        <Header color={COLOR.white} backUrl='/post' />
-
         {postDetail && (
           <MusicInfo
             title={postDetail.music.title}
@@ -87,7 +86,7 @@ function PostDetail() {
           <ContentHeader isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
             <ContentHeaderWrapper onClick={toggleContentViewStatus}>
               <Title>
-                <strong>{postDetail?.nickname} 님의</strong> {postDetail?.content === '' ? '추천' : '한마디'}
+                <strong>{postDetail?.nickname}</strong>님의 {postDetail?.content === '' ? '추천' : '한마디'}
               </Title>
               <ToggleArrowButton isContent={!!postDetail?.content}>
                 <ToggleImage src='/images/down-arrow.svg' alt='img' isRenderPostContent={isRenderPostContent} />
@@ -96,7 +95,7 @@ function PostDetail() {
           </ContentHeader>
 
           <ContentBody isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
-            <Content defaultValue={postDetail?.content} />
+            <Content>{postDetail?.content}</Content>
           </ContentBody>
         </PostDetailContent>
       </Wrapper>
@@ -118,20 +117,20 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: ${COLOR.purple};
+  background: linear-gradient(130.7deg, #a274dc -10.45%, #658df4 122.15%);
   position: relative;
 `;
 
 const Wrapper = styled.div`
   width: 90%;
-  margin: 2rem auto 0 auto;
+  margin: 0 auto;
 `;
 
 const PlayStatus = styled.div`
   display: flex;
   flex-direction: column;
   width: 65%;
-  margin: 0 auto 2rem auto;
+  margin: 0 auto 2rem;
 `;
 
 const PlayBar = styled.div`
@@ -139,20 +138,15 @@ const PlayBar = styled.div`
   align-items: center;
   margin-bottom: 1rem;
   background-color: ${COLOR.white};
-  border-top-left-radius: 0.45rem;
-  border-bottom-left-radius: 0.45rem;
-  border-top-right-radius: 0.45rem;
-  border-bottom-right-radius: 0.45rem;
+  border-radius: 0.45rem;
 
   & div:first-of-type {
     width: 50%;
     height: 0.75rem;
     background-color: ${COLOR.deepBlue};
-    border-top-left-radius: 0.45rem;
-    border-bottom-left-radius: 0.45rem;
-    border-top-right-radius: 0.45rem;
-    border-bottom-right-radius: 0.45rem;
+    border-radius: 0.45rem;
   }
+
   & div:last-of-type {
     width: 50%;
     height: 0.75rem;
@@ -173,7 +167,6 @@ const PostDetailEvent = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-
   width: 65%;
   margin: 0 auto;
 `;
@@ -202,7 +195,7 @@ const ContentHeader = styled.div`
   bottom: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? '12.5%' : '0')};
   transition: bottom 0.3s ease-out;
   width: 100%;
-  height: 2.5%;
+  max-height: 4rem;
 `;
 
 const ContentHeaderWrapper = styled.div`
@@ -215,6 +208,9 @@ const ContentHeaderWrapper = styled.div`
 
 const Title = styled.div`
   font-size: 1.3rem;
+  max-width: 70%;
+  text-align: center;
+
   & > strong {
     font-weight: 600;
   }
@@ -244,17 +240,13 @@ const ContentBody = styled.div`
   justify-content: center;
 `;
 
-const Content = styled.textarea`
+const Content = styled.p`
   border: 0.4px solid rgba(125, 116, 220, 0.4);
   border-radius: 1rem;
-  padding: 1rem;
-  width: 90%;
-  margin: 1.5rem 0;
-
-  font-style: normal;
+  padding: 1.3rem 1.7rem;
+  margin: 0.5rem 2rem 2rem;
+  width: 100%;
   font-weight: 500;
   font-size: 1.3rem;
   line-height: 1.9rem;
-
-  color: ${COLOR.deepBlue};
 `;

@@ -4,6 +4,7 @@ import LikeOnIcon from 'public/images/like-icon-on.svg';
 
 import { COLOR } from '@/constants/color';
 import useLike from '@/hooks/useLike';
+import useAuth from '@/components/login/useAuth';
 
 interface Props {
   size: number;
@@ -15,9 +16,15 @@ interface Props {
 
 function Like({ size, color, initCount, isClicked, onClick }: Props) {
   const { state, onClickLike } = useLike({ initCount, isClicked });
+  const { isLoggedIn, openAuthRequiredModal } = useAuth();
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
+
+    if (!isLoggedIn) {
+      openAuthRequiredModal();
+      return;
+    }
 
     onClickLike();
     onClick?.();

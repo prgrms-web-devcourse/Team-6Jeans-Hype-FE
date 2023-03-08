@@ -11,14 +11,14 @@ interface Props {
 function SearchInput({ keyword, onChangeKeyword, onClickInSearchButton }: Props) {
   return (
     <SearchContainer>
-      <TItle>음악 검색</TItle>
+      <Title>음악 검색</Title>
       <Searcher onSubmit={(e) => e.preventDefault()}>
         <Input
           name='trackName'
           value={keyword}
           onChange={onChangeKeyword}
           autoComplete='off'
-          placeholder='ex) 아이유 좋은날'
+          placeholder='제목과 가수를 입력해주세요.'
         />
         <SearcherButton type='submit' onClick={onClickInSearchButton}>
           <img src={'/images/search-icon.svg'} alt='img' />
@@ -34,11 +34,9 @@ const SearchContainer = styled.div`
   width: 100%;
 `;
 
-const TItle = styled.div`
-  font-style: normal;
+const Title = styled.div`
   font-weight: 700;
   font-size: 1.4rem;
-  line-height: 2rem;
   margin: 1rem 0;
   padding-left: 0.8rem;
 `;
@@ -62,6 +60,10 @@ const Input = styled.input`
   height: calc(100% - 0.2rem);
   color: ${COLOR.deepBlue};
   font-size: 1.25rem;
+
+  &::placeholder {
+    color: ${COLOR.lightGray};
+  }
 `;
 
 const SearcherButton = styled.button`
@@ -71,6 +73,7 @@ const SearcherButton = styled.button`
   background-color: ${COLOR.white};
   border: 0;
   cursor: pointer;
+
   & > img {
     width: 1.1rem;
   }

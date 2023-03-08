@@ -2,7 +2,8 @@ import { z } from 'zod';
 
 import { axiosInstance } from '@/api';
 
-import { Battle, GenreName } from './types';
+import { BattleStatusValue } from '../types';
+import { Battle, GenreValue } from './types';
 
 const battleMusicResponseScheme = z.object({ albumUrl: z.string(), singer: z.string(), title: z.string() });
 const battleResponseScheme = z.object({
@@ -14,8 +15,18 @@ const battleResponseScheme = z.object({
 });
 type BattleResponse = z.infer<typeof battleResponseScheme>;
 
-export const getBattleList = async (genre?: GenreName): Promise<Battle[]> => {
-  const { data } = await axiosInstance.request({ method: 'GET', url: `/battles${genre ? `?genre=${genre}` : ''}` });
+export const getBattleList = async ({
+  genre,
+  status,
+}: {
+  genre?: GenreValue;
+  status: BattleStatusValue;
+}): Promise<Battle[]> => {
+  const { data } = await axiosInstance.request({
+    method: 'GET',
+    url: `/battles`,
+    params: { genre, battleStatus: status },
+  });
   return data.data.battles.map((unsafeBattle: BattleResponse) => {
     const parsed = battleResponseScheme.safeParse(unsafeBattle);
     if (!parsed.success) {

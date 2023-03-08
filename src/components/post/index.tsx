@@ -13,10 +13,9 @@ import MusicListSkeleton from '../common/skeleton/MusicListSkeleton';
 
 function PostList() {
   const [genre, setGenre] = useState('');
-  const [isPossibleBattle, setIsPossibleBattle] = useState<boolean | undefined>(undefined);
 
-  const { data: postFeed, isLoading } = useQuery(['postfeed', genre, isPossibleBattle], () => {
-    return getPostFeedData({ genre, isPossibleBattle });
+  const { data: postFeed, isLoading } = useQuery(['postfeed', genre], () => {
+    return getPostFeedData(genre);
   });
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +34,6 @@ function PostList() {
         </Filter>
       </Header>
       <Genres onChange={onChange} />
-      {/* <Battles setIsPossibleBattle={setIsPossibleBattle} /> */}
       <PostFeedList>
         {isLoading ? (
           <>

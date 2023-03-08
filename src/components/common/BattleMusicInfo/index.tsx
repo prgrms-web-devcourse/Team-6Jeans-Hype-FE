@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 
 import { BattleMusic } from '@/components/post/battle/types';
 import { COLOR } from '@/constants/color';
+
 import MusicPlayButton from '../MusicPlayButton';
 
 interface Prop {
@@ -14,7 +15,9 @@ interface Prop {
 const BattleMusicInfo = ({ music, onClick, clickSide }: Prop) => {
   const { albumCoverUrl, musicUrl, title, singer } = music;
 
-  const handleClick = (e: any) => {
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.defaultPrevented) return;
+
     onClick?.(e);
   };
 
@@ -73,6 +76,8 @@ const Container = styled.div`
   box-shadow: 0px 0px 1.5rem rgba(158, 158, 158, 0.25);
   border-radius: 1rem;
   position: relative;
+
+  cursor: pointer;
 `;
 
 const Wrapper = styled.div`

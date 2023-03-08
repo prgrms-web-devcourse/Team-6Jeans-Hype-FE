@@ -22,8 +22,15 @@ export const global = css`
   #__next,
   #root {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     background-color: ${COLOR.background};
     color: ${COLOR.deepBlue};
+  }
+
+  img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
   }
 `;
