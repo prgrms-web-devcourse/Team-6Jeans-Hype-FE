@@ -4,16 +4,16 @@ import { useRouter } from 'next/router';
 import ShuffleIcon from 'public/images/go-to-shuffle-icon.svg';
 
 import Select from '@/components/battle/select';
+import useVoteSelect from '@/components/battle/select/hooks/useVoteSelect';
 import VoteResult from '@/components/battle/voteResult';
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 import AuthRequiredPage from '@/components/login/AuthRequiredPage';
-import useVoteResult from '@/components/battle/select/hooks/useVoteSelect';
 
 function Detail() {
   const router = useRouter();
   const { id } = router.query;
-  const { musicData, isLoadingState, selectedBattle, position, onClickMusic, onClickSkip } = useVoteResult(
+  const { musicData, isLoadingState, selectedBattle, position, onClickMusic, onClickSkip } = useVoteSelect(
     id ? Number(id) : 1,
   );
 

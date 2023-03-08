@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import ListIcon from 'public/images/go-to-list-icon.svg';
+import { memo } from 'react';
 
 import Select from '@/components/battle/select';
 import useVoteSelect from '@/components/battle/select/hooks/useVoteSelect';
@@ -12,6 +13,7 @@ import Header from '@/components/common/Header';
 function Short() {
   const { musicData, isLoadingState, selectedBattle, position, onClickGenre, onClickMusic, onClickSkip } =
     useVoteSelect();
+  const { battleId, votedPostId } = selectedBattle;
 
   return (
     <>
@@ -32,9 +34,7 @@ function Short() {
           onClickSkip={onClickSkip}
         />
       </SelectContainer>
-      {selectedBattle.battleId !== -1 && selectedBattle.votedPostId !== -1 && (
-        <VoteResult battleId={selectedBattle.battleId} votedPostId={selectedBattle.votedPostId} clickSide={position} />
-      )}
+      {battleId && votedPostId && <VoteResult battleId={battleId} votedPostId={votedPostId} clickSide={position} />}
       <BottomNav />
     </>
   );
