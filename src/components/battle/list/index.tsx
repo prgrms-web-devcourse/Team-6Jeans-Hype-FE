@@ -13,7 +13,7 @@ export default function BattleList({ battleList, className }: BattleListProps) {
   return (
     <Container className={className}>
       {battleList?.map(({ challenged, challenging, id, isProgress }: Battle) => (
-        <BattleCard {...{ challenged, challenging, id, isProgress }} key={id} />
+        <BattleCard {...{ challenged, challenging, isProgress }} key={id} />
       ))}
     </Container>
   );

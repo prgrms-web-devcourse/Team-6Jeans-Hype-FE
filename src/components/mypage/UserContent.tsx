@@ -17,7 +17,6 @@ function UserContent() {
         {battleLimit?.map(({ battleId, challenging, challenged, battleStatus }) => (
           <BattleCard
             key={battleId}
-            id={battleId}
             challenging={{
               albumCoverImage: challenging.albumUrl,
               title: challenging.title,

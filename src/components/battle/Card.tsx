@@ -6,7 +6,6 @@ import { COLOR } from '@/constants/color';
 import { BattleMusic } from './list/types';
 
 interface BattleCardProps {
-  id: number;
   challenged: BattleMusic;
   challenging: BattleMusic;
   isProgress: boolean;
