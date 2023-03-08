@@ -36,46 +36,54 @@ function BattleForm() {
   };
 
   const applyBattle = async () => {
-    await createBattle(parseInt(selectedOpponentMusicId as string), selectedMyMusic.postId);
-    router.push(`/post/detail?postId=${selectedOpponentMusicId}`);
+    if (typeof selectedOpponentMusicId !== 'string') return;
+
+    await createBattle(+selectedOpponentMusicId, selectedMyMusic.postId);
+    router.push(`/battle/list`);
   };
 
   const { data: battleMusic } = useQuery(
     ['post', 'battle', selectedOpponentMusicId],
-    () => getPostBattleData(parseInt(selectedOpponentMusicId as string)),
+    () => {
+      if (typeof selectedOpponentMusicId !== 'string') return;
+
+      return getPostBattleData(+selectedOpponentMusicId);
+    },
     {
       enabled: !!selectedOpponentMusicId,
     },
   );
 
   return (
-    <>
+    <Container>
       <Header
         title='대결 신청'
         backUrl={`/post/detail?postId=${selectedOpponentMusicId}`}
         actionButton={isReadySubmit && <HeaderSubmitButton onClick={applyBattle} />}
       />
-      <Wrapper>
-        <Title>What&apos;s next?</Title>
-        <Musics>
-          {battleMusic && (
-            <>
-              <BattleMusicInfo music={battleMusic.music} />
-              <BattleMusicInfo music={selectedMyMusic} onClick={renderMyList} />
-            </>
-          )}
-        </Musics>
-        {isVisibleMusicList && (
-          <MyBattleList genre={battleMusic?.music.genre?.genreValue} updateMyMusicCard={updateMyMusicCard} />
+      <Title>What&apos;s next?</Title>
+      <Musics>
+        {battleMusic && (
+          <>
+            <BattleMusicInfo music={battleMusic.music} />
+            <BattleMusicInfo music={selectedMyMusic} onClick={renderMyList} />
+          </>
         )}
-      </Wrapper>
-    </>
+      </Musics>
+      {typeof selectedOpponentMusicId === 'string' && (
+        <MyBattleList
+          selectedOpponentMusicId={selectedOpponentMusicId}
+          updateMyMusicCard={updateMyMusicCard}
+          isVisibleMusicList={isVisibleMusicList}
+        />
+      )}
+    </Container>
   );
 }
 
 export default BattleForm;
 
-const Wrapper = styled.div`
+const Container = styled.div`
   width: 90%;
   margin: 0 auto;
 `;
