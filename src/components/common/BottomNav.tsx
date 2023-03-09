@@ -110,9 +110,6 @@ const Button = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  & > span {
-  }
 `;
 
 const Text = styled.span<{ isClicked: boolean }>`
