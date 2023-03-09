@@ -58,15 +58,17 @@ function PostDetail() {
 
         <PostDetailEvent>
           <Icon>
-            <Like
-              size={2.2}
-              initCount={15}
-              color='white'
-              isClicked={true}
-              onClick={() => {
-                console.log('좋아요');
-              }}
-            />
+            {postDetail && (
+              <Like
+                size={2.2}
+                initCount={postDetail.likeCount}
+                color='white'
+                isClicked={true}
+                onClick={() => {
+                  console.log('좋아요');
+                }}
+              />
+            )}
           </Icon>
 
           <Icon>

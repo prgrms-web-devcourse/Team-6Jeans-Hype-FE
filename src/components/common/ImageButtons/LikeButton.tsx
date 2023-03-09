@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import LikeOffIcon from 'public/images/like-icon-off.svg';
 import LikeOnIcon from 'public/images/like-icon-on.svg';
 
+import useAuth from '@/components/login/useAuth';
 import { COLOR } from '@/constants/color';
 import useLike from '@/hooks/useLike';
-import useAuth from '@/components/login/useAuth';
 
 interface Props {
   size: number;
