@@ -28,10 +28,6 @@ function PostList() {
     <Container>
       <Header>
         <Title>한눈에 보는 추천</Title>
-        <Filter>
-          최신순
-          <img src='./images/down-arrow-gray.svg' alt='필터링' />
-        </Filter>
       </Header>
       <Genres onChange={onChange} />
       <PostFeedList>
@@ -76,15 +72,6 @@ const Header = styled.div`
 const Title = styled.h1`
   font-weight: 700;
   font-size: 1.8rem;
-`;
-
-const Filter = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-weight: 700;
-  font-size: 1rem;
-  color: ${COLOR.gray};
 `;
 
 const PostFeedList = styled.div`
