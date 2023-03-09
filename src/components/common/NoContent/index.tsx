@@ -20,11 +20,7 @@ function NoContent({ text, width, isImage }: Props) {
 
 export default NoContent;
 
-interface StyleProps {
-  width: number;
-}
-
-const StyledIcon = styled(Logo)<StyleProps>`
+const StyledIcon = styled(Logo)<{ width: number }>`
   width: ${({ width }) => `${width}rem`};
 `;
 
@@ -32,5 +28,6 @@ const Text = styled.h1`
   color: ${COLOR.lightGray};
   font-size: 1.3rem;
   font-weight: 400;
+  text-align: center;
   padding: 1rem 0 2rem;
 `;

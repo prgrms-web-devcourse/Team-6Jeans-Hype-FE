@@ -48,9 +48,8 @@ export const getBattlesLimit = async () => {
 
     if (data.success) {
       return data.data.battles;
-    } else {
-      return [];
     }
+    return [];
   } catch (error) {
     console.error(error);
   }
