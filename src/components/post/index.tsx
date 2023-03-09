@@ -8,8 +8,8 @@ import RecommendationPost from '@/components/common/RecommendationPost';
 import { PostInfo } from '@/components/post/types';
 import { COLOR } from '@/constants/color';
 
-import { getPostFeedData } from './api';
 import MusicListSkeleton from '../common/skeleton/MusicListSkeleton';
+import { getPostFeedData } from './api';
 
 function PostList() {
   const [genre, setGenre] = useState('');
@@ -42,10 +42,11 @@ function PostList() {
             <MusicListSkeleton />
           </>
         ) : (
-          postFeed?.map(({ postId, music, likeCount, isBattlePossible }: PostInfo) => (
+          postFeed?.map(({ postId, nickname, music, likeCount, isBattlePossible }: PostInfo) => (
             <RecommendationPost
               key={postId}
               postId={postId}
+              nickname={nickname}
               music={music}
               likeCount={likeCount}
               isBattlePossible={isBattlePossible}

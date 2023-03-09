@@ -9,6 +9,7 @@ import { COLOR } from '@/constants/color';
 
 function RecommendationPost({
   postId,
+  nickname,
   music: { albumCoverUrl, singer, title },
   likeCount,
   isBattlePossible,
@@ -24,6 +25,7 @@ function RecommendationPost({
 
   return (
     <Container key={postId} onClick={(e) => navigatePostDetail(e, postId)}>
+      {nickname && <Nickname>{nickname}</Nickname>}
       <Wrapper>
         <AlbumPoster lazy={true} size={6} src={albumCoverUrl} />
         <Content>
@@ -64,6 +66,12 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   cursor: pointer;
+`;
+
+const Nickname = styled.span`
+  color: ${COLOR.gray};
+  margin-bottom: 0.8rem;
+  padding-left: 0.5rem;
 `;
 
 const Wrapper = styled.div`
