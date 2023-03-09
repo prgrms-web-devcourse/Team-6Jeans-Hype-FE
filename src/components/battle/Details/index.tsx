@@ -11,25 +11,19 @@ interface Props {
   battleId?: number | undefined;
   musicData: Battles | undefined;
   isLoadingState: boolean;
-  onClickMusic: (
-    e: React.ChangeEvent<HTMLElement>,
-    clickSide: 'left' | 'right',
-    battleId: number,
-    votedPostId: number,
-  ) => void;
-  onClickSkip: () => void;
+  onChangeSelectedBattleInfo: (battleId: number, votedPostId: number, clickSide: 'left' | 'right') => void;
+  refetch?: () => void;
+  onClickSkip?: () => void;
 }
 
-function TestCompo({ musicData, isLoadingState, onClickSkip }: Props) {
-  const router = useRouter();
-  const { id } = router.query;
-
+function Detail({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch, onClickSkip }: Props) {
   const onClickBattleMusic = (clickSide: 'left' | 'right', musicId: number | undefined) => {
-    console.log(`선택한 포스트의 ID와 해당 배틀의 ID 저장 필요: ${musicData?.battleId} / ${musicId}`);
-    console.log(`누른 포지션(left | right 저장 필요: ${clickSide}`);
-    if (id === undefined) {
+    if (musicData && musicId) {
+      onChangeSelectedBattleInfo(musicData.battleId, musicId, clickSide);
+    }
+    if (refetch) {
       setTimeout(() => {
-        console.log('1.7초 후 refetch하기');
+        refetch();
       }, 1700);
     }
   };
@@ -54,18 +48,18 @@ function TestCompo({ musicData, isLoadingState, onClickSkip }: Props) {
             </>
           ) : (
             <>
-              <Moving music={musicData.challenged.music} moving='left' onClick={onClickBattleMusic} />
-              <Moving music={musicData.challenging.music} moving='right' onClick={onClickBattleMusic} />
+              <Moving music={musicData.challenged} moving='left' onClick={onClickBattleMusic} />
+              <Moving music={musicData.challenging} moving='right' onClick={onClickBattleMusic} />
             </>
           )}
         </BattleContainer>
-        {!id && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
+        {!refetch && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
       </Section>
     </>
   );
 }
 
-export default TestCompo;
+export default Detail;
 
 const Section = styled.div`
   position: relative;

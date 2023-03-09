@@ -9,14 +9,14 @@ interface Prop {
   onClick: (moving: 'left' | 'right', musicId: number | undefined) => void;
 }
 
-function Moving(prop: Prop) {
+function Moving({ music, moving, onClick }: Prop) {
   const router = useRouter();
   const { id } = router.query;
 
   const handleClick = (e: React.ChangeEvent<HTMLElement>) => {
     const { target } = e;
 
-    prop.onClick(prop.moving, prop.music.postId);
+    onClick(moving, music.postId);
 
     if (target) {
       const parent = target.closest('.container');
@@ -34,15 +34,12 @@ function Moving(prop: Prop) {
             newTarget.className = savedClassName;
             newTarget.innerHTML = savedHTML;
           }, 1700);
-          setTimeout(() => {
-            console.log('1.7초 후 refetch하기');
-          }, 1800);
         }
       }
     }
   };
 
-  return <BattleMusic handleClick={(e) => handleClick(e)} {...prop} />;
+  return <BattleMusic music={music.music} moving={moving} handleClick={(e) => handleClick(e)} />;
 }
 
 export default Moving;
