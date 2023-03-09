@@ -33,7 +33,7 @@ const Select = styled.select`
   gap: 0.4rem;
   width: min-content;
   padding-right: 1.3rem;
-  text-align: center;
+  text-align: end;
 `;
 
 const Container = styled.div`
