@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
 
+import BattleMusic from './BattleMusic';
 import Moving from './BattleMusic/Moving';
 import { Battles } from './types';
 
@@ -48,8 +49,18 @@ function Detail({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
             </>
           ) : (
             <>
-              <Moving music={musicData.challenged} moving='left' onClick={onClickBattleMusic} />
-              <Moving music={musicData.challenging} moving='right' onClick={onClickBattleMusic} />
+              {/* <Moving music={musicData.challenged} moving='left' onClick={onClickBattleMusic} />
+              <Moving music={musicData.challenging} moving='right' onClick={onClickBattleMusic} /> */}
+              {/* <BattleMusic
+                music={musicData.challenged.music}
+                moving='left'
+                handleClick={(e) => onClickBattleMusic(e)}
+              />
+              <BattleMusic
+                music={musicData.challenged.music}
+                moving='left'
+                handleClick={(e) => onClickBattleMusic(e)}
+              /> */}
             </>
           )}
         </BattleContainer>
