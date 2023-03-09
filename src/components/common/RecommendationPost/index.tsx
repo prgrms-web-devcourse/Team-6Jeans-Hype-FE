@@ -77,10 +77,8 @@ const Wrapper = styled.div`
 const Content = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 1.5rem;
   width: calc(100% - 7rem);
-  gap: 2rem;
+  position: relative;
 `;
 
 const MusicInfo = styled.div`
@@ -88,6 +86,8 @@ const MusicInfo = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 0.3rem;
+  padding-left: 1.5rem;
+  width: calc(100% - 9rem);
 `;
 
 const Title = styled.h1`
@@ -107,4 +107,6 @@ const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+  position: absolute;
+  right: 0.7rem;
 `;

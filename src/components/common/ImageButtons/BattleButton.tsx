@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import FireIcon from 'public/images/fire-icon.svg';
 
-import { COLOR } from '@/constants/color';
 import useAuth from '@/components/login/useAuth';
+import { COLOR } from '@/constants/color';
 
 interface Props {
   size: number;
@@ -49,14 +49,14 @@ const BattleContainer = styled.div`
   align-items: center;
 `;
 
-const Text = styled.div`
+const Text = styled.span`
   text-align: center;
   color: ${({ ability, color }: StyleProp) => {
     const targetColor = color === 'white' ? COLOR.white : COLOR.blue;
 
     return ability ? targetColor : COLOR.gray;
   }};
-  padding-top: 0.6rem;
+  padding-top: 0.3rem;
 `;
 
 const StyledFireIcon = styled(FireIcon)<{ color: string; size: number; ability: string }>`
