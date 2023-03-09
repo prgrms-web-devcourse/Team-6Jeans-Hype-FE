@@ -6,7 +6,6 @@ import { useState } from 'react';
 
 import Detail from '@/components/battle/Detail';
 import { useGetBattle } from '@/components/battle/select/hooks/useGetBattle';
-import useVoteSelect from '@/components/battle/select/hooks/useVoteSelect';
 import { SelectedBattle } from '@/components/battle/types';
 import VoteResult from '@/components/battle/voteResult';
 import BottomNav from '@/components/common/BottomNav';
@@ -14,10 +13,6 @@ import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
 
 function Test() {
-  const { onClickSkip } = useVoteSelect();
-  const router = useRouter();
-  const { id } = router.query;
-  const initBattleId = id ? Number(id) : 1;
   const [selectedGenre, setSelectedGenre] = useState<string>('ALL');
   const [isLoadingState, setIsLoadingState] = useState<boolean>(false);
   const [selectedBattle, setSelectedBattle] = useState<SelectedBattle>({
@@ -26,7 +21,7 @@ function Test() {
     clickSide: undefined,
   });
 
-  const { data: musicData, refetch } = useGetBattle({ initBattleId, selectedGenre });
+  const { data: musicData, refetch } = useGetBattle({ initBattleId: 0, selectedGenre });
 
   const onChangeSelectedBattleInfo = (battleId: number, votedPostId: number, clickSide: 'left' | 'right') => {
     setSelectedBattle({ battleId, votedPostId, clickSide });
@@ -35,6 +30,14 @@ function Test() {
   const onClickGenre = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsLoadingState(true);
     setSelectedGenre(e.target.value);
+    setTimeout(() => {
+      setIsLoadingState(false);
+    }, 500);
+  };
+
+  const onClickSkip = () => {
+    setIsLoadingState(true);
+    refetch();
     setTimeout(() => {
       setIsLoadingState(false);
     }, 500);
