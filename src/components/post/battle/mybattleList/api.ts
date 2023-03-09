@@ -1,3 +1,5 @@
+import axios, { AxiosError } from 'axios';
+
 import { axiosInstance } from '@/api';
 
 import { MyBattlePosAPI } from '../types';
@@ -11,10 +13,13 @@ export const getMyBattleListData = async (selectedOpponentMusicId: string) => {
 
     if (data.success) {
       return data.data.posts;
-    } else {
-      return [];
     }
-  } catch {
-    throw new Error('데이터 요청 실패');
+  } catch (err) {
+    const errors = err as Error | AxiosError;
+    if (axios.isAxiosError(errors) && errors.response?.data.message) {
+      throw new Error(`${errors.response?.data.message}`);
+    } else {
+      throw new Error('데이터 요청 실패');
+    }
   }
 };
