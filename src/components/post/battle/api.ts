@@ -45,7 +45,7 @@ export const createBattle = async (challengedPostId: number, challengingPostId: 
     if (axios.isAxiosError(errors) && errors.response?.data.message) {
       return { success: errors.response?.data.success, message: errors.response?.data.message };
     } else {
-      throw new Error('데이터 요청 실패');
+      return { success: false, message: '데이터 요청 실패' };
     }
   }
 };
