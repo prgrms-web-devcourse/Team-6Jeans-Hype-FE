@@ -1,3 +1,9 @@
+export interface BattleApplyAPI {
+  success: boolean;
+  message: string;
+  data: null;
+}
+
 export interface MyBattlePosAPI {
   success: boolean;
   message: string;

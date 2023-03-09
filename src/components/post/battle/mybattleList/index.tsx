@@ -5,11 +5,11 @@ import { useRef, useState } from 'react';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
 import ConfirmModal from '@/components/common/Modal/Confirm';
+import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
 import { COLOR } from '@/constants/color';
 
 import { BattleApplyModal, MyBattlePostInfo } from '../types';
 import { getMyBattleListData } from './api';
-import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
 
 interface Props {
   selectedOpponentMusicId: string;

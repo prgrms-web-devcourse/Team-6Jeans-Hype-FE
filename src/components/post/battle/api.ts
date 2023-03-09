@@ -1,6 +1,9 @@
+import axios, { AxiosError } from 'axios';
+
 import { axiosInstance } from '@/api';
 import { tokenStorage } from '@/components/login/utils/localStorage';
-import { PostBattleAPI } from './types';
+
+import { BattleApplyAPI, PostBattleAPI } from './types';
 
 export const getPostBattleData = async (postId: number) => {
   try {
@@ -21,7 +24,7 @@ export const getPostBattleData = async (postId: number) => {
 
 export const createBattle = async (challengedPostId: number, challengingPostId: number) => {
   try {
-    const response = await axiosInstance.request({
+    const { data } = await axiosInstance.request<BattleApplyAPI>({
       method: 'POST',
       url: `/battles`,
       data: {
@@ -33,12 +36,16 @@ export const createBattle = async (challengedPostId: number, challengingPostId: 
       },
     });
 
-    if (response.data.success) {
-      return response.data.success;
-    } else {
-      return false;
+    if (data.success) {
+      return { success: data.success, message: data.message };
     }
-  } catch {
-    throw new Error('데이터 요청 실패');
+  } catch (err) {
+    const errors = err as Error | AxiosError;
+
+    if (axios.isAxiosError(errors) && errors.response?.data.message) {
+      return { success: errors.response?.data.success, message: errors.response?.data.message };
+    } else {
+      throw new Error('데이터 요청 실패');
+    }
   }
 };
