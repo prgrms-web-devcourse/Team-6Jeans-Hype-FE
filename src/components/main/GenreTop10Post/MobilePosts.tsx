@@ -10,27 +10,21 @@ interface Props {
 
 function MobilePosts({ genreTop10Post, navigatePostDetail }: Props) {
   return (
-    <Container>
-      <Posts>
-        {genreTop10Post?.map(({ postId, music: { albumCoverUrl, title, singer } }) => (
-          <Post key={postId} onClick={() => navigatePostDetail(postId)}>
-            <AlbumPoster lazy={true} size={12.5} src={albumCoverUrl} />
-            <TitleSinger>
-              <div>{title}</div>
-              <div>{singer}</div>
-            </TitleSinger>
-          </Post>
-        ))}
-      </Posts>
-    </Container>
+    <Posts>
+      {genreTop10Post?.map(({ postId, music: { albumCoverUrl, title, singer } }) => (
+        <Post key={postId} onClick={() => navigatePostDetail(postId)}>
+          <AlbumPoster lazy={true} size={12.5} src={albumCoverUrl} />
+          <TitleSinger>
+            <div>{title}</div>
+            <div>{singer}</div>
+          </TitleSinger>
+        </Post>
+      ))}
+    </Posts>
   );
 }
 
 export default MobilePosts;
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
 const Posts = styled.div`
   display: flex;

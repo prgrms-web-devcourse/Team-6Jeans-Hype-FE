@@ -1,14 +1,18 @@
 import Genres from '@/components/common/Genres';
 import { COLOR } from '@/constants/color';
+import { useCheckMobile } from '@/hooks/useCheckMobile';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { getGenreTop10Data } from './api';
+import DeskTopPosts from './DeskTopPosts';
 import MobilePosts from './MobilePosts';
 
 function GenreTop10Post() {
   const router = useRouter();
+
+  const { mobile } = useCheckMobile();
 
   const [genre, setGenre] = useState('');
 
@@ -28,7 +32,9 @@ function GenreTop10Post() {
     <>
       <Genres onChange={onChange} shouldNeedAll />
       <Title>이런 곡은 어때요?</Title>
-      {genreTop10Post && <MobilePosts genreTop10Post={genreTop10Post} navigatePostDetail={navigatePostDetail} />}
+      {mobile
+        ? genreTop10Post && <MobilePosts genreTop10Post={genreTop10Post} navigatePostDetail={navigatePostDetail} />
+        : genreTop10Post && <DeskTopPosts genreTop10Post={genreTop10Post} navigatePostDetail={navigatePostDetail} />}
     </>
   );
 }
