@@ -125,7 +125,6 @@ const Container = styled.div<{ isVisibleMusicList: boolean }>`
 `;
 
 const Title = styled.div`
-  font-style: normal;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 2rem;
@@ -157,7 +156,6 @@ const TitleSinger = styled.div`
   margin-left: 2rem;
 
   & div:first-of-type {
-    font-style: normal;
     font-weight: 500;
     font-size: 1.4rem;
     line-height: 1.7rem;
@@ -168,7 +166,6 @@ const TitleSinger = styled.div`
   }
 
   & div:last-of-type {
-    font-style: normal;
     font-weight: 500;
     font-size: 1.2rem;
     line-height: 1.8rem;
