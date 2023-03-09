@@ -28,7 +28,7 @@ export default MobilePosts;
 
 const Posts = styled.div`
   display: flex;
-  margin-top: 1rem;
+  margin-top: -0.5rem;
 
   overflow-x: scroll;
   &::-webkit-scrollbar {

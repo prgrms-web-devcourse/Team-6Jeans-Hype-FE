@@ -34,7 +34,6 @@ const Container = styled.div`
 
   & .swiper-wrapper {
     display: -webkit-inline-box;
-    margin-top: 1rem;
   }
 `;
 
