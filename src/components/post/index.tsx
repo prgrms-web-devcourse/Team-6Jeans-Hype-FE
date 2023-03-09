@@ -2,11 +2,9 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
-import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import RecommendationPost from '@/components/common/RecommendationPost';
 import { PostInfo } from '@/components/post/types';
-import { COLOR } from '@/constants/color';
 
 import { getPostFeedData } from './api';
 import MusicListSkeleton from '../common/skeleton/MusicListSkeleton';
@@ -49,7 +47,6 @@ function PostList() {
           ))
         )}
       </PostFeedList>
-      <BottomNav />
     </Container>
   );
 }
