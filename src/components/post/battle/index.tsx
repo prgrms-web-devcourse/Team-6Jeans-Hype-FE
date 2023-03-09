@@ -86,8 +86,7 @@ function BattleForm() {
 export default BattleForm;
 
 const Wrapper = styled.div`
-  width: 90%;
-  margin: 0 auto;
+  padding: 0 2rem;
 `;
 
 const Title = styled.div`
