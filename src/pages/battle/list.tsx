@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import ShortsIcon from 'public/images/shuffle.svg';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { BATTLE_STATUS_NAME_LIST, BATTLE_STATUS_VALUE_MAP } from '@/components/battle/constants';
 import BattleList from '@/components/battle/list';
@@ -16,7 +16,7 @@ import Header from '@/components/common/Header';
 export default function BattleListPage() {
   const [genreValue, setGenreValue] = useState<GenreValue | undefined>();
   const [status, setStatus] = useState<BattleStatusName>('진행중');
-  const { data: battleList, refetch: refetchBattleList } = useGetBattleList({
+  const { data: battleList } = useGetBattleList({
     genre: genreValue,
     status: BATTLE_STATUS_VALUE_MAP[status],
   });
@@ -36,10 +36,6 @@ export default function BattleListPage() {
   const onChangeFilter = (option: BattleStatusName) => {
     setStatus(option);
   };
-
-  useEffect(() => {
-    refetchBattleList();
-  }, [genreValue, status, refetchBattleList]);
 
   return (
     <>
