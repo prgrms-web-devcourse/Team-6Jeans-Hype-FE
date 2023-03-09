@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 
 import { BattleDetail } from '../../types';
-import BattleMusic from './index';
+import BattleMusic from '../BattleMusic';
 
 interface Prop {
   music: BattleDetail;

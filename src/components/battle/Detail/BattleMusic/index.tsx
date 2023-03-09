@@ -2,11 +2,12 @@ import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import MusicPlayButton from '@/components/common/MusicPlayButton';
-import { BattleMusic } from '@/components/post/battle/types';
 import { COLOR } from '@/constants/color';
 
+import { Music } from '../types';
+
 interface Prop {
-  music: BattleMusic;
+  music: Music;
   moving?: 'left' | 'right';
   handleClick?: (e: any /*일단 any로  */) => void;
 }

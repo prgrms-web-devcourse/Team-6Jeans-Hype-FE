@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
 
-import Moving from '../detail/BattleMusic/Moving';
-import { Battles } from '../types';
+import Moving from './BattleMusic/Moving';
+import { Battles } from './types';
 
 interface Props {
   battleId?: number | undefined;
