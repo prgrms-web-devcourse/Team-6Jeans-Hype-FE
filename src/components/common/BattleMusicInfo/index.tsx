@@ -127,7 +127,6 @@ const PlusIcon = styled.img<{ value: string | undefined }>`
 const Title = styled.div`
   width: calc(100% - 1.6rem);
   padding: 0 0.8rem;
-  font-style: normal;
   font-weight: 700;
   font-size: 1.3rem;
   line-height: 1.9rem;
@@ -139,7 +138,6 @@ const Title = styled.div`
 const Singer = styled.div`
   width: calc(100% - 1.6rem);
   padding: 0 0.8rem;
-  font-style: normal;
   font-weight: 500;
   font-size: 1.1rem;
   line-height: 1.6rem;
