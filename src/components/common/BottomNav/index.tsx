@@ -27,7 +27,7 @@ const BottomNav = () => {
       onClick: () => isLoggedIn || openAuthRequiredModal(),
     },
     { src: 'feed', text: '피드', path: '/post' },
-    { src: 'mypage', text: '마이페이지', path: '/mypage' },
+    { src: 'mypage', text: '마이페이지', path: '/profile' },
   ];
 
   return (
