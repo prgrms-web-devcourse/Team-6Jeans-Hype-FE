@@ -27,7 +27,7 @@ function PostList() {
       <Header>
         <Title>한눈에 보는 추천</Title>
       </Header>
-      <Genres onChange={onChange} />
+      <Genres shouldNeedAll onChange={onChange} />
       <PostFeedList>
         {isLoading ? (
           <>
