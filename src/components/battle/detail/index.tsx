@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
@@ -19,13 +20,18 @@ interface Props {
   onClickSkip: () => void;
 }
 
-function TestCompo({ battleId, musicData, isLoadingState, onClickSkip }: Props) {
+function TestCompo({ musicData, isLoadingState, onClickSkip }: Props) {
+  const router = useRouter();
+  const { id } = router.query;
+
   const onClickBattleMusic = (clickSide: 'left' | 'right', musicId: number | undefined) => {
-    console.log(`선택한 포스트의 ID와 해당 배틀의 ID 저장 필요: ${battleId} / ${musicId}`);
+    console.log(`선택한 포스트의 ID와 해당 배틀의 ID 저장 필요: ${musicData?.battleId} / ${musicId}`);
     console.log(`누른 포지션(left | right 저장 필요: ${clickSide}`);
-    setTimeout(() => {
-      console.log('1.7초 후 refetch하기');
-    }, 1700);
+    if (id === undefined) {
+      setTimeout(() => {
+        console.log('1.7초 후 refetch하기');
+      }, 1700);
+    }
   };
 
   if (musicData == null) {
@@ -48,16 +54,12 @@ function TestCompo({ battleId, musicData, isLoadingState, onClickSkip }: Props) 
             </>
           ) : (
             <>
-              <div onClick={() => onClickBattleMusic('left', musicData.challenged.music.musicId)}>
-                <Moving music={musicData.challenged.music} moving='left' />
-              </div>
-              <div onClick={() => onClickBattleMusic('right', musicData.challenging.music.musicId)}>
-                <Moving music={musicData.challenging.music} moving='right' />
-              </div>
+              <Moving music={musicData.challenged.music} moving='left' onClick={onClickBattleMusic} />
+              <Moving music={musicData.challenging.music} moving='right' onClick={onClickBattleMusic} />
             </>
           )}
         </BattleContainer>
-        {!battleId && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
+        {!id && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
       </Section>
     </>
   );

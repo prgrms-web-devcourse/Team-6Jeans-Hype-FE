@@ -37,6 +37,7 @@ export const getMusicData = async (keyword: string) => {
         country: 'KR',
         limit: 500,
         media: 'music',
+        entity: 'album',
       },
     });
 
