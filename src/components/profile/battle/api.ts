@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { axiosInstance } from '@/api';
 import { Battle, GenreName } from '@/components/battle/list/types';
 
-import { BattleStatusValue } from './../../battle/types';
+import { BattleStatusValue } from '../../battle/types';
 
 const battleMusicResponseScheme = z.object({
   albumUrl: z.string(),
