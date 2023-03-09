@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
@@ -20,11 +20,7 @@ export default function MyPostListPage() {
     setGenre(selectedGenre);
   };
 
-  const { data: myPostList, refetch: refetchMyPostList } = useGetMyPostList(genre);
-
-  useEffect(() => {
-    refetchMyPostList();
-  }, [genre, refetchMyPostList]);
+  const { data: myPostList } = useGetMyPostList(genre);
 
   return (
     <AuthRequiredPage>
