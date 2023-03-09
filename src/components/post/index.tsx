@@ -33,7 +33,7 @@ function PostList() {
           <img src='./images/down-arrow-gray.svg' alt='필터링' />
         </Filter>
       </Header>
-      <Genres onChange={onChange} />
+      <Genres shouldNeedAll onChange={onChange} />
       <PostFeedList>
         {isLoading ? (
           <>
