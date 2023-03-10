@@ -1,5 +1,6 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { MouseEvent, useRef } from 'react';
 
 import MusicPlayButton from '@/components/common/MusicPlayButton';
 import { COLOR } from '@/constants/color';
@@ -9,21 +10,38 @@ import { Music } from '../types';
 interface Prop {
   music: Music;
   moving?: 'left' | 'right';
-  handleClick?: (e: any /*일단 any로  */) => void;
+  onClick?: () => void;
 }
 
-function BattleMusic({ music, moving, handleClick }: Prop) {
+function BattleMusic({ music, moving, onClick }: Prop) {
+  const thumbnailRef = useRef<HTMLDivElement>(null);
+
   const { albumCoverUrl, musicUrl, title, singer } = music;
 
-  const onClickThumbnail = (e: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
     if (e.defaultPrevented) return;
-    handleClick?.(e);
+    onClick?.();
+    moving && move();
+  };
+
+  const move = () => {
+    const thumbnailElement = thumbnailRef.current;
+    if (thumbnailElement) {
+      const savedClassName = thumbnailElement.className;
+      thumbnailElement.className = `${savedClassName} active`;
+
+      // if (!id) {
+      setTimeout(() => {
+        thumbnailElement.className = savedClassName;
+      }, 1700);
+      // }
+    }
   };
 
   return (
     <Container>
-      <Wrapper onClick={onClickThumbnail} className='container'>
-        <Thumbnail src={albumCoverUrl} clickSide={moving}>
+      <Wrapper onClick={(e) => handleClick(e)} className='container'>
+        <Thumbnail src={albumCoverUrl} clickSide={moving} ref={thumbnailRef}>
           <PlayIcon value={musicUrl}>
             <MusicPlayButton key={title} src={musicUrl} />
           </PlayIcon>

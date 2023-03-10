@@ -20,7 +20,7 @@ function Battle({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
   const router = useRouter();
   const { id } = router.query;
 
-  const onClickBattleMusic = (clickSide: 'left' | 'right', musicId: number | undefined) => {
+  const selectBattleMusic = (clickSide: 'left' | 'right', musicId: number | undefined) => {
     if (musicData && musicId) {
       onChangeSelectedBattleInfo(musicData.battleId, musicId, clickSide);
     }
@@ -35,26 +35,6 @@ function Battle({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
     }
   };
 
-  const moveBattleMusic = (e: React.ChangeEvent<HTMLElement>) => {
-    const { target } = e;
-
-    if (target) {
-      const parent = target.closest('.container');
-      const newTarget = parent?.firstElementChild;
-
-      if (newTarget) {
-        const savedClassName = newTarget.className;
-        newTarget.className = `${savedClassName} active`;
-
-        if (!id) {
-          setTimeout(() => {
-            newTarget.className = savedClassName;
-          }, 1700);
-        }
-      }
-    }
-  };
-
   if (musicData == null) {
     return (
       <Section>
@@ -63,42 +43,36 @@ function Battle({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
     );
   }
 
+  if (isLoadingState) {
+    return (
+      <>
+        <AlbumPoster />
+        <AlbumPoster />
+      </>
+    );
+  }
+
   return (
-    <>
-      <Section>
-        <Text>What’s your Hype Music?</Text>
-        <BattleContainer>
-          {isLoadingState ? (
-            <>
-              <AlbumPoster />
-              <AlbumPoster />
-            </>
-          ) : (
-            <>
-              {/* <Moving music={musicData.challenged} moving='left' onClick={onClickBattleMusic} />
-              <Moving music={musicData.challenging} moving='right' onClick={onClickBattleMusic} /> */}
-              <BattleMusic
-                music={musicData.challenged.music}
-                moving='left'
-                handleClick={(e) => {
-                  onClickBattleMusic('left', musicData.challenged.postId);
-                  moveBattleMusic(e);
-                }}
-              />
-              <BattleMusic
-                music={musicData.challenging.music}
-                moving='right'
-                handleClick={(e) => {
-                  onClickBattleMusic('right', musicData.challenging.postId);
-                  moveBattleMusic(e);
-                }}
-              />
-            </>
-          )}
-        </BattleContainer>
-        {!id && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
-      </Section>
-    </>
+    <Section>
+      <Text>What’s your Hype Music?</Text>
+      <BattleContainer>
+        <BattleMusic
+          music={musicData.challenged.music}
+          moving='left'
+          onClick={() => {
+            selectBattleMusic('left', musicData.challenged.postId);
+          }}
+        />
+        <BattleMusic
+          music={musicData.challenging.music}
+          moving='right'
+          onClick={() => {
+            selectBattleMusic('right', musicData.challenging.postId);
+          }}
+        />
+      </BattleContainer>
+      {!id && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
+    </Section>
   );
 }
 
