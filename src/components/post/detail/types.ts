@@ -1,3 +1,11 @@
+export interface UserIsLikeAPI {
+  success: boolean;
+  message: string;
+  data: {
+    isLiked: boolean;
+  };
+}
+
 export interface PostDetailAPI {
   success: boolean;
   message: string;

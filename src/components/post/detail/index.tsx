@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -7,24 +7,38 @@ import Header from '@/components/common/Header';
 import Battle from '@/components/common/ImageButtons/BattleButton';
 import Like from '@/components/common/ImageButtons/LikeButton';
 import MusicPlayButton from '@/components/common/MusicPlayButton';
+import useAuth from '@/components/login/useAuth';
 import { COLOR } from '@/constants/color';
 
-import { getPostDetailData } from './api';
+import { getPostDetailData, getUserLikeStatus } from './api';
 import MusicInfo from './musicInfo';
 
 function PostDetail() {
   const [isRenderPostContent, setIsRenderPostContent] = useState(true);
+  const { isLoggedIn, getAccessToken } = useAuth();
 
   const router = useRouter();
   const { postId } = router.query;
 
-  const { data: postDetail } = useQuery(
-    ['post', 'detail', postId],
-    () => getPostDetailData(parseInt(postId as string)),
-    {
-      enabled: !!postId,
-    },
-  );
+  const [{ data: postDetail, isLoading: postDetailLoading }, { data: isLike, isLoading: isLikeLoading }] = useQueries({
+    queries: [
+      {
+        queryKey: ['post', 'detail', postId],
+        queryFn: () => getPostDetailData(parseInt(postId as string)),
+        enabled: !!postId,
+      },
+
+      {
+        queryKey: ['postfeed', 'like'],
+        queryFn: () => {
+          const token = getAccessToken();
+
+          return getUserLikeStatus(postId as string, token as string);
+        },
+        enabled: !!isLoggedIn && !!postId,
+      },
+    ],
+  });
 
   const navigatePostBattle = () => {
     router.push(`/post/battle?postId=${postId}`);
@@ -33,75 +47,77 @@ function PostDetail() {
   const toggleContentViewStatus = () => setIsRenderPostContent((prev) => !prev);
 
   return (
-    <Container>
-      <Header color={COLOR.white} backUrl='/post' />
-      <Wrapper>
-        {postDetail && (
-          <MusicInfo
-            title={postDetail.music.title}
-            albumCoverUrl={postDetail.music.albumCoverUrl}
-            singer={postDetail.music.singer}
-          />
-        )}
-
-        <PlayStatus>
-          <PlayBar>
-            <div></div>
-            <div></div>
-            <div></div>
-          </PlayBar>
-          <PlayTime>
-            <div>1:46</div>
-            <div>4:10</div>
-          </PlayTime>
-        </PlayStatus>
-
-        <PostDetailEvent>
-          <Icon>
+    <>
+      {!postDetailLoading && !isLikeLoading && (
+        <Container>
+          <Header color={COLOR.white} backUrl='/post' />
+          <Wrapper>
             {postDetail && (
-              <Like
-                size={2.2}
-                initCount={postDetail.likeCount}
-                color='white'
-                isClicked={true}
-                onClick={() => {
-                  console.log('좋아요');
-                }}
+              <MusicInfo
+                title={postDetail.music.title}
+                albumCoverUrl={postDetail.music.albumCoverUrl}
+                singer={postDetail.music.singer}
               />
             )}
-          </Icon>
 
-          <Icon>
-            <MusicPlayButton src={postDetail?.music.musicUrl} />
-          </Icon>
+            <PlayStatus>
+              <PlayBar>
+                <div></div>
+                <div></div>
+                <div></div>
+              </PlayBar>
+              <PlayTime>
+                <div>1:46</div>
+                <div>4:10</div>
+              </PlayTime>
+            </PlayStatus>
 
-          <Icon>
-            {postDetail?.isBattlePossible ? (
-              <Battle size={1.5} color='white' battleAbility={true} onClick={navigatePostBattle} />
-            ) : (
-              <Battle size={1.5} color='white' battleAbility={false} />
-            )}
-          </Icon>
-        </PostDetailEvent>
+            <PostDetailEvent>
+              <Icon>
+                <Like
+                  size={2.2}
+                  initCount={15}
+                  color='white'
+                  isClicked={true}
+                  onClick={() => {
+                    console.log('좋아요');
+                  }}
+                />
+              </Icon>
 
-        <PostDetailContent>
-          <ContentHeader isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
-            <ContentHeaderWrapper onClick={toggleContentViewStatus}>
-              <Title>
-                <strong>{postDetail?.nickname}</strong>님의 {postDetail?.content === '' ? '추천' : '한마디'}
-              </Title>
-              <ToggleArrowButton isContent={!!postDetail?.content}>
-                <ToggleImage src='/images/down-arrow.svg' alt='img' isRenderPostContent={isRenderPostContent} />
-              </ToggleArrowButton>
-            </ContentHeaderWrapper>
-          </ContentHeader>
+              <Icon>
+                <MusicPlayButton src={postDetail?.music.musicUrl} />
+              </Icon>
 
-          <ContentBody isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
-            <Content>{postDetail?.content}</Content>
-          </ContentBody>
-        </PostDetailContent>
-      </Wrapper>
-    </Container>
+              <Icon>
+                {postDetail?.isBattlePossible ? (
+                  <Battle size={1.5} color='white' battleAbility={true} onClick={navigatePostBattle} />
+                ) : (
+                  <Battle size={1.5} color='white' battleAbility={false} />
+                )}
+              </Icon>
+            </PostDetailEvent>
+
+            <PostDetailContent>
+              <ContentHeader isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
+                <ContentHeaderWrapper onClick={toggleContentViewStatus}>
+                  <Title>
+                    <strong>{postDetail?.nickname}</strong>님의 {postDetail?.content === '' ? '추천' : '한마디'}
+                  </Title>
+                  <ToggleArrowButton isContent={!!postDetail?.content}>
+                    <ToggleImage src='/images/down-arrow.svg' alt='img' isRenderPostContent={isRenderPostContent} />
+                  </ToggleArrowButton>
+                </ContentHeaderWrapper>
+              </ContentHeader>
+
+              <ContentBody isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
+                <Content>{postDetail?.content}</Content>
+              </ContentBody>
+            </PostDetailContent>
+          </Wrapper>
+        </Container>
+      )}
+    </>
   );
 }
 
@@ -141,14 +157,12 @@ const PlayBar = styled.div`
   margin-bottom: 1rem;
   background-color: ${COLOR.white};
   border-radius: 0.45rem;
-
   & div:first-of-type {
     width: 50%;
     height: 0.75rem;
     background-color: ${COLOR.deepBlue};
     border-radius: 0.45rem;
   }
-
   & div:last-of-type {
     width: 50%;
     height: 0.75rem;
@@ -191,7 +205,6 @@ const ContentHeader = styled.div`
   box-shadow: 0.5rem 0 1.5rem rgba(135, 135, 135, 0.7);
   border-radius: 2rem 2rem 0 0;
   padding: 2rem 0;
-
   position: absolute;
   left: 0;
   bottom: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? '12.5%' : '0')};
@@ -212,7 +225,6 @@ const Title = styled.div`
   font-size: 1.3rem;
   max-width: 70%;
   text-align: center;
-
   & > strong {
     font-weight: 600;
   }
@@ -231,7 +243,6 @@ const ToggleImage = styled.img`
 
 const ContentBody = styled.div`
   background: ${COLOR.background};
-
   position: absolute;
   left: 0;
   bottom: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? '0' : '-12.5%')};
