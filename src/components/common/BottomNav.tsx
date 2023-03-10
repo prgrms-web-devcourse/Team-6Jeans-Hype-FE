@@ -62,7 +62,6 @@ const BottomNav = () => {
         {buttonList.map((button: Button, i: number) => {
           const { src, text, paths } = button;
           const isClicked = paths.find((path) => path === pathname) !== undefined;
-          console.log(pathname);
 
           return (
             <Link href={paths[0]} legacyBehavior key={i}>
