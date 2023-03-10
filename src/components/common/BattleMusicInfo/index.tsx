@@ -10,9 +10,12 @@ interface Prop {
   music: BattleMusic;
   onClick?(e: any): void;
   clickSide?: 'left' | 'right' | undefined;
+  opponentMusicUrl?: string;
+  isMusicPlay: boolean;
+  updatePlaySatus: () => void;
 }
 
-const BattleMusicInfo = ({ music, onClick, clickSide }: Prop) => {
+const BattleMusicInfo = ({ music, onClick, clickSide, opponentMusicUrl, isMusicPlay, updatePlaySatus }: Prop) => {
   const { albumCoverUrl, musicUrl, title, singer } = music;
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -26,7 +29,13 @@ const BattleMusicInfo = ({ music, onClick, clickSide }: Prop) => {
       <Wrapper onClick={handleClick} className='container'>
         <Thumbnail src={albumCoverUrl} clickSide={clickSide}>
           <PlayIcon value={musicUrl}>
-            <MusicPlayButton key={title} src={musicUrl} />
+            <MusicPlayButton
+              key={title}
+              src={musicUrl}
+              opponentMusicUrl={opponentMusicUrl}
+              isMusicPlay={isMusicPlay}
+              updatePlaySatus={updatePlaySatus}
+            />
           </PlayIcon>
 
           <PlusIcon src='/images/plus-music.svg' value={musicUrl} />
