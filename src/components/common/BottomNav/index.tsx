@@ -14,7 +14,7 @@ interface Button {
 
 const BottomNav = () => {
   const router = useRouter();
-  const { pathname } = router;
+  const { asPath } = router;
   const { openAuthRequiredModal, isLoggedIn } = useAuth();
 
   const buttonList: Button[] = [
@@ -35,7 +35,7 @@ const BottomNav = () => {
       <Buttons>
         {buttonList.map((button: Button) => {
           const { src, text, path } = button;
-          const isClicked = path === pathname;
+          const isClicked = path === asPath;
 
           return (
             <Link href={path} legacyBehavior key={src}>
