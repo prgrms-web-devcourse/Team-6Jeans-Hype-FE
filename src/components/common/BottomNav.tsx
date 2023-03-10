@@ -25,7 +25,6 @@ interface Button {
 const BottomNav = () => {
   const router = useRouter();
   const { asPath } = router;
-  const { memberId } = router.query;
   const { openAuthRequiredModal, isLoggedIn } = useAuth();
 
   const buttonList: Button[] = [
@@ -53,7 +52,7 @@ const BottomNav = () => {
     {
       src: (isClicked: boolean) => (isClicked ? <MypageOnIcon /> : <MypageIcon />),
       text: '마이페이지',
-      paths: [memberId ? '' : '/profile'],
+      paths: ['/profile'],
     },
   ];
 
