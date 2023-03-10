@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import ShuffleIcon from 'public/images/go-to-shuffle-icon.svg';
+import ListIcon from 'public/images/go-to-list-icon.svg';
+import { useState } from 'react';
 
-import Select from '@/components/battle/select';
-import useVoteSelect from '@/components/battle/select/hooks/useVoteSelect';
+import DetailComponent from '@/components/battle/Detail/Battle';
+import { useGetBattle } from '@/components/battle/select/hooks/useGetBattle';
+import { SelectedBattle } from '@/components/battle/types';
 import VoteResult from '@/components/battle/voteResult';
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
@@ -13,32 +15,39 @@ import AuthRequiredPage from '@/components/login/AuthRequiredPage';
 function Detail() {
   const router = useRouter();
   const { id } = router.query;
-  const { musicData, isLoadingState, selectedBattle, position, onClickMusic, onClickSkip } = useVoteSelect(
-    id ? Number(id) : 1,
-  );
+
+  const [selectedBattle, setSelectedBattle] = useState<SelectedBattle>({
+    battleId: 0,
+    votedPostId: 0,
+    clickSide: undefined,
+  });
+
+  const { data: musicData } = useGetBattle({ initBattleId: Number(id), selectedGenre: 'ALL' });
+
+  const onChangeSelectedBattleInfo = (battleId: number, votedPostId: number, clickSide: 'left' | 'right') => {
+    setSelectedBattle({ battleId, votedPostId, clickSide });
+  };
 
   return id ? (
     <AuthRequiredPage>
       <Header
         title='진행 중인 대결'
         actionButton={
-          <Link href='/post/battle/short'>
-            <ShuffleIcon />
+          <Link href='/battle/list'>
+            <ListIcon />
           </Link>
         }
       />
       <SelectContainer>
-        <Empty /> {/* 원래 장르가 있던 영역인데 쇼츠페이지와 디자인 통일하기 위해 장르의 height 만큼 영역 줌 */}
-        <Select
-          battleId={Number(router.query.id)}
-          musicData={musicData}
-          isLoadingState={isLoadingState}
-          onClickMusic={onClickMusic}
-          onClickSkip={onClickSkip}
-        />
+        <Empty />
+        <DetailComponent musicData={musicData} onChangeSelectedBattleInfo={onChangeSelectedBattleInfo} />
       </SelectContainer>
-      {selectedBattle.battleId !== -1 && selectedBattle.votedPostId !== -1 && (
-        <VoteResult battleId={selectedBattle.battleId} votedPostId={selectedBattle.votedPostId} clickSide={position} />
+      {selectedBattle.battleId && selectedBattle.votedPostId && (
+        <VoteResult
+          battleId={selectedBattle.battleId}
+          votedPostId={selectedBattle.votedPostId}
+          clickSide={selectedBattle.clickSide}
+        />
       )}
       <BottomNav />
     </AuthRequiredPage>
@@ -57,5 +66,5 @@ const SelectContainer = styled.div`
 `;
 
 const Empty = styled.div`
-  height: 3rem;
+  height: 0.6rem;
 `;
