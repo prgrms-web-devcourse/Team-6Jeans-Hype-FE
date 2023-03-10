@@ -1,3 +1,11 @@
+export interface LikeStatusAPI {
+  success: boolean;
+  message: string;
+  data: {
+    hasLike: boolean;
+  };
+}
+
 export interface UserIsLikeAPI {
   success: boolean;
   message: string;

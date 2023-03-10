@@ -15,7 +15,7 @@ import MusicInfo from './musicInfo';
 
 function PostDetail() {
   const [isRenderPostContent, setIsRenderPostContent] = useState(true);
-  const { isLoggedIn, getAccessToken } = useAuth();
+  const { getAccessToken } = useAuth();
 
   const router = useRouter();
   const { postId } = router.query;
@@ -29,13 +29,13 @@ function PostDetail() {
       },
 
       {
-        queryKey: ['postfeed', 'like'],
+        queryKey: ['post', 'detail', 'like', postId],
         queryFn: () => {
           const token = getAccessToken();
 
           return getUserLikeStatus(postId as string, token as string);
         },
-        enabled: !!isLoggedIn && !!postId,
+        enabled: !!postId,
       },
     ],
   });
@@ -50,7 +50,7 @@ function PostDetail() {
     <>
       {!postDetailLoading && !isLikeLoading && (
         <Container>
-          <Header color={COLOR.white} backUrl='/post' />
+          <Header color={COLOR.white} />
           <Wrapper>
             {postDetail && (
               <MusicInfo
@@ -74,15 +74,15 @@ function PostDetail() {
 
             <PostDetailEvent>
               <Icon>
-                <Like
-                  size={2.2}
-                  initCount={15}
-                  color='white'
-                  isClicked={true}
-                  onClick={() => {
-                    console.log('좋아요');
-                  }}
-                />
+                {postDetail && (
+                  <Like
+                    size={2.2}
+                    initCount={postDetail.likeCount}
+                    color='white'
+                    isClicked={isLike ? isLike?.isLiked : true}
+                    postId={postId}
+                  />
+                )}
               </Icon>
 
               <Icon>
@@ -157,12 +157,14 @@ const PlayBar = styled.div`
   margin-bottom: 1rem;
   background-color: ${COLOR.white};
   border-radius: 0.45rem;
+
   & div:first-of-type {
     width: 50%;
     height: 0.75rem;
     background-color: ${COLOR.deepBlue};
     border-radius: 0.45rem;
   }
+
   & div:last-of-type {
     width: 50%;
     height: 0.75rem;
@@ -205,6 +207,7 @@ const ContentHeader = styled.div`
   box-shadow: 0.5rem 0 1.5rem rgba(135, 135, 135, 0.7);
   border-radius: 2rem 2rem 0 0;
   padding: 2rem 0;
+
   position: absolute;
   left: 0;
   bottom: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? '12.5%' : '0')};
@@ -225,6 +228,7 @@ const Title = styled.div`
   font-size: 1.3rem;
   max-width: 70%;
   text-align: center;
+
   & > strong {
     font-weight: 600;
   }
@@ -243,6 +247,7 @@ const ToggleImage = styled.img`
 
 const ContentBody = styled.div`
   background: ${COLOR.background};
+
   position: absolute;
   left: 0;
   bottom: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? '0' : '-12.5%')};

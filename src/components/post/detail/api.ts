@@ -1,6 +1,6 @@
 import { axiosInstance } from '@/api';
 
-import { PostDetailAPI, UserIsLikeAPI } from './types';
+import { LikeStatusAPI, PostDetailAPI, UserIsLikeAPI } from './types';
 
 export const getPostDetailData = async (postId: number) => {
   try {
@@ -33,6 +33,23 @@ export const getUserLikeStatus = async (postId: string, token: string) => {
       return data.data;
     } else {
       return null;
+    }
+  } catch {
+    throw new Error('데이터 요청 실패');
+  }
+};
+
+export const changeLikeStatus = async (postId: string) => {
+  try {
+    const response = await axiosInstance.request<LikeStatusAPI>({
+      method: 'POST',
+      url: `/posts/${postId}/like`,
+    });
+
+    if (response.data.success) {
+      return response.data.data.hasLike;
+    } else {
+      return false;
     }
   } catch {
     throw new Error('데이터 요청 실패');
