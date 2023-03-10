@@ -62,13 +62,23 @@ const moveRight = keyframes`
   }
 `;
 
+const changeOpacity = keyframes`
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
 const Container = styled.div`
   max-width: 20rem;
   width: 45%;
   height: 18rem;
-
   background: ${COLOR.white};
-
   box-shadow: 0px 0px 1.5rem rgba(158, 158, 158, 0.25);
   border-radius: 1rem;
   position: relative;
@@ -99,6 +109,9 @@ const Thumbnail = styled.div<{ src: string; clickSide: 'left' | 'right' | undefi
 
   &.active {
     animation: ${(props) => (props.clickSide === 'right' ? moveLeft : moveRight)} 2s ease-in;
+    & > div {
+      animation: ${changeOpacity} 2s ease-in;
+    }
   }
 `;
 

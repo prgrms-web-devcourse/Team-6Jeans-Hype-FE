@@ -81,4 +81,5 @@ const SelectContainer = styled.div`
   width: calc(100% - 4rem);
   height: calc(100vh - 16rem);
   padding: 0 2rem;
+  min-height: 60rem;
 `;
