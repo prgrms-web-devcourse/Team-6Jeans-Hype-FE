@@ -5,7 +5,6 @@ import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
 
 import BattleMusic from './BattleMusic';
-import Moving from './BattleMusic/Moving';
 import { Battles } from './types';
 
 interface Props {
@@ -18,14 +17,40 @@ interface Props {
 }
 
 function Detail({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch, onClickSkip }: Props) {
-  const onClickBattleMusic = (clickSide: 'left' | 'right', musicId: number | undefined) => {
+  const router = useRouter();
+  const { id } = router.query;
+
+  const onClickBattleMusic = (
+    e: React.ChangeEvent<HTMLElement>,
+    clickSide: 'left' | 'right',
+    musicId: number | undefined,
+  ) => {
+    const { target } = e;
+
     if (musicData && musicId) {
       onChangeSelectedBattleInfo(musicData.battleId, musicId, clickSide);
     }
-    if (refetch) {
-      setTimeout(() => {
-        refetch();
-      }, 1700);
+
+    if (target) {
+      const parent = target.closest('.container');
+      const newTarget = parent?.firstElementChild;
+
+      if (newTarget) {
+        const savedClassName = newTarget.className;
+
+        newTarget.className = `${savedClassName} active`;
+
+        if (!id) {
+          setTimeout(() => {
+            newTarget.className = savedClassName;
+
+            onChangeSelectedBattleInfo(0, 0, clickSide);
+          }, 1700);
+          setTimeout(() => {
+            refetch?.();
+          }, 1750);
+        }
+      }
     }
   };
 
@@ -51,20 +76,20 @@ function Detail({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
             <>
               {/* <Moving music={musicData.challenged} moving='left' onClick={onClickBattleMusic} />
               <Moving music={musicData.challenging} moving='right' onClick={onClickBattleMusic} /> */}
-              {/* <BattleMusic
-                music={musicData.challenged.music}
-                moving='left'
-                handleClick={(e) => onClickBattleMusic(e)}
-              />
               <BattleMusic
                 music={musicData.challenged.music}
                 moving='left'
-                handleClick={(e) => onClickBattleMusic(e)}
-              /> */}
+                handleClick={(e) => onClickBattleMusic(e, 'left', musicData.challenged.postId)}
+              />
+              <BattleMusic
+                music={musicData.challenging.music}
+                moving='right'
+                handleClick={(e) => onClickBattleMusic(e, 'right', musicData.challenging.postId)}
+              />
             </>
           )}
         </BattleContainer>
-        {!refetch && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
+        {!id && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
       </Section>
     </>
   );
