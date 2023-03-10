@@ -36,6 +36,7 @@ export interface Vote {
 export interface SelectedBattle {
   battleId: number;
   votedPostId: number;
+  clickSide?: 'left' | 'right' | undefined;
 }
 
 export type BattleStatusName = typeof BATTLE_STATUS_NAME_LIST[number];
