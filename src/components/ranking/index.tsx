@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useQueries } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 
 import { COLOR } from '@/constants/color';
 
@@ -8,11 +9,18 @@ import { getMyRanking, getUserRanking } from './api';
 import RankingCard from './RankingCard';
 import { Ranking } from './types';
 
-function Ranking() {
+interface Props {
+  isLimit: boolean;
+}
+
+function Ranking({ isLimit }: Props) {
+  const router = useRouter();
+  const { pathname } = router;
+
   const [{ data: userRanking, isLoading: isLoadingUserRanking }, { data: myRanking, isLoading: isLoadingMyRanking }] =
     useQueries({
       queries: [
-        { queryKey: ['userRanking'], queryFn: getUserRanking },
+        { queryKey: ['userRanking'], queryFn: () => getUserRanking(isLimit) },
         { queryKey: ['myRanking'], queryFn: getMyRanking },
       ],
     });
@@ -28,7 +36,7 @@ function Ranking() {
   }
 
   return (
-    <RankingContainer>
+    <RankingContainer className={pathname === '/' ? 'full' : undefined}>
       {userRanking?.ranking.length ? (
         userRanking.ranking.map((user: Ranking) => {
           const isMyRanking = myRanking?.nickname === user.memberNickname && myRanking?.ranking === user.memberRanking;
@@ -45,12 +53,20 @@ function Ranking() {
 export default Ranking;
 
 const RankingContainer = styled.div`
+  width: calc(100% - 4rem);
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
   padding: 0 2rem;
   height: calc(100% - 10rem);
   overflow-y: scroll;
+
+  &.full {
+    position: relative;
+    left: -2rem;
+    width: 100%;
+    margin-bottom: 10rem;
+  }
 `;
 
 const Empty = styled.div`
