@@ -38,6 +38,9 @@ export const getMusicData = async (keyword: string) => {
         limit: 500,
         media: 'music',
       },
+      headers: {
+        withCredentials: true,
+      },
     });
 
     if (response.data.results.length > 0) {
