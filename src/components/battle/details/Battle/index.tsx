@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
 
-import BattleMusic from './BattleMusic';
-import { Battles } from './types';
+import BattleMusic from '../BattleMusic';
+import { Battles } from '../types';
 
 interface Props {
   battleId?: number | undefined;
@@ -37,7 +37,6 @@ function Detail({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
 
       if (newTarget) {
         const savedClassName = newTarget.className;
-
         newTarget.className = `${savedClassName} active`;
 
         if (!id) {
