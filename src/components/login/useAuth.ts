@@ -12,9 +12,13 @@ export default function useAuth() {
     setIsOpenedAuthRequiredModal(true);
   };
 
+  const getAccessToken = () => {
+    return accessToken;
+  };
+
   useEffect(() => {
     setIsLoggedIn(!!accessToken);
   }, [accessToken]);
 
-  return { openAuthRequiredModal, isLoggedIn };
+  return { openAuthRequiredModal, isLoggedIn, getAccessToken };
 }
