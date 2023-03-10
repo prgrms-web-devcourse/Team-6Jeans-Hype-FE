@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
+import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 import { Battles } from '../types';
 
@@ -20,6 +21,8 @@ interface Props {
 }
 
 function Select({ battleId, musicData, isLoadingState, onClickMusic, onClickSkip }: Props) {
+  const { isLeftMusicPlay, isRightMusicPlay, clickLeftButton, clickRightButton } = useBattleMusicPlay();
+
   if (musicData == null) {
     return (
       <Section>
@@ -41,14 +44,20 @@ function Select({ battleId, musicData, isLoadingState, onClickMusic, onClickSkip
           ) : (
             <>
               <BattleMusicInfo
+                isMusicPlay={isLeftMusicPlay}
+                updatePlaySatus={clickLeftButton}
                 music={musicData?.challenged.music}
                 onClick={(e) => onClickMusic(e, 'left', musicData.battleId, musicData.challenged.postId)}
                 clickSide='left'
+                opponentMusicUrl={musicData?.challenging.music.musicUrl}
               />
               <BattleMusicInfo
+                isMusicPlay={isRightMusicPlay}
+                updatePlaySatus={clickRightButton}
                 music={musicData?.challenging.music}
                 onClick={(e) => onClickMusic(e, 'right', musicData.battleId, musicData.challenging.postId)}
                 clickSide='right'
+                opponentMusicUrl={musicData?.challenged.music.musicUrl}
               />
             </>
           )}

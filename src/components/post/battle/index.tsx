@@ -7,6 +7,7 @@ import BattleMusicInfo from '@/components/common/BattleMusicInfo';
 import Header from '@/components/common/Header';
 import HeaderSubmitButton from '@/components/common/Header/SubmitButton';
 import { COLOR } from '@/constants/color';
+import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 import { getPostBattleData } from './api';
 import { createBattle } from './api';
@@ -16,6 +17,8 @@ import { BattleApplyModal } from './types';
 function BattleForm() {
   const router = useRouter();
   const { postId: selectedOpponentMusicId } = router.query;
+
+  const { isLeftMusicPlay, isRightMusicPlay, clickLeftButton, clickRightButton } = useBattleMusicPlay();
 
   const [isReadySubmit, setIsReadySubmit] = useState(false);
   const [isVisibleMusicList, setIsVisibleMusicList] = useState(false);
@@ -66,8 +69,19 @@ function BattleForm() {
         <Musics>
           {battleMusic && (
             <>
-              <BattleMusicInfo music={battleMusic.music} />
-              <BattleMusicInfo music={selectedMyMusic} onClick={renderMyList} />
+              <BattleMusicInfo
+                isMusicPlay={isLeftMusicPlay}
+                updatePlaySatus={clickLeftButton}
+                music={battleMusic.music}
+                opponentMusicUrl={selectedMyMusic.musicUrl}
+              />
+              <BattleMusicInfo
+                isMusicPlay={isRightMusicPlay}
+                updatePlaySatus={clickRightButton}
+                music={selectedMyMusic}
+                onClick={renderMyList}
+                opponentMusicUrl={battleMusic.music.musicUrl}
+              />
             </>
           )}
         </Musics>
