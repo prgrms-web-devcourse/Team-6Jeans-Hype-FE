@@ -82,4 +82,9 @@ const StyledArrowRight = styled(ArrowRight)`
 
 const StyledRandomBattle = styled(RandomBattle)`
   margin-bottom: 2.9rem;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.01);
+    transition: all 0.1s ease;
+  }
 `;
