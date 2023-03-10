@@ -82,6 +82,7 @@ const DefaultProfile = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0px 0px 15px rgba(158, 158, 158, 0.25);
+  border-radius: 50%;
 
   & > img {
     width: 7rem;
