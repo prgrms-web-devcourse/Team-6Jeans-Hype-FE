@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import ListIcon from 'public/images/go-to-list-icon.svg';
 import { useState } from 'react';
 
-import Detail from '@/components/battle/Detail/Battle';
+import Battle from '@/components/battle/detail/Battle';
 import { useGetBattle } from '@/components/battle/select/hooks/useGetBattle';
 import { SelectedBattle } from '@/components/battle/types';
 import VoteResult from '@/components/battle/voteResult';
@@ -55,7 +54,7 @@ function Test() {
       />
       <SelectContainer>
         <Genres onChange={onClickGenre} shouldNeedAll />
-        <Detail
+        <Battle
           musicData={musicData}
           isLoadingState={isLoadingState}
           onChangeSelectedBattleInfo={onChangeSelectedBattleInfo}
