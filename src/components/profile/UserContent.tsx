@@ -16,7 +16,10 @@ function UserContent() {
   const router = useRouter();
   const { memberId } = router.query;
 
-  const { data: battleLimit } = useGetMyBattleList({ limit: 2, memberId: Number(memberId) });
+  const { data: battleLimit } = useGetMyBattleList({
+    limit: 2,
+    memberId: Number(memberId),
+  });
   const { data: postFeedLimit } = useQuery(
     ['postfeedlimit', memberId],
     async () => await getPostFeedLimit(Number(memberId)),

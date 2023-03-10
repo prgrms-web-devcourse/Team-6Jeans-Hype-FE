@@ -30,6 +30,10 @@ function PostDetail() {
     router.push(`/post/battle?postId=${postId}`);
   };
 
+  const navigateUserProfile = () => {
+    router.push(`/profile?memberId=${postDetail?.memberId}`);
+  };
+
   const toggleContentViewStatus = () => setIsRenderPostContent((prev) => !prev);
 
   return (
@@ -84,11 +88,12 @@ function PostDetail() {
 
         <PostDetailContent>
           <ContentHeader isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
-            <ContentHeaderWrapper onClick={toggleContentViewStatus}>
+            <ContentHeaderWrapper>
               <Title>
-                <strong>{postDetail?.nickname}</strong>님의 {postDetail?.content === '' ? '추천' : '한마디'}
+                <Name onClick={navigateUserProfile}>{postDetail?.nickname}</Name>님의{' '}
+                {postDetail?.content === '' ? '추천' : '한마디'}
               </Title>
-              <ToggleArrowButton isContent={!!postDetail?.content}>
+              <ToggleArrowButton isContent={!!postDetail?.content} onClick={toggleContentViewStatus}>
                 <ToggleImage src='/images/down-arrow.svg' alt='img' isRenderPostContent={isRenderPostContent} />
               </ToggleArrowButton>
             </ContentHeaderWrapper>
@@ -210,10 +215,10 @@ const Title = styled.div`
   font-size: 1.3rem;
   max-width: 70%;
   text-align: center;
+`;
 
-  & > strong {
-    font-weight: 600;
-  }
+const Name = styled.strong`
+  font-weight: 600;
 `;
 
 const ToggleArrowButton = styled.div`
