@@ -24,7 +24,8 @@ interface Button {
 
 const BottomNav = () => {
   const router = useRouter();
-  const { pathname } = router;
+  const { asPath } = router;
+  const { memberId } = router.query;
   const { openAuthRequiredModal, isLoggedIn } = useAuth();
 
   const buttonList: Button[] = [
@@ -52,7 +53,7 @@ const BottomNav = () => {
     {
       src: (isClicked: boolean) => (isClicked ? <MypageOnIcon /> : <MypageIcon />),
       text: '마이페이지',
-      paths: ['/mypage'],
+      paths: [memberId ? '' : '/profile'],
     },
   ];
 
@@ -61,7 +62,7 @@ const BottomNav = () => {
       <Buttons>
         {buttonList.map((button: Button, i: number) => {
           const { src, text, paths } = button;
-          const isClicked = paths.find((path) => path === pathname) !== undefined;
+          const isClicked = paths.find((path) => path === asPath) !== undefined;
 
           return (
             <Link href={paths[0]} legacyBehavior key={i}>
