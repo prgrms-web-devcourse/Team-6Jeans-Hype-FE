@@ -66,5 +66,5 @@ const SelectContainer = styled.div`
 `;
 
 const Empty = styled.div`
-  height: 0.6rem;
+  height: 1.27rem;
 `;
