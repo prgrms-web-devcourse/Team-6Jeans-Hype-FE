@@ -3,7 +3,7 @@ import { Head, Html, Main, NextScript } from 'next/document';
 export default function Document() {
   return (
     <Html lang='ko'>
-      <title>Hype | 하입 ♫•*¨*•.¸¸♪✧</title>
+      <title>h-y-p-e ♫•¨✧•.¸¸♪✧</title>
 
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no' />
@@ -14,11 +14,11 @@ export default function Document() {
         <meta name='description' content="What's your Hype Music? 너만의 노래를 찾아봐!" />
         <meta property='og:url' content='https://h-y-p-e.netlify.app' />
         <meta property='og:image' content='/images/og-image.svg' />
-        <meta property='og:title' content='Hype | 하입 ♫•*¨*•.¸¸♪✧' />
+        <meta property='og:title' content='h-y-p-e ♫•¨✧•.¸¸♪✧' />
         <meta property='og:description' content="What's your Hype Music? 너만의 노래를 찾아봐!" />
 
         <meta name='twitter:card' content='summary_large_image' />
-        <meta name='twitter:title' content='Hype | 하입 ♫•*¨*•.¸¸♪✧' />
+        <meta name='twitter:title' content='h-y-p-e ♫•¨✧•.¸¸♪✧' />
         <meta name='twitter:description' content="What's your Hype Music? 너만의 노래를 찾아봐!" />
       </Head>
       <body>
