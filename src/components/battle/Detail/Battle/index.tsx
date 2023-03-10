@@ -10,7 +10,7 @@ import { Battles } from '../types';
 interface Props {
   battleId?: number | undefined;
   musicData: Battles | undefined;
-  isLoadingState: boolean;
+  isLoadingState?: boolean;
   onChangeSelectedBattleInfo: (battleId: number, votedPostId: number, clickSide: 'left' | 'right') => void;
   refetch?: () => void;
   onClickSkip?: () => void;

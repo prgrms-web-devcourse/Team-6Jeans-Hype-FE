@@ -117,7 +117,7 @@ const Thumbnail = styled.div<{ src: string; clickSide: 'left' | 'right' | undefi
   background-image: url(${(props) => props.src});
   background-color: ${COLOR.white};
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center center;
   filter: drop-shadow(0 0 1.5rem rgba(158, 158, 158, 0.25));
   border-radius: 1rem;
   width: 10rem;
