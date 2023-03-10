@@ -21,11 +21,11 @@ export const getPostFeedLimit = async () => {
   }
 };
 
-export const getUserProfile = async () => {
+export const getUserProfile = async (memberId?: number) => {
   try {
     const { data } = await axiosInstance.request<ProfileAPI>({
       method: 'GET',
-      url: `members/profile`,
+      url: `members/profile${memberId ? `?memberId=${memberId}` : ''}`,
     });
 
     if (data.success) {
