@@ -79,8 +79,8 @@ function PostDetail() {
                     size={2.2}
                     initCount={postDetail.likeCount}
                     color='white'
-                    isClicked={isLike ? isLike?.isLiked : true}
-                    postId={postId}
+                    initIsClick={isLike ? isLike?.isLiked : true}
+                    postId={postId as string}
                   />
                 )}
               </Icon>

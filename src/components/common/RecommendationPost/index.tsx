@@ -49,8 +49,8 @@ function RecommendationPost({
               size={1.5}
               color='purple'
               initCount={likeCount}
-              isClicked={false}
-              onClick={() => console.log('todo 좋아요 관련 api 연결하기')}
+              initIsClick={true}
+              // onClick={() => console.log('todo 좋아요 관련 api 연결하기')}
             />
           </ButtonWrapper>
         </Content>
