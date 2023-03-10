@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { getUserProfile } from '@/components/profile/api';
 import { COLOR } from '@/constants/color';
 
+import SkeletonCircle from '../common/skeleton/Circle';
 import ResultCard from './ResultCard';
 
 interface ResultCard {
@@ -25,14 +26,21 @@ function UserHeader() {
   const router = useRouter();
   const { memberId } = router.query;
 
-  const { data: userProfile } = useQuery(['userProfile', memberId], async () => await getUserProfile(Number(memberId)));
+  const { data: userProfile, isLoading } = useQuery(
+    ['userProfile', memberId],
+    async () => await getUserProfile(Number(memberId)),
+  );
 
   return (
     <Container>
       <Wrapper>
         <UserContainer>
           <DefaultProfile>
-            <img src={userProfile?.profileImageUrl} alt='profile' />
+            {isLoading ? (
+              <SkeletonCircle width={7} height={7} />
+            ) : (
+              <img src={userProfile?.profileImageUrl} alt='profile' />
+            )}
           </DefaultProfile>
           <Info>
             <Name>{userProfile?.nickname}</Name>
