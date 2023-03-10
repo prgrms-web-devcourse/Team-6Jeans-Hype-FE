@@ -16,7 +16,7 @@ interface Props {
   onClickSkip?: () => void;
 }
 
-function Detail({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch, onClickSkip }: Props) {
+function Battle({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch, onClickSkip }: Props) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -102,7 +102,7 @@ function Detail({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
   );
 }
 
-export default Detail;
+export default Battle;
 
 const Section = styled.div`
   position: relative;
