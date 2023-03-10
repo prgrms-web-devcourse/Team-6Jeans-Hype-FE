@@ -20,16 +20,23 @@ function Detail({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
   const router = useRouter();
   const { id } = router.query;
 
-  const onClickBattleMusic = (
-    e: React.ChangeEvent<HTMLElement>,
-    clickSide: 'left' | 'right',
-    musicId: number | undefined,
-  ) => {
-    const { target } = e;
-
+  const onClickBattleMusic = (clickSide: 'left' | 'right', musicId: number | undefined) => {
     if (musicData && musicId) {
       onChangeSelectedBattleInfo(musicData.battleId, musicId, clickSide);
     }
+
+    if (!id) {
+      setTimeout(() => {
+        onChangeSelectedBattleInfo(0, 0, clickSide);
+      }, 1700);
+      setTimeout(() => {
+        refetch?.();
+      }, 1750);
+    }
+  };
+
+  const moveBattleMusic = (e: React.ChangeEvent<HTMLElement>) => {
+    const { target } = e;
 
     if (target) {
       const parent = target.closest('.container');
@@ -42,12 +49,7 @@ function Detail({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
         if (!id) {
           setTimeout(() => {
             newTarget.className = savedClassName;
-
-            onChangeSelectedBattleInfo(0, 0, clickSide);
           }, 1700);
-          setTimeout(() => {
-            refetch?.();
-          }, 1750);
         }
       }
     }
@@ -78,12 +80,18 @@ function Detail({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
               <BattleMusic
                 music={musicData.challenged.music}
                 moving='left'
-                handleClick={(e) => onClickBattleMusic(e, 'left', musicData.challenged.postId)}
+                handleClick={(e) => {
+                  onClickBattleMusic('left', musicData.challenged.postId);
+                  moveBattleMusic(e);
+                }}
               />
               <BattleMusic
                 music={musicData.challenging.music}
                 moving='right'
-                handleClick={(e) => onClickBattleMusic(e, 'right', musicData.challenging.postId)}
+                handleClick={(e) => {
+                  onClickBattleMusic('right', musicData.challenging.postId);
+                  moveBattleMusic(e);
+                }}
               />
             </>
           )}
