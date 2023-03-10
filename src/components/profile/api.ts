@@ -2,11 +2,11 @@ import { axiosInstance } from '@/api';
 
 import { MyBattleAPI, MyPostAPI, ProfileAPI } from './types';
 
-export const getPostFeedLimit = async () => {
+export const getPostFeedLimit = async (memberId?: number) => {
   try {
     const { data } = await axiosInstance.request<MyPostAPI>({
       method: 'GET',
-      url: `/members/posts`,
+      url: `/members/posts${memberId ? `?memberId=${memberId}` : ''}`,
       params: {
         limit: '2',
       },

@@ -15,6 +15,7 @@ interface Button {
 const BottomNav = () => {
   const router = useRouter();
   const { asPath } = router;
+  const { memberId } = router.query;
   const { openAuthRequiredModal, isLoggedIn } = useAuth();
 
   const buttonList: Button[] = [
@@ -27,7 +28,7 @@ const BottomNav = () => {
       onClick: () => isLoggedIn || openAuthRequiredModal(),
     },
     { src: 'feed', text: '피드', path: '/post' },
-    { src: 'mypage', text: '마이페이지', path: '/profile' },
+    { src: 'mypage', text: '마이페이지', path: memberId ? '' : '/profile' },
   ];
 
   return (
@@ -36,6 +37,7 @@ const BottomNav = () => {
         {buttonList.map((button: Button) => {
           const { src, text, path } = button;
           const isClicked = path === asPath;
+          console.log(button, isClicked);
 
           return (
             <Link href={path} legacyBehavior key={src}>
