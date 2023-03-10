@@ -1,11 +1,13 @@
-import AlbumPoster from '@/components/common/AlbumPoster';
-import Genres from '@/components/common/Genres';
-import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+import AlbumPoster from '@/components/common/AlbumPoster';
+import Genres from '@/components/common/Genres';
+import { COLOR } from '@/constants/color';
+
 import { getGenreTop10Data } from './api';
 
 function GenreTop10Post() {
@@ -27,7 +29,6 @@ function GenreTop10Post() {
 
   return (
     <Container>
-      <Title>이런 곡은 어때요?</Title>
       <Genres onChange={onChange} shouldNeedAll />
       <Swiper
         spaceBetween={30}
@@ -55,6 +56,7 @@ function GenreTop10Post() {
 export default GenreTop10Post;
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -63,16 +65,6 @@ const Container = styled.div`
     display: -webkit-inline-box;
     margin-top: 1rem;
   }
-`;
-
-const Title = styled.div`
-  font-weight: 700;
-  font-size: 1.6rem;
-  line-height: 2.3rem;
-
-  color: ${COLOR.deepBlue};
-
-  margin-bottom: 1rem;
 `;
 
 const TitleSinger = styled.div`
