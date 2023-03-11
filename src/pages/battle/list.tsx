@@ -41,6 +41,7 @@ export default function BattleListPage() {
     <>
       <Header
         title='한눈에 보는 대결'
+        shouldNeedBack={false}
         actionButton={
           <Link href='/battle/short'>
             <ShortsIcon />

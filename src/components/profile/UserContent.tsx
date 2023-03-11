@@ -27,7 +27,7 @@ function UserContent() {
 
   return (
     <Container>
-      <ContentList title='대결'>
+      <ContentList title='대결' hasList={battleLimit?.length !== 0}>
         {battleLimit?.length ? (
           battleLimit.map(({ id, challenging, challenged, battleStatus }) =>
             battleStatus === 'PROGRESS' ? (
@@ -46,7 +46,7 @@ function UserContent() {
           </Wrapper>
         )}
       </ContentList>
-      <ContentList title='추천'>
+      <ContentList title='추천' hasList={postFeedLimit?.length !== 0}>
         {postFeedLimit?.length ? (
           postFeedLimit.map(({ postId, music, likeCount }) => (
             <RecommendationPost

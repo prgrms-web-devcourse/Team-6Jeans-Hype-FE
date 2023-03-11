@@ -1,43 +1,56 @@
 import styled from '@emotion/styled';
 import LikeOffIcon from 'public/images/like-icon-off.svg';
 import LikeOnIcon from 'public/images/like-icon-on.svg';
+import { useEffect, useState } from 'react';
 
 import useAuth from '@/components/login/useAuth';
+import { changeLikeStatus } from '@/components/post/detail/api';
 import { COLOR } from '@/constants/color';
-import useLike from '@/hooks/useLike';
 
 interface Props {
   size: number;
   color: 'white' | 'purple';
   initCount: number;
-  isClicked: boolean;
-  onClick?(): void;
+  initIsClick: boolean;
+  postId?: string;
 }
 
-function Like({ size, color, initCount, isClicked, onClick }: Props) {
-  const { state, onClickLike } = useLike({ initCount, isClicked });
+function Like({ size, color, initCount, initIsClick, postId }: Props) {
+  const [isClick, setIsClick] = useState(initIsClick);
+  const [currentCount, setCurrentCount] = useState(initCount);
+
   const { isLoggedIn, openAuthRequiredModal } = useAuth();
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
+  const updateIsLikeCount = async () => {
+    if (typeof postId !== 'string') return;
 
+    const isLike = await changeLikeStatus(postId);
+    setCurrentCount((prev) => {
+      return isLike ? prev + 1 : prev - 1;
+    });
+    setIsClick(isLike);
+  };
+
+  const handleClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     if (!isLoggedIn) {
       openAuthRequiredModal();
       return;
     }
 
-    onClick && onClickLike();
-    onClick?.();
+    e.preventDefault();
+
+    updateIsLikeCount();
   };
+
+  useEffect(() => {
+    setCurrentCount(initCount);
+    setIsClick(initIsClick);
+  }, [initCount, initIsClick]);
 
   return (
     <LikeContainer onClick={handleClick}>
-      {state.isClicked ? (
-        <StyledLikeOnIcon size={size} color={color} />
-      ) : (
-        <StyledLikeOffIcon size={size} color={color} />
-      )}
-      <Text color={color}>{state.count}</Text>
+      {isClick ? <StyledLikeOnIcon size={size} color={color} /> : <StyledLikeOffIcon size={size} color={color} />}
+      <Text color={color}>{currentCount}</Text>
     </LikeContainer>
   );
 }

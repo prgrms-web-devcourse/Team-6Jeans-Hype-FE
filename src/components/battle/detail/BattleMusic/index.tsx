@@ -151,15 +151,17 @@ const PlayIcon = styled.div<{ value: string | undefined }>`
 `;
 
 const Title = styled.div`
-  width: calc(100% - 1.6rem);
-  padding: 0 0.8rem;
+  width: calc(100% - 2.5rem);
   font-style: normal;
   font-weight: 700;
   font-size: 1.3rem;
-  line-height: 1.9rem;
+  line-height: 1.7rem;
   text-align: center;
   color: ${COLOR.deepBlue};
   margin-bottom: 1rem;
+  word-break: break-all;
+  height: 3.7rem;
+  overflow-y: auto;
 `;
 
 const Singer = styled.div`
