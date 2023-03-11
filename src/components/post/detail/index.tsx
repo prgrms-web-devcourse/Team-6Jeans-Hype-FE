@@ -12,7 +12,7 @@ import { COLOR } from '@/constants/color';
 import { getPostDetailData } from './api';
 import MusicInfo from './musicInfo';
 
-let play: any;
+let intervalID: NodeJS.Timer;
 
 function PostDetail() {
   const [isRenderPostContent, setIsRenderPostContent] = useState(true);
@@ -51,16 +51,13 @@ function PostDetail() {
   };
 
   const startPlayTIme = () => {
-    if (!play) {
-      play = setInterval(() => {
-        setCurrentTime((prev) => (duration >= prev ? prev + 0.01 : prev));
-      }, 10);
-    }
+    intervalID = setInterval(() => {
+      setCurrentTime((prev) => (duration >= prev ? prev + 0.01 : prev));
+    }, 10);
   };
 
   const stopPlayTime = () => {
-    clearInterval(play);
-    play = null;
+    clearInterval(intervalID);
   };
 
   const calculateTime = (secs: number) => {
@@ -74,12 +71,11 @@ function PostDetail() {
     const audio = document.querySelector('.audio') as HTMLAudioElement;
 
     audio.onloadedmetadata = () => {
-      const { currentTime, duration } = audio;
+      const { duration } = audio;
 
-      setCurrentTime(Math.ceil(currentTime));
       setDuration(Math.ceil(duration));
     };
-  }, [postDetail]);
+  }, []);
 
   useEffect(() => {
     const left = document.querySelector('#left') as HTMLElement;
