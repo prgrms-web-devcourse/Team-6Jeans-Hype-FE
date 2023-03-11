@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import NoContent from '@/components/common/NoContent';
 import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
 
+import { SelectedBattle } from '../../types';
+import VoteResult from '../../voteResult';
 import BattleMusic from '../BattleMusic';
 import { Battles } from '../types';
 
@@ -12,14 +15,23 @@ interface Props {
   battleId?: number | undefined;
   musicData: Battles | undefined;
   isLoadingState?: boolean;
-  onChangeSelectedBattleInfo: (battleId: number, votedPostId: number, clickSide: 'left' | 'right') => void;
   refetch?: () => void;
   onClickSkip?: () => void;
+  className?: string;
 }
 
-function Battle({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch, onClickSkip }: Props) {
+function Battle({ musicData, isLoadingState, refetch, onClickSkip, className }: Props) {
   const router = useRouter();
   const { id } = router.query;
+  const [selectedBattle, setSelectedBattle] = useState<SelectedBattle>({
+    battleId: 0,
+    votedPostId: 0,
+    clickSide: undefined,
+  });
+
+  const onChangeSelectedBattleInfo = (battleId: number, votedPostId: number, clickSide: 'left' | 'right') => {
+    setSelectedBattle({ battleId, votedPostId, clickSide });
+  };
 
   const selectBattleMusic = (clickSide: 'left' | 'right', musicId: number | undefined) => {
     if (musicData && musicId) {
@@ -45,35 +57,46 @@ function Battle({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
   }
 
   return (
-    <Section>
-      <Text>What’s your Hype Music?</Text>
-      <BattleContainer>
-        {isLoadingState ? (
-          <>
-            <AlbumPoster />
-            <AlbumPoster />
-          </>
-        ) : (
-          <>
-            <BattleMusic
-              music={musicData.challenged.music}
-              moving='left'
-              onClick={() => {
-                selectBattleMusic('left', musicData.challenged.postId);
-              }}
-            />
-            <BattleMusic
-              music={musicData.challenging.music}
-              moving='right'
-              onClick={() => {
-                selectBattleMusic('right', musicData.challenging.postId);
-              }}
-            />
-          </>
-        )}
-      </BattleContainer>
-      {!id && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
-    </Section>
+    <>
+      <Section className={className}>
+        <Text>What’s your Hype Music?</Text>
+        <BattleContainer>
+          {isLoadingState ? (
+            <>
+              <AlbumPoster />
+              <AlbumPoster />
+            </>
+          ) : (
+            <>
+              <BattleMusic
+                music={musicData.challenged.music}
+                moving='left'
+                onClick={() => {
+                  selectBattleMusic('left', musicData.challenged.postId);
+                }}
+              />
+              <BattleMusic
+                music={musicData.challenging.music}
+                moving='right'
+                onClick={() => {
+                  selectBattleMusic('right', musicData.challenging.postId);
+                }}
+              />
+            </>
+          )}
+        </BattleContainer>
+        {!id && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
+      </Section>
+      {selectedBattle.battleId && selectedBattle.votedPostId ? (
+        <VoteResult
+          battleId={selectedBattle.battleId}
+          votedPostId={selectedBattle.votedPostId}
+          clickSide={selectedBattle.clickSide}
+        />
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
 
@@ -129,11 +152,4 @@ const BattleContainer = styled.div`
   align-items: center;
   justify-content: space-around;
   margin: 0 auto;
-`;
-
-const Empty = styled.div`
-  text-align: center;
-  font-size: 1.3rem;
-  letter-spacing: 0.1rem;
-  color: ${COLOR.gray};
 `;
