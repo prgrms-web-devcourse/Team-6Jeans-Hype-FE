@@ -1,7 +1,9 @@
-import AlbumPoster from '@/components/common/AlbumPoster';
-import { COLOR } from '@/constants/color';
 import styled from '@emotion/styled';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+import AlbumPoster from '@/components/common/AlbumPoster';
+import { COLOR } from '@/constants/color';
+
 import { GenreTop10PostInfo } from './type';
 
 interface Props {
