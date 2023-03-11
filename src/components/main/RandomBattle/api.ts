@@ -1,6 +1,6 @@
 import { axiosInstance } from '@/api/index';
 
-import { RandomBattleAlbumCoverImage } from './../RandomBattle';
+import { RandomBattleAlbumCoverImage } from '.';
 
 export const getRandomBattleAlbumCoverImage = async (): Promise<RandomBattleAlbumCoverImage> => {
   const { data } = await axiosInstance.request({
