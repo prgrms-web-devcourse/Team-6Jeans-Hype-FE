@@ -12,7 +12,7 @@ import AuthRequiredPage from '@/components/login/AuthRequiredPage';
 function Detail() {
   const router = useRouter();
   const { id } = router.query;
-  const { data: musicData } = useGetBattle({ initBattleId: Number(id), selectedGenre: 'ALL' });
+  const { data: battle } = useGetBattle({ initBattleId: Number(id), selectedGenre: 'ALL' });
 
   return id ? (
     <AuthRequiredPage>
@@ -25,7 +25,7 @@ function Detail() {
         }
       />
       <Container>
-        <Battle musicData={musicData} />
+        <Battle battle={battle} />
       </Container>
       <BottomNav />
     </AuthRequiredPage>
