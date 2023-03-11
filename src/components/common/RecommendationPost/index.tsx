@@ -45,13 +45,7 @@ function RecommendationPost({
               />
             )}
 
-            <Like
-              size={1.5}
-              color='purple'
-              initCount={likeCount}
-              isClicked={false}
-              onClick={() => console.log('todo 좋아요 관련 api 연결하기')}
-            />
+            <Like size={1.5} color='purple' initCount={likeCount} isClicked={true} />
           </ButtonWrapper>
         </Content>
       </Wrapper>
