@@ -33,7 +33,7 @@ const Header: FC<Props> = ({
 
   return (
     <Container>
-      {shouldNeedBack && BackButton}
+      {shouldNeedBack ? BackButton : <Empty />}
       {title && <Title color={color}>{title}</Title>}
       {ActionButton}
     </Container>
@@ -51,6 +51,10 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: flex-end;
   position: relative;
+`;
+
+const Empty = styled.span`
+  width: 0;
 `;
 
 const Title = styled.h1<{ color: string }>`
