@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getBattleDetail, getRandomBattle } from '../../api';
-import { Battles } from '../../types';
+import { getBattleDetail, getRandomBattle } from '../api';
+import { Battles } from '../types';
 
 interface Props {
   initBattleId?: number;
