@@ -45,7 +45,7 @@ function RecommendationPost({
               />
             )}
 
-            <Like size={1.5} color='purple' initCount={likeCount} isClicked={true} />
+            <Like size={1.5} color='purple' initCount={likeCount} initIsClick />
           </ButtonWrapper>
         </Content>
       </Wrapper>

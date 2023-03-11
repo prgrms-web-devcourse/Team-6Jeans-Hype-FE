@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -7,24 +7,38 @@ import Header from '@/components/common/Header';
 import Battle from '@/components/common/ImageButtons/BattleButton';
 import Like from '@/components/common/ImageButtons/LikeButton';
 import MusicPlayButton from '@/components/common/MusicPlayButton';
+import useAuth from '@/components/login/useAuth';
 import { COLOR } from '@/constants/color';
 
-import { getPostDetailData } from './api';
+import { getPostDetailData, getUserLikeStatus } from './api';
 import MusicInfo from './musicInfo';
 
 function PostDetail() {
   const [isRenderPostContent, setIsRenderPostContent] = useState(true);
+  const { getAccessToken } = useAuth();
 
   const router = useRouter();
   const { postId } = router.query;
 
-  const { data: postDetail } = useQuery(
-    ['post', 'detail', postId],
-    () => getPostDetailData(parseInt(postId as string)),
-    {
-      enabled: !!postId,
-    },
-  );
+  const [{ data: postDetail, isLoading: postDetailLoading }, { data: isLike, isLoading: isLikeLoading }] = useQueries({
+    queries: [
+      {
+        queryKey: ['post', 'detail', postId],
+        queryFn: () => getPostDetailData(parseInt(postId as string)),
+        enabled: !!postId,
+      },
+
+      {
+        queryKey: ['post', 'detail', 'like', postId],
+        queryFn: () => {
+          const token = getAccessToken();
+
+          return getUserLikeStatus(postId as string, token as string);
+        },
+        enabled: !!postId,
+      },
+    ],
+  });
 
   const navigatePostBattle = () => {
     router.push(`/post/battle?postId=${postId}`);
@@ -37,74 +51,78 @@ function PostDetail() {
   const toggleContentViewStatus = () => setIsRenderPostContent((prev) => !prev);
 
   return (
-    <Container>
-      <Header color={COLOR.white} backUrl='/post' />
-      <Wrapper>
-        {postDetail && (
-          <MusicInfo
-            title={postDetail.music.title}
-            albumCoverUrl={postDetail.music.albumCoverUrl}
-            singer={postDetail.music.singer}
-          />
-        )}
-
-        <PlayStatus>
-          <PlayBar>
-            <div></div>
-            <div></div>
-            <div></div>
-          </PlayBar>
-          <PlayTime>
-            <div>1:46</div>
-            <div>4:10</div>
-          </PlayTime>
-        </PlayStatus>
-
-        <PostDetailEvent>
-          <Icon>
-            <Like
-              size={2.2}
-              initCount={15}
-              color='white'
-              isClicked={true}
-              onClick={() => {
-                console.log('좋아요');
-              }}
-            />
-          </Icon>
-
-          <Icon>
-            <MusicPlayButton src={postDetail?.music.musicUrl} />
-          </Icon>
-
-          <Icon>
-            {postDetail?.isBattlePossible ? (
-              <Battle size={1.5} color='white' battleAbility={true} onClick={navigatePostBattle} />
-            ) : (
-              <Battle size={1.5} color='white' battleAbility={false} />
+    <>
+      {!postDetailLoading && !isLikeLoading && (
+        <Container>
+          <Header color={COLOR.white} />
+          <Wrapper>
+            {postDetail && (
+              <MusicInfo
+                title={postDetail.music.title}
+                albumCoverUrl={postDetail.music.albumCoverUrl}
+                singer={postDetail.music.singer}
+              />
             )}
-          </Icon>
-        </PostDetailEvent>
 
-        <PostDetailContent>
-          <ContentHeader isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
-            <ContentHeaderWrapper>
-              <Title>
-                <Name onClick={navigateUserProfile}>{postDetail?.nickname}</Name>님의{' '}
-                {postDetail?.content === '' ? '추천' : '한마디'}
-              </Title>
-              <ToggleArrowButton isContent={!!postDetail?.content} onClick={toggleContentViewStatus}>
-                <ToggleImage src='/images/down-arrow.svg' alt='img' isRenderPostContent={isRenderPostContent} />
-              </ToggleArrowButton>
-            </ContentHeaderWrapper>
-          </ContentHeader>
+            <PlayStatus>
+              <PlayBar>
+                <div></div>
+                <div></div>
+                <div></div>
+              </PlayBar>
+              <PlayTime>
+                <div>1:46</div>
+                <div>4:10</div>
+              </PlayTime>
+            </PlayStatus>
 
-          <ContentBody isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
-            <Content>{postDetail?.content}</Content>
-          </ContentBody>
-        </PostDetailContent>
-      </Wrapper>
-    </Container>
+            <PostDetailEvent>
+              <Icon>
+                {postDetail && (
+                  <Like
+                    size={2.2}
+                    initCount={postDetail.likeCount}
+                    color='white'
+                    initIsClick={isLike ? isLike?.isLiked : true}
+                    postId={postId as string}
+                  />
+                )}
+              </Icon>
+
+              <Icon>
+                <MusicPlayButton src={postDetail?.music.musicUrl} />
+              </Icon>
+
+              <Icon>
+                {postDetail?.isBattlePossible ? (
+                  <Battle size={1.5} color='white' battleAbility={true} onClick={navigatePostBattle} />
+                ) : (
+                  <Battle size={1.5} color='white' battleAbility={false} />
+                )}
+              </Icon>
+            </PostDetailEvent>
+
+            <PostDetailContent>
+              <ContentHeader isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
+                <ContentHeaderWrapper>
+                  <Title>
+                    <Name onClick={navigateUserProfile}>{postDetail?.nickname}</Name>님의{' '}
+                    {postDetail?.content === '' ? '추천' : '한마디'}
+                  </Title>
+                  <ToggleArrowButton isContent={!!postDetail?.content} onClick={toggleContentViewStatus}>
+                    <ToggleImage src='/images/down-arrow.svg' alt='img' isRenderPostContent={isRenderPostContent} />
+                  </ToggleArrowButton>
+                </ContentHeaderWrapper>
+              </ContentHeader>
+
+              <ContentBody isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
+                <Content>{postDetail?.content}</Content>
+              </ContentBody>
+            </PostDetailContent>
+          </Wrapper>
+        </Container>
+      )}
+    </>
   );
 }
 
