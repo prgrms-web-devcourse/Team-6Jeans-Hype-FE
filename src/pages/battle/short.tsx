@@ -46,6 +46,7 @@ function Short() {
     <>
       <Header
         title='진행 중인 대결'
+        shouldNeedBack={false}
         actionButton={
           <Link href='/battle/list'>
             <ListIcon />
