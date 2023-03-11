@@ -1,44 +1,20 @@
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
-import Genres from '@/components/common/Genres';
 import { COLOR } from '@/constants/color';
 
-import { getGenreTop10Data } from './api';
+import { GenreTop10PostInfo } from './type';
 
-function GenreTop10Post() {
-  const router = useRouter();
+interface Props {
+  genreTop10Post: GenreTop10PostInfo[];
+  navigatePostDetail: (postId: number) => void;
+}
 
-  const [genre, setGenre] = useState('');
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedGenre = e.target.value;
-
-    selectedGenre === 'ALL' ? setGenre('') : setGenre(selectedGenre);
-  };
-
-  const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
-
-  const { data: genreTop10Post } = useQuery(['main', 'genreTop10', genre], () => {
-    return getGenreTop10Data(genre);
-  });
-
+function DeskTopPosts({ genreTop10Post, navigatePostDetail }: Props) {
   return (
     <Container>
-      <Genres onChange={onChange} shouldNeedAll />
-      <Swiper
-        spaceBetween={30}
-        slidesPerView={3}
-        breakpoints={{
-          768: {
-            slidesPerView: 6,
-          },
-        }}
-      >
+      <Swiper spaceBetween={50} slidesPerView={6}>
         {genreTop10Post?.map(({ postId, music: { albumCoverUrl, title, singer } }) => (
           <SwiperSlide key={postId} onClick={() => navigatePostDetail(postId)}>
             <AlbumPoster lazy={true} size={12.5} src={albumCoverUrl} />
@@ -53,17 +29,13 @@ function GenreTop10Post() {
   );
 }
 
-export default GenreTop10Post;
+export default DeskTopPosts;
 
 const Container = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
 
   & .swiper-wrapper {
     display: -webkit-inline-box;
-    margin-top: 1rem;
   }
 `;
 
