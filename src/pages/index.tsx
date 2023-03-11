@@ -98,7 +98,7 @@ const RankingLabels = styled.div`
 `;
 
 const LikeGenrePost = styled.div`
-  padding: 0 1rem;
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding-bottom: 9.5rem;
