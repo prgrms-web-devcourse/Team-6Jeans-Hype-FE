@@ -5,6 +5,7 @@ import { useState } from 'react';
 import NoContent from '@/components/common/NoContent';
 import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
+import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 import { SelectedBattle } from '../../types';
 import VoteResult from '../../voteResult';
@@ -32,6 +33,8 @@ function Battle({ musicData, isLoadingState, refetch, onClickSkip, className }: 
   const onChangeSelectedBattleInfo = (battleId: number, votedPostId: number, clickSide: 'left' | 'right') => {
     setSelectedBattle({ battleId, votedPostId, clickSide });
   };
+
+  const { isLeftMusicPlay, isRightMusicPlay, clickLeftButton, clickRightButton } = useBattleMusicPlay();
 
   const selectBattleMusic = (clickSide: 'left' | 'right', musicId: number | undefined) => {
     if (musicData && musicId) {
@@ -69,18 +72,24 @@ function Battle({ musicData, isLoadingState, refetch, onClickSkip, className }: 
           ) : (
             <>
               <BattleMusic
+                isMusicPlay={isLeftMusicPlay}
+                updatePlaySatus={clickLeftButton}
                 music={musicData.challenged.music}
                 moving='left'
                 onClick={() => {
                   selectBattleMusic('left', musicData.challenged.postId);
                 }}
+                opponentMusicUrl={musicData?.challenging.music.musicUrl}
               />
               <BattleMusic
+                isMusicPlay={isRightMusicPlay}
+                updatePlaySatus={clickRightButton}
                 music={musicData.challenging.music}
                 moving='right'
                 onClick={() => {
                   selectBattleMusic('right', musicData.challenging.postId);
                 }}
+                opponentMusicUrl={musicData?.challenged.music.musicUrl}
               />
             </>
           )}

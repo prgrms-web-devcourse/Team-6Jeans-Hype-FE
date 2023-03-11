@@ -130,15 +130,15 @@ const Title = styled.div`
   line-height: 2rem;
   display: flex;
   align-items: center;
-
   color: ${COLOR.deepBlue};
-
   margin-bottom: 2rem;
 `;
 
 const MyList = styled.div`
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 47rem);
+  overflow-y: auto;
 `;
 
 const Post = styled.div`
