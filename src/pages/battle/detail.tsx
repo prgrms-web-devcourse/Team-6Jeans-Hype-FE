@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import ListIcon from 'public/images/go-to-list-icon.svg';
 import { useState } from 'react';
 
-import DetailComponent from '@/components/battle/Detail/Battle';
+import DetailComponent from '@/components/battle/Detail/Battle/index';
 import { useGetBattle } from '@/components/battle/Detail/useGetBattle';
 import { SelectedBattle } from '@/components/battle/types';
 import VoteResult from '@/components/battle/voteResult';
