@@ -11,9 +11,12 @@ interface Prop {
   music: Music;
   moving?: 'left' | 'right';
   onClick?: () => void;
+  isMusicPlay: boolean;
+  updatePlaySatus: () => void;
+  opponentMusicUrl?: string;
 }
 
-function BattleMusic({ music, moving, onClick }: Prop) {
+function BattleMusic({ music, moving, onClick, opponentMusicUrl, isMusicPlay, updatePlaySatus }: Prop) {
   const thumbnailRef = useRef<HTMLDivElement>(null);
 
   const { albumCoverUrl, musicUrl, title, singer } = music;
@@ -43,7 +46,13 @@ function BattleMusic({ music, moving, onClick }: Prop) {
       <Wrapper onClick={(e) => handleClick(e)} className='container'>
         <Thumbnail src={albumCoverUrl} clickSide={moving} ref={thumbnailRef}>
           <PlayIcon value={musicUrl}>
-            <MusicPlayButton key={title} src={musicUrl} />
+            <MusicPlayButton
+              key={title}
+              src={musicUrl}
+              opponentMusicUrl={opponentMusicUrl}
+              isMusicPlay={isMusicPlay}
+              updatePlaySatus={updatePlaySatus}
+            />
           </PlayIcon>
         </Thumbnail>
         <Title>{title}</Title>
