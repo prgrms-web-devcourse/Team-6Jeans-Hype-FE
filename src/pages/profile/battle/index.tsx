@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 import BattleList from '@/components/battle/list';
 import BottomNav from '@/components/common/BottomNav';
@@ -8,7 +9,10 @@ import AuthRequiredPage from '@/components/login/AuthRequiredPage';
 import { useGetMyBattleList } from '@/components/profile/battle/useGetMyBattleList';
 
 export default function MyBattleListPage() {
-  const { data: myBattleList } = useGetMyBattleList();
+  const router = useRouter();
+  const { memberId } = router.query;
+
+  const { data: myBattleList } = useGetMyBattleList({ memberId: Number(memberId) });
 
   return (
     <AuthRequiredPage>

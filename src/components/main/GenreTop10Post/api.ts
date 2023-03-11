@@ -1,4 +1,5 @@
 import { axiosInstance } from '@/api';
+
 import { GenreTop10PostAPI } from './type';
 
 export const getGenreTop10Data = async (genre: string) => {
