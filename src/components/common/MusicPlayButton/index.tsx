@@ -1,30 +1,35 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
-import PlayButton from 'public/images/play-button.svg';
 import PauseButton from 'public/images/pause-button.svg';
+import PlayButton from 'public/images/play-button.svg';
 
 interface Props {
   src?: string;
+  isMusicPlay?: boolean;
+  updatePlaySatus?: () => void;
+  opponentMusicUrl?: string;
 }
 
-function MusicPlayButton({ src }: Props) {
-  const [isMusicPlay, setIsMusicPlay] = useState(true);
-
+function MusicPlayButton({ src, opponentMusicUrl, isMusicPlay, updatePlaySatus }: Props) {
   const onClickPlayButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const $audioElement = document.getElementById(`audio${src}`) as HTMLAudioElement;
+    const $opponentAudioElement = document.getElementById(`audio${opponentMusicUrl}`) as HTMLAudioElement;
+    $opponentAudioElement?.pause();
 
-    if (isMusicPlay) $audioElement?.play();
-    else $audioElement?.pause();
+    const $selectedAudioElement = document.getElementById(`audio${src}`) as HTMLAudioElement;
 
-    setIsMusicPlay((prev) => !prev);
+    console.log($opponentAudioElement, $selectedAudioElement);
+
+    if (!isMusicPlay) $selectedAudioElement?.play();
+    else $selectedAudioElement?.pause();
+
+    updatePlaySatus?.();
   };
 
   return (
     <PlayIcon>
       <Audio src={src} id={`audio${src}`} controls loop />
-      <Button onClick={(e) => onClickPlayButton(e)}>{isMusicPlay ? <PlayButton /> : <PauseButton />}</Button>
+      <Button onClick={(e) => onClickPlayButton(e)}>{isMusicPlay ? <PauseButton /> : <PlayButton />}</Button>
     </PlayIcon>
   );
 }
