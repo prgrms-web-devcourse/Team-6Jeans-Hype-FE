@@ -7,10 +7,11 @@ import { COLOR } from '@/constants/color';
 
 interface Props {
   title: string;
+  hasList: boolean;
   children: ReactNode;
 }
 
-function ContentList({ title, children }: Props) {
+function ContentList({ title, hasList, children }: Props) {
   const router = useRouter();
   const { memberId } = router.query;
 
@@ -29,10 +30,12 @@ function ContentList({ title, children }: Props) {
     <Container title={title}>
       <Header>
         <Title>{title} 목록</Title>
-        <Button onClick={navigateList}>
-          더보기
-          <Arrow />
-        </Button>
+        {hasList && (
+          <Button onClick={navigateList}>
+            더보기
+            <Arrow />
+          </Button>
+        )}
       </Header>
       <Content>{children}</Content>
     </Container>
