@@ -5,11 +5,12 @@ import PlayButton from 'public/images/play-button.svg';
 interface Props {
   src?: string;
   isMusicPlay?: boolean;
-  updatePlaySatus?: () => void;
+  updatePlayStatus?: () => void;
   opponentMusicUrl?: string;
+  onChangeCurrentTime?: (time: number, isPlay: boolean) => void;
 }
 
-function MusicPlayButton({ src, opponentMusicUrl, isMusicPlay, updatePlaySatus }: Props) {
+function MusicPlayButton({ src, opponentMusicUrl, isMusicPlay, updatePlayStatus, onChangeCurrentTime }: Props) {
   const onClickPlayButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -18,12 +19,21 @@ function MusicPlayButton({ src, opponentMusicUrl, isMusicPlay, updatePlaySatus }
 
     const $selectedAudioElement = document.getElementById(`audio${src}`) as HTMLAudioElement;
 
-    console.log($opponentAudioElement, $selectedAudioElement);
+    //console.log($opponentAudioElement, $selectedAudioElement);
 
-    if (!isMusicPlay) $selectedAudioElement?.play();
-    else $selectedAudioElement?.pause();
+    if (isMusicPlay) {
+      $selectedAudioElement?.play();
+      if (onChangeCurrentTime) {
+        onChangeCurrentTime($selectedAudioElement.currentTime, true);
+      }
+    } else {
+      $selectedAudioElement?.pause();
+      if (onChangeCurrentTime) {
+        onChangeCurrentTime($selectedAudioElement.currentTime, false);
+      }
+    }
 
-    updatePlaySatus?.();
+    updatePlayStatus?.();
   };
 
   return (

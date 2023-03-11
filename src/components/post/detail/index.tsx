@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useQueries } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Header from '@/components/common/Header';
 import Battle from '@/components/common/ImageButtons/BattleButton';
@@ -13,8 +13,13 @@ import { COLOR } from '@/constants/color';
 import { getPostDetailData, getUserLikeStatus } from './api';
 import MusicInfo from './musicInfo';
 
+let intervalID: NodeJS.Timer;
+
 function PostDetail() {
+  const [isMusicPlay, setIsMusicPlay] = useState(true);
   const [isRenderPostContent, setIsRenderPostContent] = useState(true);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const { getAccessToken } = useAuth();
 
   const router = useRouter();
@@ -40,6 +45,10 @@ function PostDetail() {
     ],
   });
 
+  const onClickPlay = () => {
+    setIsMusicPlay((prev) => !prev);
+  };
+
   const navigatePostBattle = () => {
     router.push(`/post/battle?postId=${postId}`);
   };
@@ -50,8 +59,62 @@ function PostDetail() {
 
   const toggleContentViewStatus = () => setIsRenderPostContent((prev) => !prev);
 
+  const onChangeCurrentTime = (time: number, isPlay: boolean) => {
+    setCurrentTime(time);
+
+    if (isPlay) {
+      startPlayTIme();
+    } else {
+      stopPlayTime();
+    }
+  };
+
+  const startPlayTIme = () => {
+    intervalID = setInterval(() => {
+      setCurrentTime((prev) => (duration >= prev ? prev + 0.01 : prev));
+    }, 10);
+  };
+
+  const stopPlayTime = () => {
+    clearInterval(intervalID);
+  };
+
+  const calculateTime = (secs: number) => {
+    const minutes = Math.floor(secs / 60);
+    const seconds = Math.floor(secs % 60);
+    const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+    return `${minutes}:${returnedSeconds}`;
+  };
+
+  useEffect(() => {
+    const audio = document.querySelector('.audio') as HTMLAudioElement;
+
+    audio.onloadedmetadata = () => {
+      const { duration } = audio;
+
+      setDuration(Math.ceil(duration));
+    };
+  }, []);
+
+  useEffect(() => {
+    const left = document.querySelector('#left') as HTMLElement;
+    const right = document.querySelector('#right') as HTMLElement;
+
+    if (left && right) {
+      left.style.width = `${(currentTime / duration) * 100}%`;
+      right.style.width = `${100 - (currentTime / duration) * 100}%`;
+    }
+
+    if (duration > 0 && Math.floor(duration) === Math.floor(currentTime)) {
+      setCurrentTime(0);
+      left.style.width = `0%`;
+      right.style.width = `100%`;
+    }
+  }, [currentTime, duration]);
+
   return (
     <>
+      <audio src={postDetail?.music.musicUrl} className='audio' preload='metadata' style={{ display: 'none' }} />
       {!postDetailLoading && !isLikeLoading && (
         <Container>
           <Header color={COLOR.white} />
@@ -66,13 +129,13 @@ function PostDetail() {
 
             <PlayStatus>
               <PlayBar>
+                <div id='left'></div>
                 <div></div>
-                <div></div>
-                <div></div>
+                <div id='right'></div>
               </PlayBar>
               <PlayTime>
-                <div>1:46</div>
-                <div>4:10</div>
+                <div>{calculateTime(currentTime)}</div>
+                <div>{calculateTime(duration)}</div>
               </PlayTime>
             </PlayStatus>
 
@@ -90,7 +153,12 @@ function PostDetail() {
               </Icon>
 
               <Icon>
-                <MusicPlayButton src={postDetail?.music.musicUrl} />
+                <MusicPlayButton
+                  src={postDetail?.music.musicUrl}
+                  onChangeCurrentTime={onChangeCurrentTime}
+                  isMusicPlay={isMusicPlay}
+                  updatePlayStatus={onClickPlay}
+                />
               </Icon>
 
               <Icon>
@@ -165,18 +233,17 @@ const PlayBar = styled.div`
   border-radius: 0.45rem;
 
   & div:first-of-type {
-    width: 50%;
+    width: 0%;
     height: 0.75rem;
     background-color: ${COLOR.deepBlue};
     border-radius: 0.45rem;
   }
 
   & div:last-of-type {
-    width: 50%;
+    width: 0%;
     height: 0.75rem;
     background-color: ${COLOR.white};
-    border-top-right-radius: 0.45rem;
-    border-bottom-right-radius: 0.45rem;
+    border-radius: 0.45rem;
   }
 `;
 

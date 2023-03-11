@@ -72,13 +72,13 @@ function BattleForm() {
             <>
               <BattleMusic
                 isMusicPlay={isLeftMusicPlay}
-                updatePlaySatus={clickLeftButton}
+                updatePlayStatus={clickLeftButton}
                 music={battleMusic.music}
                 opponentMusicUrl={selectedMyMusic.musicUrl}
               />
               <BattleMusic
                 isMusicPlay={isRightMusicPlay}
-                updatePlaySatus={clickRightButton}
+                updatePlayStatus={clickRightButton}
                 music={selectedMyMusic}
                 opponentMusicUrl={battleMusic.music.musicUrl}
                 onClick={renderMyList}
