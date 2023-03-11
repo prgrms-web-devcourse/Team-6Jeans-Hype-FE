@@ -1,15 +1,16 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
 import ConfirmModal from '@/components/common/Modal/Confirm';
+import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
 import { COLOR } from '@/constants/color';
 
 import { BattleApplyModal, MyBattlePostInfo } from '../types';
 import { getMyBattleListData } from './api';
-import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
 
 interface Props {
   selectedOpponentMusicId: string;
@@ -28,7 +29,6 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMus
     albumCoverUrl: '',
     singer: '',
   });
-  const reRenderCount = useRef(0);
 
   const openPostModal = () => setModalStatus(true);
   const closePostModal = () => setModalStatus(false);
@@ -58,14 +58,14 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMus
     () => getMyBattleListData(selectedOpponentMusicId),
     {
       enabled: !!selectedOpponentMusicId,
+      onError: (err) => {
+        const errors = err as Error | AxiosError;
+
+        alert(errors.message);
+        router.push('/post');
+      },
     },
   );
-
-  if (!isLoading && !myBattleMusicList && reRenderCount.current === 0) {
-    router.push('/post');
-    alert('자신이 추천한 곡에 대결 신청을 할 수 없습니다!');
-    reRenderCount.current = 1;
-  }
 
   if (isLoading) {
     return (

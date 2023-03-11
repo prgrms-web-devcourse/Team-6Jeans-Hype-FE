@@ -38,7 +38,12 @@ function BattleForm() {
   const applyBattle = async () => {
     if (typeof selectedOpponentMusicId !== 'string') return;
 
-    await createBattle(+selectedOpponentMusicId, selectedMyMusic.postId);
+    const isSuccessFetch = await createBattle(+selectedOpponentMusicId, selectedMyMusic.postId);
+    if (!isSuccessFetch?.success) {
+      alert(isSuccessFetch?.message);
+      return;
+    }
+
     router.push(`/battle/list`);
   };
 
