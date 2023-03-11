@@ -41,13 +41,13 @@ export const getUserLikeStatus = async (postId: string, token: string) => {
 
 export const changeLikeStatus = async (postId: string) => {
   try {
-    const response = await axiosInstance.request<LikeStatusAPI>({
+    const { data } = await axiosInstance.request<LikeStatusAPI>({
       method: 'POST',
       url: `/posts/${postId}/like`,
     });
 
-    if (response.data.success) {
-      return response.data.data.hasLike;
+    if (data.success) {
+      return data.data.hasLike;
     } else {
       return false;
     }
