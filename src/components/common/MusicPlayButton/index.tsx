@@ -19,12 +19,12 @@ function MusicPlayButton({ src, onChangeCurrentTime }: Props) {
     if (isMusicPlay) {
       $audioElement?.play();
       if (onChangeCurrentTime) {
-        onChangeCurrentTime(Math.floor($audioElement.currentTime), true);
+        onChangeCurrentTime($audioElement.currentTime, true);
       }
     } else {
       $audioElement?.pause();
       if (onChangeCurrentTime) {
-        onChangeCurrentTime(Math.floor($audioElement.currentTime), false);
+        onChangeCurrentTime($audioElement.currentTime, false);
       }
     }
 

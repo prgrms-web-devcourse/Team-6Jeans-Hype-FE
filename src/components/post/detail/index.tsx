@@ -46,19 +46,19 @@ function PostDetail() {
     if (isPlay) {
       startPlayTIme();
     } else {
-      stoptPlayTime();
+      stopPlayTime();
     }
   };
 
   const startPlayTIme = () => {
     if (!play) {
       play = setInterval(() => {
-        setCurrentTime((prev) => prev + 1);
-      }, 1000);
+        setCurrentTime((prev) => (duration >= prev ? prev + 0.01 : prev));
+      }, 10);
     }
   };
 
-  const stoptPlayTime = () => {
+  const stopPlayTime = () => {
     clearInterval(play);
     play = null;
   };
@@ -72,8 +72,10 @@ function PostDetail() {
 
   useEffect(() => {
     const audio = document.querySelector('.audio') as HTMLAudioElement;
+
     audio.onloadedmetadata = () => {
       const { currentTime, duration } = audio;
+
       setCurrentTime(Math.ceil(currentTime));
       setDuration(Math.ceil(duration));
     };
@@ -82,15 +84,22 @@ function PostDetail() {
   useEffect(() => {
     const left = document.querySelector('#left') as HTMLElement;
     const right = document.querySelector('#right') as HTMLElement;
+
     if (left && right) {
       left.style.width = `${(currentTime / duration) * 100}%`;
       right.style.width = `${100 - (currentTime / duration) * 100}%`;
+    }
+
+    if (duration > 0 && Math.floor(duration) === Math.floor(currentTime)) {
+      setCurrentTime(0);
+      left.style.width = `0%`;
+      right.style.width = `100%`;
     }
   }, [currentTime, duration]);
 
   return (
     <Container>
-      <audio src={postDetail?.music.musicUrl} className='audio' preload='metadata' />
+      <audio src={postDetail?.music.musicUrl} className='audio' preload='metadata' style={{ display: 'none' }} />
       <Header color={COLOR.white} backUrl='/post' />
       <Wrapper>
         {postDetail && (
@@ -108,8 +117,8 @@ function PostDetail() {
             <div id='right'></div>
           </PlayBar>
           <PlayTime>
-            <div>{currentTime}</div>
-            <div>{duration}</div>
+            <div>{calculateTime(currentTime)}</div>
+            <div>{calculateTime(duration)}</div>
           </PlayTime>
         </PlayStatus>
 
@@ -209,8 +218,7 @@ const PlayBar = styled.div`
     width: 0%;
     height: 0.75rem;
     background-color: ${COLOR.white};
-    border-top-right-radius: 0.45rem;
-    border-bottom-right-radius: 0.45rem;
+    border-radius: 0.45rem;
   }
 `;
 
