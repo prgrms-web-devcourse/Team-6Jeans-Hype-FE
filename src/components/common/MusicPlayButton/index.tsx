@@ -4,8 +4,8 @@ import PlayButton from 'public/images/play-button.svg';
 
 interface Props {
   src?: string;
-  isMusicPlay: boolean;
-  updatePlaySatus: () => void;
+  isMusicPlay?: boolean;
+  updatePlaySatus?: () => void;
   opponentMusicUrl?: string;
 }
 
