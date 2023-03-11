@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
-import PlayButton from 'public/images/play-button.svg';
 import PauseButton from 'public/images/pause-button.svg';
+import PlayButton from 'public/images/play-button.svg';
+import { useState } from 'react';
 
 interface Props {
   src?: string;
+  onChangeCurrentTime?: (time: number, isPlay: boolean) => void;
 }
 
-function MusicPlayButton({ src }: Props) {
+function MusicPlayButton({ src, onChangeCurrentTime }: Props) {
   const [isMusicPlay, setIsMusicPlay] = useState(true);
 
   const onClickPlayButton = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -15,8 +16,17 @@ function MusicPlayButton({ src }: Props) {
 
     const $audioElement = document.getElementById(`audio${src}`) as HTMLAudioElement;
 
-    if (isMusicPlay) $audioElement?.play();
-    else $audioElement?.pause();
+    if (isMusicPlay) {
+      $audioElement?.play();
+      if (onChangeCurrentTime) {
+        onChangeCurrentTime(Math.floor($audioElement.currentTime), true);
+      }
+    } else {
+      $audioElement?.pause();
+      if (onChangeCurrentTime) {
+        onChangeCurrentTime(Math.floor($audioElement.currentTime), false);
+      }
+    }
 
     setIsMusicPlay((prev) => !prev);
   };

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Header from '@/components/common/Header';
 import Battle from '@/components/common/ImageButtons/BattleButton';
@@ -13,7 +13,11 @@ import { getPostDetailData } from './api';
 import MusicInfo from './musicInfo';
 
 function PostDetail() {
+  let play: NodeJS.Timer;
+
   const [isRenderPostContent, setIsRenderPostContent] = useState(true);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   const router = useRouter();
   const { postId } = router.query;
@@ -36,8 +40,37 @@ function PostDetail() {
 
   const toggleContentViewStatus = () => setIsRenderPostContent((prev) => !prev);
 
+  const onChangeCurrentTime = (time: number, isPlay: boolean) => {
+    setCurrentTime(time);
+    if (isPlay) {
+      startPlayTIme();
+    } else {
+      stoptPlayTime();
+    }
+  };
+
+  const startPlayTIme = () => {
+    play = setInterval(() => {
+      setCurrentTime((prev) => prev + 1);
+    }, 1000);
+  };
+
+  const stoptPlayTime = () => {
+    clearInterval(play);
+  };
+
+  useEffect(() => {
+    const audio = document.querySelector('.audio') as HTMLAudioElement;
+    audio.onloadedmetadata = () => {
+      const { currentTime, duration } = audio;
+      setCurrentTime(Math.ceil(currentTime));
+      setDuration(Math.ceil(duration));
+    };
+  }, [postDetail]);
+
   return (
     <Container>
+      <audio src={postDetail?.music.musicUrl} className='audio' preload='metadata' />
       <Header color={COLOR.white} backUrl='/post' />
       <Wrapper>
         {postDetail && (
@@ -55,8 +88,8 @@ function PostDetail() {
             <div></div>
           </PlayBar>
           <PlayTime>
-            <div>1:46</div>
-            <div>4:10</div>
+            <div>{currentTime}</div>
+            <div>{duration}</div>
           </PlayTime>
         </PlayStatus>
 
@@ -74,7 +107,7 @@ function PostDetail() {
           </Icon>
 
           <Icon>
-            <MusicPlayButton src={postDetail?.music.musicUrl} />
+            <MusicPlayButton src={postDetail?.music.musicUrl} onChangeCurrentTime={onChangeCurrentTime} />
           </Icon>
 
           <Icon>
