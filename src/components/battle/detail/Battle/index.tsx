@@ -73,7 +73,7 @@ function Battle({ musicData, isLoadingState, refetch, onClickSkip, className }: 
             <>
               <BattleMusic
                 isMusicPlay={isLeftMusicPlay}
-                updatePlaySatus={clickLeftButton}
+                updatePlayStatus={clickLeftButton}
                 music={musicData.challenged.music}
                 moving='left'
                 onClick={() => {
@@ -83,7 +83,7 @@ function Battle({ musicData, isLoadingState, refetch, onClickSkip, className }: 
               />
               <BattleMusic
                 isMusicPlay={isRightMusicPlay}
-                updatePlaySatus={clickRightButton}
+                updatePlayStatus={clickRightButton}
                 music={musicData.challenging.music}
                 moving='right'
                 onClick={() => {
