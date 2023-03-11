@@ -122,6 +122,7 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100vh;
+  max-height: 100%;
   background: linear-gradient(130.7deg, #a274dc -10.45%, #658df4 122.15%);
   position: relative;
 `;
@@ -234,7 +235,6 @@ const ToggleImage = styled.img`
 
 const ContentBody = styled.div`
   background: ${COLOR.background};
-
   position: absolute;
   left: 0;
   bottom: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? '0' : '-12.5%')};
@@ -254,4 +254,5 @@ const Content = styled.p`
   font-weight: 500;
   font-size: 1.3rem;
   line-height: 1.9rem;
+  overflow-y: auto;
 `;
