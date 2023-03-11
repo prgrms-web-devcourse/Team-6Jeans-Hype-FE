@@ -13,15 +13,14 @@ interface Props {
 function ContentList({ title, children }: Props) {
   const router = useRouter();
 
-  const navigateMyList = () => {
+  const navigateList = () => {
     if (title === '대결') {
-      router.push(`/mypage/battle`);
+      router.push(`/profile/battle`);
       return;
     }
 
     if (title === '추천') {
-      // 다음 이슈에서 추가 예정
-      return;
+      router.push(`profile/post`);
     }
   };
 
@@ -29,7 +28,7 @@ function ContentList({ title, children }: Props) {
     <Container title={title}>
       <Header>
         <Title>{title} 목록</Title>
-        <Button onClick={navigateMyList}>
+        <Button onClick={navigateList}>
           더보기
           <Arrow />
         </Button>

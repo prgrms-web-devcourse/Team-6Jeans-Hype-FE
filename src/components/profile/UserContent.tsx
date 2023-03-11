@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 
 import BattleCard from '@/components/battle/Card';
 import FinishedBattleCard from '@/components/battle/Card/Finished';
@@ -12,13 +13,22 @@ import { useGetMyBattleList } from './battle/useGetMyBattleList';
 import ContentList from './ContentList';
 
 function UserContent() {
-  const { data: postFeedLimit } = useQuery(['postfeedlimit'], getPostFeedLimit);
-  const { data: battleLimit } = useGetMyBattleList({ limit: 2 });
+  const router = useRouter();
+  const { memberId } = router.query;
+
+  const { data: battleLimit } = useGetMyBattleList({
+    limit: 2,
+    memberId: Number(memberId),
+  });
+  const { data: postFeedLimit } = useQuery(
+    ['postfeedlimit', memberId],
+    async () => await getPostFeedLimit(Number(memberId)),
+  );
 
   return (
     <Container>
       <ContentList title='대결'>
-        {battleLimit ? (
+        {battleLimit?.length ? (
           battleLimit.map(({ id, challenging, challenged, battleStatus }) =>
             battleStatus === 'PROGRESS' ? (
               <BattleCard key={id} challenging={challenging} challenged={challenged} />
@@ -37,7 +47,7 @@ function UserContent() {
         )}
       </ContentList>
       <ContentList title='추천'>
-        {postFeedLimit ? (
+        {postFeedLimit?.length ? (
           postFeedLimit.map(({ postId, music, likeCount }) => (
             <RecommendationPost
               key={postId}

@@ -47,7 +47,6 @@ function MusicList({ onClickInMusicList, keyword }: Props) {
 export default memo(MusicList, (prev, next) => JSON.stringify(prev.keyword) === JSON.stringify(next.keyword));
 
 const Header = styled.div`
-  font-style: normal;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 2rem;

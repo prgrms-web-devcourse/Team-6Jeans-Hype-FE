@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 import { COLOR } from '@/constants/color';
 
@@ -10,10 +11,19 @@ interface Props {
 }
 
 function RankingCard({ user, isMyRanking }: Props) {
-  const { memberNickname, memberPoint, memberRanking } = user;
+  const { memberNickname, memberPoint, memberRanking, memberId } = user;
+  const router = useRouter();
+
+  const navigateProfile = () => {
+    if (isMyRanking) {
+      router.push(`/profile`);
+      return;
+    }
+    router.push(`profile?memberId=${memberId}`);
+  };
 
   return (
-    <RankingCardContainer className={isMyRanking ? 'my' : undefined}>
+    <RankingCardContainer className={isMyRanking ? 'my' : undefined} onClick={navigateProfile}>
       <Rank>{memberRanking}</Rank>
       <Nickname>{memberNickname}</Nickname>
       <Point>{memberPoint} Points</Point>
@@ -44,8 +54,8 @@ const RankingCardContainer = styled.div`
 
   &:hover {
     background: rgba(125, 116, 220, 0.1);
-    transform: scale(1.02);
-    transition: all 0.1s ease;
+    transform: scale(1.01);
+    transition: 0.3s ease;
   }
 `;
 

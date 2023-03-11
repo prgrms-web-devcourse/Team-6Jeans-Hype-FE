@@ -5,7 +5,7 @@ import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
 import AuthRequiredPage from '@/components/login/AuthRequiredPage';
-import { useGetMyBattleList } from '@/components/mypage/battle/useGetMyBattleList';
+import { useGetMyBattleList } from '@/components/profile/battle/useGetMyBattleList';
 
 export default function MyBattleListPage() {
   const { data: myBattleList } = useGetMyBattleList();

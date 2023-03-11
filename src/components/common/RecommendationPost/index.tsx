@@ -9,6 +9,7 @@ import { COLOR } from '@/constants/color';
 
 function RecommendationPost({
   postId,
+  nickname,
   music: { albumCoverUrl, singer, title },
   likeCount,
   isBattlePossible,
@@ -24,6 +25,7 @@ function RecommendationPost({
 
   return (
     <Container key={postId} onClick={(e) => navigatePostDetail(e, postId)}>
+      {nickname && <Nickname>{nickname}</Nickname>}
       <Wrapper>
         <AlbumPoster lazy={true} size={6} src={albumCoverUrl} />
         <Content>
@@ -43,13 +45,7 @@ function RecommendationPost({
               />
             )}
 
-            <Like
-              size={1.5}
-              color='purple'
-              initCount={likeCount}
-              isClicked={false}
-              onClick={() => console.log('todo 좋아요 관련 api 연결하기')}
-            />
+            <Like size={1.5} color='purple' initCount={likeCount} isClicked={true} />
           </ButtonWrapper>
         </Content>
       </Wrapper>
@@ -66,6 +62,12 @@ const Container = styled.div`
   cursor: pointer;
 `;
 
+const Nickname = styled.span`
+  color: ${COLOR.gray};
+  margin-bottom: 0.8rem;
+  padding-left: 0.5rem;
+`;
+
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -77,10 +79,8 @@ const Wrapper = styled.div`
 const Content = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 1.5rem;
   width: calc(100% - 7rem);
-  gap: 2rem;
+  position: relative;
 `;
 
 const MusicInfo = styled.div`
@@ -88,6 +88,8 @@ const MusicInfo = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 0.3rem;
+  padding-left: 1.5rem;
+  width: calc(100% - 9rem);
 `;
 
 const Title = styled.h1`
@@ -107,4 +109,6 @@ const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+  position: absolute;
+  right: 0.7rem;
 `;

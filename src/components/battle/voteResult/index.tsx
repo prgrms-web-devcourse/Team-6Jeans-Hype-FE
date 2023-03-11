@@ -25,9 +25,7 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
 
   return (
     <VoteResultModal className={isDetail ? 'infinity' : undefined}>
-      {isLoading ? (
-        <div>skeleton으로 교체 예정</div>
-      ) : (
+      <Wrapper>
         <VoteResultContainer>
           <AlbumPoster lazy={true} src={voteResult?.albumCoverUrl} size={10} />
           <Title>{voteResult?.title}</Title>
@@ -39,7 +37,7 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
           </Votes>
           {isDetail && <Back onClick={() => router.push('/list')}>돌아가기</Back>}
         </VoteResultContainer>
-      )}
+      </Wrapper>
     </VoteResultModal>
   );
 }
@@ -100,11 +98,23 @@ const VoteResultModal = styled.div`
   }
 `;
 
+const Wrapper = styled.div`
+  position: relative;
+  top: 13.6rem;
+  width: calc(100% - 4rem);
+  height: calc(100vh - 22rem);
+  padding: 0 2rem;
+  min-height: 45rem;
+  margin-bottom: 10rem;
+`;
+
 const VoteResultContainer = styled.div`
   position: relative;
-  height: 39.2rem;
-  top: calc(50% + 11.5rem);
+  height: 39.1rem;
+  top: calc(50% + 11.9rem);
   transform: translateY(-50%);
+  min-height: 45rem;
+  margin-bottom: 10rem;
   display: flex;
   flex-direction: column;
   align-items: center;

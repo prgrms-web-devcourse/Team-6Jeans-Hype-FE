@@ -1,45 +1,59 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { MouseEvent, useRef } from 'react';
 
-import { BattleMusic } from '@/components/post/battle/types';
+import MusicPlayButton from '@/components/common/MusicPlayButton';
 import { COLOR } from '@/constants/color';
 
-import MusicPlayButton from '../MusicPlayButton';
+import { Music } from '../types';
 
 interface Prop {
-  music: BattleMusic;
-  onClick?(e: any): void;
-  clickSide?: 'left' | 'right' | undefined;
+  music: Music;
+  moving?: 'left' | 'right';
+  onClick?: () => void;
 }
 
-const BattleMusicInfo = ({ music, onClick, clickSide }: Prop) => {
+function BattleMusic({ music, moving, onClick }: Prop) {
+  const thumbnailRef = useRef<HTMLDivElement>(null);
+
   const { albumCoverUrl, musicUrl, title, singer } = music;
 
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
     if (e.defaultPrevented) return;
+    onClick?.();
+    moving && move();
+  };
 
-    onClick?.(e);
+  const move = () => {
+    const thumbnailElement = thumbnailRef.current;
+    if (thumbnailElement) {
+      const savedClassName = thumbnailElement.className;
+      thumbnailElement.className = `${savedClassName} active`;
+
+      // if (!id) {
+      setTimeout(() => {
+        thumbnailElement.className = savedClassName;
+      }, 1700);
+      // }
+    }
   };
 
   return (
     <Container>
-      <Wrapper onClick={handleClick} className='container'>
-        <Thumbnail src={albumCoverUrl} clickSide={clickSide}>
+      <Wrapper onClick={(e) => handleClick(e)} className='container'>
+        <Thumbnail src={albumCoverUrl} clickSide={moving} ref={thumbnailRef}>
           <PlayIcon value={musicUrl}>
             <MusicPlayButton key={title} src={musicUrl} />
           </PlayIcon>
-
-          <PlusIcon src='/images/plus-music.svg' value={musicUrl} />
         </Thumbnail>
         <Title>{title}</Title>
         <Singer>{singer}</Singer>
       </Wrapper>
     </Container>
   );
-};
+}
 
-export default BattleMusicInfo;
-
+export default BattleMusic;
 const moveLeft = keyframes`
   0% {
     right:0%;
@@ -66,13 +80,23 @@ const moveRight = keyframes`
   }
 `;
 
+const changeOpacity = keyframes`
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
 const Container = styled.div`
   max-width: 20rem;
   width: 45%;
   height: 18rem;
-
   background: ${COLOR.white};
-
   box-shadow: 0px 0px 1.5rem rgba(158, 158, 158, 0.25);
   border-radius: 1rem;
   position: relative;
@@ -93,7 +117,7 @@ const Thumbnail = styled.div<{ src: string; clickSide: 'left' | 'right' | undefi
   background-image: url(${(props) => props.src});
   background-color: ${COLOR.white};
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center center;
   filter: drop-shadow(0 0 1.5rem rgba(158, 158, 158, 0.25));
   border-radius: 1rem;
   width: 10rem;
@@ -103,6 +127,9 @@ const Thumbnail = styled.div<{ src: string; clickSide: 'left' | 'right' | undefi
 
   &.active {
     animation: ${(props) => (props.clickSide === 'right' ? moveLeft : moveRight)} 2s ease-in;
+    & > div {
+      animation: ${changeOpacity} 2s ease-in;
+    }
   }
 `;
 
@@ -111,22 +138,13 @@ const PlayIcon = styled.div<{ value: string | undefined }>`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   display: ${(prop) => (prop.value === '' ? 'none' : 'block')};
-`;
-
-const PlusIcon = styled.img<{ value: string | undefined }>`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  display: ${(prop) => (prop.value === '' ? 'block' : 'none')};
 `;
 
 const Title = styled.div`
   width: calc(100% - 1.6rem);
   padding: 0 0.8rem;
+  font-style: normal;
   font-weight: 700;
   font-size: 1.3rem;
   line-height: 1.9rem;
@@ -138,6 +156,7 @@ const Title = styled.div`
 const Singer = styled.div`
   width: calc(100% - 1.6rem);
   padding: 0 0.8rem;
+  font-style: normal;
   font-weight: 500;
   font-size: 1.1rem;
   line-height: 1.6rem;

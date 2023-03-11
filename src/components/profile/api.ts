@@ -2,11 +2,11 @@ import { axiosInstance } from '@/api';
 
 import { MyBattleAPI, MyPostAPI, ProfileAPI } from './types';
 
-export const getPostFeedLimit = async () => {
+export const getPostFeedLimit = async (memberId?: number) => {
   try {
     const { data } = await axiosInstance.request<MyPostAPI>({
       method: 'GET',
-      url: `/members/posts`,
+      url: `/members/posts${memberId ? `?memberId=${memberId}` : ''}`,
       params: {
         limit: '2',
       },
@@ -21,11 +21,11 @@ export const getPostFeedLimit = async () => {
   }
 };
 
-export const getUserProfile = async () => {
+export const getUserProfile = async (memberId?: number) => {
   try {
     const { data } = await axiosInstance.request<ProfileAPI>({
       method: 'GET',
-      url: `members/profile`,
+      url: `members/profile${memberId ? `?memberId=${memberId}` : ''}`,
     });
 
     if (data.success) {
@@ -48,9 +48,8 @@ export const getBattlesLimit = async () => {
 
     if (data.success) {
       return data.data.battles;
-    } else {
-      return [];
     }
+    return [];
   } catch (error) {
     console.error(error);
   }

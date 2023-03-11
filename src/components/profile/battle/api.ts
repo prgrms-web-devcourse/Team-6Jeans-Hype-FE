@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { axiosInstance } from '@/api';
 import { Battle, GenreName } from '@/components/battle/list/types';
 
-import { BattleStatusValue } from './../../battle/types';
+import { BattleStatusValue } from '../../battle/types';
 
 const battleMusicResponseScheme = z.object({
   albumUrl: z.string(),
@@ -24,14 +24,16 @@ type BattleResponse = z.infer<typeof battleResponseScheme>;
 export const getMyBattleList = async ({
   genre,
   limit,
+  memberId,
 }: {
   genre?: GenreName;
   limit?: number;
+  memberId?: number;
 }): Promise<Battle<BattleStatusValue>[]> => {
   const { data } = await axiosInstance.request({
     method: 'GET',
     url: `/members/battles`,
-    params: { genre, limit },
+    params: { genre, limit, memberId },
   });
   return data.data.battles.map((unsafeBattle: BattleResponse) => {
     const parsed = battleResponseScheme.safeParse(unsafeBattle);

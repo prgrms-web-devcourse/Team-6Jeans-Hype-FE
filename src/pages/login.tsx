@@ -33,7 +33,7 @@ const StyledLetterLogo = styled(LetterLogo)`
 
 const Slogan = styled.div`
   color: #7893ea;
-  font-style: normal;
+
   font-weight: 500;
   font-size: 2rem;
   line-height: 3rem;
@@ -42,7 +42,6 @@ const Slogan = styled.div`
 `;
 
 const Footer = styled.footer`
-  font-style: normal;
   font-weight: 300;
   font-size: 11px;
   line-height: 16px;

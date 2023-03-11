@@ -1,13 +1,13 @@
 import { axiosInstance } from '@/api';
 
 import { tokenStorage } from '../login/utils/localStorage';
-import { ProfileAPI } from '../mypage/types';
+import { ProfileAPI } from '../profile/types';
 
-export const getUserRanking = async () => {
+export const getUserRanking = async (isLimit: boolean) => {
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
-      url: `/members/ranking`,
+      url: `/members/ranking${isLimit ? '/preview' : ''}`,
     });
 
     if (data.success) {

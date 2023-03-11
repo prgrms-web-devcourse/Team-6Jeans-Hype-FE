@@ -2,14 +2,12 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
-import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import RecommendationPost from '@/components/common/RecommendationPost';
 import { PostInfo } from '@/components/post/types';
-import { COLOR } from '@/constants/color';
 
-import { getPostFeedData } from './api';
 import MusicListSkeleton from '../common/skeleton/MusicListSkeleton';
+import { getPostFeedData } from './api';
 
 function PostList() {
   const [genre, setGenre] = useState('');
@@ -28,12 +26,8 @@ function PostList() {
     <Container>
       <Header>
         <Title>한눈에 보는 추천</Title>
-        <Filter>
-          최신순
-          <img src='./images/down-arrow-gray.svg' alt='필터링' />
-        </Filter>
       </Header>
-      <Genres onChange={onChange} />
+      <Genres shouldNeedAll onChange={onChange} />
       <PostFeedList>
         {isLoading ? (
           <>
@@ -42,10 +36,11 @@ function PostList() {
             <MusicListSkeleton />
           </>
         ) : (
-          postFeed?.map(({ postId, music, likeCount, isBattlePossible }: PostInfo) => (
+          postFeed?.map(({ postId, nickname, music, likeCount, isBattlePossible }: PostInfo) => (
             <RecommendationPost
               key={postId}
               postId={postId}
+              nickname={nickname}
               music={music}
               likeCount={likeCount}
               isBattlePossible={isBattlePossible}
@@ -53,7 +48,6 @@ function PostList() {
           ))
         )}
       </PostFeedList>
-      <BottomNav />
     </Container>
   );
 }
@@ -76,15 +70,6 @@ const Header = styled.div`
 const Title = styled.h1`
   font-weight: 700;
   font-size: 1.8rem;
-`;
-
-const Filter = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-weight: 700;
-  font-size: 1rem;
-  color: ${COLOR.gray};
 `;
 
 const PostFeedList = styled.div`

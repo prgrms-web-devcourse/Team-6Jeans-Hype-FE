@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import PlayButton from 'public/images/play-button.svg';
+import PauseButton from 'public/images/pause-button.svg';
 
 interface Props {
   src?: string;
@@ -22,9 +24,7 @@ function MusicPlayButton({ src }: Props) {
   return (
     <PlayIcon>
       <Audio src={src} id={`audio${src}`} controls loop />
-      <Button onClick={(e) => onClickPlayButton(e)}>
-        <Image src={`/images/${isMusicPlay ? 'play-button' : 'pause-button'}.svg`} alt='play button' />
-      </Button>
+      <Button onClick={(e) => onClickPlayButton(e)}>{isMusicPlay ? <PlayButton /> : <PauseButton />}</Button>
     </PlayIcon>
   );
 }
@@ -49,9 +49,4 @@ const Button = styled.button`
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
-`;
-
-const Image = styled.img`
-  height: 5rem;
-  filter: drop-shadow(0px 0px 10px rgba(43, 43, 43, 0.25));
 `;

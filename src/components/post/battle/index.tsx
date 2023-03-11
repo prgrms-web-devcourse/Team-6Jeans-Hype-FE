@@ -38,7 +38,12 @@ function BattleForm() {
   const applyBattle = async () => {
     if (typeof selectedOpponentMusicId !== 'string') return;
 
-    await createBattle(+selectedOpponentMusicId, selectedMyMusic.postId);
+    const isSuccessFetch = await createBattle(+selectedOpponentMusicId, selectedMyMusic.postId);
+    if (!isSuccessFetch?.success) {
+      alert(isSuccessFetch?.message);
+      return;
+    }
+
     router.push(`/battle/list`);
   };
 
@@ -55,37 +60,38 @@ function BattleForm() {
   );
 
   return (
-    <Container>
+    <>
       <Header
         title='대결 신청'
         backUrl={`/post/detail?postId=${selectedOpponentMusicId}`}
         actionButton={isReadySubmit && <HeaderSubmitButton onClick={applyBattle} />}
       />
-      <Title>What&apos;s next?</Title>
-      <Musics>
-        {battleMusic && (
-          <>
-            <BattleMusicInfo music={battleMusic.music} />
-            <BattleMusicInfo music={selectedMyMusic} onClick={renderMyList} />
-          </>
+      <Wrapper>
+        <Title>What&apos;s next?</Title>
+        <Musics>
+          {battleMusic && (
+            <>
+              <BattleMusicInfo music={battleMusic.music} />
+              <BattleMusicInfo music={selectedMyMusic} onClick={renderMyList} />
+            </>
+          )}
+        </Musics>
+        {typeof selectedOpponentMusicId === 'string' && (
+          <MyBattleList
+            selectedOpponentMusicId={selectedOpponentMusicId}
+            updateMyMusicCard={updateMyMusicCard}
+            isVisibleMusicList={isVisibleMusicList}
+          />
         )}
-      </Musics>
-      {typeof selectedOpponentMusicId === 'string' && (
-        <MyBattleList
-          selectedOpponentMusicId={selectedOpponentMusicId}
-          updateMyMusicCard={updateMyMusicCard}
-          isVisibleMusicList={isVisibleMusicList}
-        />
-      )}
-    </Container>
+      </Wrapper>
+    </>
   );
 }
 
 export default BattleForm;
 
-const Container = styled.div`
-  width: 90%;
-  margin: 0 auto;
+const Wrapper = styled.div`
+  padding: 0 2rem;
 `;
 
 const Title = styled.div`
