@@ -2,11 +2,15 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getMyPostList } from './api';
 
-export const useGetMyPostList = (genre?: string) => {
+export const useGetMyPostList = (genre?: string, memberId?: number) => {
   return useQuery({
-    queryKey: ['myPostList', genre],
+    queryKey: ['myPostList', genre, memberId],
     queryFn: async () => {
-      const data = await getMyPostList(genre);
+      if (Number.isNaN(memberId)) {
+        const data = await getMyPostList(genre);
+        return data;
+      }
+      const data = await getMyPostList(genre, memberId);
       return data;
     },
     staleTime: 30000,

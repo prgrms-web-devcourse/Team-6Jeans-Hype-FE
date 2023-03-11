@@ -12,15 +12,16 @@ interface Props {
 
 function ContentList({ title, children }: Props) {
   const router = useRouter();
+  const { memberId } = router.query;
 
   const navigateList = () => {
     if (title === '대결') {
-      router.push(`/profile/battle`);
+      router.push(`/profile/battle${memberId ? `?memberId=${memberId}` : ''}`);
       return;
     }
 
     if (title === '추천') {
-      router.push(`profile/post`);
+      router.push(`profile/post${memberId ? `?memberId=${memberId}` : ''}`);
     }
   };
 
