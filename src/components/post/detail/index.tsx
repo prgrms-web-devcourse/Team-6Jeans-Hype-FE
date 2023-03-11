@@ -12,9 +12,9 @@ import { COLOR } from '@/constants/color';
 import { getPostDetailData } from './api';
 import MusicInfo from './musicInfo';
 
-function PostDetail() {
-  let play: NodeJS.Timer;
+let play: any;
 
+function PostDetail() {
   const [isRenderPostContent, setIsRenderPostContent] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -42,6 +42,7 @@ function PostDetail() {
 
   const onChangeCurrentTime = (time: number, isPlay: boolean) => {
     setCurrentTime(time);
+
     if (isPlay) {
       startPlayTIme();
     } else {
@@ -50,13 +51,23 @@ function PostDetail() {
   };
 
   const startPlayTIme = () => {
-    play = setInterval(() => {
-      setCurrentTime((prev) => prev + 1);
-    }, 1000);
+    if (!play) {
+      play = setInterval(() => {
+        setCurrentTime((prev) => prev + 1);
+      }, 1000);
+    }
   };
 
   const stoptPlayTime = () => {
     clearInterval(play);
+    play = null;
+  };
+
+  const calculateTime = (secs: number) => {
+    const minutes = Math.floor(secs / 60);
+    const seconds = Math.floor(secs % 60);
+    const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+    return `${minutes}:${returnedSeconds}`;
   };
 
   useEffect(() => {
@@ -67,6 +78,15 @@ function PostDetail() {
       setDuration(Math.ceil(duration));
     };
   }, [postDetail]);
+
+  useEffect(() => {
+    const left = document.querySelector('#left') as HTMLElement;
+    const right = document.querySelector('#right') as HTMLElement;
+    if (left && right) {
+      left.style.width = `${(currentTime / duration) * 100}%`;
+      right.style.width = `${100 - (currentTime / duration) * 100}%`;
+    }
+  }, [currentTime, duration]);
 
   return (
     <Container>
@@ -83,9 +103,9 @@ function PostDetail() {
 
         <PlayStatus>
           <PlayBar>
+            <div id='left'></div>
             <div></div>
-            <div></div>
-            <div></div>
+            <div id='right'></div>
           </PlayBar>
           <PlayTime>
             <div>{currentTime}</div>
@@ -179,14 +199,14 @@ const PlayBar = styled.div`
   border-radius: 0.45rem;
 
   & div:first-of-type {
-    width: 50%;
+    width: 0%;
     height: 0.75rem;
     background-color: ${COLOR.deepBlue};
     border-radius: 0.45rem;
   }
 
   & div:last-of-type {
-    width: 50%;
+    width: 0%;
     height: 0.75rem;
     background-color: ${COLOR.white};
     border-top-right-radius: 0.45rem;
