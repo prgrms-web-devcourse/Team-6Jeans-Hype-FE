@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import NoContent from '@/components/common/NoContent';
 import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
+import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 import BattleMusic from '../BattleMusic';
 import { Battles } from '../types';
@@ -20,6 +21,8 @@ interface Props {
 function Battle({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch, onClickSkip }: Props) {
   const router = useRouter();
   const { id } = router.query;
+
+  const { isLeftMusicPlay, isRightMusicPlay, clickLeftButton, clickRightButton } = useBattleMusicPlay();
 
   const selectBattleMusic = (clickSide: 'left' | 'right', musicId: number | undefined) => {
     if (musicData && musicId) {
@@ -57,17 +60,23 @@ function Battle({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
           <>
             <BattleMusic
               music={musicData.challenged.music}
-              moving='left'
+              isMusicPlay={isLeftMusicPlay}
+              updatePlaySatus={clickLeftButton}
               onClick={() => {
                 selectBattleMusic('left', musicData.challenged.postId);
               }}
+              moving='left'
+              opponentMusicUrl={musicData?.challenging.music.musicUrl}
             />
             <BattleMusic
               music={musicData.challenging.music}
-              moving='right'
+              isMusicPlay={isRightMusicPlay}
+              updatePlaySatus={clickRightButton}
               onClick={() => {
                 selectBattleMusic('right', musicData.challenging.postId);
               }}
+              moving='right'
+              opponentMusicUrl={musicData?.challenged.music.musicUrl}
             />
           </>
         )}
