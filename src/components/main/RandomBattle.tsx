@@ -2,20 +2,22 @@ import styled from '@emotion/styled';
 import Versus from 'public/images/no-background-logo-white.svg';
 
 interface RandomBattleProps {
-  challengedAlbumCoverImage: string;
-  challengingAlbumCoverImage: string;
+  battle: RandomBattleAlbumCoverImage;
+  onClick?: () => void;
   className?: string;
 }
 
-export default function RandomBattle({
-  challengedAlbumCoverImage,
-  challengingAlbumCoverImage,
-  className,
-}: RandomBattleProps) {
+export interface RandomBattleAlbumCoverImage {
+  battleId: number;
+  challengedAlbumCoverImage: string;
+  challengingAlbumCoverImage: string;
+}
+
+export default function RandomBattle({ battle, onClick, className }: RandomBattleProps) {
   return (
-    <Container className={className}>
-      <AlbumCoverImage src={challengedAlbumCoverImage} />
-      <AlbumCoverImage src={challengingAlbumCoverImage} />
+    <Container onClick={onClick} className={className}>
+      <AlbumCoverImage src={battle.challengedAlbumCoverImage} />
+      <AlbumCoverImage src={battle.challengingAlbumCoverImage} />
       <StyledVersus />
     </Container>
   );

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import ArrowRight from 'public/images/arrow-right.svg';
 import Logo from 'public/images/letter-logo.svg';
@@ -6,21 +7,24 @@ import Logo from 'public/images/letter-logo.svg';
 import BottomNav from '@/components/common/BottomNav';
 import GenreTop10Post from '@/components/main/GenreTop10Post';
 import RandomBattle from '@/components/main/RandomBattle';
+import { getRandomBattleAlbumCoverImage } from '@/components/main/RandomBattle/api';
 import Ranking from '@/components/ranking';
 import { COLOR } from '@/constants/color';
 
 export default function Home() {
-  const PROGRESS_BATTLE_DUMMY = {
-    challengedAlbumCoverImage:
-      'https://is2-ssl.mzstatic.com/image/thumb/Music115/v4/a9/6c/89/a96c893b-e5bd-2c55-897c-7604201c3335/cover-.jpg/100x100bb.jpg',
-    challengingAlbumCoverImage:
-      'https://is3-ssl.mzstatic.com/image/thumb/Music112/v4/70/07/f7/7007f789-3730-e11f-5450-984c22e9c0f8/cover_KM0016002_1.jpg/100x100bb.jpg',
+  const { data: randomBattle } = useQuery(['main_getRandomBattleAlbumCoverImage'], getRandomBattleAlbumCoverImage);
+
+  const onClickRandomBattle = (battleId: number) => {
+    // TODO: 대결 디테일로 이동 (참여한 대결 페이지 만들고 나서 할 것)
   };
+
   return (
     <Container>
       <StyledLogo />
       <Label>진행 중인 대결</Label>
-      <StyledRandomBattle {...PROGRESS_BATTLE_DUMMY} />
+      {randomBattle && (
+        <StyledRandomBattle battle={randomBattle} onClick={() => onClickRandomBattle(randomBattle.battleId)} />
+      )}
       <Label>이런 곡은 어때요?</Label>
       <GenreTop10Post />
       <RankingLabels>
