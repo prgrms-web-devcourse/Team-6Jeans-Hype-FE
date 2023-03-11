@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import BottomNav from '@/components/common/BottomNav';
@@ -10,6 +11,8 @@ import { useGetMyPostList } from '@/components/profile/post/useGetMyPostList';
 
 export default function MyPostListPage() {
   const [genre, setGenre] = useState<string | undefined>();
+  const router = useRouter();
+  const { memberId } = router.query;
 
   const onClickGenre = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedGenre = e.target.value;
@@ -20,11 +23,11 @@ export default function MyPostListPage() {
     setGenre(selectedGenre);
   };
 
-  const { data: myPostList } = useGetMyPostList(genre);
+  const { data: myPostList } = useGetMyPostList(genre, Number(memberId));
 
   return (
     <AuthRequiredPage>
-      <Header title='내 추천 목록' />
+      <Header title={memberId ? '추천 목록' : '내 추천 목록'} />
       <Container>
         <Genres shouldNeedAll onChange={onClickGenre} />
         <ListWrapper>
