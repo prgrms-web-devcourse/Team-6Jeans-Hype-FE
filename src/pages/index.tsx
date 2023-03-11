@@ -12,37 +12,41 @@ import { getGenreTop10Data } from '@/components/main/GenreTop10Post/api';
 import DeskTopPosts from '@/components/main/GenreTop10Post/DeskTopPosts';
 import MobilePosts from '@/components/main/GenreTop10Post/MobilePosts';
 import RandomBattle from '@/components/main/RandomBattle';
+import { getRandomBattleAlbumCoverImage } from '@/components/main/RandomBattle/api';
 import Ranking from '@/components/ranking';
 import { COLOR } from '@/constants/color';
 import { useCheckMobile } from '@/hooks/useCheckMobile';
 
 export default function Home() {
+  const { data: randomBattle } = useQuery(['main_getRandomBattleAlbumCoverImage'], getRandomBattleAlbumCoverImage);
   const router = useRouter();
   const { mobile } = useCheckMobile();
-
   const [genre, setGenre] = useState('');
+
+  const onClickRandomBattle = (battleId: number) => {
+    // TODO: 대결 디테일로 이동 (참여한 대결 페이지 만들고 나서 할 것)
+  };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedGenre = e.target.value;
 
     selectedGenre === 'ALL' ? setGenre('') : setGenre(selectedGenre);
   };
+
   const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
 
   const { data: genreTop10Post } = useQuery(['main', 'genreTop10', genre], () => {
     return getGenreTop10Data(genre);
   });
-  const PROGRESS_BATTLE_DUMMY = {
-    challengedAlbumCoverImage:
-      'https://is2-ssl.mzstatic.com/image/thumb/Music115/v4/a9/6c/89/a96c893b-e5bd-2c55-897c-7604201c3335/cover-.jpg/100x100bb.jpg',
-    challengingAlbumCoverImage:
-      'https://is3-ssl.mzstatic.com/image/thumb/Music112/v4/70/07/f7/7007f789-3730-e11f-5450-984c22e9c0f8/cover_KM0016002_1.jpg/100x100bb.jpg',
-  };
+
   return (
     <Container>
       <StyledLogo />
       <Label>진행 중인 대결</Label>
-      <StyledRandomBattle {...PROGRESS_BATTLE_DUMMY} />
+
+      {randomBattle && (
+        <StyledRandomBattle battle={randomBattle} onClick={() => onClickRandomBattle(randomBattle.battleId)} />
+      )}
       <LikeGenrePost>
         <Label>이런 곡은 어때요?</Label>
         <Genres onChange={onChange} shouldNeedAll />
