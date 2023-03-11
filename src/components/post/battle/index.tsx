@@ -61,11 +61,7 @@ function BattleForm() {
 
   return (
     <>
-      <Header
-        title='대결 신청'
-        backUrl={`/post/detail?postId=${selectedOpponentMusicId}`}
-        actionButton={isReadySubmit && <HeaderSubmitButton onClick={applyBattle} />}
-      />
+      <Header title='대결 신청' actionButton={isReadySubmit && <HeaderSubmitButton onClick={applyBattle} />} />
       <Wrapper>
         <Title>What&apos;s next?</Title>
         <Musics>
