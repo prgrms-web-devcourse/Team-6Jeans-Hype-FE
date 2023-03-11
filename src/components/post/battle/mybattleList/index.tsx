@@ -110,7 +110,7 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMus
 
       <ConfirmModal
         isOpened={modalStatus}
-        text={`[${modalMusicData.singer}]${modalMusicData.title}을 선택하셨습니다.\n 대결신청 하시겠습니까?`}
+        text={`${modalMusicData.singer} - ${modalMusicData.title}을 선택하셨습니다.\n 대결신청 하시겠습니까?`}
         onClickCancel={onClickCancel}
         onClickConfirm={onClickConfirm}
       />
