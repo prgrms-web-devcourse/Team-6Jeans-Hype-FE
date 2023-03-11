@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import ListIcon from 'public/images/go-to-list-icon.svg';
 import { useState } from 'react';
 
-import DetailComponent from '@/components/battle/detail/Battle/index';
+import Battle from '@/components/battle/detail/Battle/index';
 import { useGetBattle } from '@/components/battle/detail/useGetBattle';
 import { SelectedBattle } from '@/components/battle/types';
 import VoteResult from '@/components/battle/voteResult';
@@ -40,7 +40,7 @@ function Detail() {
       />
       <SelectContainer>
         <Empty />
-        <DetailComponent musicData={musicData} onChangeSelectedBattleInfo={onChangeSelectedBattleInfo} />
+        <Battle musicData={musicData} onChangeSelectedBattleInfo={onChangeSelectedBattleInfo} />
       </SelectContainer>
       {selectedBattle.battleId && selectedBattle.votedPostId && (
         <VoteResult
