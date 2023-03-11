@@ -29,16 +29,19 @@ export const getPostFeedData = async (genre: string) => {
 
 export const getMusicData = async (keyword: string) => {
   try {
-    const { data } = await axiosInstance.request({
+    const response = await axiosInstance.request({
       method: 'GET',
-      url: `/music/search`,
+      url: `${ADDRESS}/search`,
       params: {
         term: keyword,
+        country: 'KR',
+        limit: 500,
+        media: 'music',
       },
     });
 
-    if (data.success) {
-      return data.data.results;
+    if (response.data.results.length > 0) {
+      return response.data.results;
     } else {
       return [];
     }
