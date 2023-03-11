@@ -1,7 +1,7 @@
 import BottomNav from '@/components/common/BottomNav';
 import AuthRequiredPage from '@/components/login/AuthRequiredPage';
-import UserContent from '@/components/mypage/UserContent';
-import UserHeader from '@/components/mypage/UserHeader';
+import UserContent from '@/components/profile/UserContent';
+import UserHeader from '@/components/profile/UserHeader';
 
 function Mypage() {
   return (

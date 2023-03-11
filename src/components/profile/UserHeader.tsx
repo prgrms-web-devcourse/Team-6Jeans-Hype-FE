@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 
+import { getUserProfile } from '@/components/profile/api';
 import { COLOR } from '@/constants/color';
 
-import { getUserProfile } from './api';
+import SkeletonCircle from '../common/skeleton/Circle';
 import ResultCard from './ResultCard';
 
 interface ResultCard {
@@ -21,18 +23,28 @@ export const RESULT_CARD_INFO: Record<ResultCardType, ResultCard> = {
 };
 
 function UserHeader() {
-  const { data: userProfile } = useQuery(['userProfile'], getUserProfile);
+  const router = useRouter();
+  const { memberId } = router.query;
+
+  const { data: userProfile, isLoading } = useQuery(
+    ['userProfile', memberId],
+    async () => await getUserProfile(Number(memberId)),
+  );
 
   return (
     <Container>
       <Wrapper>
         <UserContainer>
           <DefaultProfile>
-            <img src={userProfile?.profileImageUrl} alt='profile' />
+            {isLoading ? (
+              <SkeletonCircle width={7} height={7} />
+            ) : (
+              <img src={userProfile?.profileImageUrl} alt='profile' />
+            )}
           </DefaultProfile>
           <Info>
             <Name>{userProfile?.nickname}</Name>
-            <RestTicket>남은 대결권 {userProfile?.countOfChanllenge}</RestTicket>
+            {userProfile?.countOfChanllenge && <RestTicket>남은 대결권 {userProfile?.countOfChanllenge}</RestTicket>}
           </Info>
         </UserContainer>
         <CardConatiner>
@@ -54,8 +66,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 90%;
-  margin: 0 auto;
+  padding: 0 2rem;
 `;
 
 const UserContainer = styled.div`
@@ -63,7 +74,6 @@ const UserContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  margin-left: -11.5rem;
   padding: 3rem 0;
 `;
 
@@ -80,10 +90,11 @@ const DefaultProfile = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0px 0px 15px rgba(158, 158, 158, 0.25);
+  border-radius: 50%;
 
   & > img {
-    width: 7.7rem;
-    height: 7.7rem;
+    width: 7rem;
+    height: 7rem;
     border-radius: 50%;
   }
 `;
@@ -92,11 +103,14 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: calc(100% - 10rem);
+  max-width: 22rem;
 `;
 
 const Name = styled.h1`
   font-weight: 500;
   font-size: 1.7rem;
+  line-height: 2.2rem;
   color: ${COLOR.white};
 `;
 

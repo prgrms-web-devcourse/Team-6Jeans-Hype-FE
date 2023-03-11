@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import ShuffleIcon from 'public/images/go-to-shuffle-icon.svg';
+import ListIcon from 'public/images/go-to-list-icon.svg';
 
-import Select from '@/components/battle/select';
-import useVoteSelect from '@/components/battle/select/hooks/useVoteSelect';
-import VoteResult from '@/components/battle/voteResult';
+import Battle from '@/components/battle/detail/Battle/index';
+import { useGetBattle } from '@/components/battle/detail/useGetBattle';
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 import AuthRequiredPage from '@/components/login/AuthRequiredPage';
@@ -13,33 +12,21 @@ import AuthRequiredPage from '@/components/login/AuthRequiredPage';
 function Detail() {
   const router = useRouter();
   const { id } = router.query;
-  const { musicData, isLoadingState, selectedBattle, position, onClickMusic, onClickSkip } = useVoteSelect(
-    id ? Number(id) : 1,
-  );
+  const { data: musicData } = useGetBattle({ initBattleId: Number(id), selectedGenre: 'ALL' });
 
   return id ? (
     <AuthRequiredPage>
       <Header
         title='진행 중인 대결'
         actionButton={
-          <Link href='/post/battle/short'>
-            <ShuffleIcon />
+          <Link href='/battle/list'>
+            <ListIcon />
           </Link>
         }
       />
-      <SelectContainer>
-        <Empty /> {/* 원래 장르가 있던 영역인데 쇼츠페이지와 디자인 통일하기 위해 장르의 height 만큼 영역 줌 */}
-        <Select
-          battleId={Number(router.query.id)}
-          musicData={musicData}
-          isLoadingState={isLoadingState}
-          onClickMusic={onClickMusic}
-          onClickSkip={onClickSkip}
-        />
-      </SelectContainer>
-      {selectedBattle.battleId !== -1 && selectedBattle.votedPostId !== -1 && (
-        <VoteResult battleId={selectedBattle.battleId} votedPostId={selectedBattle.votedPostId} clickSide={position} />
-      )}
+      <Container>
+        <Battle musicData={musicData} />
+      </Container>
       <BottomNav />
     </AuthRequiredPage>
   ) : (
@@ -49,13 +36,10 @@ function Detail() {
 
 export default Detail;
 
-const SelectContainer = styled.div`
+const Container = styled.div`
   width: calc(100% - 4rem);
   height: calc(100vh - 16rem);
   min-height: 60rem;
   padding: 0 2rem;
-`;
-
-const Empty = styled.div`
-  height: 3rem;
+  padding-top: 1.27rem;
 `;

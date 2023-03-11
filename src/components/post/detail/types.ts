@@ -25,6 +25,7 @@ export interface PostDetail {
   likeCount: number;
   isBattlePossible: boolean;
   nickname: string;
+  memberId: number;
   content?: string;
 }
 
