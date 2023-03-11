@@ -3,7 +3,7 @@ import Link from 'next/link';
 import ListIcon from 'public/images/go-to-list-icon.svg';
 import { useState } from 'react';
 
-import Detail from '@/components/battle/detail/Battle';
+import Battle from '@/components/battle/detail/Battle';
 import { useGetBattle } from '@/components/battle/detail/useGetBattle';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
@@ -43,7 +43,7 @@ function Short() {
       />
       <Container>
         <Genres onChange={onClickGenre} shouldNeedAll />
-        <Detail musicData={musicData} isLoadingState={isLoadingState} refetch={refetch} onClickSkip={onClickSkip} />
+        <Battle musicData={musicData} isLoadingState={isLoadingState} refetch={refetch} onClickSkip={onClickSkip} />
       </Container>
       <BottomNav />
     </>
