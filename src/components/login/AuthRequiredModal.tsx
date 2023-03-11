@@ -23,7 +23,7 @@ export default function AuthRequiredModal() {
       isOpened={isOpened}
       onClickConfirm={onClickConfirm}
       onClickCancel={onClickCancel}
-      text={`로그인이 필요한 기능입니다\n로그인 페이지로 이동하시겠습니까?`}
+      text={`로그인이 필요한 기능입니다.\n로그인 하시겠습니까?`}
     />
   );
 }
