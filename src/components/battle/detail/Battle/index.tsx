@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
+import NoContent from '@/components/common/NoContent';
 import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
 
@@ -37,18 +38,9 @@ function Battle({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
 
   if (musicData == null) {
     return (
-      <Section>
-        <Empty>대결할 음악이 없어요</Empty>
-      </Section>
-    );
-  }
-
-  if (isLoadingState) {
-    return (
-      <>
-        <AlbumPoster />
-        <AlbumPoster />
-      </>
+      <Wrapper>
+        <NoContent text='대결할 음악이 없습니다.' isImage width={8} />
+      </Wrapper>
     );
   }
 
@@ -56,20 +48,29 @@ function Battle({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
     <Section>
       <Text>What’s your Hype Music?</Text>
       <BattleContainer>
-        <BattleMusic
-          music={musicData.challenged.music}
-          moving='left'
-          onClick={() => {
-            selectBattleMusic('left', musicData.challenged.postId);
-          }}
-        />
-        <BattleMusic
-          music={musicData.challenging.music}
-          moving='right'
-          onClick={() => {
-            selectBattleMusic('right', musicData.challenging.postId);
-          }}
-        />
+        {isLoadingState ? (
+          <>
+            <AlbumPoster />
+            <AlbumPoster />
+          </>
+        ) : (
+          <>
+            <BattleMusic
+              music={musicData.challenged.music}
+              moving='left'
+              onClick={() => {
+                selectBattleMusic('left', musicData.challenged.postId);
+              }}
+            />
+            <BattleMusic
+              music={musicData.challenging.music}
+              moving='right'
+              onClick={() => {
+                selectBattleMusic('right', musicData.challenging.postId);
+              }}
+            />
+          </>
+        )}
       </BattleContainer>
       {!id && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
     </Section>
@@ -77,6 +78,17 @@ function Battle({ musicData, isLoadingState, onChangeSelectedBattleInfo, refetch
 }
 
 export default Battle;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  gap: 0.5rem;
+`;
 
 const Section = styled.div`
   position: relative;
