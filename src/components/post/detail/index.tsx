@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -7,28 +7,47 @@ import Header from '@/components/common/Header';
 import Battle from '@/components/common/ImageButtons/BattleButton';
 import Like from '@/components/common/ImageButtons/LikeButton';
 import MusicPlayButton from '@/components/common/MusicPlayButton';
+import useAuth from '@/components/login/useAuth';
 import { COLOR } from '@/constants/color';
 
-import { getPostDetailData } from './api';
+import { getPostDetailData, getUserLikeStatus } from './api';
 import MusicInfo from './musicInfo';
 
 let intervalID: NodeJS.Timer;
 
 function PostDetail() {
+  const [isMusicPlay, setIsMusicPlay] = useState(true);
   const [isRenderPostContent, setIsRenderPostContent] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const { getAccessToken } = useAuth();
 
   const router = useRouter();
   const { postId } = router.query;
 
-  const { data: postDetail } = useQuery(
-    ['post', 'detail', postId],
-    () => getPostDetailData(parseInt(postId as string)),
-    {
-      enabled: !!postId,
-    },
-  );
+  const [{ data: postDetail, isLoading: postDetailLoading }, { data: isLike, isLoading: isLikeLoading }] = useQueries({
+    queries: [
+      {
+        queryKey: ['post', 'detail', postId],
+        queryFn: () => getPostDetailData(parseInt(postId as string)),
+        enabled: !!postId,
+      },
+
+      {
+        queryKey: ['post', 'detail', 'like', postId],
+        queryFn: () => {
+          const token = getAccessToken();
+
+          return getUserLikeStatus(postId as string, token as string);
+        },
+        enabled: !!postId,
+      },
+    ],
+  });
+
+  const onClickPlay = () => {
+    setIsMusicPlay((prev) => !prev);
+  };
 
   const navigatePostBattle = () => {
     router.push(`/post/battle?postId=${postId}`);
@@ -94,75 +113,84 @@ function PostDetail() {
   }, [currentTime, duration]);
 
   return (
-    <Container>
+    <>
       <audio src={postDetail?.music.musicUrl} className='audio' preload='metadata' style={{ display: 'none' }} />
-      <Header color={COLOR.white} backUrl='/post' />
-      <Wrapper>
-        {postDetail && (
-          <MusicInfo
-            title={postDetail.music.title}
-            albumCoverUrl={postDetail.music.albumCoverUrl}
-            singer={postDetail.music.singer}
-          />
-        )}
-
-        <PlayStatus>
-          <PlayBar>
-            <div id='left'></div>
-            <div></div>
-            <div id='right'></div>
-          </PlayBar>
-          <PlayTime>
-            <div>{calculateTime(currentTime)}</div>
-            <div>{calculateTime(duration)}</div>
-          </PlayTime>
-        </PlayStatus>
-
-        <PostDetailEvent>
-          <Icon>
-            <Like
-              size={2.2}
-              initCount={15}
-              color='white'
-              isClicked={true}
-              onClick={() => {
-                console.log('좋아요');
-              }}
-            />
-          </Icon>
-
-          <Icon>
-            <MusicPlayButton src={postDetail?.music.musicUrl} onChangeCurrentTime={onChangeCurrentTime} />
-          </Icon>
-
-          <Icon>
-            {postDetail?.isBattlePossible ? (
-              <Battle size={1.5} color='white' battleAbility={true} onClick={navigatePostBattle} />
-            ) : (
-              <Battle size={1.5} color='white' battleAbility={false} />
+      {!postDetailLoading && !isLikeLoading && (
+        <Container>
+          <Header color={COLOR.white} />
+          <Wrapper>
+            {postDetail && (
+              <MusicInfo
+                title={postDetail.music.title}
+                albumCoverUrl={postDetail.music.albumCoverUrl}
+                singer={postDetail.music.singer}
+              />
             )}
-          </Icon>
-        </PostDetailEvent>
 
-        <PostDetailContent>
-          <ContentHeader isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
-            <ContentHeaderWrapper>
-              <Title>
-                <Name onClick={navigateUserProfile}>{postDetail?.nickname}</Name>님의{' '}
-                {postDetail?.content === '' ? '추천' : '한마디'}
-              </Title>
-              <ToggleArrowButton isContent={!!postDetail?.content} onClick={toggleContentViewStatus}>
-                <ToggleImage src='/images/down-arrow.svg' alt='img' isRenderPostContent={isRenderPostContent} />
-              </ToggleArrowButton>
-            </ContentHeaderWrapper>
-          </ContentHeader>
+            <PlayStatus>
+              <PlayBar>
+                <div id='left'></div>
+                <div></div>
+                <div id='right'></div>
+              </PlayBar>
+              <PlayTime>
+                <div>{calculateTime(currentTime)}</div>
+                <div>{calculateTime(duration)}</div>
+              </PlayTime>
+            </PlayStatus>
 
-          <ContentBody isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
-            <Content>{postDetail?.content}</Content>
-          </ContentBody>
-        </PostDetailContent>
-      </Wrapper>
-    </Container>
+            <PostDetailEvent>
+              <Icon>
+                {postDetail && (
+                  <Like
+                    size={2.2}
+                    initCount={postDetail.likeCount}
+                    color='white'
+                    initIsClick={isLike ? isLike?.isLiked : true}
+                    postId={postId as string}
+                  />
+                )}
+              </Icon>
+
+              <Icon>
+                <MusicPlayButton
+                  src={postDetail?.music.musicUrl}
+                  onChangeCurrentTime={onChangeCurrentTime}
+                  isMusicPlay={isMusicPlay}
+                  updatePlayStatus={onClickPlay}
+                />
+              </Icon>
+
+              <Icon>
+                {postDetail?.isBattlePossible ? (
+                  <Battle size={1.5} color='white' battleAbility={true} onClick={navigatePostBattle} />
+                ) : (
+                  <Battle size={1.5} color='white' battleAbility={false} />
+                )}
+              </Icon>
+            </PostDetailEvent>
+
+            <PostDetailContent>
+              <ContentHeader isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
+                <ContentHeaderWrapper>
+                  <Title>
+                    <Name onClick={navigateUserProfile}>{postDetail?.nickname}</Name>님의{' '}
+                    {postDetail?.content === '' ? '추천' : '한마디'}
+                  </Title>
+                  <ToggleArrowButton isContent={!!postDetail?.content} onClick={toggleContentViewStatus}>
+                    <ToggleImage src='/images/down-arrow.svg' alt='img' isRenderPostContent={isRenderPostContent} />
+                  </ToggleArrowButton>
+                </ContentHeaderWrapper>
+              </ContentHeader>
+
+              <ContentBody isContent={!!postDetail?.content} isContentViewStatus={isRenderPostContent}>
+                <Content>{postDetail?.content}</Content>
+              </ContentBody>
+            </PostDetailContent>
+          </Wrapper>
+        </Container>
+      )}
+    </>
   );
 }
 
@@ -180,6 +208,7 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100vh;
+  max-height: 100%;
   background: linear-gradient(130.7deg, #a274dc -10.45%, #658df4 122.15%);
   position: relative;
 `;
@@ -291,7 +320,6 @@ const ToggleImage = styled.img`
 
 const ContentBody = styled.div`
   background: ${COLOR.background};
-
   position: absolute;
   left: 0;
   bottom: ${({ isContent, isContentViewStatus }: StyleProp) => (isContent && isContentViewStatus ? '0' : '-12.5%')};
@@ -311,4 +339,5 @@ const Content = styled.p`
   font-weight: 500;
   font-size: 1.3rem;
   line-height: 1.9rem;
+  overflow-y: auto;
 `;

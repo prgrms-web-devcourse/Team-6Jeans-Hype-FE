@@ -45,7 +45,7 @@ function RecommendationPost({
               />
             )}
 
-            <Like size={1.5} color='purple' initCount={likeCount} isClicked={true} />
+            <Like size={1.5} color='purple' initCount={likeCount} initIsClick />
           </ButtonWrapper>
         </Content>
       </Wrapper>
@@ -97,6 +97,11 @@ const Title = styled.h1`
   font-size: 1.3rem;
   line-height: 1.7rem;
   word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const Artist = styled.h2`

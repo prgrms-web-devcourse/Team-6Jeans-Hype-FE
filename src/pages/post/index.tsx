@@ -53,5 +53,7 @@ const PostListContainer = styled.div`
   flex-direction: column;
   gap: 1.5rem;
   margin-top: 2.5rem;
-  padding-bottom: 8rem;
+  margin-bottom: 8rem;
+  height: calc(100vh - 22rem);
+  overflow-y: auto;
 `;

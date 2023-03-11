@@ -4,7 +4,7 @@ import Ranking from '@/components/ranking';
 function RankingPage() {
   return (
     <>
-      <Header title='유저랭킹' shouldNeedBack />
+      <Header title='유저랭킹' backUrl='/' />
       <Ranking isLimit={false} />
     </>
   );
