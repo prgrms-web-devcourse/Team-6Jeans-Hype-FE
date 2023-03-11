@@ -14,10 +14,17 @@ function Detail() {
   const { id } = router.query;
   const { data: battle } = useGetBattle({ initBattleId: Number(id), selectedGenre: 'ALL' });
 
+  const getHeaderTitle = () => {
+    if (!battle) {
+      return '';
+    }
+    return battle.isProgress ? '진행 중인 대결' : '종료된 대결';
+  };
+
   return id ? (
     <AuthRequiredPage>
       <Header
-        title='진행 중인 대결'
+        title={getHeaderTitle()}
         actionButton={
           <Link href='/battle/list'>
             <ListIcon />
