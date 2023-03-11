@@ -23,7 +23,7 @@ function Select({ battleId, musicData, isLoadingState, onClickMusic, onClickSkip
   if (musicData == null) {
     return (
       <Section>
-        <Empty>대결할 음악이 없어요</Empty>
+        <Empty>대결할 음악이 없습니다.</Empty>
       </Section>
     );
   }

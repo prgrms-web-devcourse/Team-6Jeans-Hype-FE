@@ -4,6 +4,7 @@ import { useState } from 'react';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
+import NoContent from '@/components/common/NoContent';
 import RecommendationPost from '@/components/common/RecommendationPost';
 import AuthRequiredPage from '@/components/login/AuthRequiredPage';
 import { useGetMyPostList } from '@/components/profile/post/useGetMyPostList';
@@ -28,21 +29,38 @@ export default function MyPostListPage() {
       <Container>
         <Genres shouldNeedAll onChange={onClickGenre} />
         <ListWrapper>
-          {myPostList?.map(({ postId, music, likeCount, isBattlePossible }) => (
-            <RecommendationPost
-              key={postId}
-              postId={postId}
-              music={music}
-              likeCount={likeCount}
-              isBattlePossible={isBattlePossible}
-            />
-          ))}
+          {myPostList?.length ? (
+            myPostList.map(({ postId, music, likeCount, isBattlePossible }) => (
+              <RecommendationPost
+                key={postId}
+                postId={postId}
+                music={music}
+                likeCount={likeCount}
+                isBattlePossible={isBattlePossible}
+              />
+            ))
+          ) : (
+            <Wrapper>
+              <NoContent text='추천한 음악이 없습니다.' isImage width={8} />
+            </Wrapper>
+          )}
         </ListWrapper>
       </Container>
       <BottomNav />
     </AuthRequiredPage>
   );
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  gap: 0.5rem;
+`;
 
 const Container = styled.div`
   padding: 0 2rem;
