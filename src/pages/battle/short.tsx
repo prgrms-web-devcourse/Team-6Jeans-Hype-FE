@@ -35,7 +35,7 @@ function Short() {
   };
 
   return (
-    <>
+    <Container>
       <Header
         title='진행 중인 대결'
         shouldNeedBack={false}
@@ -45,7 +45,7 @@ function Short() {
           </Link>
         }
       />
-      <Container>
+      <Wrapper>
         <Genres onChange={onClickGenre} shouldNeedAll />
         <Battle
           battle={musicData}
@@ -54,15 +54,19 @@ function Short() {
           onClickSkip={onClickSkip}
           useBattleMusicPlayFunctions={useBattleMusicPlayFunctions}
         />
-      </Container>
+      </Wrapper>
       <BottomNav />
-    </>
+    </Container>
   );
 }
 
 export default Short;
 
 const Container = styled.div`
+  height: 100vh;
+`;
+
+const Wrapper = styled.div`
   width: calc(100% - 4rem);
   height: calc(100vh - 22rem);
   padding: 0 2rem;
