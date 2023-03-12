@@ -45,16 +45,18 @@ function Short() {
           </Link>
         }
       />
-      <Wrapper>
-        <Genres onChange={onClickGenre} shouldNeedAll />
-        <Battle
+      <BattleWrapper>
+        <GenresWrapper>
+          <Genres onChange={onClickGenre} shouldNeedAll />
+        </GenresWrapper>
+        <StyledBattle
           battle={musicData}
           isLoadingState={isLoadingState}
           refetch={refetch}
           onClickSkip={onClickSkip}
           useBattleMusicPlayFunctions={useBattleMusicPlayFunctions}
         />
-      </Wrapper>
+      </BattleWrapper>
       <BottomNav />
     </Container>
   );
@@ -63,13 +65,33 @@ function Short() {
 export default Short;
 
 const Container = styled.div`
+  margin: 0 auto;
+  width: 100%;
   height: 100vh;
+  display: grid;
+  grid-template-rows: min-content auto;
+  box-sizing: border-box;
+  padding-bottom: 8rem;
 `;
 
-const Wrapper = styled.div`
-  width: calc(100% - 4rem);
-  height: calc(100vh - 22rem);
+const BattleWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledBattle = styled(Battle)`
+  margin: auto 0;
+  box-sizing: border-box;
+  padding-bottom: 2rem;
+`;
+
+const GenresWrapper = styled.div`
+  width: 100%;
+  box-sizing: border-box;
   padding: 0 2rem;
-  min-height: 45rem;
-  margin-bottom: 10rem;
+  position: absolute;
+  top: 0;
+  left: 0;
 `;
