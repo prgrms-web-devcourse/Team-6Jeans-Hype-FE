@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { Battles } from '@/components/battle/types';
 import NoContent from '@/components/common/NoContent';
-import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
+import BattleMusicSkeleton from '@/components/common/skeleton/BattleMusic';
 import { COLOR } from '@/constants/color';
 
 import { SelectedBattle } from '../../types';
@@ -71,10 +71,7 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
         <Text>What’s your Hype Music?</Text>
         <BattleMusicWrapper>
           {isLoadingState ? (
-            <>
-              <AlbumPoster />
-              <AlbumPoster />
-            </>
+            <BattleMusicSkeleton />
           ) : (
             <>
               <BattleMusic
