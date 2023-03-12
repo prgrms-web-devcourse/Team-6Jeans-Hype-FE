@@ -1,28 +1,37 @@
 import styled from '@emotion/styled';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
+import NoContent from '@/components/common/NoContent';
 import { COLOR } from '@/constants/color';
 
 import { GenreTop10PostInfo } from './type';
 
 interface Props {
-  genreTop10Post: GenreTop10PostInfo[];
+  genreTop10Post?: GenreTop10PostInfo[];
   navigatePostDetail: (postId: number) => void;
 }
 
 function MobilePosts({ genreTop10Post, navigatePostDetail }: Props) {
   return (
-    <Posts>
-      {genreTop10Post?.map(({ postId, music: { albumCoverUrl, title, singer } }) => (
-        <Post key={postId} onClick={() => navigatePostDetail(postId)}>
-          <AlbumPoster lazy={true} size={10} src={albumCoverUrl} />
-          <TitleSinger>
-            <div>{title}</div>
-            <div>{singer}</div>
-          </TitleSinger>
-        </Post>
-      ))}
-    </Posts>
+    <>
+      {genreTop10Post && genreTop10Post?.length > 0 ? (
+        <Posts>
+          {genreTop10Post?.map(({ postId, music: { albumCoverUrl, title, singer } }) => (
+            <Post key={postId} onClick={() => navigatePostDetail(postId)}>
+              <AlbumPoster lazy={true} size={10} src={albumCoverUrl} />
+              <TitleSinger>
+                <div>{title}</div>
+                <div>{singer}</div>
+              </TitleSinger>
+            </Post>
+          ))}
+        </Posts>
+      ) : (
+        <Wrapper>
+          <NoContent text='추천 글이 없습니다' isImage width={8} />
+        </Wrapper>
+      )}
+    </>
   );
 }
 
@@ -72,4 +81,13 @@ const TitleSinger = styled.div`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  margin-top: 4.5rem;
 `;
