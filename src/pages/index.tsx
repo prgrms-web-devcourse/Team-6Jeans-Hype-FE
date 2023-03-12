@@ -33,7 +33,7 @@ export default function Home() {
   };
 
   const onClickRandomBattle = (battleId: number) => {
-    // TODO: 대결 디테일로 이동 (참여한 대결 페이지 만들고 나서 할 것)
+    router.push(`/battle/detail?id=${battleId}`);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
