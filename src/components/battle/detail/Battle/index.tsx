@@ -59,17 +59,17 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
 
   if (battle == null) {
     return (
-      <Wrapper>
+      <NoContentWrapper>
         <NoContent text='대결할 음악이 없습니다.' isImage width={8} />
-      </Wrapper>
+      </NoContentWrapper>
     );
   }
 
   return (
     <>
-      <Section className={className}>
+      <Container className={className}>
         <Text>What’s your Hype Music?</Text>
-        <BattleContainer>
+        <BattleMusicWrapper>
           {isLoadingState ? (
             <>
               <AlbumPoster />
@@ -99,9 +99,9 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
               />
             </>
           )}
-        </BattleContainer>
+        </BattleMusicWrapper>
         {!id && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
-      </Section>
+      </Container>
       {selectedBattle.battleId && selectedBattle.votedPostId ? (
         <VoteResult
           battleId={selectedBattle.battleId}
@@ -117,7 +117,7 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
 
 export default Battle;
 
-const Wrapper = styled.div`
+const NoContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -128,7 +128,7 @@ const Wrapper = styled.div`
   gap: 0.5rem;
 `;
 
-const Section = styled.div`
+const Container = styled.div`
   position: relative;
   width: 33.5rem;
   top: 50%;
@@ -158,7 +158,7 @@ const Text = styled.div`
   text-align: center;
 `;
 
-const BattleContainer = styled.div`
+const BattleMusicWrapper = styled.div`
   width: 100%;
   max-width: 37.5rem;
   height: 36.5rem;
