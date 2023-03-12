@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { axiosInstance } from '@/api';
-import { Battle, GenreName } from '@/components/battle/list/types';
+import { Battle, GenreValue } from '@/components/battle/list/types';
 
 import { BattleStatusValue } from '../../battle/types';
 
@@ -26,7 +26,7 @@ export const getMyBattleList = async ({
   limit,
   memberId,
 }: {
-  genre?: GenreName;
+  genre?: GenreValue;
   limit?: number;
   memberId?: number;
 }): Promise<Battle<BattleStatusValue>[]> => {
