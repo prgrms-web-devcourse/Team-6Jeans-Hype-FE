@@ -2,10 +2,8 @@ import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { MouseEvent, useRef } from 'react';
 
-import MusicPlayButton from '@/components/common/MusicPlayButton';
-
 import { Music } from '../types';
-import { Container, PlayIcon, Singer, Thumbnail, Title, Wrapper } from './style';
+import { Card, Container, Singer, StyledMusicPlayButton, Thumbnail, Title } from './style';
 
 interface Prop {
   music: Music;
@@ -43,21 +41,18 @@ function BattleMusic({ music, moving, onClick, opponentMusicUrl, isMusicPlay, up
 
   return (
     <Container>
-      <Wrapper onClick={(e) => handleClick(e)} className='container'>
-        <StyledThumbnail src={albumCoverUrl} clickSide={moving} ref={thumbnailRef}>
-          <PlayIcon value={musicUrl}>
-            <MusicPlayButton
-              key={title}
-              src={musicUrl}
-              opponentMusicUrl={opponentMusicUrl}
-              isMusicPlay={isMusicPlay}
-              updatePlayStatus={updatePlayStatus}
-            />
-          </PlayIcon>
-        </StyledThumbnail>
+      <Card onClick={(e) => handleClick(e)}>
         <Title>{title}</Title>
         <Singer>{singer}</Singer>
-      </Wrapper>
+      </Card>
+      <StyledThumbnail onClick={(e) => handleClick(e)} src={albumCoverUrl} clickSide={moving} ref={thumbnailRef} />
+      <StyledMusicPlayButton
+        key={title}
+        src={musicUrl}
+        opponentMusicUrl={opponentMusicUrl}
+        isMusicPlay={isMusicPlay}
+        updatePlayStatus={updatePlayStatus}
+      />
     </Container>
   );
 }

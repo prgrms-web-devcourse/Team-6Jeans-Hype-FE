@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { Battles } from '@/components/battle/types';
 import NoContent from '@/components/common/NoContent';
-import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
+import BattleMusicSkeleton from '@/components/common/skeleton/BattleMusic';
 import { COLOR } from '@/constants/color';
 
 import { SelectedBattle } from '../../types';
@@ -18,7 +18,7 @@ interface Props {
   refetch?: () => void;
   onClickSkip?: () => void;
   className?: string;
-  useBattleMusicPlayFunctions?: useBattleProps;
+  useBattleMusicPlayFunctions: useBattleProps;
 }
 
 interface useBattleProps {
@@ -59,27 +59,24 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
 
   if (battle == null) {
     return (
-      <Wrapper>
+      <NoContentWrapper>
         <NoContent text='대결할 음악이 없습니다.' isImage width={8} />
-      </Wrapper>
+      </NoContentWrapper>
     );
   }
 
   return (
     <>
-      <Section className={className}>
+      <Container className={className}>
         <Text>What’s your Hype Music?</Text>
-        <BattleContainer>
+        <BattleMusicWrapper>
           {isLoadingState ? (
-            <>
-              <AlbumPoster />
-              <AlbumPoster />
-            </>
+            <BattleMusicSkeleton />
           ) : (
             <>
               <BattleMusic
-                isMusicPlay={useBattleMusicPlayFunctions?.isLeftMusicPlay}
-                updatePlayStatus={useBattleMusicPlayFunctions?.clickLeftButton}
+                isMusicPlay={useBattleMusicPlayFunctions.isLeftMusicPlay}
+                updatePlayStatus={useBattleMusicPlayFunctions.clickLeftButton}
                 music={battle.challenged.music}
                 moving='left'
                 onClick={() => {
@@ -88,8 +85,8 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
                 opponentMusicUrl={battle?.challenging.music.musicUrl}
               />
               <BattleMusic
-                isMusicPlay={useBattleMusicPlayFunctions?.isRightMusicPlay}
-                updatePlayStatus={useBattleMusicPlayFunctions?.clickRightButton}
+                isMusicPlay={useBattleMusicPlayFunctions.isRightMusicPlay}
+                updatePlayStatus={useBattleMusicPlayFunctions.clickRightButton}
                 music={battle.challenging.music}
                 moving='right'
                 onClick={() => {
@@ -99,9 +96,9 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
               />
             </>
           )}
-        </BattleContainer>
+        </BattleMusicWrapper>
         {!id && <Skip onClick={onClickSkip}>건너뛰기</Skip>}
-      </Section>
+      </Container>
       {selectedBattle.battleId && selectedBattle.votedPostId ? (
         <VoteResult
           battleId={selectedBattle.battleId}
@@ -117,7 +114,7 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
 
 export default Battle;
 
-const Wrapper = styled.div`
+const NoContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -128,12 +125,9 @@ const Wrapper = styled.div`
   gap: 0.5rem;
 `;
 
-const Section = styled.div`
-  position: relative;
-  width: 33.5rem;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const Skip = styled.div`
@@ -158,13 +152,10 @@ const Text = styled.div`
   text-align: center;
 `;
 
-const BattleContainer = styled.div`
+const BattleMusicWrapper = styled.div`
   width: 100%;
-  max-width: 37.5rem;
-  height: 36.5rem;
-  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin: 0 auto;
+  justify-content: center;
+  gap: 2.3rem;
+  margin-top: 4.3rem;
 `;

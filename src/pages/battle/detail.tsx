@@ -9,11 +9,13 @@ import { useGetBattle } from '@/components/battle/detail/useGetBattle';
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 import AuthRequiredPage from '@/components/login/AuthRequiredPage';
+import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 function Detail() {
   const router = useRouter();
   const { id } = router.query;
   const { data: battle } = useGetBattle({ initBattleId: Number(id), selectedGenre: 'ALL' });
+  const useBattleMusicPlayFunctions = useBattleMusicPlay();
 
   const getHeaderTitle = () => {
     if (!battle) {
@@ -24,18 +26,23 @@ function Detail() {
 
   return id ? (
     <AuthRequiredPage>
-      <Header
-        title={getHeaderTitle()}
-        actionButton={
-          <Link href='/battle/list'>
-            <ListIcon />
-          </Link>
-        }
-      />
       <Container>
-        {battle && (battle.isProgress ? <Battle battle={battle} /> : <FinishedBattle battle={battle} />)}
+        <Header
+          title={getHeaderTitle()}
+          actionButton={
+            <Link href='/battle/list'>
+              <ListIcon />
+            </Link>
+          }
+        />
+        {battle &&
+          (battle.isProgress ? (
+            <StyledBattle battle={battle} useBattleMusicPlayFunctions={useBattleMusicPlayFunctions} />
+          ) : (
+            <StyledFinishedBattle battle={battle} useBattleMusicPlayFunctions={useBattleMusicPlayFunctions} />
+          ))}
+        <BottomNav />
       </Container>
-      <BottomNav />
     </AuthRequiredPage>
   ) : (
     <div>id 없음</div>
@@ -45,12 +52,22 @@ function Detail() {
 export default Detail;
 
 const Container = styled.div`
-  width: calc(100% - 4rem);
-  height: calc(100vh - 16rem);
-  min-height: 60rem;
-  padding: 0 2rem;
-  padding-top: 1.27rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: min-content auto;
+  box-sizing: border-box;
+  padding-bottom: 8rem;
+`;
+
+const StyledBattle = styled(Battle)`
+  margin: auto 0;
+  box-sizing: border-box;
+  padding-bottom: 2rem;
+`;
+
+const StyledFinishedBattle = styled(FinishedBattle)`
+  margin: auto 0;
+  box-sizing: border-box;
+  padding-bottom: 2rem;
 `;
