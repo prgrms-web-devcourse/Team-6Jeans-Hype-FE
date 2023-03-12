@@ -25,15 +25,17 @@ export const getMyBattleList = async ({
   genre,
   limit,
   memberId,
+  status,
 }: {
   genre?: GenreValue;
   limit?: number;
   memberId?: number;
+  status?: BattleStatusValue;
 }): Promise<Battle<BattleStatusValue>[]> => {
   const { data } = await axiosInstance.request({
     method: 'GET',
     url: `/members/battles`,
-    params: { genre, limit, memberId },
+    params: { genre, limit, memberId, battleStatus: status },
   });
   return data.data.battles.map((unsafeBattle: BattleResponse) => {
     const parsed = battleResponseScheme.safeParse(unsafeBattle);
