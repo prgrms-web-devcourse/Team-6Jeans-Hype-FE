@@ -8,6 +8,7 @@ import FinishedBattleMusic from '../BattleMusic/Finished';
 interface FinishedBattleProps {
   battle: Battles;
   useBattleMusicPlayFunctions: useBattleProps;
+  className?: string;
 }
 
 interface useBattleProps {
@@ -18,11 +19,11 @@ interface useBattleProps {
   init: () => void;
 }
 
-export default function FinishedBattle({ battle, useBattleMusicPlayFunctions }: FinishedBattleProps) {
+export default function FinishedBattle({ battle, useBattleMusicPlayFunctions, className }: FinishedBattleProps) {
   const { challenged, challenging } = battle;
 
   return (
-    <Container>
+    <Container className={className}>
       <Title>What’s your Hype Music?</Title>
       <MusicContainer>
         <FinishedBattleMusic
@@ -57,10 +58,6 @@ export default function FinishedBattle({ battle, useBattleMusicPlayFunctions }: 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  gap: 8.4rem;
-  padding-bottom: 10rem;
-  box-sizing: border-box;
 `;
 
 const Title = styled.div`
@@ -72,8 +69,9 @@ const Title = styled.div`
 `;
 
 const MusicContainer = styled.div`
+  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
   gap: 2.3rem;
+  margin-top: 4.3rem;
 `;
