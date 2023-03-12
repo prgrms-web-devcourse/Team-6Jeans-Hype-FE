@@ -1,5 +1,4 @@
 export interface Battles {
-  isProgress: boolean;
   battleId: number;
   battleGenre: GenreInfo;
   challenged: BattleDetail;
@@ -9,7 +8,6 @@ export interface Battles {
 export interface BattleDetail {
   postId: number;
   music: Music;
-  voteCnt?: number;
 }
 
 export interface Music {
