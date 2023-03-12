@@ -59,7 +59,7 @@ const RankingContainer = styled.div`
   gap: 0.8rem;
   padding: 0 2rem;
   height: calc(100% - 10rem);
-  overflow-y: scroll;
+  overflow-y: auto;
 
   &.full {
     position: relative;

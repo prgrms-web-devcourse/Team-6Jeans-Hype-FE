@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import { useEffect, useRef, useState } from 'react';
 
+import { COLOR } from '@/constants/color';
+
 let observer = null;
 const LOAD_IMG_EVENT_TYPE = 'loadImage';
 
@@ -69,8 +71,8 @@ const ImgContainer = styled.div`
   width: ${({ size }: StyleProps) => `${size}rem`};
   height: ${({ size }: StyleProps) => `${size}rem`};
   border-radius: 1rem;
-  background: #fff;
-  filter: drop-shadow(0px 0px 15px rgba(158, 158, 158, 0.25));
+  background: ${COLOR.white};
+  box-shadow: 0px 0px 10px rgba(158, 158, 158, 0.25);
 
   & > div {
     position: absolute;
