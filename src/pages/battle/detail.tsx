@@ -32,7 +32,9 @@ function Detail() {
           </Link>
         }
       />
-      <Container>{battle && (battle.isProgress ? <Battle battle={battle} /> : <FinishedBattle />)}</Container>
+      <Container>
+        {battle && (battle.isProgress ? <Battle battle={battle} /> : <FinishedBattle battle={battle} />)}
+      </Container>
       <BottomNav />
     </AuthRequiredPage>
   ) : (
@@ -48,4 +50,7 @@ const Container = styled.div`
   min-height: 60rem;
   padding: 0 2rem;
   padding-top: 1.27rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

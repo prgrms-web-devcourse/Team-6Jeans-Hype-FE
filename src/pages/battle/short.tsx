@@ -43,7 +43,7 @@ function Short() {
       />
       <Container>
         <Genres onChange={onClickGenre} shouldNeedAll />
-        <Battle musicData={musicData} isLoadingState={isLoadingState} refetch={refetch} onClickSkip={onClickSkip} />
+        <Battle battle={musicData} isLoadingState={isLoadingState} refetch={refetch} onClickSkip={onClickSkip} />
       </Container>
       <BottomNav />
     </>

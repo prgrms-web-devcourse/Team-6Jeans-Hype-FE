@@ -10,7 +10,6 @@ export const Container = styled.div`
   box-shadow: 0px 0px 1.5rem rgba(158, 158, 158, 0.25);
   border-radius: 1rem;
   position: relative;
-
   cursor: pointer;
 `;
 
@@ -23,7 +22,7 @@ export const Wrapper = styled.div`
   top: -3rem;
 `;
 
-export const Thumbnail = styled.div<{ src: string; clickSide: 'left' | 'right' | undefined }>`
+export const Thumbnail = styled.div<{ src: string; clickSide?: 'left' | 'right' }>`
   background-image: url(${(props) => props.src});
   background-color: ${COLOR.white};
   background-repeat: no-repeat;
@@ -33,6 +32,10 @@ export const Thumbnail = styled.div<{ src: string; clickSide: 'left' | 'right' |
   width: 10rem;
   height: 10rem;
   position: relative;
+
+  /* position: absolute;
+  left: 50%;
+  transform: translateX(-50%); */
   margin-bottom: 2rem;
 `;
 

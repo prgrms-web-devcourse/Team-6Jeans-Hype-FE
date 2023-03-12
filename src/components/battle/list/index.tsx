@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 import { Battle, FinishedBattleMusic } from '@/components/battle/list/types';
 
@@ -12,13 +13,20 @@ interface BattleListProps {
 }
 
 export default function BattleList({ battleList, className }: BattleListProps) {
+  const router = useRouter();
+
+  const navigateDetail = (battleId: number) => {
+    router.push(`/battle/detail?id=${battleId}`);
+  };
+
   return (
     <Container className={className}>
       {battleList?.map(({ challenged, challenging, id, battleStatus }: Battle<BattleStatusValue>) =>
         battleStatus === 'PROGRESS' ? (
-          <BattleCard challenged={challenged} challenging={challenging} key={id} />
+          <BattleCard onClick={() => navigateDetail(id)} challenged={challenged} challenging={challenging} key={id} />
         ) : (
           <FinishedBattleCard
+            onClick={() => navigateDetail(id)}
             challenged={challenged as FinishedBattleMusic}
             challenging={challenging as FinishedBattleMusic}
             key={id}
