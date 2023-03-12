@@ -2,26 +2,32 @@ import styled from '@emotion/styled';
 
 import { Battles } from '@/components/battle/types';
 import { COLOR } from '@/constants/color';
-import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 import FinishedBattleMusic from '../BattleMusic/Finished';
 
 interface FinishedBattleProps {
   battle: Battles;
+  useBattleMusicPlayFunctions: useBattleProps;
 }
 
-export default function FinishedBattle({ battle }: FinishedBattleProps) {
-  const { challenged, challenging } = battle;
+interface useBattleProps {
+  isLeftMusicPlay: boolean;
+  isRightMusicPlay: boolean;
+  clickLeftButton: () => void;
+  clickRightButton: () => void;
+  init: () => void;
+}
 
-  const { isLeftMusicPlay, isRightMusicPlay, clickLeftButton, clickRightButton } = useBattleMusicPlay();
+export default function FinishedBattle({ battle, useBattleMusicPlayFunctions }: FinishedBattleProps) {
+  const { challenged, challenging } = battle;
 
   return (
     <Container>
       <Title>What’s your Hype Music?</Title>
       <MusicContainer>
         <FinishedBattleMusic
-          isMusicPlay={isLeftMusicPlay}
-          updatePlayStatus={clickLeftButton}
+          isMusicPlay={useBattleMusicPlayFunctions.isLeftMusicPlay}
+          updatePlayStatus={useBattleMusicPlayFunctions.clickLeftButton}
           music={challenged.music}
           voteCount={challenged.voteCnt ?? 0}
           isWin={
@@ -32,8 +38,8 @@ export default function FinishedBattle({ battle }: FinishedBattleProps) {
           opponentMusicUrl={challenging.music.musicUrl}
         />
         <FinishedBattleMusic
-          isMusicPlay={isRightMusicPlay}
-          updatePlayStatus={clickRightButton}
+          isMusicPlay={useBattleMusicPlayFunctions.isRightMusicPlay}
+          updatePlayStatus={useBattleMusicPlayFunctions.clickRightButton}
           music={challenging.music}
           voteCount={challenging.voteCnt ?? 0}
           isWin={
@@ -69,9 +75,5 @@ const MusicContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* position: relative; */
-  /* top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
   gap: 2.3rem;
 `;

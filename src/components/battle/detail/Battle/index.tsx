@@ -18,7 +18,7 @@ interface Props {
   refetch?: () => void;
   onClickSkip?: () => void;
   className?: string;
-  useBattleMusicPlayFunctions?: useBattleProps;
+  useBattleMusicPlayFunctions: useBattleProps;
 }
 
 interface useBattleProps {
@@ -75,8 +75,8 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
           ) : (
             <>
               <BattleMusic
-                isMusicPlay={useBattleMusicPlayFunctions?.isLeftMusicPlay}
-                updatePlayStatus={useBattleMusicPlayFunctions?.clickLeftButton}
+                isMusicPlay={useBattleMusicPlayFunctions.isLeftMusicPlay}
+                updatePlayStatus={useBattleMusicPlayFunctions.clickLeftButton}
                 music={battle.challenged.music}
                 moving='left'
                 onClick={() => {
@@ -85,8 +85,8 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
                 opponentMusicUrl={battle?.challenging.music.musicUrl}
               />
               <BattleMusic
-                isMusicPlay={useBattleMusicPlayFunctions?.isRightMusicPlay}
-                updatePlayStatus={useBattleMusicPlayFunctions?.clickRightButton}
+                isMusicPlay={useBattleMusicPlayFunctions.isRightMusicPlay}
+                updatePlayStatus={useBattleMusicPlayFunctions.clickRightButton}
                 music={battle.challenging.music}
                 moving='right'
                 onClick={() => {

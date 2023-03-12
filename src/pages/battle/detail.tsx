@@ -9,11 +9,13 @@ import { useGetBattle } from '@/components/battle/detail/useGetBattle';
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 import AuthRequiredPage from '@/components/login/AuthRequiredPage';
+import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 function Detail() {
   const router = useRouter();
   const { id } = router.query;
   const { data: battle } = useGetBattle({ initBattleId: Number(id), selectedGenre: 'ALL' });
+  const useBattleMusicPlayFunctions = useBattleMusicPlay();
 
   const getHeaderTitle = () => {
     if (!battle) {
@@ -33,7 +35,12 @@ function Detail() {
             </Link>
           }
         />
-        {battle && (battle.isProgress ? <StyledBattle battle={battle} /> : <StyledFinishedBattle battle={battle} />)}
+        {battle &&
+          (battle.isProgress ? (
+            <StyledBattle battle={battle} useBattleMusicPlayFunctions={useBattleMusicPlayFunctions} />
+          ) : (
+            <StyledFinishedBattle battle={battle} useBattleMusicPlayFunctions={useBattleMusicPlayFunctions} />
+          ))}
         <BottomNav />
       </Container>
     </AuthRequiredPage>
