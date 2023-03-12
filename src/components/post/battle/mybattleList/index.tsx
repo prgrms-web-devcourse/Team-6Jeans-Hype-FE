@@ -80,7 +80,7 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMus
 
   return (
     <Container isVisibleMusicList={isVisibleMusicList}>
-      <Title>내 추천 목록</Title>
+      <Text>내 추천 목록</Text>
       <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
           myBattleMusicList.map(({ postId, music: { title, singer, albumCoverUrl, musicUrl } }: MyBattlePostInfo) => (
@@ -97,11 +97,11 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMus
                 onClickPost(musicData);
               }}
             >
-              <AlbumPoster lazy={true} size={5} src={albumCoverUrl} />
-              <TitleSinger>
-                <div>{title}</div>
-                <div>{singer}</div>
-              </TitleSinger>
+              <AlbumPoster lazy={true} src={albumCoverUrl} size={6.6} />
+              <MusicInfo>
+                <Title>{title}</Title>
+                <Artist>{singer}</Artist>
+              </MusicInfo>
             </Post>
           ))
         ) : (
@@ -128,7 +128,7 @@ const Container = styled.div<{ isVisibleMusicList: boolean }>`
   position: relative;
 `;
 
-const Title = styled.div`
+const Text = styled.div`
   font-weight: 700;
   font-size: 1.5rem;
   display: flex;
@@ -156,26 +156,37 @@ const Post = styled.div`
   padding: 0.5rem;
 `;
 
-const TitleSinger = styled.div`
-  margin-left: 2rem;
+const MusicInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3rem;
+  padding-left: 1.3rem;
+  width: calc(100% - 9.5rem);
+`;
 
-  & div:first-of-type {
-    font-weight: 500;
-    font-size: 1.4rem;
-    line-height: 1.7rem;
+const Title = styled.h1`
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.7rem;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`;
 
-    color: ${COLOR.deepBlue};
-
-    margin-bottom: 0.5rem;
-  }
-
-  & div:last-of-type {
-    font-weight: 500;
-    font-size: 1.2rem;
-    line-height: 1.8rem;
-
-    color: ${COLOR.gray};
-  }
+const Artist = styled.h2`
+  font-weight: 500;
+  font-size: 1rem;
+  color: ${COLOR.gray};
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const Wrapper = styled.div`
