@@ -8,9 +8,17 @@ interface Props {
   updatePlayStatus?: () => void;
   opponentMusicUrl?: string;
   onChangeCurrentTime?: (time: number, isPlay: boolean) => void;
+  className?: string;
 }
 
-function MusicPlayButton({ src, opponentMusicUrl, isMusicPlay, updatePlayStatus, onChangeCurrentTime }: Props) {
+function MusicPlayButton({
+  src,
+  opponentMusicUrl,
+  isMusicPlay,
+  updatePlayStatus,
+  onChangeCurrentTime,
+  className,
+}: Props) {
   const onClickPlayButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -35,7 +43,7 @@ function MusicPlayButton({ src, opponentMusicUrl, isMusicPlay, updatePlayStatus,
   };
 
   return (
-    <Container>
+    <Container className={className}>
       <Audio src={src} id={`audio${src}`} controls loop />
       <button onClick={(e) => onClickPlayButton(e)}>{isMusicPlay ? <PlayIcon /> : <PauseIcon />}</button>
     </Container>

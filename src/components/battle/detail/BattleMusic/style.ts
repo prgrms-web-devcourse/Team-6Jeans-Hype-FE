@@ -1,25 +1,26 @@
 import styled from '@emotion/styled';
 
+import MusicPlayButton from '@/components/common/MusicPlayButton';
 import { COLOR } from '@/constants/color';
 
 export const Container = styled.div`
-  max-width: 20rem;
-  width: 45%;
-  height: 18rem;
-  background: ${COLOR.white};
-  box-shadow: 0px 0px 1.5rem rgba(158, 158, 158, 0.25);
-  border-radius: 1rem;
   position: relative;
-  cursor: pointer;
+  width: 15.7rem;
+  min-height: 22.4rem;
 `;
 
 export const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   position: absolute;
+  top: 4.1rem;
+  left: 0;
+  background: ${COLOR.white};
+  box-shadow: 0px 0px 15px rgba(158, 158, 158, 0.25);
+  border-radius: 10px;
   width: 100%;
-  top: -3rem;
+  min-height: calc(100% - 4.1rem);
+  padding: 1.5rem;
+  box-sizing: border-box;
+  height: fit-content;
 `;
 
 export const Thumbnail = styled.div<{ src: string; clickSide?: 'left' | 'right' }>`
@@ -29,45 +30,35 @@ export const Thumbnail = styled.div<{ src: string; clickSide?: 'left' | 'right' 
   background-position: center center;
   filter: drop-shadow(0 0 1.5rem rgba(158, 158, 158, 0.25));
   border-radius: 1rem;
-  width: 10rem;
-  height: 10rem;
-  position: relative;
-
-  /* position: absolute;
-  left: 50%;
-  transform: translateX(-50%); */
-  margin-bottom: 2rem;
-`;
-
-export const PlayIcon = styled.div<{ value: string | undefined }>`
+  width: 10.5rem;
+  height: 10.5rem;
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
-  display: ${(prop) => (prop.value === '' ? 'none' : 'block')};
+  transform: translateX(-50%);
 `;
 
 export const Title = styled.div`
-  width: calc(100% - 2.5rem);
-  font-style: normal;
   font-weight: 700;
   font-size: 1.3rem;
   line-height: 1.7rem;
   text-align: center;
   color: ${COLOR.deepBlue};
-  margin-bottom: 1rem;
-  word-break: break-all;
-  height: 3.7rem;
-  overflow-y: auto;
+  margin-top: 7.5rem;
 `;
 
 export const Singer = styled.div`
-  width: calc(100% - 1.6rem);
-  padding: 0 0.8rem;
-  font-style: normal;
   font-weight: 500;
   font-size: 1.1rem;
   line-height: 1.6rem;
   text-align: center;
   color: ${COLOR.gray};
+  margin-top: 0.7rem;
+`;
+
+export const StyledMusicPlayButton = styled(MusicPlayButton)`
+  position: absolute;
+  top: 3.25rem;
+  left: 50%;
+  transform: translateX(-50%);
 `;
