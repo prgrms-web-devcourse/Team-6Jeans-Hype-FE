@@ -1,6 +1,6 @@
 import MusicPlayButton from '@/components/common/MusicPlayButton';
 
-import { Container, PlayIcon, Singer, Thumbnail, Title, Wrapper } from './style';
+import { Card, Container, PlayIcon, Singer, Thumbnail, Title } from './style';
 
 interface FinishedBattleMusicProps {
   albumCoverImage: string;
@@ -28,7 +28,7 @@ export default function FinishedBattleMusic({
 }: FinishedBattleMusicProps) {
   return (
     <Container>
-      <Wrapper>
+      <Card>
         <Thumbnail src={albumCoverImage}>
           <PlayIcon value={musicUrl}>
             <MusicPlayButton
@@ -42,7 +42,7 @@ export default function FinishedBattleMusic({
         </Thumbnail>
         <Title>{title}</Title>
         <Singer>{singer}</Singer>
-      </Wrapper>
+      </Card>
     </Container>
   );
 }
