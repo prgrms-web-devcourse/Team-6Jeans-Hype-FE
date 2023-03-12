@@ -24,18 +24,18 @@ function Detail() {
 
   return id ? (
     <AuthRequiredPage>
-      <Header
-        title={getHeaderTitle()}
-        actionButton={
-          <Link href='/battle/list'>
-            <ListIcon />
-          </Link>
-        }
-      />
       <Container>
-        {battle && (battle.isProgress ? <Battle battle={battle} /> : <FinishedBattle battle={battle} />)}
+        <Header
+          title={getHeaderTitle()}
+          actionButton={
+            <Link href='/battle/list'>
+              <ListIcon />
+            </Link>
+          }
+        />
+        {battle && (battle.isProgress ? <StyledBattle battle={battle} /> : <StyledFinishedBattle battle={battle} />)}
+        <BottomNav />
       </Container>
-      <BottomNav />
     </AuthRequiredPage>
   ) : (
     <div>id 없음</div>
@@ -45,12 +45,22 @@ function Detail() {
 export default Detail;
 
 const Container = styled.div`
-  width: calc(100% - 4rem);
-  height: calc(100vh - 16rem);
-  min-height: 60rem;
-  padding: 0 2rem;
-  padding-top: 1.27rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: min-content auto;
+  box-sizing: border-box;
+  padding-bottom: 8rem;
+`;
+
+const StyledBattle = styled(Battle)`
+  margin: auto 0;
+  box-sizing: border-box;
+  padding-bottom: 2rem;
+`;
+
+const StyledFinishedBattle = styled(FinishedBattle)`
+  margin: auto 0;
+  box-sizing: border-box;
+  padding-bottom: 2rem;
 `;
