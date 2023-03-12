@@ -1,3 +1,4 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import MusicPlayButton from '@/components/common/MusicPlayButton';
@@ -30,8 +31,8 @@ export const Thumbnail = styled.div<{ src: string; clickSide?: 'left' | 'right' 
   background-position: center center;
   filter: drop-shadow(0 0 1.5rem rgba(158, 158, 158, 0.25));
   border-radius: 1rem;
-  width: 10.5rem;
-  height: 10.5rem;
+  width: 10rem;
+  height: 10rem;
   position: absolute;
   top: 0;
   left: 50%;
@@ -67,9 +68,24 @@ export const Singer = styled.div`
   -webkit-box-orient: vertical;
 `;
 
+const changeOpacity = keyframes`
+  0% {
+    opacity: 1;
+  }
+  5% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
 export const StyledMusicPlayButton = styled(MusicPlayButton)`
   position: absolute;
   top: 3.25rem;
   left: 50%;
   transform: translateX(-50%);
+  &.active {
+    animation: ${changeOpacity} 2s ease-in;
+  }
 `;
