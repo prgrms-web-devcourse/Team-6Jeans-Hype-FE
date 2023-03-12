@@ -37,7 +37,7 @@ function MusicPlayButton({ src, opponentMusicUrl, isMusicPlay, updatePlayStatus,
   return (
     <Container>
       <Audio src={src} id={`audio${src}`} controls loop />
-      <PlayButton onClick={(e) => onClickPlayButton(e)}>{isMusicPlay ? <PlayIcon /> : <PauseIcon />}</PlayButton>
+      <button onClick={(e) => onClickPlayButton(e)}>{isMusicPlay ? <PlayIcon /> : <PauseIcon />}</button>
     </Container>
   );
 }
@@ -45,21 +45,10 @@ function MusicPlayButton({ src, opponentMusicUrl, isMusicPlay, updatePlayStatus,
 export default MusicPlayButton;
 
 const Container = styled.div`
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  overflow: hidden;
   position: relative;
 `;
 
 const Audio = styled.audio`
-  opacity: 0;
-`;
-
-const PlayButton = styled.button`
+  visibility: hidden;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
 `;
