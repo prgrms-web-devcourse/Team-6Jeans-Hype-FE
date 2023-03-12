@@ -3,7 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import ArrowRight from 'public/images/arrow-right.svg';
+import Info from 'public/images/info-icon.svg';
 import Logo from 'public/images/letter-logo.svg';
+import Survey from 'public/images/survey-icon.svg';
 import { useState } from 'react';
 
 import BottomNav from '@/components/common/BottomNav';
@@ -11,6 +13,7 @@ import Genres from '@/components/common/Genres';
 import { getGenreTop10Data } from '@/components/main/GenreTop10Post/api';
 import DeskTopPosts from '@/components/main/GenreTop10Post/DeskTopPosts';
 import MobilePosts from '@/components/main/GenreTop10Post/MobilePosts';
+import InfoModal from '@/components/main/Info';
 import RandomBattle from '@/components/main/RandomBattle';
 import { getRandomBattleAlbumCoverImage } from '@/components/main/RandomBattle/api';
 import Ranking from '@/components/ranking';
@@ -22,6 +25,11 @@ export default function Home() {
   const router = useRouter();
   const { mobile } = useCheckMobile();
   const [genre, setGenre] = useState('');
+  const [isShowInfo, setIsShowInfo] = useState<boolean>(false);
+
+  const onClickInfo = () => {
+    setIsShowInfo((prev) => !prev);
+  };
 
   const onClickRandomBattle = (battleId: number) => {
     // TODO: 대결 디테일로 이동 (참여한 대결 페이지 만들고 나서 할 것)
@@ -41,7 +49,17 @@ export default function Home() {
 
   return (
     <Container>
-      <StyledLogo />
+      <Header>
+        <StyledLogo />
+        <Icons>
+          <button onClick={onClickInfo}>
+            <StyledInfo />
+          </button>
+          <Link href='https://forms.gle/QfK3YGMnxuLh6m7LA'>
+            <StyledSurvey />
+          </Link>
+        </Icons>
+      </Header>
       <Label>오늘의 대결</Label>
 
       {randomBattle && (
@@ -66,6 +84,7 @@ export default function Home() {
       </RankingLabels>
       <Ranking isLimit />
       <BottomNav />
+      {isShowInfo ? <InfoModal onClick={onClickInfo} /> : ''}
     </Container>
   );
 }
@@ -78,12 +97,33 @@ const Container = styled.div`
   box-sizing: border-box;
 `;
 
+const Header = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 2.5rem 0;
+  align-items: center;
+`;
+const Icons = styled.div`
+  display: flex;
+  gap: 1.5rem;
+`;
 const StyledLogo = styled(Logo)`
   width: 6.6rem;
-  padding: 2.5rem 0;
-  position: relative;
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
+`;
+
+const StyledInfo = styled(Info)`
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+`;
+
+const StyledSurvey = styled(Survey)`
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
 `;
 
 const Wrapper = styled.div`
