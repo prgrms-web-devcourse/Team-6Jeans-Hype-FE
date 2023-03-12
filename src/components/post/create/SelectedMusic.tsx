@@ -1,7 +1,10 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
+import { PlayIcon } from '@/components/battle/detail/BattleMusic/style';
 import AlbumPoster from '@/components/common/AlbumPoster';
+import MusicPlayButton from '@/components/common/MusicPlayButton';
 import { COLOR } from '@/constants/color';
 
 import { Music } from './types';
@@ -13,6 +16,12 @@ interface Props {
 function SelectedMusic({ selectedMusic }: Props) {
   const router = useRouter();
   const { trackName, artistName, previewUrl, artworkUrl100 } = selectedMusic;
+  const [isPlay, setIsPlay] = useState(true);
+
+  const clickButton = () => {
+    setIsPlay(!isPlay);
+    console.log(isPlay);
+  };
 
   return (
     <>
@@ -24,10 +33,10 @@ function SelectedMusic({ selectedMusic }: Props) {
       </Header>
       <SelectedMusicInfo>
         <PosterAndPreview>
-          <AlbumPoster lazy={true} src={artworkUrl100} size={10} blur={true} />
-          <Player>
-            <audio src={previewUrl} controls loop />
-          </Player>
+          <AlbumPoster lazy={true} src={artworkUrl100} size={10} />
+          <PlayIcon value={previewUrl}>
+            <MusicPlayButton src={previewUrl} isMusicPlay={isPlay} updatePlayStatus={clickButton} />
+          </PlayIcon>
         </PosterAndPreview>
         <TrackName>{trackName}</TrackName>
         <ArtistName>{artistName}</ArtistName>
@@ -58,25 +67,6 @@ const SelectedMusicInfo = styled.div`
 
 const PosterAndPreview = styled.div`
   position: relative;
-`;
-
-const Player = styled.div`
-  width: 3rem;
-  height: 3rem;
-  overflow: hidden;
-  border-radius: 50%;
-  border: 0.1rem solid ${COLOR.white};
-  margin: 0 auto;
-  box-sizing: content-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  & > audio {
-    margin-top: -1.2rem;
-    margin-left: -1.1rem;
-    display: block;
-  }
 `;
 
 const TrackName = styled.div`
