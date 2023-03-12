@@ -3,12 +3,12 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 
 import Genres from '@/components/common/Genres';
+import Box from '@/components/common/skeleton/Box';
 
 import Toggle from '../../common/Toggle';
 import { getMusicDetailData } from '../api';
 import SelectedMusic from './SelectedMusic';
 import { Music, Values } from './types';
-import Box from '@/components/common/skeleton/Box';
 
 interface Props {
   values: Values;
