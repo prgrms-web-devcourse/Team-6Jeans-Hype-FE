@@ -45,7 +45,7 @@ function MusicPlayButton({
   return (
     <Container className={className}>
       <Audio src={src} id={`audio${src}`} controls loop />
-      <button onClick={(e) => onClickPlayButton(e)}>{isMusicPlay ? <PlayIcon /> : <PauseIcon />}</button>
+      <Button onClick={(e) => onClickPlayButton(e)}>{isMusicPlay ? <PlayIcon /> : <PauseIcon />}</Button>
     </Container>
   );
 }
@@ -54,9 +54,20 @@ export default MusicPlayButton;
 
 const Container = styled.div`
   position: relative;
+  width: 4rem;
+  height: 4rem;
 `;
 
 const Audio = styled.audio`
   visibility: hidden;
   position: absolute;
+  width: 100%;
+  height: 100%;
+`;
+
+const Button = styled.button`
+  & > svg {
+    width: 100%;
+    height: 100%;
+  }
 `;
