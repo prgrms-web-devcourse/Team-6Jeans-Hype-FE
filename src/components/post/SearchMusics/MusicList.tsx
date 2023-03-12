@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
+import NoContent from '@/components/common/NoContent';
 import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
 import { COLOR } from '@/constants/color';
 
@@ -38,7 +39,9 @@ function MusicList({ onClickInMusicList, keyword }: Props) {
             <Card key={music.trackId} music={music} onClickMusicList={() => onClickInMusicList(music.trackId)} />
           ))
         ) : (
-          <EmptyResult>결과가 없습니다. 다른 검색어로 검색해보세요</EmptyResult>
+          <Container>
+            <NoContent text='검색 결과가 존재하지 않습니다.' isImage width={8} />
+          </Container>
         )}
       </MusicCardContainer>
     </MusicListContainer>
@@ -67,12 +70,13 @@ const MusicCardContainer = styled.div`
   border-radius: 1rem;
 `;
 
-const EmptyResult = styled.div`
-  position: relative;
+const Container = styled.div`
+  position: absolute;
   top: 50%;
-  text-align: center;
-  transform: translateY(-50%);
-  font-weight: 700;
-  font-size: 1.3rem;
-  color: ${COLOR.gray};
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 `;
