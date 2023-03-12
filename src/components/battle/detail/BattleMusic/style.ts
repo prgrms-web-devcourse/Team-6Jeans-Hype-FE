@@ -50,6 +50,7 @@ export const Title = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  min-height: 3.4rem;
 `;
 
 export const Singer = styled.div`
