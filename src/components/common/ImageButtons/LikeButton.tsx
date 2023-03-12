@@ -71,8 +71,8 @@ const LikeContainer = styled.div`
 const Text = styled.div`
   text-align: center;
   color: ${({ color }: StyleProp) => (color === 'white' ? COLOR.white : COLOR.purple)};
-  font-size: 1rem;
   padding-top: 0.3rem;
+  font-weight: 500;
 `;
 
 const StyledLikeOnIcon = styled(LikeOnIcon)<{ color: string; size: number }>`

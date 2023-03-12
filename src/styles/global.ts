@@ -16,13 +16,11 @@ export const global = css`
     max-width: 768px;
     min-width: 350px;
     margin: 0 auto;
-    height: 100%;
   }
 
   #__next,
   #root {
     width: 100%;
-    height: 100%;
     background-color: ${COLOR.background};
     color: ${COLOR.deepBlue};
   }

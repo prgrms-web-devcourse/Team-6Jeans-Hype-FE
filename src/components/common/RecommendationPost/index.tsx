@@ -27,7 +27,7 @@ function RecommendationPost({
     <Container key={postId} onClick={(e) => navigatePostDetail(e, postId)}>
       {nickname && <Nickname>{nickname}</Nickname>}
       <Wrapper>
-        <AlbumPoster lazy={true} size={6} src={albumCoverUrl} />
+        <AlbumPoster lazy={true} size={6.6} src={albumCoverUrl} />
         <Content>
           <MusicInfo>
             <Title>{title}</Title>
@@ -88,12 +88,12 @@ const MusicInfo = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 0.3rem;
-  padding-left: 1.5rem;
-  width: calc(100% - 9rem);
+  padding-left: 1.3rem;
+  width: calc(100% - 9.5rem);
 `;
 
 const Title = styled.h1`
-  font-weight: 500;
+  font-weight: 700;
   font-size: 1.3rem;
   line-height: 1.7rem;
   word-break: break-all;
@@ -105,9 +105,15 @@ const Title = styled.h1`
 `;
 
 const Artist = styled.h2`
-  font-weight: 400;
+  font-weight: 500;
   font-size: 1rem;
   color: ${COLOR.gray};
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const ButtonWrapper = styled.div`
@@ -115,5 +121,5 @@ const ButtonWrapper = styled.div`
   align-items: center;
   gap: 1rem;
   position: absolute;
-  right: 0.7rem;
+  right: 1.1rem;
 `;

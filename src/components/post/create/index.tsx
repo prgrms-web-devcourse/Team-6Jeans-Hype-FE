@@ -3,12 +3,13 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 
 import Genres from '@/components/common/Genres';
+import Box from '@/components/common/skeleton/Box';
+import { COLOR } from '@/constants/color';
 
 import Toggle from '../../common/Toggle';
 import { getMusicDetailData } from '../api';
 import SelectedMusic from './SelectedMusic';
 import { Music, Values } from './types';
-import Box from '@/components/common/skeleton/Box';
 
 interface Props {
   values: Values;
@@ -60,6 +61,7 @@ function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Pro
         <Genres title='장르 선택' onChange={onChangeValues} />
       </Row>
       <Row>
+        <Title>내 한마디</Title>
         <Description
           name='description'
           value={values.description}
@@ -107,16 +109,31 @@ const SkeletonContainer = styled.div`
 
 const Description = styled.textarea`
   width: calc(100% - 1.9rem);
-  min-height: 160px;
+  min-height: 10rem;
   box-shadow: 0px 0px 10px rgba(226, 226, 226, 0.25);
-  border-radius: 10px;
+  border-radius: 1rem;
   padding-top: 1.7rem;
   padding-left: 1.9rem;
+  color: ${COLOR.deepBlue};
+  font-weight: 500;
+  font-size: 1.25rem;
+
+  &::placeholder {
+    color: ${COLOR.lightGray};
+    font-weight: 400;
+  }
 `;
+
 const BattleAvailability = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 1.4rem;
   font-weight: 700;
+`;
+
+const Title = styled.h1`
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1.8rem;
 `;

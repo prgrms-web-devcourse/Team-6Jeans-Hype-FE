@@ -1,3 +1,5 @@
+import styled from '@emotion/styled';
+
 import Header from '@/components/common/Header';
 import HeaderSubmitButton from '@/components/common/Header/SubmitButton';
 import AuthRequiredPage from '@/components/login/AuthRequiredPage';
@@ -9,19 +11,25 @@ function Create() {
 
   return (
     <AuthRequiredPage>
-      <Header
-        title='추천 글쓰기'
-        backUrl='/post/searchMusics'
-        actionButton={<HeaderSubmitButton onClick={onSubmit} />}
-      />
-      <PostCreate
-        values={values}
-        onChangeValues={onChangeValues}
-        onChangeMusicInfo={onChangeMusicInfo}
-        onSubmit={onSubmit}
-      />
+      <Container>
+        <Header
+          title='추천 글쓰기'
+          backUrl='/post/searchMusics'
+          actionButton={<HeaderSubmitButton onClick={onSubmit} />}
+        />
+        <PostCreate
+          values={values}
+          onChangeValues={onChangeValues}
+          onChangeMusicInfo={onChangeMusicInfo}
+          onSubmit={onSubmit}
+        />
+      </Container>
     </AuthRequiredPage>
   );
 }
 
 export default Create;
+
+const Container = styled.div`
+  height: 100vh;
+`;

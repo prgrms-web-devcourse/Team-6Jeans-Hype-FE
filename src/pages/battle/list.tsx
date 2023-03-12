@@ -40,7 +40,7 @@ export default function BattleListPage() {
   return (
     <>
       <Header
-        title='한눈에 보는 대결'
+        title='한 눈에 보는 대결'
         shouldNeedBack={false}
         actionButton={
           <Link href='/battle/short'>

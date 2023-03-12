@@ -15,7 +15,7 @@ const usePostCreate = () => {
   });
   const [selectedGenre, setSelectedGenre] = useState<Genre | undefined>(undefined);
   const [description, setDescription] = useState<string>('');
-  const [battleAvailability, setBattleAvailability] = useState<boolean>(false);
+  const [battleAvailability, setBattleAvailability] = useState<boolean>(true);
 
   const onChangeValues = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { value, name } = e.target;

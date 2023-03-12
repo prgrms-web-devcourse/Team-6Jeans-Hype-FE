@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { axiosInstance } from '@/api';
 
-import { Values } from './create/types';
+import { Music, Values } from './create/types';
 import { PostAPI } from './types';
 
 const ADDRESS = process.env.NEXT_PUBLIC_MUSIC_SEARCH_API_URL;
@@ -38,7 +38,9 @@ export const getMusicData = async (keyword: string) => {
     });
 
     if (data.success) {
-      return data.data.results;
+      const filteredData = data.data.results.filter((result: Music) => result.artistName !== '코케');
+
+      return filteredData;
     } else {
       return [];
     }

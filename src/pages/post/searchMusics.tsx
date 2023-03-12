@@ -1,3 +1,5 @@
+import styled from '@emotion/styled';
+
 import Header from '@/components/common/Header';
 import AuthRequiredPage from '@/components/login/AuthRequiredPage';
 import PostSearchMusics from '@/components/post/SearchMusics/index';
@@ -8,16 +10,22 @@ function SearchMusics() {
 
   return (
     <AuthRequiredPage>
-      <Header title='추천 글쓰기' backUrl='/' />
-      <PostSearchMusics
-        keyword={keyword}
-        tmpKeyword={tmpKeyword}
-        onChangeKeyword={onChangeKeyword}
-        onClickInSearchButton={onClickInSearchButton}
-        onClickInMusicList={onClickInMusicList}
-      />
+      <Container>
+        <Header title='추천 글쓰기' backUrl='/' />
+        <PostSearchMusics
+          keyword={keyword}
+          tmpKeyword={tmpKeyword}
+          onChangeKeyword={onChangeKeyword}
+          onClickInSearchButton={onClickInSearchButton}
+          onClickInMusicList={onClickInMusicList}
+        />
+      </Container>
     </AuthRequiredPage>
   );
 }
 
 export default SearchMusics;
+
+const Container = styled.div`
+  height: 100vh;
+`;
