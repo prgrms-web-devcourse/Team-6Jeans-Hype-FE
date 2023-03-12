@@ -126,11 +126,8 @@ const NoContentWrapper = styled.div`
 `;
 
 const Container = styled.div`
-  position: relative;
-  width: 33.5rem;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
 `;
 
 const Skip = styled.div`
@@ -157,11 +154,8 @@ const Text = styled.div`
 
 const BattleMusicWrapper = styled.div`
   width: 100%;
-  max-width: 37.5rem;
-  height: 36.5rem;
-  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin: 0 auto;
+  justify-content: center;
+  gap: 2.3rem;
+  margin-top: 4.3rem;
 `;
