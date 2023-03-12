@@ -1,7 +1,10 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
+import { PlayIcon } from '@/components/battle/detail/BattleMusic/style';
 import AlbumPoster from '@/components/common/AlbumPoster';
+import MusicPlayButton from '@/components/common/MusicPlayButton';
 import { COLOR } from '@/constants/color';
 
 import { Music } from './types';
@@ -13,9 +16,15 @@ interface Props {
 function SelectedMusic({ selectedMusic }: Props) {
   const router = useRouter();
   const { trackName, artistName, previewUrl, artworkUrl100 } = selectedMusic;
+  const [isPlay, setIsPlay] = useState(true);
+
+  const clickButton = () => {
+    setIsPlay(!isPlay);
+    console.log(isPlay);
+  };
 
   return (
-    <div>
+    <>
       <Header>
         <span>선택한 음악</span>
         <button type='button' onClick={() => router.push('/post/searchMusics')} style={{ cursor: 'pointer' }}>
@@ -24,15 +33,15 @@ function SelectedMusic({ selectedMusic }: Props) {
       </Header>
       <SelectedMusicInfo>
         <PosterAndPreview>
-          <AlbumPoster lazy={true} src={artworkUrl100} size={10} blur={true} />
-          <Player>
-            <audio src={previewUrl} controls loop />
-          </Player>
+          <AlbumPoster lazy={true} src={artworkUrl100} size={10} />
+          <PlayIcon value={previewUrl}>
+            <MusicPlayButton src={previewUrl} isMusicPlay={isPlay} updatePlayStatus={clickButton} />
+          </PlayIcon>
         </PosterAndPreview>
         <TrackName>{trackName}</TrackName>
         <ArtistName>{artistName}</ArtistName>
       </SelectedMusicInfo>
-    </div>
+    </>
   );
 }
 
@@ -47,13 +56,6 @@ const Header = styled.div`
     font-size: 1.4rem;
     font-weight: 700;
   }
-
-  & > button {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background-color: #e7e7e7;
-  }
 `;
 
 const SelectedMusicInfo = styled.div`
@@ -67,31 +69,13 @@ const PosterAndPreview = styled.div`
   position: relative;
 `;
 
-const Player = styled.div`
-  width: 3rem;
-  height: 3rem;
-  overflow: hidden;
-  border-radius: 50%;
-  border: 0.1rem solid ${COLOR.white};
-  margin: 0 auto;
-  box-sizing: content-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  & > audio {
-    margin-top: -1.2rem;
-    margin-left: -1.1rem;
-    display: block;
-  }
-`;
-
 const TrackName = styled.div`
   font-size: 1.3rem;
   font-weight: 700;
   margin-top: 2rem;
   margin-bottom: 0.7rem;
-  line-height: 19px;
+  line-height: 1.8rem;
+  padding: 0 2rem;
 `;
 
 const ArtistName = styled.div`
@@ -99,4 +83,5 @@ const ArtistName = styled.div`
   font-size: 1.2rem;
   line-height: 1.8rem;
   color: ${COLOR.gray};
+  padding: 0 2rem;
 `;

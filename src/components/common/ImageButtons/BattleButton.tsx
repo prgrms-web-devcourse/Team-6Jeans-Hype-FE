@@ -51,6 +51,7 @@ const BattleContainer = styled.div`
 
 const Text = styled.span`
   text-align: center;
+  font-weight: 500;
   color: ${({ ability, color }: StyleProp) => {
     const targetColor = color === 'white' ? COLOR.white : COLOR.blue;
 

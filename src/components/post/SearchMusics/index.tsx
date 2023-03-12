@@ -26,7 +26,7 @@ function SearchMusics({ keyword, tmpKeyword, onChangeKeyword, onClickInSearchBut
         <MusicList onClickInMusicList={onClickInMusicList} keyword={keyword} />
       ) : (
         <Container>
-          <NoContent width={8} text='검색 후 음악을 선택해주세요.' isImage={true} />
+          <NoContent text='검색 후 음악을 선택해주세요.' isImage width={8} />
         </Container>
       )}
     </MusicSearchContainer>
