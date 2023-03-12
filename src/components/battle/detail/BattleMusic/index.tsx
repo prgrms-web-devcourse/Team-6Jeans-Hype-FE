@@ -40,8 +40,8 @@ function BattleMusic({ music, moving, onClick, opponentMusicUrl, isMusicPlay, up
   };
 
   return (
-    <Container>
-      <Card onClick={(e) => handleClick(e)} className='container'>
+    <Container onClick={(e) => handleClick(e)}>
+      <Card>
         <Title>{title}</Title>
         <Singer>{singer}</Singer>
       </Card>
