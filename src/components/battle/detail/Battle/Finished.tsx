@@ -4,10 +4,12 @@ import { Battles } from '@/components/battle/types';
 import { COLOR } from '@/constants/color';
 
 import FinishedBattleMusic from '../BattleMusic/Finished';
+import { BattleMusicWrapper, Container } from './style';
 
 interface FinishedBattleProps {
   battle: Battles;
   useBattleMusicPlayFunctions: useBattleProps;
+  className?: string;
 }
 
 interface useBattleProps {
@@ -18,13 +20,13 @@ interface useBattleProps {
   init: () => void;
 }
 
-export default function FinishedBattle({ battle, useBattleMusicPlayFunctions }: FinishedBattleProps) {
+export default function FinishedBattle({ battle, useBattleMusicPlayFunctions, className }: FinishedBattleProps) {
   const { challenged, challenging } = battle;
 
   return (
-    <Container>
+    <Container className={className}>
       <Title>What’s your Hype Music?</Title>
-      <MusicContainer>
+      <BattleMusicWrapper>
         <FinishedBattleMusic
           isMusicPlay={useBattleMusicPlayFunctions.isLeftMusicPlay}
           updatePlayStatus={useBattleMusicPlayFunctions.clickLeftButton}
@@ -49,19 +51,10 @@ export default function FinishedBattle({ battle, useBattleMusicPlayFunctions }: 
           }
           opponentMusicUrl={challenging.music.musicUrl}
         />
-      </MusicContainer>
+      </BattleMusicWrapper>
     </Container>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 8.4rem;
-  padding-bottom: 10rem;
-  box-sizing: border-box;
-`;
 
 const Title = styled.div`
   font-weight: 600;
@@ -69,11 +62,4 @@ const Title = styled.div`
   line-height: 2.6rem;
   color: ${COLOR.gray};
   text-align: center;
-`;
-
-const MusicContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2.3rem;
 `;

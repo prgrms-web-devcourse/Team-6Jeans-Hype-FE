@@ -10,6 +10,7 @@ import { COLOR } from '@/constants/color';
 import { SelectedBattle } from '../../types';
 import VoteResult from '../../voteResult';
 import BattleMusic from '../BattleMusic';
+import { BattleMusicWrapper, Container } from './style';
 
 interface Props {
   battleId?: number | undefined;
@@ -125,11 +126,6 @@ const NoContentWrapper = styled.div`
   gap: 0.5rem;
 `;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const Skip = styled.div`
   position: absolute;
   left: 50%;
@@ -150,12 +146,4 @@ const Text = styled.div`
   white-space: nowrap;
   font-weight: 600;
   text-align: center;
-`;
-
-const BattleMusicWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 2.3rem;
-  margin-top: 4.3rem;
 `;
