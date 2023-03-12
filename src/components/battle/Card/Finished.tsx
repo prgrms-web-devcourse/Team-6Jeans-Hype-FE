@@ -8,11 +8,12 @@ import { AlbumPoster, Container, Music, Singer, StyledVersus, Title } from './st
 interface FinishedCardProps {
   challenged: FinishedBattleMusic;
   challenging: FinishedBattleMusic;
+  onClick: () => void;
 }
 
-export default function FinishedBattleCard({ challenged, challenging }: FinishedCardProps) {
+export default function FinishedBattleCard({ challenged, challenging, onClick }: FinishedCardProps) {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Music>
         <StyledAlumPoster src={challenged.albumCoverImage} isWin={challenged.isWin} alt='album-cover' />
         <StyledTitle isWin={challenged.isWin}>{challenged.title}</StyledTitle>

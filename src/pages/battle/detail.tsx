@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import ListIcon from 'public/images/go-to-list-icon.svg';
 
+import FinishedBattle from '@/components/battle/detail/Battle/Finished';
 import Battle from '@/components/battle/detail/Battle/index';
 import { useGetBattle } from '@/components/battle/detail/useGetBattle';
 import BottomNav from '@/components/common/BottomNav';
@@ -12,12 +13,19 @@ import AuthRequiredPage from '@/components/login/AuthRequiredPage';
 function Detail() {
   const router = useRouter();
   const { id } = router.query;
-  const { data: musicData } = useGetBattle({ initBattleId: Number(id), selectedGenre: 'ALL' });
+  const { data: battle } = useGetBattle({ initBattleId: Number(id), selectedGenre: 'ALL' });
+
+  const getHeaderTitle = () => {
+    if (!battle) {
+      return '';
+    }
+    return battle.isProgress ? '진행 중인 대결' : '종료된 대결';
+  };
 
   return id ? (
     <AuthRequiredPage>
       <Header
-        title='진행 중인 대결'
+        title={getHeaderTitle()}
         actionButton={
           <Link href='/battle/list'>
             <ListIcon />
@@ -25,7 +33,7 @@ function Detail() {
         }
       />
       <Container>
-        <Battle musicData={musicData} />
+        {battle && (battle.isProgress ? <Battle battle={battle} /> : <FinishedBattle battle={battle} />)}
       </Container>
       <BottomNav />
     </AuthRequiredPage>
@@ -42,4 +50,7 @@ const Container = styled.div`
   min-height: 60rem;
   padding: 0 2rem;
   padding-top: 1.27rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

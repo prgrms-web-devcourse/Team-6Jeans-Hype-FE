@@ -2,26 +2,34 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+import { Battles } from '@/components/battle/types';
 import NoContent from '@/components/common/NoContent';
 import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
-import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 import { SelectedBattle } from '../../types';
 import VoteResult from '../../voteResult';
 import BattleMusic from '../BattleMusic';
-import { Battles } from '../types';
 
 interface Props {
   battleId?: number | undefined;
-  musicData: Battles | undefined;
+  battle: Battles | undefined;
   isLoadingState?: boolean;
   refetch?: () => void;
   onClickSkip?: () => void;
   className?: string;
+  useBattleMusicPlayFunctions?: useBattleProps;
 }
 
-function Battle({ musicData, isLoadingState, refetch, onClickSkip, className }: Props) {
+interface useBattleProps {
+  isLeftMusicPlay: boolean;
+  isRightMusicPlay: boolean;
+  clickLeftButton: () => void;
+  clickRightButton: () => void;
+  init: () => void;
+}
+
+function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBattleMusicPlayFunctions }: Props) {
   const router = useRouter();
   const { id } = router.query;
   const [selectedBattle, setSelectedBattle] = useState<SelectedBattle>({
@@ -34,11 +42,9 @@ function Battle({ musicData, isLoadingState, refetch, onClickSkip, className }: 
     setSelectedBattle({ battleId, votedPostId, clickSide });
   };
 
-  const { isLeftMusicPlay, isRightMusicPlay, clickLeftButton, clickRightButton } = useBattleMusicPlay();
-
   const selectBattleMusic = (clickSide: 'left' | 'right', musicId: number | undefined) => {
-    if (musicData && musicId) {
-      onChangeSelectedBattleInfo(musicData.battleId, musicId, clickSide);
+    if (battle && musicId) {
+      onChangeSelectedBattleInfo(battle.battleId, musicId, clickSide);
     }
 
     if (!id) {
@@ -51,7 +57,7 @@ function Battle({ musicData, isLoadingState, refetch, onClickSkip, className }: 
     }
   };
 
-  if (musicData == null) {
+  if (battle == null) {
     return (
       <Wrapper>
         <NoContent text='대결할 음악이 없습니다.' isImage width={8} />
@@ -72,24 +78,24 @@ function Battle({ musicData, isLoadingState, refetch, onClickSkip, className }: 
           ) : (
             <>
               <BattleMusic
-                isMusicPlay={isLeftMusicPlay}
-                updatePlayStatus={clickLeftButton}
-                music={musicData.challenged.music}
+                isMusicPlay={useBattleMusicPlayFunctions?.isLeftMusicPlay}
+                updatePlayStatus={useBattleMusicPlayFunctions?.clickLeftButton}
+                music={battle.challenged.music}
                 moving='left'
                 onClick={() => {
-                  selectBattleMusic('left', musicData.challenged.postId);
+                  selectBattleMusic('left', battle.challenged.postId);
                 }}
-                opponentMusicUrl={musicData?.challenging.music.musicUrl}
+                opponentMusicUrl={battle?.challenging.music.musicUrl}
               />
               <BattleMusic
-                isMusicPlay={isRightMusicPlay}
-                updatePlayStatus={clickRightButton}
-                music={musicData.challenging.music}
+                isMusicPlay={useBattleMusicPlayFunctions?.isRightMusicPlay}
+                updatePlayStatus={useBattleMusicPlayFunctions?.clickRightButton}
+                music={battle.challenging.music}
                 moving='right'
                 onClick={() => {
-                  selectBattleMusic('right', musicData.challenging.postId);
+                  selectBattleMusic('right', battle.challenging.postId);
                 }}
-                opponentMusicUrl={musicData?.challenged.music.musicUrl}
+                opponentMusicUrl={battle?.challenged.music.musicUrl}
               />
             </>
           )}

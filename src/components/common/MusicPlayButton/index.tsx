@@ -39,7 +39,7 @@ function MusicPlayButton({ src, opponentMusicUrl, isMusicPlay, updatePlayStatus,
   return (
     <PlayIcon>
       <Audio src={src} id={`audio${src}`} controls loop />
-      <Button onClick={(e) => onClickPlayButton(e)}>{isMusicPlay ? <PauseButton /> : <PlayButton />}</Button>
+      <Button onClick={(e) => onClickPlayButton(e)}>{isMusicPlay ? <PlayButton /> : <PauseButton />}</Button>
     </PlayIcon>
   );
 }

@@ -25,15 +25,25 @@ function UserContent() {
     async () => await getPostFeedLimit(Number(memberId)),
   );
 
+  const navigateDetail = (battleId: number) => {
+    router.push(`/battle/detail?id=${battleId}`);
+  };
+
   return (
     <Container>
       <ContentList title='대결' hasList={battleLimit?.length !== 0}>
         {battleLimit?.length ? (
           battleLimit.map(({ id, challenging, challenged, battleStatus }) =>
             battleStatus === 'PROGRESS' ? (
-              <BattleCard key={id} challenging={challenging} challenged={challenged} />
+              <BattleCard
+                onClick={() => navigateDetail(id)}
+                key={id}
+                challenging={challenging}
+                challenged={challenged}
+              />
             ) : (
               <FinishedBattleCard
+                onClick={() => navigateDetail(id)}
                 key={id}
                 challenging={challenging as FinishedBattleMusic}
                 challenged={challenged as FinishedBattleMusic}
