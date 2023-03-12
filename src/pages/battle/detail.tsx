@@ -53,7 +53,7 @@ export default Detail;
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: grid;
   grid-template-rows: min-content auto;
   box-sizing: border-box;
