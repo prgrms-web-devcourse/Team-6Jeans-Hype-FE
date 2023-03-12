@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import ListIcon from 'public/images/go-to-list-icon.svg';
 
+import FinishedBattle from '@/components/battle/detail/Battle/Finished';
 import Battle from '@/components/battle/detail/Battle/index';
 import { useGetBattle } from '@/components/battle/detail/useGetBattle';
 import BottomNav from '@/components/common/BottomNav';
@@ -31,9 +32,7 @@ function Detail() {
           </Link>
         }
       />
-      <Container>
-        <Battle battle={battle} />
-      </Container>
+      <Container>{battle && (battle.isProgress ? <Battle battle={battle} /> : <FinishedBattle />)}</Container>
       <BottomNav />
     </AuthRequiredPage>
   ) : (
