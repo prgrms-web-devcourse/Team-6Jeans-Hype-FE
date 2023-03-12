@@ -48,7 +48,7 @@ function Short() {
       <Container>
         <Genres onChange={onClickGenre} shouldNeedAll />
         <Battle
-          musicData={musicData}
+          battle={musicData}
           isLoadingState={isLoadingState}
           refetch={refetch}
           onClickSkip={onClickSkip}
