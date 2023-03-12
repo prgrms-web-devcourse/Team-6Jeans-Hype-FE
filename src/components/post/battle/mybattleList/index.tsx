@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
 import ConfirmModal from '@/components/common/Modal/Confirm';
+import NoContent from '@/components/common/NoContent';
 import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
 import { COLOR } from '@/constants/color';
 
@@ -79,7 +80,7 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMus
 
   return (
     <Container isVisibleMusicList={isVisibleMusicList}>
-      <Title>내 음악 목록</Title>
+      <Title>내 추천 목록</Title>
       <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
           myBattleMusicList.map(({ postId, music: { title, singer, albumCoverUrl, musicUrl } }: MyBattlePostInfo) => (
@@ -104,7 +105,9 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMus
             </Post>
           ))
         ) : (
-          <div>리스트가 없습니다</div>
+          <Wrapper>
+            <NoContent text='작성한 추천 글이 없습니다.' isImage width={8} />
+          </Wrapper>
         )}
       </MyList>
 
@@ -122,16 +125,17 @@ export default MyBattleList;
 
 const Container = styled.div<{ isVisibleMusicList: boolean }>`
   display: ${({ isVisibleMusicList }) => (isVisibleMusicList ? 'block' : 'none')};
+  position: relative;
 `;
 
 const Title = styled.div`
   font-weight: 700;
-  font-size: 1.4rem;
-  line-height: 2rem;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
   color: ${COLOR.deepBlue};
   margin-bottom: 2rem;
+  padding-left: 1rem;
 `;
 
 const MyList = styled.div`
@@ -172,4 +176,15 @@ const TitleSinger = styled.div`
 
     color: ${COLOR.gray};
   }
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
