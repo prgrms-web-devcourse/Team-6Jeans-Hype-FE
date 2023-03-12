@@ -11,8 +11,8 @@ interface Prop {
   music: Music;
   moving?: 'left' | 'right';
   onClick?: () => void;
-  isMusicPlay: boolean;
-  updatePlayStatus: () => void;
+  isMusicPlay?: boolean;
+  updatePlayStatus?: () => void;
   opponentMusicUrl?: string;
 }
 
