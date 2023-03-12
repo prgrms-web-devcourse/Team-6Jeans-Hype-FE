@@ -45,6 +45,11 @@ export const Title = styled.div`
   text-align: center;
   color: ${COLOR.deepBlue};
   margin-top: 7.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 export const Singer = styled.div`
@@ -54,6 +59,11 @@ export const Singer = styled.div`
   text-align: center;
   color: ${COLOR.gray};
   margin-top: 0.7rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 export const StyledMusicPlayButton = styled(MusicPlayButton)`
