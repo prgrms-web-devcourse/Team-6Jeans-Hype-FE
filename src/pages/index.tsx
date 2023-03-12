@@ -119,9 +119,9 @@ const StyledLogo = styled(Logo)`
 `;
 
 const changeColor = keyframes`
- 00% { stroke: ${COLOR.blue}; }
- 50% { stroke: ${COLOR.purple}; } 
- 100% { stroke: ${COLOR.blue}; }
+ 00% { fill: ${COLOR.blue}; }
+ 50% { fill: ${COLOR.purple}; } 
+ 100% { fill: ${COLOR.blue}; }
 `;
 
 const StyledInfo = styled(Info)`
@@ -130,7 +130,7 @@ const StyledInfo = styled(Info)`
   cursor: pointer;
   & > path {
     animation-name: ${changeColor};
-    animation-duration: 5s;
+    animation-duration: 6s;
     animation-iteration-count: infinite;
   }
 `;
@@ -143,7 +143,6 @@ const StyledSurvey = styled(Survey)`
     animation-name: ${changeColor};
     animation-duration: 5s;
     animation-iteration-count: infinite;
-    animation-direction: reverse;
   }
 `;
 
