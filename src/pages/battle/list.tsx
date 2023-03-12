@@ -83,7 +83,7 @@ const StyledGenres = styled(Genres)`
 const StyledBattleList = styled(BattleList)`
   height: calc(100vh - 25rem);
   overflow-y: auto;
-  margin-top: 1.3rem;
+  margin-top: 1.5rem;
 `;
 
 const Wrapper = styled.div`
