@@ -1,3 +1,4 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -117,17 +118,35 @@ const StyledLogo = styled(Logo)`
   transform: translateX(-50%);
 `;
 
+const changeColor = keyframes`
+ 00% { stroke: ${COLOR.blue}; }
+ 25% { stroke: ${COLOR.deepBlue}; }
+ 50% { stroke: ${COLOR.purple}; } 
+ 75% { stroke: ${COLOR.deepBlue}; }
+ 100% { stroke: ${COLOR.blue}; }
+`;
+
 const StyledInfo = styled(Info)`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
-  fi
+  & > path {
+    animation-name: ${changeColor};
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
 `;
 
 const StyledSurvey = styled(Survey)`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+  & > path {
+    animation-name: ${changeColor};
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-direction: reverse;
+  }
 `;
 
 const Wrapper = styled.div`
