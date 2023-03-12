@@ -4,6 +4,7 @@ import { Battles } from '@/components/battle/types';
 import { COLOR } from '@/constants/color';
 
 import FinishedBattleMusic from '../BattleMusic/Finished';
+import { BattleMusicWrapper, Container } from './style';
 
 interface FinishedBattleProps {
   battle: Battles;
@@ -25,7 +26,7 @@ export default function FinishedBattle({ battle, useBattleMusicPlayFunctions, cl
   return (
     <Container className={className}>
       <Title>What’s your Hype Music?</Title>
-      <MusicContainer>
+      <BattleMusicWrapper>
         <FinishedBattleMusic
           isMusicPlay={useBattleMusicPlayFunctions.isLeftMusicPlay}
           updatePlayStatus={useBattleMusicPlayFunctions.clickLeftButton}
@@ -50,15 +51,10 @@ export default function FinishedBattle({ battle, useBattleMusicPlayFunctions, cl
           }
           opponentMusicUrl={challenging.music.musicUrl}
         />
-      </MusicContainer>
+      </BattleMusicWrapper>
     </Container>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
 const Title = styled.div`
   font-weight: 600;
@@ -66,12 +62,4 @@ const Title = styled.div`
   line-height: 2.6rem;
   color: ${COLOR.gray};
   text-align: center;
-`;
-
-const MusicContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 2.3rem;
-  margin-top: 4.3rem;
 `;
