@@ -1,3 +1,4 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -52,11 +53,13 @@ export default function Home() {
       <Header>
         <StyledLogo />
         <Icons>
-          <button onClick={onClickInfo}>
+          <button onClick={onClickInfo} title='사용법 알아보기'>
             <StyledInfo />
           </button>
-          <Link href='https://forms.gle/QfK3YGMnxuLh6m7LA'>
-            <StyledSurvey />
+          <Link href='https://forms.gle/QfK3YGMnxuLh6m7LA' legacyBehavior title='설문조사 바로가기'>
+            <a target='_blank'>
+              <StyledSurvey />
+            </a>
           </Link>
         </Icons>
       </Header>
@@ -86,7 +89,7 @@ export default function Home() {
       </RankingLabels>
       <Ranking isLimit />
       <BottomNav />
-      {isShowInfo ? <InfoModal onClick={onClickInfo} /> : ''}
+      {isShowInfo ? <InfoModal onClose={onClickInfo} /> : ''}
     </Container>
   );
 }
@@ -117,16 +120,32 @@ const StyledLogo = styled(Logo)`
   transform: translateX(-50%);
 `;
 
+const changeColor = keyframes`
+ 00% { fill: ${COLOR.blue}; }
+ 50% { fill: ${COLOR.purple}; } 
+ 100% { fill: ${COLOR.blue}; }
+`;
+
 const StyledInfo = styled(Info)`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+  & > path {
+    animation-name: ${changeColor};
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+  }
 `;
 
 const StyledSurvey = styled(Survey)`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+  & > path {
+    animation-name: ${changeColor};
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+  }
 `;
 
 const Wrapper = styled.div`

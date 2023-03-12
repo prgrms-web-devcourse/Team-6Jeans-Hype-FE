@@ -1,17 +1,26 @@
 import styled from '@emotion/styled';
+import CancelIcon from 'public/images/cancel-icon.svg';
 
 import { COLOR } from '@/constants/color';
 
 import { TEXT } from './const';
 
 interface Props {
-  onClick: () => void;
+  onClose: () => void;
 }
 
-function Info({ onClick }: Props) {
+function Info({ onClose }: Props) {
+  const onClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    onClose?.();
+  };
+
   return (
     <Container onClick={onClick}>
       <Wrapper>
+        <StyledCancelIconButton onClick={onClick}>
+          <StyledCancelIcon />
+        </StyledCancelIconButton>
         {TEXT.split('\n').map((line, i) => (
           <div key={i}>
             {line}
@@ -39,8 +48,10 @@ const Wrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: calc(50% - 4rem);
-  height: 50%;
+  width: calc(80% - 4rem);
+  max-width: 60rem;
+  max-height: 60rem;
+  height: 80%;
   background-color: ${COLOR.white};
   border-radius: 1rem;
   padding: 2rem;
@@ -52,4 +63,20 @@ const Wrapper = styled.div`
     font-weight: 700;
     font-size: 1.5rem;
   }
+`;
+
+const StyledCancelIconButton = styled.button`
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.2);
+    transition: all 0.1s ease;
+  }
+`;
+
+const StyledCancelIcon = styled(CancelIcon)`
+  width: 1rem;
+  height: 1rem;
 `;
