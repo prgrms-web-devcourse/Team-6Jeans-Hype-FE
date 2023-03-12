@@ -1,48 +1,58 @@
-import MusicPlayButton from '@/components/common/MusicPlayButton';
+import styled from '@emotion/styled';
+import FireIcon from 'public/images/fire-icon.svg';
 
-import { Card, Container, PlayIcon, Singer, Thumbnail, Title } from './style';
+import { COLOR } from '@/constants/color';
+
+import { Music } from '../types';
+import BattleMusic from '.';
 
 interface FinishedBattleMusicProps {
-  albumCoverImage: string;
-  title: string;
-  singer: string;
-  musicUrl?: string;
-  isWin: boolean;
-  votedCount: number;
-  opponentMusicUrl?: string;
+  music: Music;
   isMusicPlay?: boolean;
   updatePlayStatus?: () => void;
+  opponentMusicUrl?: string;
+  isWin: boolean;
+  voteCount: number;
 }
 
-export default function FinishedBattleMusic({
-  albumCoverImage,
-  title,
-  singer,
-  musicUrl,
-  // TODO 스타일링 리팩토링 하고나서, 아래 안 쓰여진 prop들 이용해서 투표 상태 UI 추가해야 함
-  isWin,
-  votedCount,
-  opponentMusicUrl,
-  isMusicPlay,
-  updatePlayStatus,
-}: FinishedBattleMusicProps) {
+export default function FinishedBattleMusic({ isWin, voteCount, ...battleMusicProps }: FinishedBattleMusicProps) {
   return (
     <Container>
-      <Card>
-        <Thumbnail src={albumCoverImage}>
-          <PlayIcon value={musicUrl}>
-            <MusicPlayButton
-              key={title}
-              src={musicUrl}
-              opponentMusicUrl={opponentMusicUrl}
-              isMusicPlay={isMusicPlay}
-              updatePlayStatus={updatePlayStatus}
-            />
-          </PlayIcon>
-        </Thumbnail>
-        <Title>{title}</Title>
-        <Singer>{singer}</Singer>
-      </Card>
+      <BattleMusic {...battleMusicProps} />
+      <VoteResult>
+        {isWin && <StyledFireIcon />}
+        <VoteCount isWin={isWin}>{voteCount}</VoteCount>
+      </VoteResult>
     </Container>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2.7rem;
+  width: 15.7rem;
+  align-items: center;
+`;
+
+const VoteResult = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+`;
+
+const StyledFireIcon = styled(FireIcon)`
+  width: 2rem;
+  height: 2.2rem;
+  & > path {
+    stroke: ${COLOR.blue};
+  }
+`;
+
+const VoteCount = styled.div<{ isWin: boolean }>`
+  font-weight: 600;
+  font-size: 2.2rem;
+  line-height: 3.3rem;
+  color: ${({ isWin }) => (isWin ? COLOR.blue : COLOR.lightGray)};
+  padding-bottom: 0.3rem;
+`;

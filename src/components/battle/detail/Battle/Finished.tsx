@@ -22,11 +22,8 @@ export default function FinishedBattle({ battle }: FinishedBattleProps) {
         <FinishedBattleMusic
           isMusicPlay={isLeftMusicPlay}
           updatePlayStatus={clickLeftButton}
-          albumCoverImage={challenged.music.albumCoverUrl}
-          title={challenged.music.title}
-          singer={challenged.music.singer}
-          musicUrl={challenged.music.musicUrl}
-          votedCount={challenged.voteCnt ?? 0}
+          music={challenged.music}
+          voteCount={challenged.voteCnt ?? 0}
           isWin={
             typeof challenged.voteCnt === 'number' && typeof challenging.voteCnt === 'number'
               ? challenged.voteCnt > challenging.voteCnt
@@ -37,11 +34,8 @@ export default function FinishedBattle({ battle }: FinishedBattleProps) {
         <FinishedBattleMusic
           isMusicPlay={isRightMusicPlay}
           updatePlayStatus={clickRightButton}
-          albumCoverImage={challenging.music.albumCoverUrl}
-          title={challenging.music.title}
-          singer={challenging.music.singer}
-          musicUrl={challenging.music.musicUrl}
-          votedCount={challenging.voteCnt ?? 0}
+          music={challenging.music}
+          voteCount={challenging.voteCnt ?? 0}
           isWin={
             typeof challenging.voteCnt === 'number' && typeof challenged.voteCnt === 'number'
               ? challenging.voteCnt > challenged.voteCnt
