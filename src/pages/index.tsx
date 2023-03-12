@@ -55,8 +55,10 @@ export default function Home() {
           <button onClick={onClickInfo}>
             <StyledInfo />
           </button>
-          <Link href='https://forms.gle/QfK3YGMnxuLh6m7LA'>
-            <StyledSurvey />
+          <Link href='https://forms.gle/QfK3YGMnxuLh6m7LA' legacyBehavior>
+            <a target='_blank'>
+              <StyledSurvey />
+            </a>
           </Link>
         </Icons>
       </Header>
@@ -84,7 +86,7 @@ export default function Home() {
       </RankingLabels>
       <Ranking isLimit />
       <BottomNav />
-      {isShowInfo ? <InfoModal onClick={onClickInfo} /> : ''}
+      {isShowInfo ? <InfoModal onClose={onClickInfo} /> : ''}
     </Container>
   );
 }
@@ -119,6 +121,7 @@ const StyledInfo = styled(Info)`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+  fi
 `;
 
 const StyledSurvey = styled(Survey)`
