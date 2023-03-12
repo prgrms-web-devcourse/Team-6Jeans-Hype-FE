@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import { PlayIcon } from '@/components/battle/detail/BattleMusic/style';
 import AlbumPoster from '@/components/common/AlbumPoster';
 import MusicPlayButton from '@/components/common/MusicPlayButton';
 import { COLOR } from '@/constants/color';
@@ -84,4 +83,12 @@ const ArtistName = styled.div`
   line-height: 1.8rem;
   color: ${COLOR.gray};
   padding: 0 2rem;
+`;
+
+const PlayIcon = styled.div<{ value: string | undefined }>`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: ${(prop) => (prop.value === '' ? 'none' : 'block')};
 `;
