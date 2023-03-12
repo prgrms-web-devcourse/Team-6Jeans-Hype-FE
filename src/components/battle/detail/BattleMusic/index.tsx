@@ -27,13 +27,18 @@ function BattleMusic({ music, moving, onClick, opponentMusicUrl, isMusicPlay, up
 
   const move = () => {
     const thumbnailElement = thumbnailRef.current;
-    if (thumbnailElement) {
-      const savedClassName = thumbnailElement.className;
-      thumbnailElement.className = `${savedClassName} active`;
+    const playButtonElement = document.querySelector(`.play${moving}`);
+
+    if (thumbnailElement && playButtonElement) {
+      const savedClassName = [thumbnailElement.className, playButtonElement.className];
+
+      thumbnailElement.className = `${savedClassName[0]} active`;
+      playButtonElement.className = `${savedClassName[1]} active`;
 
       // if (!id) {
       setTimeout(() => {
-        thumbnailElement.className = savedClassName;
+        thumbnailElement.className = savedClassName[0];
+        playButtonElement.className = savedClassName[1];
       }, 1700);
       // }
     }
@@ -52,6 +57,7 @@ function BattleMusic({ music, moving, onClick, opponentMusicUrl, isMusicPlay, up
         opponentMusicUrl={opponentMusicUrl}
         isMusicPlay={isMusicPlay}
         updatePlayStatus={updatePlayStatus}
+        className={`play${moving}`}
       />
     </Container>
   );
@@ -60,47 +66,32 @@ function BattleMusic({ music, moving, onClick, opponentMusicUrl, isMusicPlay, up
 export default BattleMusic;
 const moveLeft = keyframes`
   0% {
-    right:0%;
+    left:50%;
   }
   15% {
-    right:55%;
+    left:-7%;
   }
   100% {
-    right:55%;
+    left:-7%;
   }
 `;
 
 const moveRight = keyframes`
   0% {
     z-index: 99;
-    left:0%;
+    left:50%;
   }
   15% {
-    left:56%;
+    left:107.6%;
   }
   100% {
     z-index: 99;
-    left:56%;
-  }
-`;
-
-const changeOpacity = keyframes`
-  0% {
-    opacity: 1;
-  }
-  10% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
+    left:107.6%;
   }
 `;
 
 const StyledThumbnail = styled(Thumbnail)`
   &.active {
-    animation: ${(props) => (props.clickSide === 'right' ? moveLeft : moveRight)} 2s ease-in;
-    & > div {
-      animation: ${changeOpacity} 2s ease-in;
-    }
+    animation: ${({ clickSide }) => (clickSide === 'right' ? moveLeft : moveRight)} 2s ease-in;
   }
 `;
