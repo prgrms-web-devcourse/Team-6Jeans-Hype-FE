@@ -15,19 +15,11 @@ function MusicCard({ music, onClickMusicList }: Prop) {
 
   return (
     <Card key={trackId} onClick={onClickMusicList}>
-      <AlbumPoster lazy={true} src={artworkUrl100} size={6.4} />
-      <MusicTexts>
-        <Text>
-          <Ellipsis>
-            <span>{trackName}</span>
-          </Ellipsis>
-        </Text>
-        <Text>
-          <Ellipsis>
-            <ArtistName>{artistName}</ArtistName>
-          </Ellipsis>
-        </Text>
-      </MusicTexts>
+      <AlbumPoster lazy={true} src={artworkUrl100} size={6.6} />
+      <MusicInfo>
+        <Title>{trackName}</Title>
+        <Artist>{artistName}</Artist>
+      </MusicInfo>
     </Card>
   );
 }
@@ -45,32 +37,35 @@ const Card = styled.div`
   border-radius: 1rem;
 `;
 
-const MusicTexts = styled.div`
-  width: calc(100% - 2rem - 7rem);
-  height: 60%;
-  cursor: pointer;
+const MusicInfo = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 2rem;
+  justify-content: center;
+  gap: 0.3rem;
+  padding-left: 1.3rem;
+  width: calc(100% - 9.5rem);
 `;
 
-const Text = styled.div`
-  height: 50%;
-  display: flex;
-  align-items: center;
+const Title = styled.h1`
+  font-weight: 700;
+  font-size: 1.3rem;
   line-height: 1.7rem;
-`;
-
-const Ellipsis = styled.div`
+  word-break: break-all;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
-  font-weight: bold;
-  & > span {
-    font-size: 1.2rem;
-  }
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
-const ArtistName = styled.div`
+const Artist = styled.h2`
+  font-weight: 500;
+  font-size: 1rem;
   color: ${COLOR.gray};
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;

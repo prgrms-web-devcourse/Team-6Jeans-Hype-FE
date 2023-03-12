@@ -93,7 +93,7 @@ const MusicInfo = styled.div`
 `;
 
 const Title = styled.h1`
-  font-weight: 500;
+  font-weight: 700;
   font-size: 1.3rem;
   line-height: 1.7rem;
   word-break: break-all;
@@ -105,9 +105,15 @@ const Title = styled.h1`
 `;
 
 const Artist = styled.h2`
-  font-weight: 400;
+  font-weight: 500;
   font-size: 1rem;
   color: ${COLOR.gray};
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const ButtonWrapper = styled.div`
