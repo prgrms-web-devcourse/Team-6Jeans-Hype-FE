@@ -87,7 +87,7 @@ const StyledLogo = styled(Logo)`
 `;
 
 const Wrapper = styled.div`
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.4rem;
 `;
 
 const Label = styled.span`
@@ -108,6 +108,7 @@ const LikeGenrePost = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 3rem;
+  gap: 0.2rem;
 `;
 
 const SeeMore = styled.span`

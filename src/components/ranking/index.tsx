@@ -58,8 +58,6 @@ const RankingContainer = styled.div`
   flex-direction: column;
   gap: 0.8rem;
   padding: 0 2rem;
-  height: calc(100% - 10rem);
-  overflow-y: auto;
 
   &.full {
     position: relative;
