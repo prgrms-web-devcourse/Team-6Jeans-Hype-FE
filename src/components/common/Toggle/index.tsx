@@ -9,7 +9,7 @@ interface ToggleProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-function Toggle({ name, on = false, disabled, onChange }: ToggleProps) {
+function Toggle({ name, on = true, disabled, onChange }: ToggleProps) {
   const { state, toggle } = useToggle(on);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

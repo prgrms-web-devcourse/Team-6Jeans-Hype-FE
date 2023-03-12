@@ -15,7 +15,7 @@ function SelectedMusic({ selectedMusic }: Props) {
   const { trackName, artistName, previewUrl, artworkUrl100 } = selectedMusic;
 
   return (
-    <div>
+    <>
       <Header>
         <span>선택한 음악</span>
         <button type='button' onClick={() => router.push('/post/searchMusics')} style={{ cursor: 'pointer' }}>
@@ -32,7 +32,7 @@ function SelectedMusic({ selectedMusic }: Props) {
         <TrackName>{trackName}</TrackName>
         <ArtistName>{artistName}</ArtistName>
       </SelectedMusicInfo>
-    </div>
+    </>
   );
 }
 
@@ -46,13 +46,6 @@ const Header = styled.div`
   & > span {
     font-size: 1.4rem;
     font-weight: 700;
-  }
-
-  & > button {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background-color: #e7e7e7;
   }
 `;
 
@@ -91,7 +84,8 @@ const TrackName = styled.div`
   font-weight: 700;
   margin-top: 2rem;
   margin-bottom: 0.7rem;
-  line-height: 19px;
+  line-height: 1.8rem;
+  padding: 0 2rem;
 `;
 
 const ArtistName = styled.div`
@@ -99,4 +93,5 @@ const ArtistName = styled.div`
   font-size: 1.2rem;
   line-height: 1.8rem;
   color: ${COLOR.gray};
+  padding: 0 2rem;
 `;
