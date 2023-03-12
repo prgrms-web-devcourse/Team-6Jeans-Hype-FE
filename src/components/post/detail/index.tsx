@@ -208,7 +208,6 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100vh;
-  max-height: 100%;
   background: linear-gradient(130.7deg, #a274dc -10.45%, #658df4 122.15%);
   position: relative;
 `;
@@ -216,13 +215,14 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 90%;
   margin: 0 auto;
+  margin-top: 6rem;
 `;
 
 const PlayStatus = styled.div`
   display: flex;
   flex-direction: column;
   width: 65%;
-  margin: 0 auto 2rem;
+  margin: 1rem auto 2rem;
 `;
 
 const PlayBar = styled.div`
