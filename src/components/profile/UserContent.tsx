@@ -18,7 +18,7 @@ function UserContent() {
 
   const { data: battleLimit } = useGetMyBattleList({
     limit: 2,
-    memberId: Number(memberId),
+    memberId: memberId && !isNaN(+memberId) ? +memberId : undefined,
   });
   const { data: postFeedLimit } = useQuery(
     ['postfeedlimit', memberId],
