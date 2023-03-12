@@ -4,7 +4,7 @@ import FireIcon from 'public/images/fire-icon.svg';
 import { COLOR } from '@/constants/color';
 
 import { Music } from '../types';
-import BattleMusic from '.';
+import { Card, Container as BattleMusicWrapper, Singer, StyledMusicPlayButton, Thumbnail, Title } from './style';
 
 interface FinishedBattleMusicProps {
   music: Music;
@@ -15,10 +15,30 @@ interface FinishedBattleMusicProps {
   voteCount: number;
 }
 
-export default function FinishedBattleMusic({ isWin, voteCount, ...battleMusicProps }: FinishedBattleMusicProps) {
+export default function FinishedBattleMusic({
+  isWin,
+  voteCount,
+  music,
+  opponentMusicUrl,
+  isMusicPlay,
+  updatePlayStatus,
+}: FinishedBattleMusicProps) {
   return (
     <Container>
-      <BattleMusic {...battleMusicProps} />
+      <BattleMusicWrapper>
+        <StyledCard isWin={isWin}>
+          <Title className='title'>{music.title}</Title>
+          <Singer className='singer'>{music.singer}</Singer>
+        </StyledCard>
+        <StyledThumbnail src={music.albumCoverUrl} isWin={isWin} />
+        <StyledMusicPlayButton
+          key={music.title}
+          src={music.musicUrl}
+          opponentMusicUrl={opponentMusicUrl}
+          isMusicPlay={isMusicPlay}
+          updatePlayStatus={updatePlayStatus}
+        />
+      </BattleMusicWrapper>
       <VoteResult>
         {isWin && <StyledFireIcon />}
         <VoteCount isWin={isWin}>{voteCount}</VoteCount>
@@ -55,4 +75,18 @@ const VoteCount = styled.div<{ isWin: boolean }>`
   line-height: 3.3rem;
   color: ${({ isWin }) => (isWin ? COLOR.blue : COLOR.lightGray)};
   padding-bottom: 0.3rem;
+`;
+
+const StyledCard = styled(Card)<{ isWin: boolean }>`
+  ${({ isWin }) =>
+    isWin ? 'background: linear-gradient(98.38deg, #7d74dc -1.83%, #7697ec 86.44%)' : 'background-color:  #E8E8E8'};
+
+  & > .singer,
+  & > .title {
+    color: ${({ isWin }) => (isWin ? COLOR.background : COLOR.lightGray)};
+  }
+`;
+
+const StyledThumbnail = styled(Thumbnail)<{ isWin: boolean }>`
+  ${({ isWin }) => (isWin ? '' : 'filter: grayscale();')};
 `;
