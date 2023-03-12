@@ -1,20 +1,25 @@
 import { useState } from 'react';
 
 const useBattleMusicPlay = () => {
-  const [isLeftMusicPlay, setIsLeftMusicPlay] = useState(false);
-  const [isRightMusicPlay, setIsRightMusicPlay] = useState(false);
+  const [isLeftMusicPlay, setIsLeftMusicPlay] = useState(true);
+  const [isRightMusicPlay, setIsRightMusicPlay] = useState(true);
 
   const clickLeftButton = () => {
     setIsLeftMusicPlay((prev) => !prev);
-    setIsRightMusicPlay(false);
+    setIsRightMusicPlay(true);
   };
 
   const clickRightButton = () => {
     setIsRightMusicPlay((prev) => !prev);
-    setIsLeftMusicPlay(false);
+    setIsLeftMusicPlay(true);
   };
 
-  return { isLeftMusicPlay, isRightMusicPlay, clickLeftButton, clickRightButton };
+  const init = () => {
+    setIsLeftMusicPlay(true);
+    setIsRightMusicPlay(true);
+  };
+
+  return { isLeftMusicPlay, isRightMusicPlay, clickLeftButton, clickRightButton, init };
 };
 
 export default useBattleMusicPlay;

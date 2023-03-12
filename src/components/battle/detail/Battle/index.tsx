@@ -19,9 +19,18 @@ interface Props {
   refetch?: () => void;
   onClickSkip?: () => void;
   className?: string;
+  useBattleMusicPlayFunctions: useBattleProps;
 }
 
-function Battle({ musicData, isLoadingState, refetch, onClickSkip, className }: Props) {
+interface useBattleProps {
+  isLeftMusicPlay: boolean;
+  isRightMusicPlay: boolean;
+  clickLeftButton: () => void;
+  clickRightButton: () => void;
+  init: () => void;
+}
+
+function Battle({ musicData, isLoadingState, refetch, onClickSkip, className, useBattleMusicPlayFunctions }: Props) {
   const router = useRouter();
   const { id } = router.query;
   const [selectedBattle, setSelectedBattle] = useState<SelectedBattle>({
@@ -34,9 +43,11 @@ function Battle({ musicData, isLoadingState, refetch, onClickSkip, className }: 
     setSelectedBattle({ battleId, votedPostId, clickSide });
   };
 
-  const { isLeftMusicPlay, isRightMusicPlay, clickLeftButton, clickRightButton } = useBattleMusicPlay();
+  const { isLeftMusicPlay, isRightMusicPlay, clickLeftButton, clickRightButton, init } = useBattleMusicPlayFunctions;
 
   const selectBattleMusic = (clickSide: 'left' | 'right', musicId: number | undefined) => {
+    init();
+
     if (musicData && musicId) {
       onChangeSelectedBattleInfo(musicData.battleId, musicId, clickSide);
     }
