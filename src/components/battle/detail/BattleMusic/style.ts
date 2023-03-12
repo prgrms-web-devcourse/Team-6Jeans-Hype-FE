@@ -46,12 +46,9 @@ export const Title = styled.div`
   text-align: center;
   color: ${COLOR.deepBlue};
   margin-top: 7.5rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  min-height: 3.4rem;
+  height: 3.4rem;
+  word-break: break-all;
+  overflow-y: auto;
 `;
 
 export const Singer = styled.div`
@@ -61,11 +58,9 @@ export const Singer = styled.div`
   text-align: center;
   color: ${COLOR.gray};
   margin-top: 0.7rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  height: 3.2rem;
+  word-break: break-all;
+  overflow-y: auto;
 `;
 
 const changeOpacity = keyframes`
