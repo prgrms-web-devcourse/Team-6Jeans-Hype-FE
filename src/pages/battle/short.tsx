@@ -8,15 +8,18 @@ import { useGetBattle } from '@/components/battle/detail/useGetBattle';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
+import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 function Short() {
   const [selectedGenre, setSelectedGenre] = useState<string>('ALL');
   const [isLoadingState, setIsLoadingState] = useState<boolean>(false);
   const { data: musicData, refetch } = useGetBattle({ initBattleId: 0, selectedGenre });
+  const useBattleMusicPlayFunctions = useBattleMusicPlay();
 
   const onClickGenre = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsLoadingState(true);
     setSelectedGenre(e.target.value);
+    useBattleMusicPlayFunctions.init();
     setTimeout(() => {
       setIsLoadingState(false);
     }, 500);
@@ -25,6 +28,7 @@ function Short() {
   const onClickSkip = () => {
     setIsLoadingState(true);
     refetch();
+    useBattleMusicPlayFunctions.init();
     setTimeout(() => {
       setIsLoadingState(false);
     }, 500);
@@ -43,7 +47,13 @@ function Short() {
       />
       <Container>
         <Genres onChange={onClickGenre} shouldNeedAll />
-        <Battle battle={musicData} isLoadingState={isLoadingState} refetch={refetch} onClickSkip={onClickSkip} />
+        <Battle
+          battle={musicData}
+          isLoadingState={isLoadingState}
+          refetch={refetch}
+          onClickSkip={onClickSkip}
+          useBattleMusicPlayFunctions={useBattleMusicPlayFunctions}
+        />
       </Container>
       <BottomNav />
     </>

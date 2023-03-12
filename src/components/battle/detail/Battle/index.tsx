@@ -6,7 +6,6 @@ import { Battles } from '@/components/battle/types';
 import NoContent from '@/components/common/NoContent';
 import AlbumPoster from '@/components/common/skeleton/AlbumPosterSkeleton';
 import { COLOR } from '@/constants/color';
-import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 import { SelectedBattle } from '../../types';
 import VoteResult from '../../voteResult';
@@ -19,9 +18,18 @@ interface Props {
   refetch?: () => void;
   onClickSkip?: () => void;
   className?: string;
+  useBattleMusicPlayFunctions?: useBattleProps;
 }
 
-function Battle({ battle, isLoadingState, refetch, onClickSkip, className }: Props) {
+interface useBattleProps {
+  isLeftMusicPlay: boolean;
+  isRightMusicPlay: boolean;
+  clickLeftButton: () => void;
+  clickRightButton: () => void;
+  init: () => void;
+}
+
+function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBattleMusicPlayFunctions }: Props) {
   const router = useRouter();
   const { id } = router.query;
   const [selectedBattle, setSelectedBattle] = useState<SelectedBattle>({
@@ -33,8 +41,6 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className }: Pro
   const onChangeSelectedBattleInfo = (battleId: number, votedPostId: number, clickSide: 'left' | 'right') => {
     setSelectedBattle({ battleId, votedPostId, clickSide });
   };
-
-  const { isLeftMusicPlay, isRightMusicPlay, clickLeftButton, clickRightButton } = useBattleMusicPlay();
 
   const selectBattleMusic = (clickSide: 'left' | 'right', musicId: number | undefined) => {
     if (battle && musicId) {
@@ -72,8 +78,8 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className }: Pro
           ) : (
             <>
               <BattleMusic
-                isMusicPlay={isLeftMusicPlay}
-                updatePlayStatus={clickLeftButton}
+                isMusicPlay={useBattleMusicPlayFunctions?.isLeftMusicPlay}
+                updatePlayStatus={useBattleMusicPlayFunctions?.clickLeftButton}
                 music={battle.challenged.music}
                 moving='left'
                 onClick={() => {
@@ -82,8 +88,8 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className }: Pro
                 opponentMusicUrl={battle?.challenging.music.musicUrl}
               />
               <BattleMusic
-                isMusicPlay={isRightMusicPlay}
-                updatePlayStatus={clickRightButton}
+                isMusicPlay={useBattleMusicPlayFunctions?.isRightMusicPlay}
+                updatePlayStatus={useBattleMusicPlayFunctions?.clickRightButton}
                 music={battle.challenging.music}
                 moving='right'
                 onClick={() => {
