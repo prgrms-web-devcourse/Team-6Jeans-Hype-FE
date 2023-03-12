@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -60,14 +61,16 @@ const Container = styled.div`
   padding-bottom: 8rem;
 `;
 
-const StyledBattle = styled(Battle)`
+const BATTLE_LAYOUT_STYLE = css`
   margin: auto 0;
   box-sizing: border-box;
   padding-bottom: 2rem;
 `;
 
+const StyledBattle = styled(Battle)`
+  ${BATTLE_LAYOUT_STYLE}
+`;
+
 const StyledFinishedBattle = styled(FinishedBattle)`
-  margin: auto 0;
-  box-sizing: border-box;
-  padding-bottom: 2rem;
+  ${BATTLE_LAYOUT_STYLE}
 `;
