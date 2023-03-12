@@ -1,11 +1,16 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 
+import { accessTokenAtom } from '@/components/login/store';
 import { getUserProfile } from '@/components/profile/api';
 import { COLOR } from '@/constants/color';
 
+import ConfirmModal from '../common/Modal/Confirm';
 import SkeletonCircle from '../common/skeleton/Circle';
+import { tokenStorage } from '../login/utils/localStorage';
 import ResultCard from './ResultCard';
 
 interface ResultCard {
@@ -26,14 +31,34 @@ function UserHeader() {
   const router = useRouter();
   const { memberId } = router.query;
 
+  const setAccessToken = useSetRecoilState(accessTokenAtom);
+  const [modalStatus, setModalStatus] = useState(false);
+
   const { data: userProfile, isLoading } = useQuery(
     ['userProfile', memberId],
     async () => await getUserProfile(Number(memberId)),
   );
 
+  const onClickLogout = () => {
+    setModalStatus((prev) => !prev);
+  };
+
+  const onClickConfirm = () => {
+    tokenStorage.remove();
+    setAccessToken(null);
+    router.push('/');
+  };
+
   return (
     <Container>
       <Wrapper>
+        <Logout onClick={onClickLogout}>로그아웃</Logout>
+        <ConfirmModal
+          isOpened={modalStatus}
+          text={`로그아웃 하시겠습니까?`}
+          onClickCancel={onClickLogout}
+          onClickConfirm={onClickConfirm}
+        />
         <UserContainer>
           <DefaultProfile>
             {isLoading ? (
@@ -66,7 +91,16 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding: 0 2rem;
+  margin: 0 2rem;
+  position: relative;
+`;
+
+const Logout = styled.div`
+  position: absolute;
+  right: 0;
+  color: ${COLOR.white};
+  font-weight: bold;
+  cursor: pointer;
 `;
 
 const UserContainer = styled.div`
