@@ -40,12 +40,12 @@ function BattleMusic({ music, moving, onClick, opponentMusicUrl, isMusicPlay, up
   };
 
   return (
-    <Container onClick={(e) => handleClick(e)}>
-      <Card>
+    <Container>
+      <Card onClick={(e) => handleClick(e)}>
         <Title>{title}</Title>
         <Singer>{singer}</Singer>
       </Card>
-      <StyledThumbnail src={albumCoverUrl} clickSide={moving} ref={thumbnailRef} />
+      <StyledThumbnail onClick={(e) => handleClick(e)} src={albumCoverUrl} clickSide={moving} ref={thumbnailRef} />
       <StyledMusicPlayButton
         key={title}
         src={musicUrl}
