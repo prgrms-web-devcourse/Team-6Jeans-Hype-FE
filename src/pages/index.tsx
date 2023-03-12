@@ -70,9 +70,11 @@ export default function Home() {
           <Label>이런 곡은 어때요?</Label>
         </Wrapper>
         <Genres onChange={onChange} shouldNeedAll />
-        {mobile
-          ? genreTop10Post && <MobilePosts genreTop10Post={genreTop10Post} navigatePostDetail={navigatePostDetail} />
-          : genreTop10Post && <DeskTopPosts genreTop10Post={genreTop10Post} navigatePostDetail={navigatePostDetail} />}
+        {mobile ? (
+          <MobilePosts genreTop10Post={genreTop10Post} navigatePostDetail={navigatePostDetail} />
+        ) : (
+          <DeskTopPosts genreTop10Post={genreTop10Post} navigatePostDetail={navigatePostDetail} />
+        )}
       </LikeGenrePost>
       <RankingLabels>
         <Label>오늘의 TOP 5</Label>
