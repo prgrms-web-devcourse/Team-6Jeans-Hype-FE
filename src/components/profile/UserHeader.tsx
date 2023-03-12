@@ -53,12 +53,6 @@ function UserHeader() {
     <Container>
       <Wrapper>
         <Logout onClick={onClickLogout}>로그아웃</Logout>
-        <ConfirmModal
-          isOpened={modalStatus}
-          text={`로그아웃 하시겠습니까?`}
-          onClickCancel={onClickLogout}
-          onClickConfirm={onClickConfirm}
-        />
         <UserContainer>
           <DefaultProfile>
             {isLoading ? (
@@ -78,6 +72,12 @@ function UserHeader() {
           <ResultCard type='history' info={userProfile?.victoryCount} />
         </CardConatiner>
       </Wrapper>
+      <ConfirmModal
+        isOpened={modalStatus}
+        text={`로그아웃 하시겠습니까?`}
+        onClickCancel={onClickLogout}
+        onClickConfirm={onClickConfirm}
+      />
     </Container>
   );
 }
