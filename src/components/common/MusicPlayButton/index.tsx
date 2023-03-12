@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import PauseButton from 'public/images/pause-button.svg';
-import PlayButton from 'public/images/play-button.svg';
+import PauseIcon from 'public/images/pause-button.svg';
+import PlayIcon from 'public/images/play-button.svg';
 
 interface Props {
   src?: string;
@@ -19,8 +19,6 @@ function MusicPlayButton({ src, opponentMusicUrl, isMusicPlay, updatePlayStatus,
 
     const $selectedAudioElement = document.getElementById(`audio${src}`) as HTMLAudioElement;
 
-    //console.log($opponentAudioElement, $selectedAudioElement);
-
     if (isMusicPlay) {
       $selectedAudioElement?.play();
       if (onChangeCurrentTime) {
@@ -37,16 +35,16 @@ function MusicPlayButton({ src, opponentMusicUrl, isMusicPlay, updatePlayStatus,
   };
 
   return (
-    <PlayIcon>
+    <Container>
       <Audio src={src} id={`audio${src}`} controls loop />
-      <Button onClick={(e) => onClickPlayButton(e)}>{isMusicPlay ? <PlayButton /> : <PauseButton />}</Button>
-    </PlayIcon>
+      <PlayButton onClick={(e) => onClickPlayButton(e)}>{isMusicPlay ? <PlayIcon /> : <PauseIcon />}</PlayButton>
+    </Container>
   );
 }
 
 export default MusicPlayButton;
 
-const PlayIcon = styled.div`
+const Container = styled.div`
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
@@ -58,7 +56,7 @@ const Audio = styled.audio`
   opacity: 0;
 `;
 
-const Button = styled.button`
+const PlayButton = styled.button`
   position: absolute;
   top: 50%;
   left: 50%;
