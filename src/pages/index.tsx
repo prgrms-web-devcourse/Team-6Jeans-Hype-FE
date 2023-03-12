@@ -42,7 +42,7 @@ export default function Home() {
   return (
     <Container>
       <StyledLogo />
-      <Label>진행 중인 대결</Label>
+      <Label>오늘의 대결</Label>
 
       {randomBattle && (
         <StyledRandomBattle battle={randomBattle} onClick={() => onClickRandomBattle(randomBattle.battleId)} />

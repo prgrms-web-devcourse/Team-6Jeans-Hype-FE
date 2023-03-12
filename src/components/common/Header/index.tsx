@@ -45,7 +45,7 @@ export default Header;
 const Container = styled.div`
   width: 90%;
   margin: 0 auto;
-  margin-bottom: 1rem;
+  margin-bottom: 0.4rem;
   padding: 3rem 0;
   display: flex;
   justify-content: space-between;
