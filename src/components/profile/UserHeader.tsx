@@ -1,11 +1,14 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import { getUserProfile } from '@/components/profile/api';
 import { COLOR } from '@/constants/color';
 
+import ConfirmModal from '../common/Modal/Confirm';
 import SkeletonCircle from '../common/skeleton/Circle';
+import useAuth from '../login/useAuth';
 import ResultCard from './ResultCard';
 
 interface ResultCard {
@@ -25,15 +28,23 @@ export const RESULT_CARD_INFO: Record<ResultCardType, ResultCard> = {
 function UserHeader() {
   const router = useRouter();
   const { memberId } = router.query;
+  const { logout } = useAuth();
+
+  const [modalStatus, setModalStatus] = useState(false);
 
   const { data: userProfile, isLoading } = useQuery(
     ['userProfile', memberId],
     async () => await getUserProfile(Number(memberId)),
   );
 
+  const onClickLogout = () => {
+    setModalStatus((prev) => !prev);
+  };
+
   return (
     <Container>
       <Wrapper>
+        <Logout onClick={onClickLogout}>로그아웃</Logout>
         <UserContainer>
           <DefaultProfile>
             {isLoading ? (
@@ -53,6 +64,12 @@ function UserHeader() {
           <ResultCard type='history' info={userProfile?.victoryCount} />
         </CardConatiner>
       </Wrapper>
+      <ConfirmModal
+        isOpened={modalStatus}
+        text={`로그아웃 하시겠습니까?`}
+        onClickCancel={onClickLogout}
+        onClickConfirm={logout}
+      />
     </Container>
   );
 }
@@ -66,7 +83,16 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding: 0 2rem;
+  margin: 0 2rem;
+  position: relative;
+`;
+
+const Logout = styled.div`
+  position: absolute;
+  right: 0;
+  color: ${COLOR.white};
+  font-weight: bold;
+  cursor: pointer;
 `;
 
 const UserContainer = styled.div`
