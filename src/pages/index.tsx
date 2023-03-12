@@ -53,10 +53,10 @@ export default function Home() {
       <Header>
         <StyledLogo />
         <Icons>
-          <button onClick={onClickInfo}>
+          <button onClick={onClickInfo} title='사용법 알아보기'>
             <StyledInfo />
           </button>
-          <Link href='https://forms.gle/QfK3YGMnxuLh6m7LA' legacyBehavior>
+          <Link href='https://forms.gle/QfK3YGMnxuLh6m7LA' legacyBehavior title='설문조사 바로가기'>
             <a target='_blank'>
               <StyledSurvey />
             </a>
@@ -120,9 +120,7 @@ const StyledLogo = styled(Logo)`
 
 const changeColor = keyframes`
  00% { stroke: ${COLOR.blue}; }
- 25% { stroke: ${COLOR.deepBlue}; }
  50% { stroke: ${COLOR.purple}; } 
- 75% { stroke: ${COLOR.deepBlue}; }
  100% { stroke: ${COLOR.blue}; }
 `;
 
@@ -132,7 +130,7 @@ const StyledInfo = styled(Info)`
   cursor: pointer;
   & > path {
     animation-name: ${changeColor};
-    animation-duration: 2s;
+    animation-duration: 5s;
     animation-iteration-count: infinite;
   }
 `;
@@ -143,7 +141,7 @@ const StyledSurvey = styled(Survey)`
   cursor: pointer;
   & > path {
     animation-name: ${changeColor};
-    animation-duration: 3s;
+    animation-duration: 5s;
     animation-iteration-count: infinite;
     animation-direction: reverse;
   }
