@@ -35,12 +35,10 @@ function BattleMusic({ music, moving, onClick, opponentMusicUrl, isMusicPlay, up
       thumbnailElement.className = `${savedClassName[0]} active`;
       playButtonElement.className = `${savedClassName[1]} active`;
 
-      // if (!id) {
       setTimeout(() => {
         thumbnailElement.className = savedClassName[0];
         playButtonElement.className = savedClassName[1];
       }, 1700);
-      // }
     }
   };
 
