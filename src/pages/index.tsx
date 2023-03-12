@@ -106,6 +106,7 @@ const Header = styled.div`
 const Icons = styled.div`
   display: flex;
   gap: 1.5rem;
+  align-items: center;
 `;
 const StyledLogo = styled(Logo)`
   width: 6.6rem;
