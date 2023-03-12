@@ -15,15 +15,15 @@ export const getRandomBattle = async (selectedGenre: string) => {
     if (data.success) {
       const { battles } = data.data;
 
-      if (selectedGenre !== prevGenre || exceptList.length === battles.length) {
-        exceptList.length = 0;
-        prevGenre = selectedGenre;
-      }
-
       const filteredByGenreBattles =
         selectedGenre === 'ALL'
           ? battles
           : battles.filter((battle: Battles) => battle.battleGenre.genreValue === selectedGenre);
+
+      if (selectedGenre !== prevGenre || exceptList.length === filteredByGenreBattles.length) {
+        exceptList.length = 0;
+        prevGenre = selectedGenre;
+      }
 
       const filteredBattles = filteredByGenreBattles.filter((battle: Battles) => !exceptList.includes(battle.battleId));
 
