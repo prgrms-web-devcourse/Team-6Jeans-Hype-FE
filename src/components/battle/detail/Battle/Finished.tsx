@@ -49,7 +49,7 @@ export default function FinishedBattle({ battle, useBattleMusicPlayFunctions, cl
               ? challenging.voteCnt > challenged.voteCnt
               : false
           }
-          opponentMusicUrl={challenging.music.musicUrl}
+          opponentMusicUrl={challenged.music.musicUrl}
         />
       </BattleMusicWrapper>
     </Container>
