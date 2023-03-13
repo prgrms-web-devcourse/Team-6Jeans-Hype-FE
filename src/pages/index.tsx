@@ -102,7 +102,6 @@ const Container = styled.div`
   padding: 0 2rem;
   width: 100%;
   box-sizing: border-box;
-  height: 100vh;
 `;
 
 const Header = styled.div`
