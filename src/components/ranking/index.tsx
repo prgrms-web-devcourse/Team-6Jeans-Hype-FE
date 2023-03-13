@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 
 import { COLOR } from '@/constants/color';
 
+import NoContent from '../common/NoContent';
 import MusicListSkeleton from '../common/skeleton/MusicListSkeleton';
 import { getMyRanking, getUserRanking } from './api';
 import RankingCard from './RankingCard';
@@ -44,7 +45,9 @@ function Ranking({ isLimit }: Props) {
           return <RankingCard user={user} key={user.memberId} isMyRanking={isMyRanking} />;
         })
       ) : (
-        <Empty pathname={pathname}>등록된 유저가 없습니다</Empty>
+        <Empty pathname={pathname}>
+          <NoContent text='등록된 유저가 없습니다' isImage width={6} />
+        </Empty>
       )}
     </RankingContainer>
   );
@@ -64,6 +67,7 @@ const RankingContainer = styled.div`
     left: -2rem;
     width: 100%;
     margin-bottom: 10rem;
+    min-height: 30rem;
   }
 `;
 

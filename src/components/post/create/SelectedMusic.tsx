@@ -19,7 +19,6 @@ function SelectedMusic({ selectedMusic }: Props) {
 
   const clickButton = () => {
     setIsPlay(!isPlay);
-    console.log(isPlay);
   };
 
   return (
