@@ -12,6 +12,7 @@ import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 import { getPostBattleData } from './api';
 import { createBattle } from './api';
 import MyBattleList from './mybattleList';
+import SelectMusic from './selectMusic';
 import { BattleApplyModal } from './types';
 
 function BattleForm() {
@@ -76,7 +77,7 @@ function BattleForm() {
                 music={battleMusic.music}
                 opponentMusicUrl={selectedMyMusic.musicUrl}
               />
-              <BattleMusic
+              <SelectMusic
                 isMusicPlay={isRightMusicPlay}
                 updatePlayStatus={clickRightButton}
                 music={selectedMyMusic}
