@@ -1,12 +1,21 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import ImageLogo from 'public/images/image-logo.svg';
 import LetterLogo from 'public/images/letter-logo.svg';
 import React from 'react';
 
 import GoogleLoginButton from '@/components/login/GoogleLoginButton';
+import useAuth from '@/components/login/useAuth';
 
 export default function LoginPage() {
+  const { isLoggedIn } = useAuth();
+  const router = useRouter();
+
+  if (isLoggedIn) {
+    router.push('/');
+  }
+
   return (
     <Container>
       <StyledLink href='/'>
