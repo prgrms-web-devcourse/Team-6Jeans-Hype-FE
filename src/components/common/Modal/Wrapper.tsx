@@ -35,7 +35,7 @@ const Container = styled.div<{ isOpened: boolean; isAnimation: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
-  visibility: ${(props) => (props.isOpened ? 'visible' : 'hidden')};
+  display: ${(props) => (props.isOpened ? 'block' : 'none')};
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.6);
 
@@ -43,7 +43,7 @@ const Container = styled.div<{ isOpened: boolean; isAnimation: boolean }>`
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: ${(props) => (props.isOpened ? 'translate(-50%, -50%)' : 'translate(-50%, 0)')};
+    transform: translate(-50%, -50%);
     transition: ${(props) => (props.isAnimation ? 'all 0.3s' : 'initial')};
   }
 `;
