@@ -51,10 +51,11 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
     if (!id) {
       setTimeout(() => {
         onChangeSelectedBattleInfo(0, 0, clickSide);
+        useBattleMusicPlayFunctions.init();
       }, 1700);
       setTimeout(() => {
         refetch?.();
-      }, 1750);
+      }, 1800);
     }
   };
 
