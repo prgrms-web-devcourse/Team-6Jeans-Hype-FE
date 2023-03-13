@@ -44,7 +44,7 @@ function Ranking({ isLimit }: Props) {
           return <RankingCard user={user} key={user.memberId} isMyRanking={isMyRanking} />;
         })
       ) : (
-        <Empty>등록된 유저가 없습니다</Empty>
+        <Empty pathname={pathname}>등록된 유저가 없습니다</Empty>
       )}
     </RankingContainer>
   );
@@ -67,10 +67,10 @@ const RankingContainer = styled.div`
   }
 `;
 
-const Empty = styled.div`
+const Empty = styled.div<{ pathname: string }>`
   text-align: center;
   position: relative;
-  top: 50%;
+  top: ${(props) => (props.pathname === '/' ? '50%' : '7.5rem')};
   transform: translateY(-50%);
   font-size: 1.3rem;
   letter-spacing: 0.1rem;
