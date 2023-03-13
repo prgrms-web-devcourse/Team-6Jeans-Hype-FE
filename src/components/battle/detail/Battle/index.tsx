@@ -42,7 +42,7 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
   });
   const { showToast, handleToast } = useToast();
 
-  const isSelected = battle?.selectedPostId !== null;
+  const isSelected = typeof battle?.selectedPostId === 'number';
 
   const onChangeSelectedBattleInfo = (battleId: number, votedPostId: number, clickSide: 'left' | 'right') => {
     setSelectedBattle({ battleId, votedPostId, clickSide });
