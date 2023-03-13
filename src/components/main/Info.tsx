@@ -1,10 +1,5 @@
 import styled from '@emotion/styled';
 import CancelIcon from 'public/images/cancel-icon.svg';
-import DiamondIcon from 'public/images/infoIcons/diamond-icon.svg';
-import HeadphoneIcon from 'public/images/infoIcons/headphone-icon.svg';
-import MusicIcon from 'public/images/infoIcons/music-icon.svg';
-import SunglassIcon from 'public/images/infoIcons/sunglass-icon.svg';
-import VsIcon from 'public/images/infoIcons/vs-icon.svg';
 
 import { COLOR } from '@/constants/color';
 
