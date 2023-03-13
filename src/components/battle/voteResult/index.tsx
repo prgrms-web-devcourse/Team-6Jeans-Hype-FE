@@ -35,7 +35,7 @@ function VoteResult({ battleId, votedPostId, clickSide }: Props) {
             <StyledIcon />
             {clickSide === 'right' ? selected : opposite}
           </Votes>
-          {isDetail && <Back onClick={() => router.push('/list')}>돌아가기</Back>}
+          {isDetail && <Back onClick={() => router.push('/battle/list')}>돌아가기</Back>}
         </VoteResultContainer>
       </Wrapper>
     </VoteResultModal>
