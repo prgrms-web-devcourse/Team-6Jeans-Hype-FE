@@ -8,6 +8,7 @@ import { useGetBattle } from '@/components/battle/detail/useGetBattle';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
+import AuthRequiredPage from '@/components/login/AuthRequiredPage';
 import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 function Short() {
@@ -35,30 +36,32 @@ function Short() {
   };
 
   return (
-    <Container>
-      <Header
-        title='진행 중인 대결'
-        shouldNeedBack={false}
-        actionButton={
-          <Link href='/battle/list'>
-            <ListIcon />
-          </Link>
-        }
-      />
-      <BattleWrapper>
-        <GenresWrapper>
-          <Genres onChange={onClickGenre} shouldNeedAll />
-        </GenresWrapper>
-        <StyledBattle
-          battle={musicData}
-          isLoadingState={isLoadingState}
-          refetch={refetch}
-          onClickSkip={onClickSkip}
-          useBattleMusicPlayFunctions={useBattleMusicPlayFunctions}
+    <AuthRequiredPage>
+      <Container>
+        <Header
+          title='진행 중인 대결'
+          shouldNeedBack={false}
+          actionButton={
+            <Link href='/battle/list'>
+              <ListIcon />
+            </Link>
+          }
         />
-      </BattleWrapper>
-      <BottomNav />
-    </Container>
+        <BattleWrapper>
+          <GenresWrapper>
+            <Genres onChange={onClickGenre} shouldNeedAll />
+          </GenresWrapper>
+          <StyledBattle
+            battle={musicData}
+            isLoadingState={isLoadingState}
+            refetch={refetch}
+            onClickSkip={onClickSkip}
+            useBattleMusicPlayFunctions={useBattleMusicPlayFunctions}
+          />
+        </BattleWrapper>
+        <BottomNav />
+      </Container>
+    </AuthRequiredPage>
   );
 }
 
