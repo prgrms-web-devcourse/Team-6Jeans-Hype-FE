@@ -1,15 +1,21 @@
 import styled from '@emotion/styled';
+import Link from 'next/link';
 import ImageLogo from 'public/images/image-logo.svg';
 import LetterLogo from 'public/images/letter-logo.svg';
+import React from 'react';
 
 import GoogleLoginButton from '@/components/login/GoogleLoginButton';
 
 export default function LoginPage() {
   return (
     <Container>
-      <StyledImageLogo />
-      <StyledLetterLogo />
-      <Slogan>What’s your Hype Music?</Slogan>
+      <StyledLink href='/'>
+        <Logo>
+          <StyledImageLogo />
+          <StyledLetterLogo />
+          <Slogan>What’s your Hype Music?</Slogan>
+        </Logo>
+      </StyledLink>
       <GoogleLoginButton />
       <Footer>© 6Jeans. All rights reversed.</Footer>
     </Container>
@@ -18,6 +24,16 @@ export default function LoginPage() {
 
 const Container = styled.div`
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const StyledLink = styled(Link)`
+  margin-bottom: auto;
+`;
+
+const Logo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,7 +54,6 @@ const Slogan = styled.div`
   font-size: 2rem;
   line-height: 3rem;
   margin-top: 5.2rem;
-  margin-bottom: auto;
 `;
 
 const Footer = styled.footer`
