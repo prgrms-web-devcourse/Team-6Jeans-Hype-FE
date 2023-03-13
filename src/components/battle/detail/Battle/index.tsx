@@ -141,8 +141,8 @@ const NoContentWrapper = styled.div`
 const Skip = styled.div`
   position: absolute;
   left: 50%;
-  bottom: 5%;
-  transform: translate(-50%, -50%);
+  bottom: -15%;
+  transform: translateX(-50%);
   font-weight: 700;
   font-size: 1.3rem;
   color: ${COLOR.blue};

@@ -24,18 +24,21 @@ const AlbumPosterSkeleton = ({ line = 3, ...props }) => {
 export default AlbumPosterSkeleton;
 
 const MusicContainer = styled.div`
-  width: 11rem;
-  height: 14rem;
+  width: 11.7rem;
+  height: 14.4rem;
   background: #ffffff;
   box-shadow: 0px 0px 1.5rem rgb(158 158 158 / 25%);
   border-radius: 1rem;
   position: relative;
   padding: 2rem;
+  margin-top: 4rem;
 `;
 
 const AlbumContainer = styled.div`
   position: absolute;
-  top: -3rem;
+  top: -4rem;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 const BoxContainer = styled.div`
