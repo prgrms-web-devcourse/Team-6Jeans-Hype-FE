@@ -45,7 +45,7 @@ export default function MyBattleListPage() {
             <StyledBattleList battleList={myBattleList} />
           ) : (
             <Wrapper>
-              <NoContent text='생성된 대결이 없습니다.' isImage width={8} />
+              <NoContent text='참여한 대결이 없습니다.' isImage width={8} />
             </Wrapper>
           )}
         </Content>
