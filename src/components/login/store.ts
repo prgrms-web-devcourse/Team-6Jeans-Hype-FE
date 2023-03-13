@@ -34,3 +34,5 @@ export const isOpenedAuthRequiredModalAtom = atom<boolean>({
   key: 'isOpenedAuthRequiredModal',
   default: false,
 });
+
+export const isCheckedTokenAtom = atom<boolean>({ key: 'isCheckedToken', default: false });
