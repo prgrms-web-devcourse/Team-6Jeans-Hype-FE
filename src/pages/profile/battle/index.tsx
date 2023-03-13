@@ -9,6 +9,7 @@ import BottomNav from '@/components/common/BottomNav';
 import Filter from '@/components/common/Filter';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
+import NoContent from '@/components/common/NoContent';
 import AuthRequiredPage from '@/components/login/AuthRequiredPage';
 import { useGetMyBattleList } from '@/components/profile/battle/useGetMyBattleList';
 
@@ -35,18 +36,30 @@ export default function MyBattleListPage() {
 
   return (
     <AuthRequiredPage>
-      <Header title='참여한 대결' />
       <Container>
-        <Genres shouldNeedAll onChange={onChangeGenre} />
-        <Filter selected={status} options={BATTLE_STATUS_NAME_LIST} onChange={onChangeFilter} />
-        {myBattleList && <StyledBattleList battleList={myBattleList} />}
+        <Header title='참여한 대결' />
+        <Content>
+          <Genres shouldNeedAll onChange={onChangeGenre} />
+          <Filter selected={status} options={BATTLE_STATUS_NAME_LIST} onChange={onChangeFilter} />
+          {myBattleList?.length ? (
+            <StyledBattleList battleList={myBattleList} />
+          ) : (
+            <Wrapper>
+              <NoContent text='참여한 대결이 없습니다.' isImage width={8} />
+            </Wrapper>
+          )}
+        </Content>
+        <BottomNav />
       </Container>
-      <BottomNav />
     </AuthRequiredPage>
   );
 }
 
 const Container = styled.div`
+  height: 100vh;
+`;
+
+const Content = styled.div`
   padding: 0 2rem;
   display: flex;
   flex-direction: column;
@@ -54,5 +67,18 @@ const Container = styled.div`
 `;
 
 const StyledBattleList = styled(BattleList)`
-  margin-top: 1.3rem;
+  height: calc(100vh - 25rem);
+  overflow-y: auto;
+  margin-top: 1.5rem;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  gap: 1.5rem;
 `;
