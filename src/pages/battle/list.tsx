@@ -13,6 +13,7 @@ import Filter from '@/components/common/Filter';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
 import NoContent from '@/components/common/NoContent';
+import useAuth from '@/components/login/useAuth';
 
 export default function BattleListPage() {
   const [genreValue, setGenreValue] = useState<GenreValue | undefined>();
@@ -21,6 +22,7 @@ export default function BattleListPage() {
     genre: genreValue,
     status: BATTLE_STATUS_VALUE_MAP[status],
   });
+  const { isLoggedIn, openAuthRequiredModal } = useAuth();
 
   const onChangeGenre = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedGenreValue = e.target.value;
@@ -38,17 +40,17 @@ export default function BattleListPage() {
     setStatus(option);
   };
 
+  const ShortNavigationButton = isLoggedIn ? (
+    <Link href='/battle/short'>
+      <ShortsIcon />
+    </Link>
+  ) : (
+    <ShortsIcon onClick={() => openAuthRequiredModal()} />
+  );
+
   return (
     <Container>
-      <Header
-        title='한 눈에 보는 대결'
-        shouldNeedBack={false}
-        actionButton={
-          <Link href='/battle/short'>
-            <ShortsIcon />
-          </Link>
-        }
-      />
+      <Header title='한 눈에 보는 대결' shouldNeedBack={false} actionButton={ShortNavigationButton} />
       <Content>
         <StyledGenres shouldNeedAll onChange={onChangeGenre} />
         <Filter selected={status} options={BATTLE_STATUS_NAME_LIST} onChange={onChangeFilter} />
