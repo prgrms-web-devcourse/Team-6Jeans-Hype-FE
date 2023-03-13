@@ -32,10 +32,7 @@ function UserHeader() {
 
   const [modalStatus, setModalStatus] = useState(false);
 
-  const { data: userProfile, isLoading } = useQuery(
-    ['userProfile', memberId],
-    async () => await getUserProfile(Number(memberId)),
-  );
+  const { data: userProfile, isLoading } = useQuery(['userProfile', memberId], () => getUserProfile(Number(memberId)));
 
   const onClickLogout = () => {
     setModalStatus((prev) => !prev);
@@ -44,7 +41,7 @@ function UserHeader() {
   return (
     <Container>
       <Wrapper>
-        <Logout onClick={onClickLogout}>로그아웃</Logout>
+        {!memberId && <Logout onClick={onClickLogout}>로그아웃</Logout>}
         <UserContainer>
           <DefaultProfile>
             {isLoading ? (
@@ -58,11 +55,11 @@ function UserHeader() {
             {userProfile?.countOfChanllenge && <RestTicket>남은 대결권 {userProfile?.countOfChanllenge}</RestTicket>}
           </Info>
         </UserContainer>
-        <CardConatiner>
+        <CardContainer>
           <ResultCard type='ranking' info={userProfile?.ranking} />
           <ResultCard type='point' info={userProfile?.victoryPoint} />
           <ResultCard type='history' info={userProfile?.victoryCount} />
-        </CardConatiner>
+        </CardContainer>
       </Wrapper>
       <ConfirmModal
         isOpened={modalStatus}
@@ -103,7 +100,7 @@ const UserContainer = styled.div`
   padding: 3rem 0;
 `;
 
-const CardConatiner = styled.div`
+const CardContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 1.4rem;
