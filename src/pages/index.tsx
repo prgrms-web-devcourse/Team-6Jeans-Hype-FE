@@ -65,8 +65,10 @@ export default function Home() {
       </Header>
       <Label>오늘의 대결</Label>
 
-      {randomBattle && (
+      {randomBattle ? (
         <StyledRandomBattle battle={randomBattle} onClick={() => onClickRandomBattle(randomBattle.battleId)} />
+      ) : (
+        <NoContentRandomBattle>진행 중인 대결이 없습니다</NoContentRandomBattle>
       )}
       <LikeGenrePost>
         <Wrapper>
@@ -100,6 +102,7 @@ const Container = styled.div`
   padding: 0 2rem;
   width: 100%;
   box-sizing: border-box;
+  height: 100vh;
 `;
 
 const Header = styled.div`
@@ -197,4 +200,13 @@ const StyledRandomBattle = styled(RandomBattle)`
     transform: scale(1.01);
     transition: 0.2s ease-in-out;
   }
+`;
+
+const NoContentRandomBattle = styled.div`
+  width: 100%;
+  font-size: 1.3rem;
+  letter-spacing: 0.1rem;
+  color: ${COLOR.gray};
+  text-align: center;
+  padding: 1.5rem 0;
 `;
