@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import BattleMusic from '@/components/battle/detail/BattleMusic';
+import BattleMusic from '@/components/battle/Detail/BattleMusic';
 import Header from '@/components/common/Header';
 import HeaderSubmitButton from '@/components/common/Header/SubmitButton';
 import { COLOR } from '@/constants/color';

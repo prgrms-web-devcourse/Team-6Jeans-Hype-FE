@@ -26,7 +26,7 @@ export const Card = styled.div`
 
 export const Thumbnail = styled.div<{ src: string; clickSide?: 'left' | 'right' }>`
   background-image: url(${(props) => props.src});
-  background-color: ${COLOR.white};
+  background-color: ${(props) => (props.src ? COLOR.deepBlue : COLOR.gray)};
   background-repeat: no-repeat;
   background-position: center center;
   filter: drop-shadow(0 0 1.5rem rgba(158, 158, 158, 0.25));
