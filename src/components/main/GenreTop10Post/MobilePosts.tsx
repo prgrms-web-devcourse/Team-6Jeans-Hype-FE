@@ -28,7 +28,7 @@ function MobilePosts({ genreTop10Post, navigatePostDetail }: Props) {
         </Posts>
       ) : (
         <Wrapper>
-          <NoContent text='추천 글이 없습니다' isImage width={8} />
+          <NoContent text='추천 글이 없습니다.' isImage width={5} />
         </Wrapper>
       )}
     </>
@@ -87,7 +87,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
-
-  margin-top: 4.5rem;
+  gap: 0.5rem;
+  margin: 3rem 0;
 `;

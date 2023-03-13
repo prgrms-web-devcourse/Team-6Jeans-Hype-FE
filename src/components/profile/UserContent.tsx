@@ -52,7 +52,7 @@ function UserContent() {
           )
         ) : (
           <Wrapper>
-            <NoContent width={5} text='참여한 대결이 없습니다.' isImage={true} />
+            <NoContent text='참여한 대결이 없습니다.' isImage width={5} />
           </Wrapper>
         )}
       </ContentList>
@@ -69,7 +69,7 @@ function UserContent() {
           ))
         ) : (
           <Wrapper>
-            <NoContent width={5} text='작성한 추천 글이 없습니다.' isImage={true} />
+            <NoContent text='작성한 추천 글이 없습니다.' isImage width={5} />
           </Wrapper>
         )}
       </ContentList>
