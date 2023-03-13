@@ -5,7 +5,9 @@ import { useState } from 'react';
 import { Battles } from '@/components/battle/types';
 import NoContent from '@/components/common/NoContent';
 import BattleMusicSkeleton from '@/components/common/skeleton/BattleMusic';
+import Toast from '@/components/common/Toast';
 import { COLOR } from '@/constants/color';
+import { useToast } from '@/hooks/useToast';
 
 import { SelectedBattle } from '../../types';
 import VoteResult from '../../voteResult';
@@ -38,12 +40,20 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
     votedPostId: 0,
     clickSide: undefined,
   });
+  const { showToast, handleToast } = useToast();
+
+  const isSelected = battle?.selectedPostId !== null;
 
   const onChangeSelectedBattleInfo = (battleId: number, votedPostId: number, clickSide: 'left' | 'right') => {
     setSelectedBattle({ battleId, votedPostId, clickSide });
   };
 
   const selectBattleMusic = (clickSide: 'left' | 'right', musicId: number | undefined) => {
+    if (isSelected) {
+      handleToast();
+      return;
+    }
+
     if (battle && musicId) {
       onChangeSelectedBattleInfo(battle.battleId, musicId, clickSide);
     }
@@ -80,7 +90,7 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
                 isMusicPlay={useBattleMusicPlayFunctions.isLeftMusicPlay}
                 updatePlayStatus={useBattleMusicPlayFunctions.clickLeftButton}
                 music={battle.challenged.music}
-                moving='left'
+                moving={isSelected ? undefined : 'left'}
                 onClick={() => {
                   selectBattleMusic('left', battle.challenged.postId);
                 }}
@@ -90,7 +100,7 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
                 isMusicPlay={useBattleMusicPlayFunctions.isRightMusicPlay}
                 updatePlayStatus={useBattleMusicPlayFunctions.clickRightButton}
                 music={battle.challenging.music}
-                moving='right'
+                moving={isSelected ? undefined : 'right'}
                 onClick={() => {
                   selectBattleMusic('right', battle.challenging.postId);
                 }}
@@ -110,6 +120,7 @@ function Battle({ battle, isLoadingState, refetch, onClickSkip, className, useBa
       ) : (
         <></>
       )}
+      {showToast && <Toast message='이미 투표한 대결입니다.' bottom='10rem' />}
     </>
   );
 }
