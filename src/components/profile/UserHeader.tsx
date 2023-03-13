@@ -10,6 +10,7 @@ import ConfirmModal from '../common/Modal/Confirm';
 import SkeletonCircle from '../common/skeleton/Circle';
 import useAuth from '../login/useAuth';
 import ResultCard from './ResultCard';
+
 interface ResultCard {
   title: string;
   icon: string;
