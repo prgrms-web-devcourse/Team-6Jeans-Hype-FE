@@ -1,6 +1,5 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import MusicPlusButton from 'public/images/plus-music.svg';
 
 import MusicPlayButton from '@/components/common/MusicPlayButton';
 import { COLOR } from '@/constants/color';
@@ -27,7 +26,7 @@ export const Card = styled.div`
 
 export const Thumbnail = styled.div<{ src: string; clickSide?: 'left' | 'right' }>`
   background-image: url(${(props) => props.src});
-  background-color: ${(props) => (props.src ? COLOR.deepBlue : COLOR.gray)};
+  background-color: ${COLOR.white};
   background-repeat: no-repeat;
   background-position: center center;
   filter: drop-shadow(0 0 1.5rem rgba(158, 158, 158, 0.25));
@@ -84,11 +83,4 @@ export const StyledMusicPlayButton = styled(MusicPlayButton)`
   &.active {
     animation: ${changeOpacity} 2s ease-in;
   }
-`;
-
-export const StyledMusicPlusButton = styled(MusicPlusButton)`
-  position: absolute;
-  top: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
 `;

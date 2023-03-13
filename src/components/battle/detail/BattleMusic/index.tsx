@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { MouseEvent, useRef } from 'react';
 
 import { Music } from '../types';
-import { Card, Container, Singer, StyledMusicPlayButton, StyledMusicPlusButton, Thumbnail, Title } from './style';
+import { Card, Container, Singer, StyledMusicPlayButton, Thumbnail, Title } from './style';
 
 interface Prop {
   music: Music;
@@ -49,18 +49,14 @@ function BattleMusic({ music, moving, onClick, opponentMusicUrl, isMusicPlay, up
         <Singer>{singer}</Singer>
       </Card>
       <StyledThumbnail onClick={(e) => handleClick(e)} src={albumCoverUrl} clickSide={moving} ref={thumbnailRef} />
-      {albumCoverUrl ? (
-        <StyledMusicPlayButton
-          key={title}
-          src={musicUrl}
-          opponentMusicUrl={opponentMusicUrl}
-          isMusicPlay={isMusicPlay}
-          updatePlayStatus={updatePlayStatus}
-          className={`play${moving}`}
-        />
-      ) : (
-        <StyledMusicPlusButton onClick={onClick} />
-      )}
+      <StyledMusicPlayButton
+        key={title}
+        src={musicUrl}
+        opponentMusicUrl={opponentMusicUrl}
+        isMusicPlay={isMusicPlay}
+        updatePlayStatus={updatePlayStatus}
+        className={`play${moving}`}
+      />
     </Container>
   );
 }
