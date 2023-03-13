@@ -5,11 +5,13 @@ export interface Battles {
   battleGenre: GenreInfo;
   challenged: BattleDetail;
   challenging: BattleDetail;
+  isProgress: boolean;
 }
 
 export interface BattleDetail {
   postId: number;
   music: BattleMusic;
+  voteCnt?: number;
 }
 
 export interface BattleMusic {

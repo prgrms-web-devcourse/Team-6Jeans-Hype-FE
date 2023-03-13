@@ -12,6 +12,7 @@ import BottomNav from '@/components/common/BottomNav';
 import Filter from '@/components/common/Filter';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
+import NoContent from '@/components/common/NoContent';
 
 export default function BattleListPage() {
   const [genreValue, setGenreValue] = useState<GenreValue | undefined>();
@@ -38,26 +39,37 @@ export default function BattleListPage() {
   };
 
   return (
-    <>
+    <Container>
       <Header
-        title='한눈에 보는 대결'
+        title='한 눈에 보는 대결'
+        shouldNeedBack={false}
         actionButton={
           <Link href='/battle/short'>
             <ShortsIcon />
           </Link>
         }
       />
-      <Container>
+      <Content>
         <StyledGenres shouldNeedAll onChange={onChangeGenre} />
         <Filter selected={status} options={BATTLE_STATUS_NAME_LIST} onChange={onChangeFilter} />
-        {battleList && <StyledBattleList battleList={battleList} />}
-      </Container>
+        {battleList?.length ? (
+          <StyledBattleList battleList={battleList} />
+        ) : (
+          <Wrapper>
+            <NoContent text='생성된 대결이 없습니다.' isImage width={8} />
+          </Wrapper>
+        )}
+      </Content>
       <BottomNav />
-    </>
+    </Container>
   );
 }
 
 const Container = styled.div`
+  height: 100vh;
+`;
+
+const Content = styled.div`
   padding: 0 2rem;
   display: flex;
   flex-direction: column;
@@ -69,5 +81,18 @@ const StyledGenres = styled(Genres)`
 `;
 
 const StyledBattleList = styled(BattleList)`
-  margin-top: 1.3rem;
+  height: calc(100vh - 25rem);
+  overflow-y: auto;
+  margin-top: 1.5rem;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  gap: 1.5rem;
 `;

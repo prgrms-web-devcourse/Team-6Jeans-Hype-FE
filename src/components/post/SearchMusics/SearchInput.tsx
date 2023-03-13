@@ -60,9 +60,11 @@ const Input = styled.input`
   height: calc(100% - 0.2rem);
   color: ${COLOR.deepBlue};
   font-size: 1.25rem;
+  font-weight: 500;
 
   &::placeholder {
     color: ${COLOR.lightGray};
+    font-weight: 400;
   }
 `;
 

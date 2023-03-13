@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
 import ConfirmModal from '@/components/common/Modal/Confirm';
+import NoContent from '@/components/common/NoContent';
 import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
 import { COLOR } from '@/constants/color';
 
@@ -79,7 +80,7 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMus
 
   return (
     <Container isVisibleMusicList={isVisibleMusicList}>
-      <Title>내 음악 목록</Title>
+      <Text>내 추천 목록</Text>
       <MyList>
         {myBattleMusicList && myBattleMusicList.length > 0 ? (
           myBattleMusicList.map(({ postId, music: { title, singer, albumCoverUrl, musicUrl } }: MyBattlePostInfo) => (
@@ -96,15 +97,17 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMus
                 onClickPost(musicData);
               }}
             >
-              <AlbumPoster lazy={true} size={5} src={albumCoverUrl} />
-              <TitleSinger>
-                <div>{title}</div>
-                <div>{singer}</div>
-              </TitleSinger>
+              <AlbumPoster lazy={true} src={albumCoverUrl} size={6.6} />
+              <MusicInfo>
+                <Title>{title}</Title>
+                <Artist>{singer}</Artist>
+              </MusicInfo>
             </Post>
           ))
         ) : (
-          <div>리스트가 없습니다</div>
+          <Wrapper>
+            <NoContent text='작성한 추천 글이 없습니다.' isImage width={8} />
+          </Wrapper>
         )}
       </MyList>
 
@@ -122,23 +125,24 @@ export default MyBattleList;
 
 const Container = styled.div<{ isVisibleMusicList: boolean }>`
   display: ${({ isVisibleMusicList }) => (isVisibleMusicList ? 'block' : 'none')};
+  position: relative;
 `;
 
-const Title = styled.div`
+const Text = styled.div`
   font-weight: 700;
-  font-size: 1.4rem;
-  line-height: 2rem;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
-
   color: ${COLOR.deepBlue};
-
   margin-bottom: 2rem;
+  padding-left: 1rem;
 `;
 
 const MyList = styled.div`
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 47rem);
+  overflow-y: auto;
 `;
 
 const Post = styled.div`
@@ -152,24 +156,46 @@ const Post = styled.div`
   padding: 0.5rem;
 `;
 
-const TitleSinger = styled.div`
-  margin-left: 2rem;
+const MusicInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3rem;
+  padding-left: 1.3rem;
+  width: calc(100% - 9.5rem);
+`;
 
-  & div:first-of-type {
-    font-weight: 500;
-    font-size: 1.4rem;
-    line-height: 1.7rem;
+const Title = styled.h1`
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.7rem;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`;
 
-    color: ${COLOR.deepBlue};
+const Artist = styled.h2`
+  font-weight: 500;
+  font-size: 1rem;
+  color: ${COLOR.gray};
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`;
 
-    margin-bottom: 0.5rem;
-  }
-
-  & div:last-of-type {
-    font-weight: 500;
-    font-size: 1.2rem;
-    line-height: 1.8rem;
-
-    color: ${COLOR.gray};
-  }
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;

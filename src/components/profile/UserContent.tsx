@@ -18,12 +18,16 @@ function UserContent() {
 
   const { data: battleLimit } = useGetMyBattleList({
     limit: 2,
-    memberId: Number(memberId),
+    memberId: memberId && !isNaN(+memberId) ? +memberId : undefined,
   });
   const { data: postFeedLimit } = useQuery(
     ['postfeedlimit', memberId],
     async () => await getPostFeedLimit(Number(memberId)),
   );
+
+  const navigateDetail = (battleId: number) => {
+    router.push(`/battle/detail?id=${battleId}`);
+  };
 
   return (
     <Container>
@@ -31,9 +35,15 @@ function UserContent() {
         {battleLimit?.length ? (
           battleLimit.map(({ id, challenging, challenged, battleStatus }) =>
             battleStatus === 'PROGRESS' ? (
-              <BattleCard key={id} challenging={challenging} challenged={challenged} />
+              <BattleCard
+                onClick={() => navigateDetail(id)}
+                key={id}
+                challenging={challenging}
+                challenged={challenged}
+              />
             ) : (
               <FinishedBattleCard
+                onClick={() => navigateDetail(id)}
                 key={id}
                 challenging={challenging as FinishedBattleMusic}
                 challenged={challenged as FinishedBattleMusic}
@@ -42,7 +52,7 @@ function UserContent() {
           )
         ) : (
           <Wrapper>
-            <NoContent width={5} text='참여한 대결이 없습니다.' isImage={true} />
+            <NoContent text='참여한 대결이 없습니다.' isImage width={5} />
           </Wrapper>
         )}
       </ContentList>
@@ -59,7 +69,7 @@ function UserContent() {
           ))
         ) : (
           <Wrapper>
-            <NoContent width={5} text='작성한 추천 글이 없습니다.' isImage={true} />
+            <NoContent text='작성한 추천 글이 없습니다.' isImage width={5} />
           </Wrapper>
         )}
       </ContentList>

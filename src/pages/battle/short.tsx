@@ -3,32 +3,23 @@ import Link from 'next/link';
 import ListIcon from 'public/images/go-to-list-icon.svg';
 import { useState } from 'react';
 
-import Detail from '@/components/battle/detail/Battle';
+import Battle from '@/components/battle/detail/Battle';
 import { useGetBattle } from '@/components/battle/detail/useGetBattle';
-import { SelectedBattle } from '@/components/battle/types';
-import VoteResult from '@/components/battle/voteResult';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
+import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 function Short() {
   const [selectedGenre, setSelectedGenre] = useState<string>('ALL');
   const [isLoadingState, setIsLoadingState] = useState<boolean>(false);
-  const [selectedBattle, setSelectedBattle] = useState<SelectedBattle>({
-    battleId: 0,
-    votedPostId: 0,
-    clickSide: undefined,
-  });
-
   const { data: musicData, refetch } = useGetBattle({ initBattleId: 0, selectedGenre });
-
-  const onChangeSelectedBattleInfo = (battleId: number, votedPostId: number, clickSide: 'left' | 'right') => {
-    setSelectedBattle({ battleId, votedPostId, clickSide });
-  };
+  const useBattleMusicPlayFunctions = useBattleMusicPlay();
 
   const onClickGenre = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsLoadingState(true);
     setSelectedGenre(e.target.value);
+    useBattleMusicPlayFunctions.init();
     setTimeout(() => {
       setIsLoadingState(false);
     }, 500);
@@ -37,49 +28,70 @@ function Short() {
   const onClickSkip = () => {
     setIsLoadingState(true);
     refetch();
+    useBattleMusicPlayFunctions.init();
     setTimeout(() => {
       setIsLoadingState(false);
     }, 500);
   };
 
   return (
-    <>
+    <Container>
       <Header
         title='진행 중인 대결'
+        shouldNeedBack={false}
         actionButton={
           <Link href='/battle/list'>
             <ListIcon />
           </Link>
         }
       />
-      <SelectContainer>
-        <Genres onChange={onClickGenre} shouldNeedAll />
-        <Detail
-          musicData={musicData}
+      <BattleWrapper>
+        <GenresWrapper>
+          <Genres onChange={onClickGenre} shouldNeedAll />
+        </GenresWrapper>
+        <StyledBattle
+          battle={musicData}
           isLoadingState={isLoadingState}
-          onChangeSelectedBattleInfo={onChangeSelectedBattleInfo}
           refetch={refetch}
           onClickSkip={onClickSkip}
+          useBattleMusicPlayFunctions={useBattleMusicPlayFunctions}
         />
-      </SelectContainer>
-      {selectedBattle.battleId && selectedBattle.votedPostId && (
-        <VoteResult
-          battleId={selectedBattle.battleId}
-          votedPostId={selectedBattle.votedPostId}
-          clickSide={selectedBattle.clickSide}
-        />
-      )}
+      </BattleWrapper>
       <BottomNav />
-    </>
+    </Container>
   );
 }
 
 export default Short;
 
-const SelectContainer = styled.div`
-  width: calc(100% - 4rem);
-  height: calc(100vh - 22rem);
+const Container = styled.div`
+  margin: 0 auto;
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: min-content auto;
+  box-sizing: border-box;
+  padding-bottom: 8rem;
+`;
+
+const BattleWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledBattle = styled(Battle)`
+  margin: auto 0;
+  box-sizing: border-box;
+  padding-bottom: 2rem;
+`;
+
+const GenresWrapper = styled.div`
+  width: 100%;
+  box-sizing: border-box;
   padding: 0 2rem;
-  min-height: 45rem;
-  margin-bottom: 10rem;
+  position: absolute;
+  top: 0;
+  left: 0;
 `;

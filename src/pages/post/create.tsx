@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
 import Header from '@/components/common/Header';
@@ -40,20 +41,26 @@ function Create() {
 
   return (
     <AuthRequiredPage>
-      <Header
-        title='추천 글쓰기'
-        backUrl='/post/searchMusics'
-        actionButton={<HeaderSubmitButton onClick={onSubmit} />}
-      />
-      <PostCreate
-        values={{ musicInfo, selectedGenre, description, battleAvailability }}
-        onChangeValues={onChangeValues}
-        onChangeMusicInfo={onChangeMusicInfo}
-        onSubmit={onSubmit}
-      />
+      <Container>
+        <Header
+          title='추천 글쓰기'
+          backUrl='/post/searchMusics'
+          actionButton={<HeaderSubmitButton onClick={onSubmit} />}
+        />
+        <PostCreate
+          values={{ musicInfo, selectedGenre, description, battleAvailability }}
+          onChangeValues={onChangeValues}
+          onChangeMusicInfo={onChangeMusicInfo}
+          onSubmit={onSubmit}
+        />
+      </Container>
       {showToast && <Toast message='장르를 선택해주세요.' />}
     </AuthRequiredPage>
   );
 }
 
 export default Create;
+
+const Container = styled.div`
+  height: 100vh;
+`;

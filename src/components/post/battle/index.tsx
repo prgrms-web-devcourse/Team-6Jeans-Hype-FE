@@ -3,10 +3,11 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import BattleMusicInfo from '@/components/common/BattleMusicInfo';
+import BattleMusic from '@/components/battle/detail/BattleMusic';
 import Header from '@/components/common/Header';
 import HeaderSubmitButton from '@/components/common/Header/SubmitButton';
 import { COLOR } from '@/constants/color';
+import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 import { getPostBattleData } from './api';
 import { createBattle } from './api';
@@ -16,6 +17,8 @@ import { BattleApplyModal } from './types';
 function BattleForm() {
   const router = useRouter();
   const { postId: selectedOpponentMusicId } = router.query;
+
+  const { isLeftMusicPlay, isRightMusicPlay, clickLeftButton, clickRightButton } = useBattleMusicPlay();
 
   const [isReadySubmit, setIsReadySubmit] = useState(false);
   const [isVisibleMusicList, setIsVisibleMusicList] = useState(false);
@@ -61,18 +64,25 @@ function BattleForm() {
 
   return (
     <>
-      <Header
-        title='대결 신청'
-        backUrl={`/post/detail?postId=${selectedOpponentMusicId}`}
-        actionButton={isReadySubmit && <HeaderSubmitButton onClick={applyBattle} />}
-      />
+      <Header title='대결 신청' actionButton={isReadySubmit && <HeaderSubmitButton onClick={applyBattle} />} />
       <Wrapper>
         <Title>What&apos;s next?</Title>
         <Musics>
           {battleMusic && (
             <>
-              <BattleMusicInfo music={battleMusic.music} />
-              <BattleMusicInfo music={selectedMyMusic} onClick={renderMyList} />
+              <BattleMusic
+                isMusicPlay={isLeftMusicPlay}
+                updatePlayStatus={clickLeftButton}
+                music={battleMusic.music}
+                opponentMusicUrl={selectedMyMusic.musicUrl}
+              />
+              <BattleMusic
+                isMusicPlay={isRightMusicPlay}
+                updatePlayStatus={clickRightButton}
+                music={selectedMyMusic}
+                opponentMusicUrl={battleMusic.music.musicUrl}
+                onClick={renderMyList}
+              />
             </>
           )}
         </Musics>

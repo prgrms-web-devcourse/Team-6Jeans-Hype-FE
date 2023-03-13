@@ -1,55 +1,49 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import ListIcon from 'public/images/go-to-list-icon.svg';
-import { useState } from 'react';
 
-import DetailComponent from '@/components/battle/detail/Battle/index';
+import FinishedBattle from '@/components/battle/detail/Battle/Finished';
+import Battle from '@/components/battle/detail/Battle/index';
 import { useGetBattle } from '@/components/battle/detail/useGetBattle';
-import { SelectedBattle } from '@/components/battle/types';
-import VoteResult from '@/components/battle/voteResult';
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 import AuthRequiredPage from '@/components/login/AuthRequiredPage';
+import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 function Detail() {
   const router = useRouter();
   const { id } = router.query;
+  const { data: battle } = useGetBattle({ initBattleId: Number(id), selectedGenre: 'ALL' });
+  const useBattleMusicPlayFunctions = useBattleMusicPlay();
 
-  const [selectedBattle, setSelectedBattle] = useState<SelectedBattle>({
-    battleId: 0,
-    votedPostId: 0,
-    clickSide: undefined,
-  });
-
-  const { data: musicData } = useGetBattle({ initBattleId: Number(id), selectedGenre: 'ALL' });
-
-  const onChangeSelectedBattleInfo = (battleId: number, votedPostId: number, clickSide: 'left' | 'right') => {
-    setSelectedBattle({ battleId, votedPostId, clickSide });
+  const getHeaderTitle = () => {
+    if (!battle) {
+      return '';
+    }
+    return battle.isProgress ? '진행 중인 대결' : '종료된 대결';
   };
 
   return id ? (
     <AuthRequiredPage>
-      <Header
-        title='진행 중인 대결'
-        actionButton={
-          <Link href='/battle/list'>
-            <ListIcon />
-          </Link>
-        }
-      />
-      <SelectContainer>
-        <Empty />
-        <DetailComponent musicData={musicData} onChangeSelectedBattleInfo={onChangeSelectedBattleInfo} />
-      </SelectContainer>
-      {selectedBattle.battleId && selectedBattle.votedPostId && (
-        <VoteResult
-          battleId={selectedBattle.battleId}
-          votedPostId={selectedBattle.votedPostId}
-          clickSide={selectedBattle.clickSide}
+      <Container>
+        <Header
+          title={getHeaderTitle()}
+          actionButton={
+            <Link href='/battle/list'>
+              <ListIcon />
+            </Link>
+          }
         />
-      )}
-      <BottomNav />
+        {battle &&
+          (battle.isProgress ? (
+            <StyledBattle battle={battle} useBattleMusicPlayFunctions={useBattleMusicPlayFunctions} />
+          ) : (
+            <StyledFinishedBattle battle={battle} useBattleMusicPlayFunctions={useBattleMusicPlayFunctions} />
+          ))}
+        <BottomNav />
+      </Container>
     </AuthRequiredPage>
   ) : (
     <div>id 없음</div>
@@ -58,13 +52,25 @@ function Detail() {
 
 export default Detail;
 
-const SelectContainer = styled.div`
-  width: calc(100% - 4rem);
-  height: calc(100vh - 16rem);
-  min-height: 60rem;
-  padding: 0 2rem;
+const Container = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: min-content auto;
+  box-sizing: border-box;
+  padding-bottom: 8rem;
 `;
 
-const Empty = styled.div`
-  height: 1.27rem;
+const BATTLE_LAYOUT_STYLE = css`
+  margin: auto 0;
+  box-sizing: border-box;
+  padding-bottom: 2rem;
+`;
+
+const StyledBattle = styled(Battle)`
+  ${BATTLE_LAYOUT_STYLE}
+`;
+
+const StyledFinishedBattle = styled(FinishedBattle)`
+  ${BATTLE_LAYOUT_STYLE}
 `;

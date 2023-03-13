@@ -4,11 +4,12 @@ import { AlbumPoster, Container, Music, Singer, StyledVersus, Title } from './st
 interface BattleCardProps {
   challenged: BattleMusic;
   challenging: BattleMusic;
+  onClick: () => void;
 }
 
-export default function BattleCard({ challenged, challenging }: BattleCardProps) {
+export default function BattleCard({ challenged, challenging, onClick }: BattleCardProps) {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Music>
         <AlbumPoster src={challenged.albumCoverImage} alt='album-cover' />
         <Title>{challenged.title}</Title>

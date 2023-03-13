@@ -79,7 +79,7 @@ const backgroundFadeInfinity = keyframes`
 `;
 
 const VoteResultModal = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -111,7 +111,7 @@ const Wrapper = styled.div`
 const VoteResultContainer = styled.div`
   position: relative;
   height: 39.1rem;
-  top: calc(50% + 11.9rem);
+  top: calc(50% + 11.5em);
   transform: translateY(-50%);
   min-height: 45rem;
   margin-bottom: 10rem;

@@ -28,31 +28,37 @@ export default function MyPostListPage() {
 
   return (
     <AuthRequiredPage>
-      <Header title={memberId ? '추천 목록' : '내 추천 목록'} />
       <Container>
-        <Genres shouldNeedAll onChange={onClickGenre} />
-        <ListWrapper>
-          {myPostList?.length ? (
-            myPostList.map(({ postId, music, likeCount, isBattlePossible }) => (
-              <RecommendationPost
-                key={postId}
-                postId={postId}
-                music={music}
-                likeCount={likeCount}
-                isBattlePossible={isBattlePossible}
-              />
-            ))
-          ) : (
-            <Wrapper>
-              <NoContent text='추천한 음악이 없습니다.' isImage width={8} />
-            </Wrapper>
-          )}
-        </ListWrapper>
+        <Header title={memberId ? '추천 목록' : '내 추천 목록'} />
+        <Content>
+          <Genres shouldNeedAll onChange={onClickGenre} />
+          <ListWrapper>
+            {myPostList?.length ? (
+              myPostList.map(({ postId, music, likeCount, isBattlePossible }) => (
+                <RecommendationPost
+                  key={postId}
+                  postId={postId}
+                  music={music}
+                  likeCount={likeCount}
+                  isBattlePossible={isBattlePossible}
+                />
+              ))
+            ) : (
+              <Wrapper>
+                <NoContent text='추천한 음악이 없습니다.' isImage width={8} />
+              </Wrapper>
+            )}
+          </ListWrapper>
+        </Content>
+        <BottomNav />
       </Container>
-      <BottomNav />
     </AuthRequiredPage>
   );
 }
+
+const Container = styled.div`
+  height: 100vh;
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -65,7 +71,7 @@ const Wrapper = styled.div`
   gap: 0.5rem;
 `;
 
-const Container = styled.div`
+const Content = styled.div`
   padding: 0 2rem;
 `;
 

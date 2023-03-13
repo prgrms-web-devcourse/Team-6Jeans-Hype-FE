@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { COLOR } from '@/constants/color';
+
 interface HeaderSubmitButtonProps {
   onClick: () => void;
   className?: string;
@@ -10,7 +12,11 @@ export default function HeaderSubmitButton(props: HeaderSubmitButtonProps) {
 }
 
 const Button = styled.button`
-  font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 2.2rem;
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: ${COLOR.deepBlue};
+
+  &:active {
+    font-weight: 700;
+  }
 `;

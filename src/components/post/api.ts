@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { axiosInstance } from '@/api';
 
-import { Values } from './create/types';
+import { Music, Values } from './create/types';
 import { PostAPI } from './types';
 
 const ADDRESS = process.env.NEXT_PUBLIC_MUSIC_SEARCH_API_URL;
@@ -29,19 +29,18 @@ export const getPostFeedData = async (genre: string) => {
 
 export const getMusicData = async (keyword: string) => {
   try {
-    const response = await axiosInstance.request({
+    const { data } = await axiosInstance.request({
       method: 'GET',
-      url: `${ADDRESS}/search`,
+      url: `/music/search`,
       params: {
         term: keyword,
-        country: 'KR',
-        limit: 500,
-        media: 'music',
       },
     });
 
-    if (response.data.results.length > 0) {
-      return response.data.results;
+    if (data.success) {
+      const filteredData = data.data.results.filter((result: Music) => result.artistName !== '코케');
+
+      return filteredData;
     } else {
       return [];
     }

@@ -17,7 +17,7 @@ function Post() {
   return (
     <Container>
       <Header>
-        <Title>한눈에 보는 추천</Title>
+        <Title>한 눈에 보는 추천</Title>
       </Header>
       <Genres shouldNeedAll onChange={onChange} />
       <PostListContainer>
@@ -32,15 +32,16 @@ export default Post;
 
 const Container = styled.div`
   width: calc(100% - 4rem);
+  height: 100vh;
   margin: 0 auto;
-  padding: 2rem 0;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0.5rem 0.5rem 2rem;
+  padding: 2.5rem 0;
+  margin-bottom: 0.6rem;
 `;
 
 const Title = styled.h1`
@@ -53,5 +54,7 @@ const PostListContainer = styled.div`
   flex-direction: column;
   gap: 1.5rem;
   margin-top: 2.5rem;
-  padding-bottom: 8rem;
+  margin-bottom: 8rem;
+  height: calc(100vh - 23.5rem);
+  overflow-y: auto;
 `;
