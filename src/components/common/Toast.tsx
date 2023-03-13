@@ -6,9 +6,10 @@ import { COLOR } from '@/constants/color';
 interface Props {
   message: string;
   duration?: number;
+  bottom?: string;
 }
 
-export default function Toast({ message, duration = 700 }: Props) {
+export default function Toast({ message, duration = 700, bottom = '5rem' }: Props) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -21,13 +22,13 @@ export default function Toast({ message, duration = 700 }: Props) {
   }, [duration]);
 
   return (
-    <Container visible={visible}>
+    <Container visible={visible} bottom={bottom}>
       <Text>{message}</Text>
     </Container>
   );
 }
 
-const Container = styled.div<{ visible: boolean }>`
+const Container = styled.div<{ visible: boolean; bottom: string }>`
   background-color: ${COLOR.blue};
   padding: 1rem 2rem;
   border-radius: 2rem;
@@ -35,7 +36,7 @@ const Container = styled.div<{ visible: boolean }>`
   color: ${COLOR.white};
   position: fixed;
   left: 50%;
-  bottom: 5rem;
+  bottom: ${({ bottom }) => bottom};
   transform: translate(-50%, -50%);
   opacity: ${({ visible }) => (visible ? 0.95 : 0)};
   transition: opacity 0.5s ease-in-out;

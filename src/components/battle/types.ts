@@ -6,6 +6,7 @@ export interface Battles {
   challenged: BattleDetail;
   challenging: BattleDetail;
   isProgress: boolean;
+  selectedPostId: number | null;
 }
 
 export interface BattleDetail {
