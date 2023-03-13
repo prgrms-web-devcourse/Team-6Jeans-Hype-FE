@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import { BATTLE_STATUS_NAME_LIST, BATTLE_STATUS_VALUE_MAP } from '@/components/battle/constants';
@@ -16,7 +17,12 @@ import { useGetMyBattleList } from '@/components/profile/battle/useGetMyBattleLi
 export default function MyBattleListPage() {
   const [genreValue, setGenreValue] = useState<GenreValue | undefined>();
   const [status, setStatus] = useState<BattleStatusName>('진행중');
-  const { data: myBattleList } = useGetMyBattleList({ genre: genreValue, status: BATTLE_STATUS_VALUE_MAP[status] });
+  const router = useRouter();
+  const { data: myBattleList } = useGetMyBattleList({
+    genre: genreValue,
+    status: BATTLE_STATUS_VALUE_MAP[status],
+    memberId: router.query.memberId && !isNaN(+router.query.memberId) ? +(router.query.memberId as string) : undefined,
+  });
 
   const onChangeGenre = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedGenreValue = e.target.value;
