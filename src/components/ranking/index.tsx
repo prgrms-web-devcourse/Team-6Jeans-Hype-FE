@@ -66,7 +66,7 @@ const RankingContainer = styled.div`
     position: relative;
     left: -2rem;
     width: 100%;
-    margin-bottom: 10rem;
+    padding-bottom: 8rem;
     min-height: 30rem;
   }
 `;
