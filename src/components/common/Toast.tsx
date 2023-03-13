@@ -8,7 +8,7 @@ interface Props {
   duration?: number;
 }
 
-export default function Toast({ message, duration = 1200 }: Props) {
+export default function Toast({ message, duration = 600 }: Props) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function Toast({ message, duration = 1200 }: Props) {
 }
 
 const Container = styled.div<{ visible: boolean }>`
-  background-color: ${COLOR.deepBlue};
+  background-color: ${COLOR.blue};
   padding: 1rem 2rem;
   border-radius: 2rem;
   box-shadow: 0px 0px 15px rgba(158, 158, 158, 0.25);
@@ -42,6 +42,6 @@ const Container = styled.div<{ visible: boolean }>`
 `;
 
 const Text = styled.p`
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 500;
 `;

@@ -29,6 +29,9 @@ function Create() {
     };
     if (selectedGenre === undefined) {
       setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+      }, 1000);
     } else {
       const response = await createPost(postInfo);
       if (response) {
