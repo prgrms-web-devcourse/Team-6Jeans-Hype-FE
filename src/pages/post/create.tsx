@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 
 import Header from '@/components/common/Header';
 import HeaderSubmitButton from '@/components/common/Header/SubmitButton';
@@ -9,6 +8,7 @@ import { createPost } from '@/components/post/api';
 import PostCreate from '@/components/post/create/index';
 import { Values } from '@/components/post/create/types';
 import usePostCreate from '@/hooks/useCreatePost';
+import { useToast } from '@/hooks/useToast';
 
 function Create() {
   const {
@@ -18,7 +18,7 @@ function Create() {
   } = usePostCreate();
   const router = useRouter();
 
-  const [showToast, setShowToast] = useState(false);
+  const { showToast, handleToast } = useToast();
 
   const onSubmit = async () => {
     const postInfo: Values = {
@@ -28,10 +28,7 @@ function Create() {
       battleAvailability,
     };
     if (selectedGenre === undefined) {
-      setShowToast(true);
-      setTimeout(() => {
-        setShowToast(false);
-      }, 1000);
+      handleToast();
     } else {
       const response = await createPost(postInfo);
       if (response) {

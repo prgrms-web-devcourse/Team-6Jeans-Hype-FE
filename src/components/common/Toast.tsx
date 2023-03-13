@@ -8,7 +8,7 @@ interface Props {
   duration?: number;
 }
 
-export default function Toast({ message, duration = 600 }: Props) {
+export default function Toast({ message, duration = 700 }: Props) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
