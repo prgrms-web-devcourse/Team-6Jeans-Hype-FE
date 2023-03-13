@@ -52,7 +52,8 @@ const BottomNav = () => {
     {
       src: (isClicked: boolean) => (isClicked ? <MypageOnIcon /> : <MypageIcon />),
       text: '마이페이지',
-      paths: ['/profile'],
+      paths: [isLoggedIn ? '/profile' : ''],
+      onClick: () => isLoggedIn || openAuthRequiredModal(),
     },
   ];
 
