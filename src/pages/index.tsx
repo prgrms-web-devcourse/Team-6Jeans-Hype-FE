@@ -11,6 +11,7 @@ import { useState } from 'react';
 
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
+import NoContent from '@/components/common/NoContent';
 import { getGenreTop10Data } from '@/components/main/GenreTop10Post/api';
 import DeskTopPosts from '@/components/main/GenreTop10Post/DeskTopPosts';
 import MobilePosts from '@/components/main/GenreTop10Post/MobilePosts';
@@ -68,7 +69,9 @@ export default function Home() {
       {randomBattle ? (
         <StyledRandomBattle battle={randomBattle} onClick={() => onClickRandomBattle(randomBattle.battleId)} />
       ) : (
-        <NoContentRandomBattle>진행 중인 대결이 없습니다</NoContentRandomBattle>
+        <NoContentWrapper>
+          <NoContent text='진행 중인 대결이 없습니다.' isImage width={5} />
+        </NoContentWrapper>
       )}
       <LikeGenrePost>
         <Wrapper>
@@ -110,11 +113,13 @@ const Header = styled.div`
   padding: 2.5rem 0;
   align-items: center;
 `;
+
 const Icons = styled.div`
   display: flex;
   gap: 1.5rem;
   align-items: center;
 `;
+
 const StyledLogo = styled(Logo)`
   width: 6.6rem;
   position: absolute;
@@ -201,11 +206,10 @@ const StyledRandomBattle = styled(RandomBattle)`
   }
 `;
 
-const NoContentRandomBattle = styled.div`
-  width: 100%;
-  font-size: 1.3rem;
-  letter-spacing: 0.1rem;
-  color: ${COLOR.gray};
-  text-align: center;
-  padding: 1.5rem 0;
+const NoContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 3rem 0;
 `;
