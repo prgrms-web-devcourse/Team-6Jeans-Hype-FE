@@ -2,8 +2,6 @@ import styled from '@emotion/styled';
 import { useQueries } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 
-import { COLOR } from '@/constants/color';
-
 import NoContent from '../common/NoContent';
 import MusicListSkeleton from '../common/skeleton/MusicListSkeleton';
 import { getMyRanking, getUserRanking } from './api';
@@ -45,9 +43,9 @@ function Ranking({ isLimit }: Props) {
           return <RankingCard user={user} key={user.memberId} isMyRanking={isMyRanking} />;
         })
       ) : (
-        <Empty pathname={pathname}>
-          <NoContent text='등록된 유저가 없습니다' isImage width={6} />
-        </Empty>
+        <Wrapper>
+          <NoContent text='등록된 유저가 없습니다.' isImage width={5} />
+        </Wrapper>
       )}
     </RankingContainer>
   );
@@ -71,12 +69,10 @@ const RankingContainer = styled.div`
   }
 `;
 
-const Empty = styled.div<{ pathname: string }>`
-  text-align: center;
-  position: relative;
-  top: ${(props) => (props.pathname === '/' ? '50%' : '7.5rem')};
-  transform: translateY(-50%);
-  font-size: 1.3rem;
-  letter-spacing: 0.1rem;
-  color: ${COLOR.gray};
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 3rem 0;
 `;
