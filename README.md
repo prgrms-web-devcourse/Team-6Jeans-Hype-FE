@@ -8,6 +8,12 @@
 잘 알려지지 않은 숨은 명곡을 공유하고 대결과 투표를 통해 더 좋은 곡을 알아가는 서비스
 ```
 
+</div>
+
+<br />
+
+<div>
+
 ### 🎼 즐겨 듣는 명곡 추천
 
 즐겨 듣는 노래를 검색하고 글을 작성하여 다른 사용자들에게 추천할 수 있습니다.
@@ -30,7 +36,7 @@
 
 <br/>
 
-## 프로젝트 개요
+## 💻 프로젝트 개요
 
 내가 **좋아하는 음악을 추천하고자 하는 욕구가 있는 사람들**, 내가 아직 **모르는 음악들을 추천받고 싶은 사람들**을 대상으로 하는 음악 대결 서비스 입니다. 음악을 공유하는 사람들은 추천글을 쓰고 좋아요와 다른 노래와의 대결을 생성해 다른사람들의 반응을 확인할 수 있습니다. 노래를 추천받고 싶은 사람들은 다른사람이 제공하는 추천글, 이상형월드컵 형식으로 제공되는 음악 대결에 투표하는 것을 통해 게임처럼 자신이 모르던 장르의 노래를 새로 알게 될 수 있습니다.
 
@@ -113,13 +119,11 @@
 | <img width="120" height="120" src="https://avatars.githubusercontent.com/u/60873508?v=4"> | <img width="120" height="120" src="https://ifh.cc/g/JXX52y.jpg"> | <img width="120" height="120" src="https://avatars.githubusercontent.com/u/28949190?v=4"> | <img width="120" height="120" src="https://avatars.githubusercontent.com/u/50357236?v=4"> |
 |                                      프론트엔드 개발                                      |                         프론트엔드 개발                          |                                      프론트엔드 개발                                      | 프론트엔드 개발                                                                           |
 
-## 멘토
-
-[오프](https://jung-han.github.io/)
-
 <br/>
 
-## 📏 Code Convention
+## 👓 멘토
+
+[오프](https://jung-han.github.io/)
 
 <br/>
 
@@ -142,7 +146,7 @@
 
 - `main` : 초기 프로젝트 설정 브랜치
 - `이슈 단위로 브랜치 → main 브랜치`
-- `라벨/#이슈번호-내용 (소문자)` : 개인 작업 브랜치(ex) feature/#4-add-login-ui)
+- `라벨/#이슈번호-내용(소문자)` : 개인 작업 브랜치(ex) feature/#4-add-login-ui)
 
 <br/>
 
@@ -183,9 +187,11 @@
 |_ yarn.lock
 ```
 
-<br/>
+<br />
 
 ## 🌴 Dependencies Module
+
+</br>
 
 <b>package.json</b>
 
@@ -238,4 +244,10 @@ NEXT_PUBLIC_ORIGIN =
 
 </br>
 
-## 🏗 Architecture
+## 🔑 Install
+
+```
+yarn or yarn install //package.json으로부터 의존성 모듈 설치
+
+yarn dev //실행
+```
