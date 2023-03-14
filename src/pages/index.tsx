@@ -12,6 +12,7 @@ import { useState } from 'react';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import NoContent from '@/components/common/NoContent';
+import useAuth from '@/components/login/useAuth';
 import { getGenreTop10Data } from '@/components/main/GenreTop10Post/api';
 import DeskTopPosts from '@/components/main/GenreTop10Post/DeskTopPosts';
 import MobilePosts from '@/components/main/GenreTop10Post/MobilePosts';
@@ -28,12 +29,17 @@ export default function Home() {
   const { mobile } = useCheckMobile();
   const [genre, setGenre] = useState('');
   const [isShowInfo, setIsShowInfo] = useState<boolean>(false);
+  const { isLoggedIn, openAuthRequiredModal } = useAuth();
 
   const onClickInfo = () => {
     setIsShowInfo((prev) => !prev);
   };
 
   const onClickRandomBattle = (battleId: number) => {
+    if (!isLoggedIn) {
+      openAuthRequiredModal();
+      return;
+    }
     router.push(`/battle/detail?id=${battleId}`);
   };
 

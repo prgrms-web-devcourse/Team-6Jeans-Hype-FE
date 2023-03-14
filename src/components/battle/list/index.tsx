@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
 import { Battle, FinishedBattleMusic } from '@/components/battle/list/types';
+import useAuth from '@/components/login/useAuth';
 
 import BattleCard from '../Card';
 import FinishedBattleCard from '../Card/Finished';
@@ -14,8 +15,13 @@ interface BattleListProps {
 
 export default function BattleList({ battleList, className }: BattleListProps) {
   const router = useRouter();
+  const { isLoggedIn, openAuthRequiredModal } = useAuth();
 
   const navigateDetail = (battleId: number) => {
+    if (!isLoggedIn) {
+      openAuthRequiredModal();
+      return;
+    }
     router.push(`/battle/detail?id=${battleId}`);
   };
 

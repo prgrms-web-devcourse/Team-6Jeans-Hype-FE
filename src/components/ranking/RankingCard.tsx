@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import { COLOR } from '@/constants/color';
 
+import useAuth from '../login/useAuth';
 import { Ranking } from './types';
 
 interface Props {
@@ -13,8 +14,13 @@ interface Props {
 function RankingCard({ user, isMyRanking }: Props) {
   const { memberNickname, memberPoint, memberRanking, memberId } = user;
   const router = useRouter();
+  const { isLoggedIn, openAuthRequiredModal } = useAuth();
 
   const navigateProfile = () => {
+    if (!isLoggedIn) {
+      openAuthRequiredModal();
+      return;
+    }
     if (isMyRanking) {
       router.push(`/profile`);
       return;

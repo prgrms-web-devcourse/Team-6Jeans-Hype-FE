@@ -20,7 +20,7 @@ function PostDetail() {
   const [isRenderPostContent, setIsRenderPostContent] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const { getAccessToken } = useAuth();
+  const { getAccessToken, isLoggedIn, openAuthRequiredModal } = useAuth();
 
   const router = useRouter();
   const { postId } = router.query;
@@ -54,6 +54,10 @@ function PostDetail() {
   };
 
   const navigateUserProfile = () => {
+    if (!isLoggedIn) {
+      openAuthRequiredModal();
+      return;
+    }
     router.push(`/profile?memberId=${postDetail?.memberId}`);
   };
 
