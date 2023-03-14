@@ -52,7 +52,9 @@ function UserHeader() {
           </DefaultProfile>
           <Info>
             <Name>{userProfile?.nickname}</Name>
-            {userProfile?.countOfChanllenge && <RestTicket>남은 대결권 {userProfile?.countOfChanllenge}</RestTicket>}
+            {userProfile?.countOfChanllenge !== undefined && (
+              <RestTicket>남은 대결권 {userProfile?.countOfChanllenge}</RestTicket>
+            )}
           </Info>
         </UserContainer>
         <CardContainer>
