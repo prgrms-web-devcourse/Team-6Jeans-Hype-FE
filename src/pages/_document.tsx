@@ -1,5 +1,7 @@
 import { Head, Html, Main, NextScript } from 'next/document';
 
+import GoogleTagManagerNoscript from '@/components/googleTagManager/Noscript';
+
 export default function Document() {
   return (
     <Html lang='ko'>
@@ -22,6 +24,7 @@ export default function Document() {
         <meta name='twitter:description' content="What's your Hype Music? 너만의 노래를 찾아봐!" />
       </Head>
       <body>
+        <GoogleTagManagerNoscript />
         <Main />
         <NextScript />
       </body>
