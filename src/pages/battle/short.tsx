@@ -82,6 +82,7 @@ const BattleWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 0.3rem;
 `;
 
 const StyledBattle = styled(Battle)`

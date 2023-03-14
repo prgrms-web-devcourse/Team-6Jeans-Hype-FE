@@ -64,7 +64,7 @@ const Container = styled.div`
 const BATTLE_LAYOUT_STYLE = css`
   margin: auto 0;
   box-sizing: border-box;
-  padding-bottom: 2rem;
+  padding-bottom: 1.9rem;
 `;
 
 const StyledBattle = styled(Battle)`
