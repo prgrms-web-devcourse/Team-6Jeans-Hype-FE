@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
+import AlertModal from '@/components/common/Modal/Alert';
 import ConfirmModal from '@/components/common/Modal/Confirm';
 import NoContent from '@/components/common/NoContent';
 import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
@@ -22,7 +22,9 @@ interface Props {
 function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMusicList }: Props) {
   const router = useRouter();
 
-  const [modalStatus, setModalStatus] = useState(false);
+  const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
+  const [isOpenAlertModal, setIsOpenAlertModal] = useState(false);
+  const [alertModalMessage, setAlertModalMessage] = useState('');
   const [modalMusicData, setModalMusicData] = useState<BattleApplyModal>({
     postId: 0,
     title: '',
@@ -31,8 +33,8 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMus
     singer: '',
   });
 
-  const openPostModal = () => setModalStatus(true);
-  const closePostModal = () => setModalStatus(false);
+  const openPostModal = () => setIsOpenConfirmModal(true);
+  const closePostModal = () => setIsOpenConfirmModal(false);
 
   const onClickPost = ({ postId, title, musicUrl, albumCoverUrl, singer }: BattleApplyModal) => {
     setModalMusicData({
@@ -54,19 +56,26 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMus
 
   const onClickCancel = () => closePostModal();
 
+  const onClickAlertModal = () => {
+    router.push('/post');
+  };
+
   const { data: myBattleMusicList, isLoading } = useQuery(
     ['post', 'battle', 'mylist', selectedOpponentMusicId],
     () => getMyBattleListData(selectedOpponentMusicId),
     {
       enabled: !!selectedOpponentMusicId,
-      onError: (err) => {
-        const errors = err as Error | AxiosError;
-
-        alert(errors.message);
-        router.push('/post');
+      onError: (error: Error) => {
+        setAlertModalMessage(error.message);
       },
     },
   );
+
+  useEffect(() => {
+    if (alertModalMessage.length) {
+      setIsOpenAlertModal(true);
+    }
+  }, [alertModalMessage]);
 
   if (isLoading) {
     return (
@@ -79,45 +88,48 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMus
   }
 
   return (
-    <Container isVisibleMusicList={isVisibleMusicList}>
-      <Text>내 추천 목록</Text>
-      <MyList>
-        {myBattleMusicList && myBattleMusicList.length > 0 ? (
-          myBattleMusicList.map(({ postId, music: { title, singer, albumCoverUrl, musicUrl } }: MyBattlePostInfo) => (
-            <Post
-              key={postId}
-              onClick={() => {
-                const musicData = {
-                  postId,
-                  title,
-                  musicUrl,
-                  albumCoverUrl,
-                  singer,
-                };
-                onClickPost(musicData);
-              }}
-            >
-              <AlbumPoster lazy={true} src={albumCoverUrl} size={6.6} />
-              <MusicInfo>
-                <Title>{title}</Title>
-                <Artist>{singer}</Artist>
-              </MusicInfo>
-            </Post>
-          ))
-        ) : (
-          <Wrapper>
-            <NoContent text='작성한 추천 글이 없습니다.' isImage width={8} />
-          </Wrapper>
-        )}
-      </MyList>
+    <>
+      <Container isVisibleMusicList={isVisibleMusicList}>
+        <Text>내 추천 목록</Text>
+        <MyList>
+          {myBattleMusicList && myBattleMusicList.length > 0 ? (
+            myBattleMusicList.map(({ postId, music: { title, singer, albumCoverUrl, musicUrl } }: MyBattlePostInfo) => (
+              <Post
+                key={postId}
+                onClick={() => {
+                  const musicData = {
+                    postId,
+                    title,
+                    musicUrl,
+                    albumCoverUrl,
+                    singer,
+                  };
+                  onClickPost(musicData);
+                }}
+              >
+                <AlbumPoster lazy={true} src={albumCoverUrl} size={6.6} />
+                <MusicInfo>
+                  <Title>{title}</Title>
+                  <Artist>{singer}</Artist>
+                </MusicInfo>
+              </Post>
+            ))
+          ) : (
+            <Wrapper>
+              <NoContent text='작성한 추천 글이 없습니다.' isImage width={8} />
+            </Wrapper>
+          )}
+        </MyList>
 
-      <ConfirmModal
-        isOpened={modalStatus}
-        text={`${modalMusicData.singer} - ${modalMusicData.title}을 선택하셨습니다.\n 대결신청 하시겠습니까?`}
-        onClickCancel={onClickCancel}
-        onClickConfirm={onClickConfirm}
-      />
-    </Container>
+        <ConfirmModal
+          isOpen={isOpenConfirmModal}
+          text={`${modalMusicData.singer} - ${modalMusicData.title}을 선택하셨습니다.\n 대결신청 하시겠습니까?`}
+          onClickCancel={onClickCancel}
+          onClickConfirm={onClickConfirm}
+        />
+      </Container>
+      <AlertModal isOpen={isOpenAlertModal} text={alertModalMessage} onClick={onClickAlertModal} />
+    </>
   );
 }
 

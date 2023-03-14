@@ -3,14 +3,14 @@ import { ReactNode, useEffect, useState } from 'react';
 
 interface ModalWrapperProps {
   children: ReactNode;
-  isOpened: boolean;
+  isOpen: boolean;
 }
 
-export default function ModalWrapper({ children, isOpened }: ModalWrapperProps) {
+export default function ModalWrapper({ children, isOpen }: ModalWrapperProps) {
   const [isAnimation, setIsAnimation] = useState(true);
 
   useEffect(() => {
-    if (isOpened) {
+    if (isOpen) {
       document.body.style.overflow = 'hidden';
       setTimeout(() => setIsAnimation(false), 300);
     } else {
@@ -20,22 +20,22 @@ export default function ModalWrapper({ children, isOpened }: ModalWrapperProps) 
     return () => {
       document.body.style.overflow = 'initial';
     };
-  }, [isOpened]);
+  }, [isOpen]);
 
   return (
-    <Container isOpened={isOpened} isAnimation={isAnimation}>
+    <Container isOpen={isOpen} isAnimation={isAnimation}>
       {children}
     </Container>
   );
 }
 
-const Container = styled.div<{ isOpened: boolean; isAnimation: boolean }>`
+const Container = styled.div<{ isOpen: boolean; isAnimation: boolean }>`
   width: 100%;
   min-height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  display: ${(props) => (props.isOpened ? 'block' : 'none')};
+  display: ${(props) => (props.isOpen ? 'block' : 'none')};
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.6);
 

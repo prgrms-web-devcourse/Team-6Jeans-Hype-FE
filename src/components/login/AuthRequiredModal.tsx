@@ -6,21 +6,21 @@ import ConfirmModal from '@/components/common/Modal/Confirm';
 import { isOpenedAuthRequiredModalAtom } from './store';
 
 export default function AuthRequiredModal() {
-  const [isOpened, setIsOpened] = useRecoilState(isOpenedAuthRequiredModalAtom);
+  const [isOpen, setIsOpen] = useRecoilState(isOpenedAuthRequiredModalAtom);
   const router = useRouter();
 
   const onClickConfirm = () => {
-    setIsOpened(false);
+    setIsOpen(false);
     router.push('/login');
   };
 
   const onClickCancel = () => {
-    setIsOpened(false);
+    setIsOpen(false);
   };
 
   return (
     <ConfirmModal
-      isOpened={isOpened}
+      isOpen={isOpen}
       onClickConfirm={onClickConfirm}
       onClickCancel={onClickCancel}
       text={`로그인이 필요한 기능입니다.\n로그인 하시겠습니까?`}
