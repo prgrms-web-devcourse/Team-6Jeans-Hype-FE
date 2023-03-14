@@ -66,7 +66,12 @@ function MyBattleList({ selectedOpponentMusicId, updateMyMusicCard, isVisibleMus
     {
       enabled: !!selectedOpponentMusicId,
       onError: (error: Error) => {
-        setAlertModalMessage(error.message);
+        setAlertModalMessage(
+          // FIXME: 서버에서 보내주는 에러 메시지 수정 하기 전 임시 처리
+          error.message === '직접 작성한 추천글은 대결신청할 수 없습니다.'
+            ? `본인이 작성한 추천글은\n대결 신청 할 수 없습니다.`
+            : error.message,
+        );
       },
     },
   );
