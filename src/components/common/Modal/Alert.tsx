@@ -5,20 +5,16 @@ import { COLOR } from '@/constants/color';
 import { ModalProps } from './types';
 import ModalWrapper from './Wrapper';
 
-interface ConfirmModalProps extends ModalProps {
-  onClickConfirm: () => void;
-  onClickCancel: () => void;
+interface AlertModalProps extends ModalProps {
+  onClick: () => void;
 }
 
-export default function ConfirmModal({ isOpen, text, onClickCancel, onClickConfirm }: ConfirmModalProps) {
+export default function AlertModal({ isOpen, text, onClick }: AlertModalProps) {
   return (
     <ModalWrapper isOpen={isOpen}>
       <Container>
         <Text>{text}</Text>
-        <ButtonWrapper>
-          <Button onClick={onClickConfirm}>예</Button>
-          <Button onClick={onClickCancel}>아니오</Button>
-        </ButtonWrapper>
+        <Button onClick={onClick}>확인</Button>
       </Container>
     </ModalWrapper>
   );
@@ -44,11 +40,6 @@ const Text = styled.div`
   font-size: 1.4rem;
   line-height: 2rem;
   font-weight: 500;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  gap: 2rem;
 `;
 
 const Button = styled.button`

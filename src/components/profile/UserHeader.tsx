@@ -62,7 +62,7 @@ function UserHeader() {
         </CardContainer>
       </Wrapper>
       <ConfirmModal
-        isOpened={modalStatus}
+        isOpen={modalStatus}
         text={`로그아웃 하시겠습니까?`}
         onClickCancel={onClickLogout}
         onClickConfirm={logout}
