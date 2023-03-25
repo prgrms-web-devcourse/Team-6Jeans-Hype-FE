@@ -26,7 +26,7 @@ function ContentList({ title, hasList, children }: Props) {
     }
 
     if (title === '내 좋아요') {
-      router.push(`profile/post${memberId ? `?memberId=${memberId}` : ''}`);
+      router.push(`profile/likes`);
     }
   };
 

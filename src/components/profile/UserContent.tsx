@@ -8,9 +8,10 @@ import NoContent from '@/components/common/NoContent';
 import RecommendationPost from '@/components/common/RecommendationPost';
 
 import { FinishedBattleMusic } from '../battle/list/types';
-import { getLikePostFeedLimit, getPostFeedLimit } from './api';
+import { getPostFeedLimit } from './api';
 import { useGetMyBattleList } from './battle/useGetMyBattleList';
 import ContentList from './ContentList';
+import { useGetMyLikeList } from './likes/useGetMyLikeList';
 
 function UserContent() {
   const router = useRouter();
@@ -26,7 +27,7 @@ function UserContent() {
     async () => await getPostFeedLimit(Number(memberId)),
   );
 
-  const { data: likePostFeedLimit } = useQuery(['likepostfeedlimit'], async () => await getLikePostFeedLimit());
+  const { data: likePostFeedLimit } = useGetMyLikeList('', 2);
 
   const navigateDetail = (battleId: number) => {
     router.push(`/battle/detail?id=${battleId}`);

@@ -22,13 +22,14 @@ export const getPostFeedLimit = async (memberId?: number) => {
   }
 };
 
-export const getLikePostFeedLimit = async () => {
+export const getLikePostList = async (genre?: string, limit?: number) => {
   try {
     const { data } = await axiosInstance.request<MyPostAPI>({
       method: 'GET',
       url: `/members/likes`,
       params: {
-        limit: '2',
+        genre,
+        limit,
       },
       headers: {
         Authorization: `Bearer ${tokenStorage.get()}`,
