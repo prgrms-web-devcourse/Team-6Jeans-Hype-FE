@@ -1,5 +1,6 @@
 import { axiosInstance } from '@/api';
 
+import { tokenStorage } from '../login/utils/localStorage';
 import { MyBattleAPI, MyPostAPI, ProfileAPI } from './types';
 
 export const getPostFeedLimit = async (memberId?: number) => {
@@ -9,6 +10,28 @@ export const getPostFeedLimit = async (memberId?: number) => {
       url: `/members/posts${memberId ? `?memberId=${memberId}` : ''}`,
       params: {
         limit: '2',
+      },
+    });
+
+    if (data.success) {
+      return data.data.myPosts;
+    }
+    return [];
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getLikePostFeedLimit = async () => {
+  try {
+    const { data } = await axiosInstance.request<MyPostAPI>({
+      method: 'GET',
+      url: `/members/likes`,
+      params: {
+        limit: '2',
+      },
+      headers: {
+        Authorization: `Bearer ${tokenStorage.get()}`,
       },
     });
 
