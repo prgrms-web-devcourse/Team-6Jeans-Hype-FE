@@ -22,10 +22,7 @@ function UserContent() {
     memberId: memberId && !isNaN(+memberId) ? +memberId : undefined,
   });
 
-  const { data: postFeedLimit } = useQuery(
-    ['postfeedlimit', memberId],
-    async () => await getPostFeedLimit(Number(memberId)),
-  );
+  const { data: postFeedLimit } = useQuery(['postfeedlimit', memberId], () => getPostFeedLimit(Number(memberId)));
 
   const { data: likePostFeedLimit } = useGetMyLikeList('', 2);
 

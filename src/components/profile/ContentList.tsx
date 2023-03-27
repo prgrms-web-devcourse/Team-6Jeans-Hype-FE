@@ -15,18 +15,17 @@ function ContentList({ title, hasList, children }: Props) {
   const router = useRouter();
   const { memberId } = router.query;
 
-  const navigateList = () => {
-    if (title === '대결') {
-      router.push(`/profile/battle${memberId ? `?memberId=${memberId}` : ''}`);
-      return;
-    }
+  const navigateList = [
+    { label: '대결', url: `/profile/battle${memberId ? `?memberId=${memberId}` : ''}` },
+    { label: '추천', url: `profile/post${memberId ? `?memberId=${memberId}` : ''}` },
+    { label: '내 좋아요', url: `profile/likes` },
+  ];
 
-    if (title === '추천') {
-      router.push(`profile/post${memberId ? `?memberId=${memberId}` : ''}`);
-    }
+  const onRoute = () => {
+    const route = navigateList.find(({ label }) => label === title);
 
-    if (title === '내 좋아요') {
-      router.push(`profile/likes`);
+    if (route?.url) {
+      router.push(route.url);
     }
   };
 
@@ -35,7 +34,7 @@ function ContentList({ title, hasList, children }: Props) {
       <Header>
         <Title>{title} 목록</Title>
         {hasList && (
-          <Button onClick={navigateList}>
+          <Button onClick={onRoute}>
             더보기
             <Arrow />
           </Button>
@@ -56,7 +55,7 @@ const Container = styled.div<{ title: string }>`
   box-shadow: 0px 0px 15px rgba(158, 158, 158, 0.25);
   margin: 0 auto;
   border-radius: 1rem;
-  margin-top: ${(props) => props.title === '대결' && '-5rem'};
+  margin-top: ${({ title }) => title === '대결' && '-5rem'};
   position: relative;
 `;
 

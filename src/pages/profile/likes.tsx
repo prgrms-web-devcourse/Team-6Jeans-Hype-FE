@@ -14,7 +14,6 @@ export default function MyLikePostListPage() {
 
   const onClickGenre = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedGenre = e.target.value;
-    console.log(selectedGenre);
 
     if (selectedGenre === 'ALL') {
       setGenre(undefined);
