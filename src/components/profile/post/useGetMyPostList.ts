@@ -7,11 +7,9 @@ export const useGetMyPostList = (genre?: string, memberId?: number) => {
     queryKey: ['myPostList', genre, memberId],
     queryFn: async () => {
       if (Number.isNaN(memberId)) {
-        const data = await getMyPostList(genre);
-        return data;
+        return await getMyPostList(genre);
       }
-      const data = await getMyPostList(genre, memberId);
-      return data;
+      return await getMyPostList(genre, memberId);
     },
     staleTime: 30000,
     cacheTime: 30000,

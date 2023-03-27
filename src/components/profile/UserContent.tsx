@@ -11,6 +11,7 @@ import { FinishedBattleMusic } from '../battle/list/types';
 import { getPostFeedLimit } from './api';
 import { useGetMyBattleList } from './battle/useGetMyBattleList';
 import ContentList from './ContentList';
+import { useGetMyLikeList } from './likes/useGetMyLikeList';
 
 function UserContent() {
   const router = useRouter();
@@ -20,10 +21,10 @@ function UserContent() {
     limit: 2,
     memberId: memberId && !isNaN(+memberId) ? +memberId : undefined,
   });
-  const { data: postFeedLimit } = useQuery(
-    ['postfeedlimit', memberId],
-    async () => await getPostFeedLimit(Number(memberId)),
-  );
+
+  const { data: postFeedLimit } = useQuery(['postfeedlimit', memberId], () => getPostFeedLimit(Number(memberId)));
+
+  const { data: likePostFeedLimit } = useGetMyLikeList('', 2);
 
   const navigateDetail = (battleId: number) => {
     router.push(`/battle/detail?id=${battleId}`);
@@ -73,6 +74,25 @@ function UserContent() {
           </Wrapper>
         )}
       </ContentList>
+      {!memberId && (
+        <ContentList title='내 좋아요' hasList={likePostFeedLimit?.length !== 0}>
+          {likePostFeedLimit?.length ? (
+            likePostFeedLimit.map(({ postId, music, likeCount }) => (
+              <RecommendationPost
+                key={postId}
+                postId={postId}
+                music={music}
+                likeCount={likeCount}
+                isBattlePossible={false}
+              />
+            ))
+          ) : (
+            <Wrapper>
+              <NoContent text='좋아요 누른 글이 없습니다.' isImage width={5} />
+            </Wrapper>
+          )}
+        </ContentList>
+      )}
     </Container>
   );
 }
