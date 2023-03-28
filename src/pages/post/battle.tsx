@@ -3,19 +3,18 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BattleMusic from '@/components/battle/detail/BattleMusic';
 import HeaderSubmitButton from '@/components/common/button/SubmitButton';
 import Header from '@/components/common/Header';
+import { createBattle, getPostBattleData } from '@/components/post/battle/api';
+import MyBattleList from '@/components/post/battle/MyBattleList';
+import SelectMusic from '@/components/post/battle/SelectMusic';
+import { BattleApplyModal } from '@/components/post/battle/types';
 import { COLOR } from '@/constants/color';
 import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
-import { getPostBattleData } from './api';
-import { createBattle } from './api';
-import MyBattleList from './mybattleList';
-import SelectMusic from './selectMusic';
-import { BattleApplyModal } from './types';
-
-function BattleForm() {
+function Battle() {
   const router = useRouter();
   const { postId: selectedOpponentMusicId } = router.query;
 
@@ -64,9 +63,9 @@ function BattleForm() {
   );
 
   return (
-    <>
+    <AuthRequiredPage>
       <Header title='대결 신청' actionButton={isReadySubmit && <HeaderSubmitButton onClick={applyBattle} />} />
-      <Wrapper>
+      <Container>
         <Title>What&apos;s next?</Title>
         <Musics>
           {battleMusic && (
@@ -94,14 +93,15 @@ function BattleForm() {
             isVisibleMusicList={isVisibleMusicList}
           />
         )}
-      </Wrapper>
-    </>
+      </Container>
+    </AuthRequiredPage>
   );
 }
 
-export default BattleForm;
+export default Battle;
 
-const Wrapper = styled.div`
+const Container = styled.div`
+  height: 100vh;
   padding: 0 2rem;
 `;
 

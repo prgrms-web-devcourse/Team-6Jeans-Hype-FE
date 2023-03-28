@@ -8,10 +8,10 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { RecoilRoot } from 'recoil';
 
-import * as gtm from '@/components/googleTagManager/gtm';
-import GoogleTagManagerScript from '@/components/googleTagManager/Script';
-import AuthRequiredModal from '@/components/login/AuthRequiredModal';
+import AuthRequiredModal from '@/components/auth/AuthRequiredModal';
 import { global } from '@/styles/global';
+import * as gtm from '@/utils/googleTagManager/gtm';
+import GoogleTagManagerScript from '@/utils/googleTagManager/Script';
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false, retry: 1 } },

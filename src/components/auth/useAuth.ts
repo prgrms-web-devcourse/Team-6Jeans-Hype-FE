@@ -4,7 +4,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { getIsValidToken } from './api';
 import { accessTokenAtom, isCheckedTokenAtom, isOpenedAuthRequiredModalAtom } from './store';
-import { tokenStorage } from './utils/localStorage';
+import { tokenStorage } from '../../utils/localStorage';
 
 export default function useAuth() {
   const router = useRouter();

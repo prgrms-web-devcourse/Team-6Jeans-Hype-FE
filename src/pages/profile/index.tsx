@@ -1,5 +1,5 @@
+import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
-import AuthRequiredPage from '@/components/login/AuthRequiredPage';
 import UserContent from '@/components/profile/UserContent';
 import UserHeader from '@/components/profile/UserHeader';
 

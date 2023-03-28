@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 
-import { getGenres } from '@/components/post/api';
 import { COLOR } from '@/constants/color';
 import useGenre from '@/hooks/useGenre';
 
-import GenreSkeleton from './skeleton/GenreSkeleton';
+import GenreSkeleton from '../skeleton/GenreSkeleton';
+import { getGenres } from './api';
 
 interface Props {
   shouldNeedAll?: boolean;

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import FireIcon from 'public/images/fire-icon.svg';
 
-import useAuth from '@/components/login/useAuth';
+import useAuth from '@/components/auth/useAuth';
 import { COLOR } from '@/constants/color';
 
 interface Props {

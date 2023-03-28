@@ -3,8 +3,8 @@ import LikeOffIcon from 'public/images/like-icon-off.svg';
 import LikeOnIcon from 'public/images/like-icon-on.svg';
 import { useEffect, useState } from 'react';
 
-import useAuth from '@/components/login/useAuth';
-import { changeLikeStatus } from '@/components/post/detail/api';
+import useAuth from '@/components/auth/useAuth';
+import { changeLikeStatus } from '@/components/post/Detail/api';
 import { COLOR } from '@/constants/color';
 
 interface Props {

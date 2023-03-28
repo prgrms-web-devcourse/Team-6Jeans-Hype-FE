@@ -12,7 +12,7 @@ import MypageIcon from 'public/images/bottom-nav/mypage-icon-off.svg';
 import ShareOnIcon from 'public/images/bottom-nav/share-icon.svg';
 import ShareIcon from 'public/images/bottom-nav/share-icon-off.svg';
 
-import useAuth from '@/components/login/useAuth';
+import useAuth from '@/components/auth/useAuth';
 import { COLOR } from '@/constants/color';
 
 interface Button {

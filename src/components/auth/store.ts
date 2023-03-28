@@ -1,9 +1,8 @@
 import { atom } from 'recoil';
 
 import { axiosInstance } from '@/api';
-import { isClientSide } from '@/utils';
-
-import { tokenStorage } from './utils/localStorage';
+import { tokenStorage } from '@/utils/localStorage';
+import { isClientSide } from '@/utils/renderSide';
 
 export const accessTokenAtom = atom<string | null>({
   key: 'accessToken',

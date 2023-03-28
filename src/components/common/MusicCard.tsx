@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Music } from '@/components/post/SearchMusics/types';
+import { Music } from '@/components/post/search/types';
 import { COLOR } from '@/constants/color';
 
 import AlbumPoster from './AlbumPoster';

@@ -1,12 +1,18 @@
 import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
-import PostList from '@/components/post';
+import NoContent from '@/components/common/NoContent';
+import RecommendationPost from '@/components/common/RecommendationPost';
+import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
+import { getPostFeedData } from '@/components/post/api';
+import { PostInfo } from '@/components/post/types';
 
 function Post() {
   const [genre, setGenre] = useState('');
+  const { data: postFeed, isLoading } = useQuery(['postfeed', genre], () => getPostFeedData(genre));
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedGenre = e.target.value;
@@ -21,7 +27,30 @@ function Post() {
       </Header>
       <Genres shouldNeedAll onChange={onChange} />
       <PostListContainer>
-        <PostList genre={genre} />
+        {postFeed?.length ? (
+          <>
+            {postFeed?.map(({ postId, nickname, music, likeCount, isBattlePossible }: PostInfo) => (
+              <RecommendationPost
+                key={postId}
+                postId={postId}
+                nickname={nickname}
+                music={music}
+                likeCount={likeCount}
+                isBattlePossible={isBattlePossible}
+              />
+            ))}
+          </>
+        ) : isLoading ? (
+          <>
+            <MusicListSkeleton />
+            <MusicListSkeleton />
+            <MusicListSkeleton />
+          </>
+        ) : (
+          <Wrapper>
+            <NoContent text='추천 글이 없습니다' isImage width={8} />
+          </Wrapper>
+        )}
       </PostListContainer>
       <BottomNav />
     </Container>
@@ -57,4 +86,15 @@ const PostListContainer = styled.div`
   margin-bottom: 8rem;
   height: calc(100vh - 23.5rem);
   overflow-y: auto;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;

@@ -4,10 +4,9 @@ import { memo } from 'react';
 
 import NoContent from '@/components/common/NoContent';
 import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
-import { COLOR } from '@/constants/color';
 
 import Card from '../../common/MusicCard';
-import { getMusicData } from '../api';
+import { getMusicData } from './api';
 import { Music } from './types';
 
 interface Props {

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import { COLOR } from '@/constants/color';
 
-import useAuth from '../login/useAuth';
+import useAuth from '../auth/useAuth';
 import { Ranking } from './types';
 
 interface Props {

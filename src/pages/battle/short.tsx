@@ -3,12 +3,12 @@ import Link from 'next/link';
 import ListIcon from 'public/images/go-to-list-icon.svg';
 import { useState } from 'react';
 
+import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import Battle from '@/components/battle/detail/Battle';
 import { useGetBattle } from '@/components/battle/detail/useGetBattle';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
-import AuthRequiredPage from '@/components/login/AuthRequiredPage';
 import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
 function Short() {

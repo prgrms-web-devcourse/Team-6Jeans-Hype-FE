@@ -9,17 +9,17 @@ import Logo from 'public/images/letter-logo.svg';
 import Survey from 'public/images/survey-icon.svg';
 import { useState } from 'react';
 
+import useAuth from '@/components/auth/useAuth';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import NoContent from '@/components/common/NoContent';
-import useAuth from '@/components/login/useAuth';
 import { getGenreTop10Data } from '@/components/main/GenreTop10Post/api';
 import DeskTopPosts from '@/components/main/GenreTop10Post/DeskTopPosts';
 import MobilePosts from '@/components/main/GenreTop10Post/MobilePosts';
 import InfoModal from '@/components/main/Info';
 import RandomBattle from '@/components/main/RandomBattle';
 import { getRandomBattleAlbumCoverImage } from '@/components/main/RandomBattle/api';
-import Ranking from '@/components/ranking';
+import Ranking from '@/components/Ranking';
 import { COLOR } from '@/constants/color';
 import { useCheckMobile } from '@/hooks/useCheckMobile';
 

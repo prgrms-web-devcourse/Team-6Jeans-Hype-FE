@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
-import { getUserProfile } from '../api';
+import { getUserProfile } from './api';
 
 export const useGetUserProfile = () => {
   const [memberId, setMemberId] = useState<number | undefined>();

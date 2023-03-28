@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getBattleList } from '../api';
-import { GenreValue } from '../types';
-import { BattleStatusValue } from './../../types';
+import { BattleStatusValue } from '../types';
+import { getBattleList } from './api';
+import { GenreValue } from './types';
 
 export const useGetBattleList = ({ genre, status }: { genre?: GenreValue; status: BattleStatusValue }) => {
   return useQuery({

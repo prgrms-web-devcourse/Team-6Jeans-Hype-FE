@@ -3,15 +3,15 @@ import { useQueries } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+import useAuth from '@/components/auth/useAuth';
 import Battle from '@/components/common/button/BattleButton';
 import Like from '@/components/common/button/LikeButton';
 import MusicPlayButton from '@/components/common/button/MusicPlayButton';
 import Header from '@/components/common/Header';
-import useAuth from '@/components/login/useAuth';
 import { COLOR } from '@/constants/color';
 
 import { getPostDetailData, getUserLikeStatus } from './api';
-import MusicInfo from './musicInfo';
+import MusicInfo from './MusicInfo';
 
 let intervalID: NodeJS.Timer;
 

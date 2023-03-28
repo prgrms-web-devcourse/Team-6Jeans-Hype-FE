@@ -7,7 +7,7 @@ import Box from '@/components/common/skeleton/Box';
 import { COLOR } from '@/constants/color';
 
 import Toggle from '../../common/Toggle';
-import { getMusicDetailData } from '../api';
+import { getMusicDetailData } from './api';
 import SelectedMusic from './SelectedMusic';
 import { Music, Values } from './types';
 

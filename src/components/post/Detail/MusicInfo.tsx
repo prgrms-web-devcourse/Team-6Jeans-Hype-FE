@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import AlbumPoster from '@/components/common/AlbumPoster';
 import { COLOR } from '@/constants/color';
 
-import { Music } from '../types';
+import { Music } from './types';
 
 function MusicInfo({ title, albumCoverUrl, singer }: Music) {
   return (
