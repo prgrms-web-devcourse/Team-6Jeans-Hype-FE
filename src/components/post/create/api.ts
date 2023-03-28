@@ -25,23 +25,6 @@ export const getMusicDetailData = async (trackId: string) => {
   }
 };
 
-export const getGenres = async () => {
-  try {
-    const response = await axiosInstance.request({
-      method: 'GET',
-      url: `/genres`,
-    });
-
-    if (response.data.success) {
-      return response.data.data.genres;
-    } else {
-      return [];
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const createPost = async (data: Values) => {
   try {
     const { battleAvailability, description, musicInfo, selectedGenre } = data;

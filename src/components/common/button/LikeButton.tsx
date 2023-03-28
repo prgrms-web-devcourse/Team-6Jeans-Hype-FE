@@ -4,7 +4,7 @@ import LikeOnIcon from 'public/images/like-icon-on.svg';
 import { useEffect, useState } from 'react';
 
 import useAuth from '@/components/auth/useAuth';
-import { changeLikeStatus } from '@/components/post/Detail_tmp/api';
+import { changeLikeStatus } from '@/components/post/Detail/api';
 import { COLOR } from '@/constants/color';
 
 interface Props {

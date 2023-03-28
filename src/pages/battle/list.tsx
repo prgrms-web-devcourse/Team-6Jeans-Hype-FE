@@ -5,9 +5,9 @@ import { useState } from 'react';
 
 import useAuth from '@/components/auth/useAuth';
 import { BATTLE_STATUS_NAME_LIST, BATTLE_STATUS_VALUE_MAP } from '@/components/battle/constants';
-import BattleList from '@/components/battle/List_tmp';
-import { GenreValue, isGenreValue } from '@/components/battle/List_tmp/types';
-import { useGetBattleList } from '@/components/battle/List_tmp/useGetBattles';
+import BattleList from '@/components/battle/List';
+import { GenreValue, isGenreValue } from '@/components/battle/List/types';
+import { useGetBattleList } from '@/components/battle/List/useGetBattles';
 import { BattleStatusName } from '@/components/battle/types';
 import BottomNav from '@/components/common/BottomNav';
 import Filter from '@/components/common/Filter';

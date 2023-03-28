@@ -1,4 +1,4 @@
-import { BattleMusic } from '../List_tmp/types';
+import { BattleMusic } from '../List/types';
 import { AlbumPoster, Container, Music, Singer, StyledVersus, Title } from './style';
 
 interface BattleCardProps {

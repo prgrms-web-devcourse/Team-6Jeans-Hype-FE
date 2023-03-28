@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
+import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
 import NoContent from '@/components/common/NoContent';
-import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
-import { useGetMyLikeList } from '@/components/profile/likes/useGetMyLikeList';
 import RecommendationPost from '@/components/common/RecommendationPost';
+import { useGetMyLikeList } from '@/components/profile/likes/useGetMyLikeList';
 
 export default function MyLikePostListPage() {
   const [genre, setGenre] = useState<string | undefined>();

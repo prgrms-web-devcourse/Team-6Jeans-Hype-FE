@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 import Header from '@/components/common/Header';
-import Ranking from '@/components/Ranking_tmp';
+import Ranking from '@/components/Ranking';
 
 function RankingPage() {
   return (

@@ -19,7 +19,7 @@ import MobilePosts from '@/components/main/GenreTop10Post/MobilePosts';
 import InfoModal from '@/components/main/Info';
 import RandomBattle from '@/components/main/RandomBattle';
 import { getRandomBattleAlbumCoverImage } from '@/components/main/RandomBattle/api';
-import Ranking from '@/components/Ranking_tmp';
+import Ranking from '@/components/Ranking';
 import { COLOR } from '@/constants/color';
 import { useCheckMobile } from '@/hooks/useCheckMobile';
 

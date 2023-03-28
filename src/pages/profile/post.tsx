@@ -2,13 +2,13 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
 import NoContent from '@/components/common/NoContent';
-import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
-import { useGetMyPostList } from '@/components/profile/post/useGetMyPostList';
 import RecommendationPost from '@/components/common/RecommendationPost';
+import { useGetMyPostList } from '@/components/profile/post/useGetMyPostList';
 
 export default function MyPostListPage() {
   const [genre, setGenre] = useState<string | undefined>();

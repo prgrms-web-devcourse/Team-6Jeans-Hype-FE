@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import { COLOR } from '@/constants/color';
 
-import { FinishedBattleMusic } from '../List_tmp/types';
+import { FinishedBattleMusic } from '../List/types';
 import { AlbumPoster, Container, Music, Singer, StyledVersus, Title } from './style';
 
 interface FinishedCardProps {

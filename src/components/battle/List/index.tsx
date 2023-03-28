@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
 import useAuth from '@/components/auth/useAuth';
-import { Battle, FinishedBattleMusic } from '@/components/battle/List_tmp/types';
+import { Battle, FinishedBattleMusic } from '@/components/battle/List/types';
 
 import BattleCard from '../Card';
 import FinishedBattleCard from '../Card/Finished';
