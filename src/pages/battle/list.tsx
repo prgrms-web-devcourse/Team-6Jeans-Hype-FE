@@ -3,17 +3,17 @@ import Link from 'next/link';
 import ShortsIcon from 'public/images/shuffle.svg';
 import { useState } from 'react';
 
+import useAuth from '@/components/auth/useAuth';
 import { BATTLE_STATUS_NAME_LIST, BATTLE_STATUS_VALUE_MAP } from '@/components/battle/constants';
-import BattleList from '@/components/battle/list';
-import { useGetBattleList } from '@/components/battle/list/useGetBattles';
-import { GenreValue, isGenreValue } from '@/components/battle/list/types';
+import BattleList from '@/components/battle/List_tmp';
+import { GenreValue, isGenreValue } from '@/components/battle/List_tmp/types';
+import { useGetBattleList } from '@/components/battle/List_tmp/useGetBattles';
 import { BattleStatusName } from '@/components/battle/types';
 import BottomNav from '@/components/common/BottomNav';
 import Filter from '@/components/common/Filter';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
 import NoContent from '@/components/common/NoContent';
-import useAuth from '@/components/login/useAuth';
 
 export default function BattleListPage() {
   const [genreValue, setGenreValue] = useState<GenreValue | undefined>();

@@ -5,9 +5,9 @@ import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
 import NoContent from '@/components/common/NoContent';
-import AuthRequiredPage from '@/components/login/AuthRequiredPage';
+import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import { useGetMyLikeList } from '@/components/profile/likes/useGetMyLikeList';
-import RecommendationPost from '@/components/RecommendationPost';
+import RecommendationPost from '@/components/common/RecommendationPost';
 
 export default function MyLikePostListPage() {
   const [genre, setGenre] = useState<string | undefined>();

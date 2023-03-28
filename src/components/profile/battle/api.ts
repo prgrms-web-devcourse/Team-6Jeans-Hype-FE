@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { axiosInstance } from '@/api';
-import { Battle, GenreValue } from '@/components/battle/list/types';
+import { Battle, GenreValue } from '@/components/battle/List_tmp/types';
 
 import { BattleStatusValue } from '../../battle/types';
 

@@ -6,9 +6,9 @@ import BottomNav from '@/components/common/BottomNav';
 import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
 import NoContent from '@/components/common/NoContent';
-import AuthRequiredPage from '@/components/login/AuthRequiredPage';
+import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import { useGetMyPostList } from '@/components/profile/post/useGetMyPostList';
-import RecommendationPost from '@/components/RecommendationPost';
+import RecommendationPost from '@/components/common/RecommendationPost';
 
 export default function MyPostListPage() {
   const [genre, setGenre] = useState<string | undefined>();

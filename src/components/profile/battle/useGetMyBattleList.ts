@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { GenreValue } from '@/components/battle/list/types';
+import { GenreValue } from '@/components/battle/List_tmp/types';
 
 import { BattleStatusValue } from './../../battle/types';
 import { getMyBattleList } from './api';

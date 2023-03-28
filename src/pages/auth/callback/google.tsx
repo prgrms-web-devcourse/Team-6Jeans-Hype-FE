@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 
-import { GOOGLE_LOGIN_REQUEST_URL } from '@/components/login/constants';
-import { accessTokenAtom } from '@/components/login/store';
+import { GOOGLE_LOGIN_REQUEST_URL } from '@/components/auth/constants';
+import { accessTokenAtom } from '@/components/auth/store';
 import { COLOR } from '@/constants/color';
 
 export default function GoogleAuthCallbackPage() {

@@ -1,4 +1,4 @@
-import PostDetail from '@/components/post/detail';
+import PostDetail from '@/components/post/Detail_tmp';
 
 function Detail() {
   return <PostDetail />;

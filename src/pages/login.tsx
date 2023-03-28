@@ -5,8 +5,8 @@ import ImageLogo from 'public/images/image-logo.svg';
 import LetterLogo from 'public/images/letter-logo.svg';
 import React from 'react';
 
-import GoogleLoginButton from '@/components/login/GoogleLoginButton';
-import useAuth from '@/components/login/useAuth';
+import GoogleLoginButton from '@/components/auth/GoogleLoginButton';
+import useAuth from '@/components/auth/useAuth';
 
 export default function LoginPage() {
   const { isLoggedIn } = useAuth();

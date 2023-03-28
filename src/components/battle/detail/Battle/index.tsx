@@ -10,7 +10,7 @@ import { COLOR } from '@/constants/color';
 import { useToast } from '@/hooks/useToast';
 
 import { SelectedBattle } from '../../types';
-import VoteResult from '../../voteResult';
+import VoteResult from '../../VoteResult_tmp';
 import BattleMusic from '../BattleMusic';
 import { BattleMusicWrapper, Container } from './style';
 

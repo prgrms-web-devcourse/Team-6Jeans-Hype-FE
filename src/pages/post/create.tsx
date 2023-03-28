@@ -1,25 +1,46 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
+import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import HeaderSubmitButton from '@/components/common/button/SubmitButton';
 import Header from '@/components/common/Header';
 import Toast from '@/components/common/Toast';
-import AuthRequiredPage from '@/components/login/AuthRequiredPage';
-import { createPost } from '@/components/post/api';
+import { createPost } from '@/components/post/create/api';
 import PostCreate from '@/components/post/create/index';
-import { Values } from '@/components/post/create/types';
-import usePostCreate from '@/hooks/useCreatePost';
+import { Genre, Music, Values } from '@/components/post/create/types';
 import { useToast } from '@/hooks/useToast';
 
 function Create() {
-  const {
-    values: { musicInfo, selectedGenre, description, battleAvailability },
-    onChangeValues,
-    onChangeMusicInfo,
-  } = usePostCreate();
   const router = useRouter();
 
   const { showToast, handleToast } = useToast();
+
+  const [musicInfo, setMusicInfo] = useState<Music>({
+    trackId: -1,
+    trackName: '',
+    artistName: '',
+    artworkUrl100: '',
+    previewUrl: '',
+  });
+  const [selectedGenre, setSelectedGenre] = useState<Genre | undefined>(undefined);
+  const [description, setDescription] = useState<string>('');
+  const [battleAvailability, setBattleAvailability] = useState<boolean>(true);
+
+  const onChangeValues = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { value, name } = e.target;
+    if (name === 'battleAvailability') {
+      setBattleAvailability((prev) => !prev);
+    } else if (name === 'description') {
+      setDescription(value);
+    } else if (name === 'genre') {
+      setSelectedGenre(value as Genre);
+    }
+  };
+
+  const onChangeMusicInfo = (infos: Music) => {
+    setMusicInfo(infos);
+  };
 
   const onSubmit = async () => {
     const postInfo: Values = {

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import AuthRequiredPage from '@/components/login/AuthRequiredPage';
+import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BattleForm from '@/components/post/battle';
 
 function Battle() {
