@@ -9,9 +9,9 @@ import { useEffect } from 'react';
 import { RecoilRoot } from 'recoil';
 
 import AuthRequiredModal from '@/components/auth/AuthRequiredModal';
+import { global } from '@/styles/global';
 import * as gtm from '@/utils/googleTagManager/gtm';
 import GoogleTagManagerScript from '@/utils/googleTagManager/Script';
-import { global } from '@/styles/global';
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false, retry: 1 } },

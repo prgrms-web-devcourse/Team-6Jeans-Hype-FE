@@ -8,7 +8,7 @@ import BattleMusic from '@/components/battle/detail/BattleMusic';
 import HeaderSubmitButton from '@/components/common/button/SubmitButton';
 import Header from '@/components/common/Header';
 import { createBattle, getPostBattleData } from '@/components/post/battle/api';
-import MyBattleList from '@/components/post/battle/MyBattleList';
+import MyBattleList from '@/components/post/battle/MyBattleList_t';
 import SelectMusic from '@/components/post/battle/SelectMusic';
 import { BattleApplyModal } from '@/components/post/battle/types';
 import { COLOR } from '@/constants/color';
