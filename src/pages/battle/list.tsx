@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import { BATTLE_STATUS_NAME_LIST, BATTLE_STATUS_VALUE_MAP } from '@/components/battle/constants';
 import BattleList from '@/components/battle/list';
-import { useGetBattleList } from '@/components/battle/list/hooks/useGetBattles';
+import { useGetBattleList } from '@/components/battle/list/useGetBattles';
 import { GenreValue, isGenreValue } from '@/components/battle/list/types';
 import { BattleStatusName } from '@/components/battle/types';
 import BottomNav from '@/components/common/BottomNav';

@@ -6,7 +6,7 @@ import LinearGradientLogo from 'public/images/linear-gradient-logo.svg';
 import AlbumPoster from '@/components/common/AlbumPoster';
 import { COLOR } from '@/constants/color';
 
-import { useGetVoteResult } from './hooks/useGetVoteResult';
+import { useGetVoteResult } from './useGetVoteResult';
 
 interface Props {
   battleId: number;

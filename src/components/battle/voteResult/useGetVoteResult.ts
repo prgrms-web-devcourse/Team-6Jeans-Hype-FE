@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { createBattleVote } from '../../api';
-import { Vote } from '../../types';
+import { createBattleVote } from '../api';
+import { Vote } from '../types';
 
 interface Props {
   battleId: number;
