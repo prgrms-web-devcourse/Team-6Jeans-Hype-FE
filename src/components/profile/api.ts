@@ -1,6 +1,6 @@
 import { axiosInstance } from '@/api';
 
-import { tokenStorage } from '../login/utils/localStorage';
+import { tokenStorage } from '../../utils/localStorage';
 import { MyBattleAPI, MyPostAPI, ProfileAPI } from './types';
 
 export const getPostFeedLimit = async (memberId?: number) => {

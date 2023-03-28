@@ -1,4 +1,4 @@
-import { isServerSide } from '@/utils';
+import { isServerSide } from '@/utils/renderSide';
 const ACCESS_TOKEN_KEY = 'accessToken';
 
 export const tokenStorage = {

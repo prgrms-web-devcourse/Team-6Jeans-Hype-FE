@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
 import { axiosInstance } from '@/api';
-import { tokenStorage } from '@/components/login/utils/localStorage';
+import { tokenStorage } from '@/utils/localStorage';
 
 import { BattleApplyAPI, PostBattleAPI } from './types';
 

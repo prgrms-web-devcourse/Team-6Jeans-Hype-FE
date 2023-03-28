@@ -1,6 +1,6 @@
 import { axiosInstance } from '@/api';
 
-import { tokenStorage } from '../login/utils/localStorage';
+import { tokenStorage } from '../../utils/localStorage';
 import { ProfileAPI } from '../profile/types';
 
 export const getUserRanking = async (isLimit: boolean) => {
