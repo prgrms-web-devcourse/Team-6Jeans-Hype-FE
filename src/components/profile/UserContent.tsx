@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import BattleCard from '@/components/battle/Card';
 import FinishedBattleCard from '@/components/battle/Card/Finished';
 import NoContent from '@/components/common/NoContent';
-import RecommendationPost from '@/components/common/RecommendationPost';
+import RecommendationPost from '@/components/RecommendationPost';
 
 import { FinishedBattleMusic } from '../battle/list/types';
 import { getPostFeedLimit } from './api';

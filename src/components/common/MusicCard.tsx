@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Music } from '@/components/post/SearchMusics/types';
 import { COLOR } from '@/constants/color';
 
-import AlbumPoster from '../AlbumPoster';
+import AlbumPoster from './AlbumPoster';
 
 interface Prop {
   music: Music;
