@@ -21,23 +21,19 @@ interface Props {
 function PostCreate({ values, onChangeValues, onChangeMusicInfo, onSubmit }: Props) {
   const router = useRouter();
   const { trackId } = router.query;
-  const { data: musicDetail, isLoading } = useQuery(
-    ['musicDetail', trackId],
-    () => getMusicDetailData(trackId as string),
-    {
-      onSuccess: (musicDetail) => {
-        const newMusic: Music = {
-          trackId: musicDetail?.trackId,
-          trackName: musicDetail?.trackName,
-          artistName: musicDetail?.artistName,
-          artworkUrl100: musicDetail?.artworkUrl100,
-          previewUrl: musicDetail?.previewUrl,
-        };
+  const { isLoading } = useQuery(['musicDetail', trackId], () => getMusicDetailData(trackId as string), {
+    onSuccess: (musicDetail) => {
+      const newMusic: Music = {
+        trackId: musicDetail?.trackId,
+        trackName: musicDetail?.trackName,
+        artistName: musicDetail?.artistName,
+        artworkUrl100: musicDetail?.artworkUrl100,
+        previewUrl: musicDetail?.previewUrl,
+      };
 
-        onChangeMusicInfo(newMusic);
-      },
+      onChangeMusicInfo(newMusic);
     },
-  );
+  });
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

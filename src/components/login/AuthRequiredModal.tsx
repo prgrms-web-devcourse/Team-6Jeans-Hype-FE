@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 
-import ConfirmModal from '@/components/common/Modal/Confirm';
+import ConfirmModal from '@/components/common/modal/Confirm';
 
 import { isOpenedAuthRequiredModalAtom } from './store';
 

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
-import MusicPlayButton from '@/components/common/MusicPlayButton';
+import MusicPlayButton from '@/components/common/button/MusicPlayButton';
 import { COLOR } from '@/constants/color';
 
 import { Music } from './types';

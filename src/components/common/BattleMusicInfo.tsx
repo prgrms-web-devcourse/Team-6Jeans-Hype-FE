@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { BattleMusic } from '@/components/post/battle/types';
 import { COLOR } from '@/constants/color';
 
-import MusicPlayButton from '../MusicPlayButton';
+import MusicPlayButton from './button/MusicPlayButton';
 
 interface Prop {
   music: BattleMusic;

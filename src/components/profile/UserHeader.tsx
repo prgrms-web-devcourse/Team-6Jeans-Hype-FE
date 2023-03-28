@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { getUserProfile } from '@/components/profile/api';
 import { COLOR } from '@/constants/color';
 
-import ConfirmModal from '../common/Modal/Confirm';
+import ConfirmModal from '../common/modal/Confirm';
 import SkeletonCircle from '../common/skeleton/Circle';
 import useAuth from '../login/useAuth';
 import ResultCard from './ResultCard';

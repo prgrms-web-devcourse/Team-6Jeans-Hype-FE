@@ -1,7 +1,7 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import MusicPlayButton from '@/components/common/MusicPlayButton';
+import MusicPlayButton from '@/components/common/button/MusicPlayButton';
 import { COLOR } from '@/constants/color';
 
 export const Container = styled.div`

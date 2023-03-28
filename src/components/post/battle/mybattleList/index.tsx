@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
-import AlertModal from '@/components/common/Modal/Alert';
-import ConfirmModal from '@/components/common/Modal/Confirm';
+import AlertModal from '@/components/common/modal/Alert';
+import ConfirmModal from '@/components/common/modal/Confirm';
 import NoContent from '@/components/common/NoContent';
 import MusicListSkeleton from '@/components/common/skeleton/MusicListSkeleton';
 import { COLOR } from '@/constants/color';

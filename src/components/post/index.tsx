@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 
-import RecommendationPost from '@/components/common/RecommendationPost';
 import { PostInfo } from '@/components/post/types';
+import RecommendationPost from '@/components/RecommendationPost';
 
 import NoContent from '../common/NoContent';
 import MusicListSkeleton from '../common/skeleton/MusicListSkeleton';
