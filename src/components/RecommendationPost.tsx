@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
 import AlbumPoster from '@/components/common/AlbumPoster';
-import Battle from '@/components/common/ImageButtons/BattleButton';
-import Like from '@/components/common/ImageButtons/LikeButton';
+import Battle from '@/components/common/button/BattleButton';
+import Like from '@/components/common/button/LikeButton';
 import { PostInfo } from '@/components/post/types';
 import { COLOR } from '@/constants/color';
 

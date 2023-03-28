@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
+import HeaderSubmitButton from '@/components/common/button/SubmitButton';
 import Header from '@/components/common/Header';
-import HeaderSubmitButton from '@/components/common/Header/SubmitButton';
 import Toast from '@/components/common/Toast';
 import AuthRequiredPage from '@/components/login/AuthRequiredPage';
 import { createPost } from '@/components/post/api';
