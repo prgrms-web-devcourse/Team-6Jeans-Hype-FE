@@ -3,10 +3,10 @@ import styled from '@emotion/styled';
 import Toggle from '@/components/common/Toggle';
 import { COLOR } from '@/constants/color';
 
-import { Values } from './types';
+import { InputsValue } from './types';
 
 interface Props {
-  values: Values;
+  values: InputsValue;
   onChangeValues: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 }
 
