@@ -1,17 +1,19 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
+import { useRecoilState } from 'recoil';
 
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import Header from '@/components/common/Header';
 import NoContent from '@/components/common/NoContent';
 import MusicList from '@/components/post/search/MusicList';
 import SearchInput from '@/components/post/search/SearchInput';
+import { searchedKeyword, searchedTempKeyword } from '@/components/post/search/store';
 
 function SearchMusics() {
   const router = useRouter();
-  const [keyword, setKeyword] = useState<string>('');
-  const [tmpKeyword, setTmpKeyword] = useState<string>('');
+  const [keyword, setKeyword] = useRecoilState(searchedKeyword);
+  const [tmpKeyword, setTmpKeyword] = useRecoilState(searchedTempKeyword);
 
   const onChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -21,12 +23,9 @@ function SearchMusics() {
 
   const onClickInSearchButton = useCallback(() => {
     setKeyword(tmpKeyword);
-  }, [tmpKeyword]);
+  }, [setKeyword, tmpKeyword]);
 
   const onClickInMusicList = (trackId: number) => {
-    setKeyword('');
-    setTmpKeyword('');
-
     router.push(`/post/create?trackId=${trackId}`);
   };
 
