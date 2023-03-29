@@ -1,18 +1,36 @@
 import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import HeaderSubmitButton from '@/components/common/button/SubmitButton';
+import Genres from '@/components/common/Genres';
 import Header from '@/components/common/Header';
+import Box from '@/components/common/skeleton/Box';
 import Toast from '@/components/common/Toast';
-import { createPost } from '@/components/post/create/api';
-import PostCreate from '@/components/post/create/index';
+import { createPost, getMusicDetailData } from '@/components/post/create/api';
+import Inputs from '@/components/post/create/Inputs';
+import SelectedMusic from '@/components/post/create/SelectedMusic';
 import { Genre, Music, Values } from '@/components/post/create/types';
 import { useToast } from '@/hooks/useToast';
 
 function Create() {
   const router = useRouter();
+  const { trackId } = router.query;
+  const { isLoading } = useQuery(['musicDetail', trackId], () => getMusicDetailData(trackId as string), {
+    onSuccess: (musicDetail) => {
+      const newMusic: Music = {
+        trackId: musicDetail?.trackId,
+        trackName: musicDetail?.trackName,
+        artistName: musicDetail?.artistName,
+        artworkUrl100: musicDetail?.artworkUrl100,
+        previewUrl: musicDetail?.previewUrl,
+      };
+
+      onChangeMusicInfo(newMusic);
+    },
+  });
 
   const { showToast, handleToast } = useToast();
 
@@ -68,12 +86,25 @@ function Create() {
           backUrl='/post/searchMusics'
           actionButton={<HeaderSubmitButton onClick={onSubmit} />}
         />
-        <PostCreate
-          values={{ musicInfo, selectedGenre, description, battleAvailability }}
-          onChangeValues={onChangeValues}
-          onChangeMusicInfo={onChangeMusicInfo}
-          onSubmit={onSubmit}
-        />
+        <Form>
+          <Row>
+            {isLoading ? (
+              <>
+                <SkeletonContainer>
+                  <Box width={100} height={100} />
+                </SkeletonContainer>
+              </>
+            ) : (
+              <SelectedMusic selectedMusic={musicInfo} />
+            )}
+          </Row>
+          <Row>
+            <Genres title='장르 선택' onChange={onChangeValues} />
+          </Row>
+          <Row>
+            <Inputs onChangeValues={onChangeValues} values={{ description, battleAvailability }} />
+          </Row>
+        </Form>
       </Container>
       {showToast && <Toast message='장르를 선택해주세요.' />}
     </AuthRequiredPage>
@@ -84,4 +115,28 @@ export default Create;
 
 const Container = styled.div`
   height: 100vh;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100% - 5.2rem);
+  margin: 0 auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+`;
+
+const Row = styled.div`
+  margin-bottom: 2.9rem;
+  width: 100%;
+  & > span {
+    margin-right: 1rem;
+  }
+`;
+
+const SkeletonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 `;

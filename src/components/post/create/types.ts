@@ -13,11 +13,14 @@ export type Genre =
   | 'POP'
   | '기타';
 
-export interface Values {
-  musicInfo: Music;
-  selectedGenre: Genre | undefined;
+export interface InputsValue {
   description: string;
   battleAvailability: boolean;
+}
+
+export interface Values extends InputsValue {
+  musicInfo: Music;
+  selectedGenre: Genre | undefined;
 }
 
 export interface Music {
