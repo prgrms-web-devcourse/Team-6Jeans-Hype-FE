@@ -14,8 +14,8 @@ export type Genre =
   | '기타';
 
 export interface Values {
-  musicInfo: Music;
-  selectedGenre: Genre | undefined;
+  musicInfo?: Music;
+  selectedGenre?: Genre | undefined;
   description: string;
   battleAvailability: boolean;
 }
