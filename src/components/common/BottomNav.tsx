@@ -11,8 +11,10 @@ import MypageOnIcon from 'public/images/bottom-nav/mypage-icon.svg';
 import MypageIcon from 'public/images/bottom-nav/mypage-icon-off.svg';
 import ShareOnIcon from 'public/images/bottom-nav/share-icon.svg';
 import ShareIcon from 'public/images/bottom-nav/share-icon-off.svg';
+import { useSetRecoilState } from 'recoil';
 
 import useAuth from '@/components/auth/useAuth';
+import { searchedKeyword, searchedTempKeyword } from '@/components/post/search/store';
 import { COLOR } from '@/constants/color';
 
 interface Button {
@@ -26,6 +28,8 @@ const BottomNav = () => {
   const router = useRouter();
   const { asPath } = router;
   const { openAuthRequiredModal, isLoggedIn } = useAuth();
+  const setKeyword = useSetRecoilState(searchedKeyword);
+  const setTmpKeyword = useSetRecoilState(searchedTempKeyword);
 
   const buttonList: Button[] = [
     {
@@ -42,7 +46,11 @@ const BottomNav = () => {
       src: (isClicked: boolean) => (isClicked ? <ShareOnIcon /> : <ShareIcon />),
       text: '추천',
       paths: [isLoggedIn ? '/post/searchMusics' : ''],
-      onClick: () => isLoggedIn || openAuthRequiredModal(),
+      onClick: () => {
+        isLoggedIn || openAuthRequiredModal();
+        setKeyword('');
+        setTmpKeyword('');
+      },
     },
     {
       src: (isClicked: boolean) => (isClicked ? <FeedOnIcon /> : <FeedIcon />),
