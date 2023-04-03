@@ -11,6 +11,7 @@ export const Container = styled.div`
   position: relative;
   justify-content: space-between;
   padding: 1.6rem 1.3rem;
+  cursor: pointer;
 `;
 
 export const StyledVersus = styled(Versus)`

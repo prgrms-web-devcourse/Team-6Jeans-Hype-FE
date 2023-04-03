@@ -5,7 +5,6 @@ import { StyledMusicPlayButton } from '@/components/battle/detail/BattleMusic/st
 import { COLOR } from '@/constants/color';
 
 import { Music } from '../Detail/types';
-
 interface Prop {
   music: Music;
   onClick?: () => void;
@@ -105,4 +104,5 @@ const StyledMusicPlusButton = styled(MusicPlusButton)`
   top: 2rem;
   left: 50%;
   transform: translateX(-50%);
+  cursor: pointer;
 `;

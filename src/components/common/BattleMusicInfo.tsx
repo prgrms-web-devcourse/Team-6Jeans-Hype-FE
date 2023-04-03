@@ -113,6 +113,7 @@ const PlayIcon = styled.div<{ value: string | undefined }>`
   transform: translate(-50%, -50%);
 
   display: ${(prop) => (prop.value === '' ? 'none' : 'block')};
+  cursor: pointer;
 `;
 
 const PlusIcon = styled.img<{ value: string | undefined }>`
@@ -122,6 +123,7 @@ const PlusIcon = styled.img<{ value: string | undefined }>`
   transform: translate(-50%, -50%);
 
   display: ${(prop) => (prop.value === '' ? 'block' : 'none')};
+  cursor: pointer;
 `;
 
 const Title = styled.div`

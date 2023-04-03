@@ -298,7 +298,6 @@ const ContentHeaderWrapper = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  cursor: pointer;
 `;
 
 const Title = styled.div`
@@ -309,12 +308,14 @@ const Title = styled.div`
 
 const Name = styled.strong`
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const ToggleArrowButton = styled.div`
   position: absolute;
   right: 3rem;
   display: ${({ isContent }: StyleProp) => (isContent ? 'block' : 'none')};
+  cursor: pointer;
 `;
 
 const ToggleImage = styled.img`

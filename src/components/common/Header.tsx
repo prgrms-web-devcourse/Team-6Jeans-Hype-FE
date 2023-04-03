@@ -70,4 +70,5 @@ const StyledBackIcon = styled(BackIcon)<{ color: string }>`
   & > path {
     stroke: ${({ color }) => color};
   }
+  cursor: pointer;
 `;

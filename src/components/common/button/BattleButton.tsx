@@ -26,12 +26,12 @@ function Battle({ size, color, battleAbility, onClick }: Props) {
   };
 
   return (
-    <BattleContainer onClick={handleClick}>
+    <Container onClick={handleClick}>
       <StyledFireIcon size={size} color={color} ability={battleAbility.toString()} />
       <Text ability={battleAbility} color={color}>
         {battleAbility ? '대결신청' : '대결불가'}
       </Text>
-    </BattleContainer>
+    </Container>
   );
 }
 
@@ -43,10 +43,11 @@ interface StyleProp {
   ability: boolean;
 }
 
-const BattleContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Text = styled.span`

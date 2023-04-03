@@ -34,6 +34,7 @@ const Select = styled.select`
   width: min-content;
   padding-right: 1.3rem;
   text-align: end;
+  cursor: pointer;
 `;
 
 const Container = styled.div`

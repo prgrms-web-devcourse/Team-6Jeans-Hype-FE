@@ -24,9 +24,9 @@ function RecommendationPost({
   const navigatePostBattle = (postId: number) => router.push(`/post/battle?postId=${postId}`);
 
   return (
-    <Container key={postId} onClick={(e) => navigatePostDetail(e, postId)}>
+    <Container>
       {nickname && <Nickname>{nickname}</Nickname>}
-      <Wrapper>
+      <Wrapper key={postId} onClick={(e) => navigatePostDetail(e, postId)}>
         <AlbumPoster lazy={true} size={6.6} src={albumCoverUrl} />
         <Content>
           <MusicInfo>
@@ -59,7 +59,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  cursor: pointer;
 `;
 
 const Nickname = styled.span`
@@ -74,6 +73,7 @@ const Wrapper = styled.div`
   background: ${COLOR.white};
   box-shadow: 0px 0px 10px rgba(226, 226, 226, 0.25);
   border-radius: 1rem;
+  cursor: pointer;
 `;
 
 const Content = styled.div`
