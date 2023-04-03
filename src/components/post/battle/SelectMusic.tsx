@@ -4,7 +4,7 @@ import MusicPlusButton from 'public/images/plus-music.svg';
 import { StyledMusicPlayButton } from '@/components/battle/detail/BattleMusic/style';
 import { COLOR } from '@/constants/color';
 
-import { Music } from '../detail/types';
+import { Music } from '../Detail/types';
 interface Prop {
   music: Music;
   onClick?: () => void;
