@@ -4,8 +4,7 @@ import MusicPlusButton from 'public/images/plus-music.svg';
 import { StyledMusicPlayButton } from '@/components/battle/detail/BattleMusic/style';
 import { COLOR } from '@/constants/color';
 
-import { Music } from '../Detail/types';
-
+import { Music } from '../detail/types';
 interface Prop {
   music: Music;
   onClick?: () => void;
@@ -105,4 +104,5 @@ const StyledMusicPlusButton = styled(MusicPlusButton)`
   top: 2rem;
   left: 50%;
   transform: translateX(-50%);
+  cursor: pointer;
 `;

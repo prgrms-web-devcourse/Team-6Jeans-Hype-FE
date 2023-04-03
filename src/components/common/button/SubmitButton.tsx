@@ -15,6 +15,7 @@ const Button = styled.button`
   font-weight: 500;
   font-size: 1.4rem;
   color: ${COLOR.deepBlue};
+  cursor: pointer;
 
   &:active {
     font-weight: 700;

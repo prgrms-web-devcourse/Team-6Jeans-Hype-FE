@@ -48,10 +48,10 @@ function Like({ size, color, initCount, initIsClick, postId }: Props) {
   }, [initCount, initIsClick]);
 
   return (
-    <LikeContainer onClick={handleClick}>
+    <Container onClick={handleClick}>
       {isClick ? <StyledLikeOnIcon size={size} color={color} /> : <StyledLikeOffIcon size={size} color={color} />}
       <Text color={color}>{currentCount}</Text>
-    </LikeContainer>
+    </Container>
   );
 }
 
@@ -62,10 +62,11 @@ interface StyleProp {
   color?: 'white' | 'purple';
 }
 
-const LikeContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Text = styled.div`

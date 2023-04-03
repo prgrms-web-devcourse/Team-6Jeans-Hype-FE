@@ -78,6 +78,7 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  cursor: pointer;
 `;
 
 const Content = styled.div`

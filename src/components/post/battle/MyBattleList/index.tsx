@@ -171,6 +171,7 @@ const Post = styled.div`
   display: flex;
   align-items: center;
   padding: 0.5rem;
+  cursor: pointer;
 `;
 
 const MusicInfo = styled.div`
