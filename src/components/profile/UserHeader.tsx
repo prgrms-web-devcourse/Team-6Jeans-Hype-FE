@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import CompleteIcon from 'public/images/complete-icon.svg';
+import EditIcon from 'public/images/pencil-icon.svg';
+import { useRef, useState } from 'react';
 
 import { getUserProfile } from '@/components/profile/api';
 import { COLOR } from '@/constants/color';
@@ -30,12 +32,26 @@ function UserHeader() {
   const { memberId } = router.query;
   const { logout } = useAuth();
 
-  const [modalStatus, setModalStatus] = useState(false);
+  const divWrapperRef = useRef<HTMLDivElement>(null);
+  const inputWrapperRef = useRef<HTMLDivElement>(null);
+  const [modalStatus, setModalStatus] = useState<boolean>(false);
+  const [name, setName] = useState<string | undefined>();
 
-  const { data: userProfile, isLoading } = useQuery(['userProfile', memberId], () => getUserProfile(Number(memberId)));
+  const { data: userProfile, isLoading } = useQuery(['userProfile', memberId], () => getUserProfile(Number(memberId)), {
+    onSuccess: (successData) => {
+      setName(successData?.nickname);
+    },
+  });
 
   const onClickLogout = () => {
     setModalStatus((prev) => !prev);
+  };
+
+  const onClickEdit = () => {
+    if (divWrapperRef.current && inputWrapperRef.current) {
+      divWrapperRef.current.style.display = 'none';
+      inputWrapperRef.current.style.display = 'flex';
+    }
   };
 
   return (
@@ -51,7 +67,14 @@ function UserHeader() {
             )}
           </DefaultProfile>
           <Info>
-            <Name>{userProfile?.nickname}</Name>
+            <NameWrapper ref={divWrapperRef}>
+              <NameDiv>{name}</NameDiv>
+              <StyledEditIcon onClick={onClickEdit} />
+            </NameWrapper>
+            <NameInputWrapper ref={inputWrapperRef}>
+              <NameInput value={name} onChange={() => setName} maxLength={10} />
+              <StyledCompleteIcon onClick={onClickEdit} />
+            </NameInputWrapper>
             {userProfile?.countOfChanllenge !== undefined && (
               <RestTicket>남은 대결권 {userProfile?.countOfChanllenge}</RestTicket>
             )}
@@ -132,12 +155,46 @@ const Info = styled.div`
   max-width: 22rem;
 `;
 
-const Name = styled.h1`
+const NameWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const NameInputWrapper = styled(NameWrapper)`
+  display: none;
+`;
+
+const NameDiv = styled.div`
   font-weight: 500;
   font-size: 1.7rem;
   line-height: 2.2rem;
   color: ${COLOR.white};
+  background-color: transparent;
 `;
+
+const NameInput = styled.input`
+  background-color: white;
+  color: ${COLOR.deepBlue};
+  border-radius: 0.8rem;
+  padding-left: 0.8rem;
+  width: 14rem;
+`;
+
+const StyledEditIcon = styled(EditIcon)`
+  width: 1.6rem;
+  height: 1.6rem;
+  margin: 1rem;
+  cursor: pointer;
+`;
+
+const StyledCompleteIcon = styled(CompleteIcon)`
+  width: 1.6rem;
+  height: 1.6rem;
+  margin: 1rem;
+  cursor: pointer;
+`;
+
+CompleteIcon;
 
 const RestTicket = styled.div`
   width: fit-content;
