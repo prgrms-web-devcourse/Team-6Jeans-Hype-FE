@@ -5,7 +5,7 @@ import CompleteIcon from 'public/images/complete-icon.svg';
 import EditIcon from 'public/images/pencil-icon.svg';
 import { useRef, useState } from 'react';
 
-import { getUserProfile, modifyUserName } from '@/components/profile/api';
+import { getUserProfile, modifyUserImage, modifyUserName } from '@/components/profile/api';
 import { COLOR } from '@/constants/color';
 import { useToast } from '@/hooks/useToast';
 
@@ -39,12 +39,15 @@ function UserHeader() {
 
   const [modalStatus, setModalStatus] = useState<boolean>(false);
   const [name, setName] = useState<string | undefined>('');
+  const [image, setImage] = useState<string | undefined>('');
 
   const { showToast, handleToast } = useToast();
+  const [modalText, setModalText] = useState<string>('');
 
   const { data: userProfile, isLoading } = useQuery(['userProfile', memberId], () => getUserProfile(Number(memberId)), {
     onSuccess: (successData) => {
       setName(successData?.nickname);
+      setImage(successData?.profileImageUrl);
     },
   });
 
@@ -52,10 +55,26 @@ function UserHeader() {
     setModalStatus((prev) => !prev);
   };
 
-  const onClickEdit = () => {
+  const onClickEditName = () => {
     if (divWrapperRef.current && inputWrapperRef.current) {
       divWrapperRef.current.style.display = 'none';
       inputWrapperRef.current.style.display = 'flex';
+    }
+  };
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedImage = e.target.files && e.target.files[0];
+    //이미지 말고 일반 파일도 업로드 되는데 처리 필요
+    if (selectedImage) {
+      const res = await modifyUserImage(selectedImage); //여기서 로딩이 좀 걸림. 처리 필요
+
+      if (res) {
+        setImage(URL.createObjectURL(selectedImage));
+        setModalText('프로필 이미지가 변경되었습니다');
+      } else {
+        setModalText('이미지가 너무 크거나 올바른 형태가 아닙니다');
+      }
+      handleToast();
     }
   };
 
@@ -65,6 +84,7 @@ function UserHeader() {
     if (name) {
       const res = await modifyUserName(name);
       if (res) {
+        setModalText('닉네임이 변경되었습니다');
         handleToast();
       }
       if (divWrapperRef.current && inputWrapperRef.current) {
@@ -83,13 +103,23 @@ function UserHeader() {
             {isLoading ? (
               <SkeletonCircle width={7} height={7} />
             ) : (
-              <img src={userProfile?.profileImageUrl} alt='profile' />
+              <>
+                <img src={image} alt='profile' />
+                {!memberId && (
+                  <>
+                    <ImgEditIconWrapper htmlFor='image_input'>
+                      <StyledEditIcon />
+                    </ImgEditIconWrapper>
+                    <File type='file' id='image_input' onChange={handleImageChange} accept='image/jpeg, image/png' />
+                  </>
+                )}
+              </>
             )}
           </DefaultProfile>
           <Info>
             <NameWrapper ref={divWrapperRef}>
               <NameDiv>{name}</NameDiv>
-              {!memberId && <StyledEditIcon onClick={onClickEdit} />}
+              {!memberId && <StyledEditIcon onClick={onClickEditName} />}
             </NameWrapper>
             <NameInputWrapper ref={inputWrapperRef} onSubmit={onSubmitName}>
               <NameInput value={name} onChange={(e) => setName(e.target.value)} maxLength={10} />
@@ -114,7 +144,7 @@ function UserHeader() {
       />
       {showToast && (
         <ToastContainer>
-          <Toast message='변경되었습니다' bottom='10rem' />
+          <Toast message={modalText} bottom='10rem' />
         </ToastContainer>
       )}
     </Container>
@@ -162,14 +192,25 @@ const DefaultProfile = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   box-shadow: 0px 0px 15px rgba(158, 158, 158, 0.25);
   border-radius: 50%;
-
+  background-color: ${COLOR.white};
   & > img {
     width: 7rem;
     height: 7rem;
     border-radius: 50%;
   }
+`;
+
+const ImgEditIconWrapper = styled.label`
+  position: absolute;
+  bottom: -1rem;
+  right: -1rem;
+`;
+
+const File = styled.input`
+  display: none;
 `;
 
 const Info = styled.div`
