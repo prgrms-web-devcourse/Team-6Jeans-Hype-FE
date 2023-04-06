@@ -78,3 +78,19 @@ export const getBattlesLimit = async () => {
     console.error(error);
   }
 };
+
+export const modifyUserName = async (name: string) => {
+  try {
+    const { data } = await axiosInstance.request<MyBattleAPI>({
+      method: 'POST',
+      url: `/members/profile/nickname`,
+      data: {
+        nickname: name,
+      },
+    });
+
+    return data.success;
+  } catch (error) {
+    console.error(error);
+  }
+};

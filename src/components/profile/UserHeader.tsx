@@ -5,12 +5,14 @@ import CompleteIcon from 'public/images/complete-icon.svg';
 import EditIcon from 'public/images/pencil-icon.svg';
 import { useRef, useState } from 'react';
 
-import { getUserProfile } from '@/components/profile/api';
+import { getUserProfile, modifyUserName } from '@/components/profile/api';
 import { COLOR } from '@/constants/color';
+import { useToast } from '@/hooks/useToast';
 
 import useAuth from '../auth/useAuth';
 import ConfirmModal from '../common/modal/Confirm';
 import SkeletonCircle from '../common/skeleton/Circle';
+import Toast from '../common/Toast';
 import ResultCard from './ResultCard';
 
 interface ResultCard {
@@ -33,9 +35,12 @@ function UserHeader() {
   const { logout } = useAuth();
 
   const divWrapperRef = useRef<HTMLDivElement>(null);
-  const inputWrapperRef = useRef<HTMLDivElement>(null);
+  const inputWrapperRef = useRef<HTMLFormElement>(null);
+
   const [modalStatus, setModalStatus] = useState<boolean>(false);
-  const [name, setName] = useState<string | undefined>();
+  const [name, setName] = useState<string | undefined>('');
+
+  const { showToast, handleToast } = useToast();
 
   const { data: userProfile, isLoading } = useQuery(['userProfile', memberId], () => getUserProfile(Number(memberId)), {
     onSuccess: (successData) => {
@@ -54,6 +59,21 @@ function UserHeader() {
     }
   };
 
+  const onSubmitName = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (name) {
+      const res = await modifyUserName(name);
+      if (res) {
+        handleToast();
+      }
+      if (divWrapperRef.current && inputWrapperRef.current) {
+        divWrapperRef.current.style.display = 'flex';
+        inputWrapperRef.current.style.display = 'none';
+      }
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -69,11 +89,11 @@ function UserHeader() {
           <Info>
             <NameWrapper ref={divWrapperRef}>
               <NameDiv>{name}</NameDiv>
-              <StyledEditIcon onClick={onClickEdit} />
+              {!memberId && <StyledEditIcon onClick={onClickEdit} />}
             </NameWrapper>
-            <NameInputWrapper ref={inputWrapperRef}>
-              <NameInput value={name} onChange={() => setName} maxLength={10} />
-              <StyledCompleteIcon onClick={onClickEdit} />
+            <NameInputWrapper ref={inputWrapperRef} onSubmit={onSubmitName}>
+              <NameInput value={name} onChange={(e) => setName(e.target.value)} maxLength={10} />
+              <StyledCompleteIcon onClick={onSubmitName} />
             </NameInputWrapper>
             {userProfile?.countOfChanllenge !== undefined && (
               <RestTicket>남은 대결권 {userProfile?.countOfChanllenge}</RestTicket>
@@ -92,6 +112,11 @@ function UserHeader() {
         onClickCancel={onClickLogout}
         onClickConfirm={logout}
       />
+      {showToast && (
+        <ToastContainer>
+          <Toast message='변경되었습니다' bottom='10rem' />
+        </ToastContainer>
+      )}
     </Container>
   );
 }
@@ -160,7 +185,9 @@ const NameWrapper = styled.div`
   align-items: center;
 `;
 
-const NameInputWrapper = styled(NameWrapper)`
+const NameInputWrapper = styled.form`
+  display: flex;
+  align-items: center;
   display: none;
 `;
 
@@ -194,12 +221,15 @@ const StyledCompleteIcon = styled(CompleteIcon)`
   cursor: pointer;
 `;
 
-CompleteIcon;
-
 const RestTicket = styled.div`
   width: fit-content;
   background-color: rgba(255, 255, 255, 0.2);
   padding: 0.4rem 1.3rem;
   border-radius: 5rem;
   color: ${COLOR.white};
+`;
+
+const ToastContainer = styled.div`
+  position: absolute;
+  z-index: 999;
 `;
