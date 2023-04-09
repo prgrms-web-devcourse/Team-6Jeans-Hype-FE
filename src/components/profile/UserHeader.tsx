@@ -64,9 +64,9 @@ function UserHeader() {
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedImage = e.target.files && e.target.files[0];
-    //이미지 말고 일반 파일도 업로드 되는데 처리 필요
+
     if (selectedImage) {
-      const res = await modifyUserImage(selectedImage); //여기서 로딩이 좀 걸림. 처리 필요
+      const res = await modifyUserImage(selectedImage);
 
       if (res) {
         setImage(URL.createObjectURL(selectedImage));
