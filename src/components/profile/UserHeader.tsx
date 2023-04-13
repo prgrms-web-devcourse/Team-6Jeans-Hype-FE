@@ -1,14 +1,18 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import CompleteIcon from 'public/images/complete-icon.svg';
+import EditIcon from 'public/images/pencil-icon.svg';
+import { useRef, useState } from 'react';
 
-import { getUserProfile } from '@/components/profile/api';
+import { getUserProfile, modifyUserImage, modifyUserName } from '@/components/profile/api';
 import { COLOR } from '@/constants/color';
+import { useToast } from '@/hooks/useToast';
 
 import useAuth from '../auth/useAuth';
 import ConfirmModal from '../common/modal/Confirm';
 import SkeletonCircle from '../common/skeleton/Circle';
+import Toast from '../common/Toast';
 import ResultCard from './ResultCard';
 
 interface ResultCard {
@@ -30,12 +34,64 @@ function UserHeader() {
   const { memberId } = router.query;
   const { logout } = useAuth();
 
-  const [modalStatus, setModalStatus] = useState(false);
+  const divWrapperRef = useRef<HTMLDivElement>(null);
+  const inputWrapperRef = useRef<HTMLFormElement>(null);
 
-  const { data: userProfile, isLoading } = useQuery(['userProfile', memberId], () => getUserProfile(Number(memberId)));
+  const [modalStatus, setModalStatus] = useState<boolean>(false);
+  const [name, setName] = useState<string | undefined>('');
+  const [image, setImage] = useState<string | undefined>('');
+
+  const { showToast, handleToast } = useToast();
+  const [modalText, setModalText] = useState<string>('');
+
+  const { data: userProfile, isLoading } = useQuery(['userProfile', memberId], () => getUserProfile(Number(memberId)), {
+    onSuccess: (successData) => {
+      setName(successData?.nickname);
+      setImage(successData?.profileImageUrl);
+    },
+  });
 
   const onClickLogout = () => {
     setModalStatus((prev) => !prev);
+  };
+
+  const onClickEditName = () => {
+    if (divWrapperRef.current && inputWrapperRef.current) {
+      divWrapperRef.current.style.display = 'none';
+      inputWrapperRef.current.style.display = 'flex';
+    }
+  };
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedImage = e.target.files && e.target.files[0];
+
+    if (selectedImage) {
+      const res = await modifyUserImage(selectedImage);
+
+      if (res) {
+        setImage(URL.createObjectURL(selectedImage));
+        setModalText('프로필 이미지가 변경되었습니다');
+      } else {
+        setModalText('이미지가 너무 크거나 올바른 형태가 아닙니다');
+      }
+      handleToast();
+    }
+  };
+
+  const onSubmitName = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (name) {
+      const res = await modifyUserName(name);
+      if (res) {
+        setModalText('닉네임이 변경되었습니다');
+        handleToast();
+      }
+      if (divWrapperRef.current && inputWrapperRef.current) {
+        divWrapperRef.current.style.display = 'flex';
+        inputWrapperRef.current.style.display = 'none';
+      }
+    }
   };
 
   return (
@@ -47,11 +103,28 @@ function UserHeader() {
             {isLoading ? (
               <SkeletonCircle width={7} height={7} />
             ) : (
-              <img src={userProfile?.profileImageUrl} alt='profile' />
+              <>
+                <img src={image} alt='profile' />
+                {!memberId && (
+                  <>
+                    <ImgEditIconWrapper htmlFor='image_input'>
+                      <StyledEditIcon />
+                    </ImgEditIconWrapper>
+                    <File type='file' id='image_input' onChange={handleImageChange} accept='image/jpeg, image/png' />
+                  </>
+                )}
+              </>
             )}
           </DefaultProfile>
           <Info>
-            <Name>{userProfile?.nickname}</Name>
+            <NameWrapper ref={divWrapperRef}>
+              <NameDiv>{name}</NameDiv>
+              {!memberId && <StyledEditIcon onClick={onClickEditName} />}
+            </NameWrapper>
+            <NameInputWrapper ref={inputWrapperRef} onSubmit={onSubmitName}>
+              <NameInput value={name} onChange={(e) => setName(e.target.value)} maxLength={10} />
+              <StyledCompleteIcon onClick={onSubmitName} />
+            </NameInputWrapper>
             {userProfile?.countOfChanllenge !== undefined && (
               <RestTicket>남은 대결권 {userProfile?.countOfChanllenge}</RestTicket>
             )}
@@ -69,6 +142,11 @@ function UserHeader() {
         onClickCancel={onClickLogout}
         onClickConfirm={logout}
       />
+      {showToast && (
+        <ToastContainer>
+          <Toast message={modalText} bottom='10rem' />
+        </ToastContainer>
+      )}
     </Container>
   );
 }
@@ -114,14 +192,25 @@ const DefaultProfile = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   box-shadow: 0px 0px 15px rgba(158, 158, 158, 0.25);
   border-radius: 50%;
-
+  background-color: ${COLOR.white};
   & > img {
     width: 7rem;
     height: 7rem;
     border-radius: 50%;
   }
+`;
+
+const ImgEditIconWrapper = styled.label`
+  position: absolute;
+  bottom: -1rem;
+  right: -1rem;
+`;
+
+const File = styled.input`
+  display: none;
 `;
 
 const Info = styled.div`
@@ -132,11 +221,45 @@ const Info = styled.div`
   max-width: 22rem;
 `;
 
-const Name = styled.h1`
+const NameWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const NameInputWrapper = styled.form`
+  display: flex;
+  align-items: center;
+  display: none;
+`;
+
+const NameDiv = styled.div`
   font-weight: 500;
   font-size: 1.7rem;
   line-height: 2.2rem;
   color: ${COLOR.white};
+  background-color: transparent;
+`;
+
+const NameInput = styled.input`
+  background-color: white;
+  color: ${COLOR.deepBlue};
+  border-radius: 0.8rem;
+  padding-left: 0.8rem;
+  width: 14rem;
+`;
+
+const StyledEditIcon = styled(EditIcon)`
+  width: 1.6rem;
+  height: 1.6rem;
+  margin: 1rem;
+  cursor: pointer;
+`;
+
+const StyledCompleteIcon = styled(CompleteIcon)`
+  width: 1.6rem;
+  height: 1.6rem;
+  margin: 1rem;
+  cursor: pointer;
 `;
 
 const RestTicket = styled.div`
@@ -145,4 +268,9 @@ const RestTicket = styled.div`
   padding: 0.4rem 1.3rem;
   border-radius: 5rem;
   color: ${COLOR.white};
+`;
+
+const ToastContainer = styled.div`
+  position: absolute;
+  z-index: 999;
 `;

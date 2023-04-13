@@ -78,3 +78,39 @@ export const getBattlesLimit = async () => {
     console.error(error);
   }
 };
+
+export const modifyUserName = async (name: string) => {
+  try {
+    const { data } = await axiosInstance.request<MyBattleAPI>({
+      method: 'POST',
+      url: `/members/profile/nickname`,
+      data: {
+        nickname: name,
+      },
+    });
+
+    return data.success;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const modifyUserImage = async (file: File) => {
+  try {
+    const formData = new FormData();
+    formData.append('profileImage', file);
+
+    const { data } = await axiosInstance.request<MyBattleAPI>({
+      method: 'POST',
+      url: `/members/profile/image`,
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return data.success;
+  } catch (error) {
+    console.error(error);
+  }
+};
