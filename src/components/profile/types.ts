@@ -1,19 +1,3 @@
-import { GenreInfo, PostInfo } from '../post/types';
-
-export interface MyPostAPI {
-  success: boolean;
-  message: string;
-  data: {
-    myPosts: PostInfo[];
-  };
-}
-
-export interface ProfileAPI {
-  success: boolean;
-  message: string;
-  data: UserInfo;
-}
-
 export interface UserInfo {
   nickname: string;
   profileImageUrl: string;
@@ -21,14 +5,6 @@ export interface UserInfo {
   victoryPoint: number;
   victoryCount: number;
   countOfChanllenge?: number;
-}
-
-export interface MyBattleAPI {
-  success: boolean;
-  message: string;
-  data: {
-    battles: BattleInfo[];
-  };
 }
 
 export interface BattleInfo {
@@ -44,4 +20,9 @@ export interface Battle {
   singer: string;
   albumUrl: string;
   nickname: string;
+}
+
+export interface GenreInfo {
+  genreValue: string;
+  genreName: string;
 }

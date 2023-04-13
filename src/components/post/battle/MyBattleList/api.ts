@@ -2,11 +2,9 @@ import axios, { AxiosError } from 'axios';
 
 import { axiosInstance } from '@/api';
 
-import { MyBattlePosAPI } from '../types';
-
 export const getMyBattleListData = async (selectedOpponentMusicId: string) => {
   try {
-    const { data } = await axiosInstance.request<MyBattlePosAPI>({
+    const { data } = await axiosInstance.request({
       method: 'GET',
       url: `/posts/battle/${selectedOpponentMusicId}/candidates`,
     });

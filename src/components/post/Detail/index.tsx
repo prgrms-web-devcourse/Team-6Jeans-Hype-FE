@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useQueries } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -12,6 +12,7 @@ import { COLOR } from '@/constants/color';
 
 import { getPostDetailData, getUserLikeStatus } from './api';
 import MusicInfo from './MusicInfo';
+import { PostDetail } from './types';
 
 let intervalID: NodeJS.Timer;
 
@@ -25,24 +26,20 @@ function PostDetail() {
   const router = useRouter();
   const { postId } = router.query;
 
-  const [{ data: postDetail, isLoading: postDetailLoading }, { data: isLike, isLoading: isLikeLoading }] = useQueries({
-    queries: [
-      {
-        queryKey: ['post', 'detail', postId],
-        queryFn: () => getPostDetailData(parseInt(postId as string)),
-        enabled: !!postId,
-      },
+  const { data: postDetail, isLoading: postDetailLoading } = useQuery<PostDetail>({
+    queryKey: ['post', 'detail', postId],
+    queryFn: () => getPostDetailData(parseInt(postId as string)),
+    enabled: !!postId,
+  });
 
-      {
-        queryKey: ['post', 'detail', 'like', postId],
-        queryFn: () => {
-          const token = getAccessToken();
+  const { data: isLike, isLoading: isLikeLoading } = useQuery<boolean>({
+    queryKey: ['post', 'detail', 'like', postId],
+    queryFn: () => {
+      const token = getAccessToken();
 
-          return getUserLikeStatus(postId as string, token as string);
-        },
-        enabled: !!postId,
-      },
-    ],
+      return getUserLikeStatus(postId as string, token as string);
+    },
+    enabled: !!postId,
   });
 
   const onClickPlay = () => {
@@ -150,12 +147,12 @@ function PostDetail() {
                     size={2.2}
                     initCount={postDetail.likeCount}
                     color='white'
-                    initIsClick={isLike ? isLike?.isLiked : true}
+                    initIsClick={isLike ? isLike : false}
                     postId={postId as string}
                   />
                 )}
               </Icon>
-
+              {isLike?.toString()}
               <Icon>
                 <MusicPlayButton
                   src={postDetail?.music.musicUrl}

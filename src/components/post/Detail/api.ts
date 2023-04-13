@@ -1,10 +1,8 @@
 import { axiosInstance } from '@/api';
 
-import { LikeStatusAPI, PostDetailAPI, UserIsLikeAPI } from './types';
-
 export const getPostDetailData = async (postId: number) => {
   try {
-    const { data } = await axiosInstance.request<PostDetailAPI>({
+    const { data } = await axiosInstance.request({
       method: 'GET',
       url: `/posts/${postId}`,
     });
@@ -21,7 +19,7 @@ export const getPostDetailData = async (postId: number) => {
 
 export const getUserLikeStatus = async (postId: string, token: string) => {
   try {
-    const { data } = await axiosInstance.request<UserIsLikeAPI>({
+    const { data } = await axiosInstance.request({
       method: 'GET',
       url: `/posts/${postId}/isLike`,
       headers: {
@@ -30,7 +28,7 @@ export const getUserLikeStatus = async (postId: string, token: string) => {
     });
 
     if (data.success) {
-      return data.data;
+      return data.data.isLiked;
     } else {
       return null;
     }
@@ -41,7 +39,7 @@ export const getUserLikeStatus = async (postId: string, token: string) => {
 
 export const changeLikeStatus = async (postId: string) => {
   try {
-    const { data } = await axiosInstance.request<LikeStatusAPI>({
+    const { data } = await axiosInstance.request({
       method: 'POST',
       url: `/posts/${postId}/like`,
     });

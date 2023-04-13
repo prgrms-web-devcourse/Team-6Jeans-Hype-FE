@@ -1,7 +1,6 @@
 import { axiosInstance } from '@/api';
 
 import { tokenStorage } from '../../utils/localStorage';
-import { ProfileAPI } from '../profile/types';
 
 export const getUserRanking = async (isLimit: boolean) => {
   try {
@@ -25,7 +24,7 @@ export const getMyRanking = async () => {
     const token = tokenStorage.get();
 
     if (token !== null) {
-      const { data } = await axiosInstance.request<ProfileAPI>({
+      const { data } = await axiosInstance.request({
         method: 'GET',
         url: `members/profile`,
         headers: {

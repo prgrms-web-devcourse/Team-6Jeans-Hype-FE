@@ -10,7 +10,7 @@ import Header from '@/components/common/Header';
 import { createBattle, getPostBattleData } from '@/components/post/battle/api';
 import MyBattleList from '@/components/post/battle/MyBattleList';
 import SelectMusic from '@/components/post/battle/SelectMusic';
-import { BattleApplyModal } from '@/components/post/battle/types';
+import { BattleApplyModal, PostBattleInfo } from '@/components/post/battle/types';
 import { COLOR } from '@/constants/color';
 import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
 
@@ -20,8 +20,8 @@ function Battle() {
 
   const { isLeftMusicPlay, isRightMusicPlay, clickLeftButton, clickRightButton } = useBattleMusicPlay();
 
-  const [isReadySubmit, setIsReadySubmit] = useState(false);
-  const [isVisibleMusicList, setIsVisibleMusicList] = useState(false);
+  const [isReadySubmit, setIsReadySubmit] = useState<boolean>(false);
+  const [isVisibleMusicList, setIsVisibleMusicList] = useState<boolean>(false);
 
   const [selectedMyMusic, setSelectedMyMusic] = useState<BattleApplyModal>({
     postId: 0,
@@ -30,6 +30,14 @@ function Battle() {
     singer: '',
     albumCoverUrl: '',
   });
+
+  const { data: battleMusic } = useQuery<PostBattleInfo>(
+    ['post', 'battle', selectedOpponentMusicId],
+    () => getPostBattleData(Number(selectedOpponentMusicId)),
+    {
+      enabled: !!selectedOpponentMusicId,
+    },
+  );
 
   const renderMyList = () => setIsVisibleMusicList(true);
 
@@ -49,18 +57,6 @@ function Battle() {
 
     router.push(`/battle/list`);
   };
-
-  const { data: battleMusic } = useQuery(
-    ['post', 'battle', selectedOpponentMusicId],
-    () => {
-      if (typeof selectedOpponentMusicId !== 'string') return;
-
-      return getPostBattleData(+selectedOpponentMusicId);
-    },
-    {
-      enabled: !!selectedOpponentMusicId,
-    },
-  );
 
   return (
     <AuthRequiredPage>

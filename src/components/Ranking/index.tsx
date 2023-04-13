@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
-import { useQueries } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 
 import NoContent from '../common/NoContent';
 import MusicListSkeleton from '../common/skeleton/MusicListSkeleton';
 import { getMyRanking, getUserRanking } from './api';
 import RankingCard from './RankingCard';
-import { Ranking } from './types';
+import { MyRanking, Ranking, UserRanking } from './types';
 
 interface Props {
   isLimit: boolean;
@@ -16,13 +16,10 @@ function Ranking({ isLimit }: Props) {
   const router = useRouter();
   const { pathname } = router;
 
-  const [{ data: userRanking, isLoading: isLoadingUserRanking }, { data: myRanking, isLoading: isLoadingMyRanking }] =
-    useQueries({
-      queries: [
-        { queryKey: ['userRanking'], queryFn: () => getUserRanking(isLimit) },
-        { queryKey: ['myRanking'], queryFn: getMyRanking },
-      ],
-    });
+  const { data: userRanking, isLoading: isLoadingUserRanking } = useQuery<UserRanking>(['userRanking'], () =>
+    getUserRanking(isLimit),
+  );
+  const { data: myRanking, isLoading: isLoadingMyRanking } = useQuery<MyRanking>(['myRanking'], getMyRanking);
 
   if (isLoadingUserRanking && isLoadingMyRanking) {
     return (

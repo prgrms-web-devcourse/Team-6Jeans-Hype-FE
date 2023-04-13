@@ -12,7 +12,7 @@ import { PostInfo } from '@/components/post/types';
 
 function Post() {
   const [genre, setGenre] = useState('');
-  const { data: postFeed, isLoading } = useQuery(['postfeed', genre], () => getPostFeedData(genre));
+  const { data: postFeed, isLoading } = useQuery<PostInfo[]>(['postfeed', genre], () => getPostFeedData(genre));
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedGenre = e.target.value;

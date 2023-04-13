@@ -1,13 +1,10 @@
 import axios, { AxiosError } from 'axios';
 
 import { axiosInstance } from '@/api';
-import { tokenStorage } from '@/utils/localStorage';
-
-import { BattleApplyAPI, PostBattleAPI } from './types';
 
 export const getPostBattleData = async (postId: number) => {
   try {
-    const { data } = await axiosInstance.request<PostBattleAPI>({
+    const { data } = await axiosInstance.request({
       method: 'GET',
       url: `/posts/${postId}`,
     });
@@ -24,16 +21,16 @@ export const getPostBattleData = async (postId: number) => {
 
 export const createBattle = async (challengedPostId: number, challengingPostId: number) => {
   try {
-    const { data } = await axiosInstance.request<BattleApplyAPI>({
+    const { data } = await axiosInstance.request({
       method: 'POST',
       url: `/battles`,
       data: {
         challengedPostId,
         challengingPostId,
       },
-      params: {
-        Authorization: `Bearer ${tokenStorage.get()}`,
-      },
+      // params: {
+      //   Authorization: `Bearer ${tokenStorage.get()}`,
+      // },
     });
 
     if (data.success) {

@@ -1,25 +1,3 @@
-export interface LikeStatusAPI {
-  success: boolean;
-  message: string;
-  data: {
-    hasLike: boolean;
-  };
-}
-
-export interface UserIsLikeAPI {
-  success: boolean;
-  message: string;
-  data: {
-    isLiked: boolean;
-  };
-}
-
-export interface PostDetailAPI {
-  success: boolean;
-  message: string;
-  data: PostDetail;
-}
-
 export interface PostDetail {
   music: Music;
   likeCount: number;
