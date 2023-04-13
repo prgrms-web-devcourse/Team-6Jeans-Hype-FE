@@ -24,7 +24,7 @@ function Like({ size, color, initCount, initIsClick, postId }: Props) {
   const updateIsLikeCount = async () => {
     if (typeof postId !== 'string') return;
 
-    const isLike = await changeLikeStatus(postId);
+    const isLike: boolean = await changeLikeStatus(postId);
     setCurrentCount((prev) => {
       return isLike ? prev + 1 : prev - 1;
     });
