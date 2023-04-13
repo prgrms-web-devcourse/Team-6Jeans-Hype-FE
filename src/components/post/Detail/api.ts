@@ -28,7 +28,7 @@ export const getUserLikeStatus = async (postId: string, token: string) => {
     });
 
     if (data.success) {
-      return data.data;
+      return data.data.isLiked;
     } else {
       return null;
     }

@@ -147,12 +147,12 @@ function PostDetail() {
                     size={2.2}
                     initCount={postDetail.likeCount}
                     color='white'
-                    initIsClick={isLike ? isLike : true}
+                    initIsClick={isLike ? isLike : false}
                     postId={postId as string}
                   />
                 )}
               </Icon>
-              {isLike ? isLike?.isLiked.toString() : 'true123'}
+              {isLike?.toString()}
               <Icon>
                 <MusicPlayButton
                   src={postDetail?.music.musicUrl}
