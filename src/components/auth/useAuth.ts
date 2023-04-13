@@ -2,9 +2,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
+import { tokenStorage } from '../../utils/localStorage';
 import { getIsValidToken } from './api';
 import { accessTokenAtom, isCheckedTokenAtom, isOpenedAuthRequiredModalAtom } from './store';
-import { tokenStorage } from '../../utils/localStorage';
 
 export default function useAuth() {
   const router = useRouter();

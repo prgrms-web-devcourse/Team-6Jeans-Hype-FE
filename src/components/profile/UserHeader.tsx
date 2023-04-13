@@ -14,6 +14,7 @@ import ConfirmModal from '../common/modal/Confirm';
 import SkeletonCircle from '../common/skeleton/Circle';
 import Toast from '../common/Toast';
 import ResultCard from './ResultCard';
+import { UserInfo } from './types';
 
 interface ResultCard {
   title: string;
@@ -44,12 +45,16 @@ function UserHeader() {
   const { showToast, handleToast } = useToast();
   const [modalText, setModalText] = useState<string>('');
 
-  const { data: userProfile, isLoading } = useQuery(['userProfile', memberId], () => getUserProfile(Number(memberId)), {
-    onSuccess: (successData) => {
-      setName(successData?.nickname);
-      setImage(successData?.profileImageUrl);
+  const { data: userProfile, isLoading } = useQuery<UserInfo>(
+    ['userProfile', memberId],
+    () => getUserProfile(Number(memberId)),
+    {
+      onSuccess: (successData) => {
+        setName(successData?.nickname);
+        setImage(successData?.profileImageUrl);
+      },
     },
-  });
+  );
 
   const onClickLogout = () => {
     setModalStatus((prev) => !prev);

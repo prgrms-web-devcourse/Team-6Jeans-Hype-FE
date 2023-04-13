@@ -1,10 +1,8 @@
 import { axiosInstance } from '@/api';
 
-import { MyPostAPI } from '../types';
-
 export const getMyPostList = async (genre?: string, memberId?: number) => {
   try {
-    const { data } = await axiosInstance.request<MyPostAPI>({
+    const { data } = await axiosInstance.request({
       method: 'GET',
       url: `/members/posts`,
       params: { genre, memberId },

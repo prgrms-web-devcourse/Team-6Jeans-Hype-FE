@@ -1,11 +1,10 @@
 import { axiosInstance } from '@/api';
 
 import { tokenStorage } from '../../utils/localStorage';
-import { MyBattleAPI, MyPostAPI, ProfileAPI } from './types';
 
 export const getPostFeedLimit = async (memberId?: number) => {
   try {
-    const { data } = await axiosInstance.request<MyPostAPI>({
+    const { data } = await axiosInstance.request({
       method: 'GET',
       url: `/members/posts${memberId ? `?memberId=${memberId}` : ''}`,
       params: {
@@ -24,7 +23,7 @@ export const getPostFeedLimit = async (memberId?: number) => {
 
 export const getLikePostList = async (genre?: string, limit?: number) => {
   try {
-    const { data } = await axiosInstance.request<MyPostAPI>({
+    const { data } = await axiosInstance.request({
       method: 'GET',
       url: `/members/likes`,
       params: {
@@ -47,7 +46,7 @@ export const getLikePostList = async (genre?: string, limit?: number) => {
 
 export const getUserProfile = async (memberId?: number) => {
   try {
-    const { data } = await axiosInstance.request<ProfileAPI>({
+    const { data } = await axiosInstance.request({
       method: 'GET',
       url: `members/profile${memberId ? `?memberId=${memberId}` : ''}`,
     });
@@ -62,7 +61,7 @@ export const getUserProfile = async (memberId?: number) => {
 
 export const getBattlesLimit = async () => {
   try {
-    const { data } = await axiosInstance.request<MyBattleAPI>({
+    const { data } = await axiosInstance.request({
       method: 'GET',
       url: `/members/battles`,
       params: {
@@ -81,7 +80,7 @@ export const getBattlesLimit = async () => {
 
 export const modifyUserName = async (name: string) => {
   try {
-    const { data } = await axiosInstance.request<MyBattleAPI>({
+    const { data } = await axiosInstance.request({
       method: 'POST',
       url: `/members/profile/nickname`,
       data: {
@@ -100,7 +99,7 @@ export const modifyUserImage = async (file: File) => {
     const formData = new FormData();
     formData.append('profileImage', file);
 
-    const { data } = await axiosInstance.request<MyBattleAPI>({
+    const { data } = await axiosInstance.request({
       method: 'POST',
       url: `/members/profile/image`,
       data: formData,
