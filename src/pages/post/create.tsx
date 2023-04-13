@@ -20,15 +20,7 @@ function Create() {
   const { trackId } = router.query;
   const { isLoading } = useQuery(['musicDetail', trackId], () => getMusicDetailData(trackId as string), {
     onSuccess: (musicDetail) => {
-      const newMusic: Music = {
-        trackId: musicDetail?.trackId,
-        trackName: musicDetail?.trackName,
-        artistName: musicDetail?.artistName,
-        artworkUrl100: musicDetail?.artworkUrl100,
-        previewUrl: musicDetail?.previewUrl,
-      };
-
-      onChangeMusicInfo(newMusic);
+      onChangeMusicInfo(musicDetail);
     },
   });
 

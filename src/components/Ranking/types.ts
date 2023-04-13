@@ -3,7 +3,7 @@ export interface UserRanking {
   ranking: Ranking[];
 }
 
-export interface FromTo {
+interface FromTo {
   fromDate: string;
   toDate: string;
 }

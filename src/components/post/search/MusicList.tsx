@@ -15,7 +15,7 @@ interface Props {
 }
 
 function MusicList({ onClickInMusicList, keyword }: Props) {
-  const { data: musicList, isLoading } = useQuery(['musicList', keyword], () => getMusicData(keyword), {
+  const { data: musicList, isLoading } = useQuery<Music[]>(['musicList', keyword], () => getMusicData(keyword), {
     enabled: !!keyword,
   });
 
