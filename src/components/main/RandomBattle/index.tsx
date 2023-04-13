@@ -1,16 +1,12 @@
 import styled from '@emotion/styled';
 import Versus from 'public/images/no-background-logo-white.svg';
 
+import { RandomBattleAlbumCoverImage } from './type';
+
 interface RandomBattleProps {
   battle: RandomBattleAlbumCoverImage;
   onClick?: () => void;
   className?: string;
-}
-
-export interface RandomBattleAlbumCoverImage {
-  battleId: number;
-  challengedAlbumCoverImage: string;
-  challengingAlbumCoverImage: string;
 }
 
 export default function RandomBattle({ battle, onClick, className }: RandomBattleProps) {

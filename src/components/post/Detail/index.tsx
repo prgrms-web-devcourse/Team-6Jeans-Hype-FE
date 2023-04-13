@@ -155,7 +155,7 @@ function PostDetail() {
                   />
                 )}
               </Icon>
-
+              {isLike ? isLike?.isLiked.toString() : 'true123'}
               <Icon>
                 <MusicPlayButton
                   src={postDetail?.music.musicUrl}

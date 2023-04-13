@@ -16,20 +16,29 @@ import NoContent from '@/components/common/NoContent';
 import { getGenreTop10Data } from '@/components/main/GenreTop10Post/api';
 import DeskTopPosts from '@/components/main/GenreTop10Post/DeskTopPosts';
 import MobilePosts from '@/components/main/GenreTop10Post/MobilePosts';
+import { GenreTop10PostInfo } from '@/components/main/GenreTop10Post/type';
 import InfoModal from '@/components/main/Info';
 import RandomBattle from '@/components/main/RandomBattle';
 import { getRandomBattleAlbumCoverImage } from '@/components/main/RandomBattle/api';
+import { RandomBattleAlbumCoverImage } from '@/components/main/RandomBattle/type';
 import Ranking from '@/components/Ranking';
 import { COLOR } from '@/constants/color';
 import { useCheckMobile } from '@/hooks/useCheckMobile';
 
 export default function Home() {
-  const { data: randomBattle } = useQuery(['main_getRandomBattleAlbumCoverImage'], getRandomBattleAlbumCoverImage);
   const router = useRouter();
   const { mobile } = useCheckMobile();
   const [genre, setGenre] = useState('');
   const [isShowInfo, setIsShowInfo] = useState<boolean>(false);
   const { isLoggedIn, openAuthRequiredModal } = useAuth();
+
+  const { data: randomBattle } = useQuery<RandomBattleAlbumCoverImage>(
+    ['main_getRandomBattleAlbumCoverImage'],
+    getRandomBattleAlbumCoverImage,
+  );
+  const { data: genreTop10Post } = useQuery<GenreTop10PostInfo[]>(['main', 'genreTop10', genre], () =>
+    getGenreTop10Data(genre),
+  );
 
   const onClickInfo = () => {
     setIsShowInfo((prev) => !prev);
@@ -50,10 +59,6 @@ export default function Home() {
   };
 
   const navigatePostDetail = (postId: number) => router.push(`/post/detail?postId=${postId}`);
-
-  const { data: genreTop10Post } = useQuery(['main', 'genreTop10', genre], () => {
-    return getGenreTop10Data(genre);
-  });
 
   return (
     <Container>

@@ -1,11 +1,3 @@
-export interface GenreTop10PostAPI {
-  success: boolean;
-  message: string;
-  data: {
-    posts: GenreTop10PostInfo[];
-  };
-}
-
 export interface GenreTop10PostInfo {
   postId: number;
   music: MusicInfo;
