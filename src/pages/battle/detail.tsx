@@ -7,7 +7,7 @@ import ListIcon from 'public/images/go-to-list-icon.svg';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import FinishedBattle from '@/components/battle/detail/Battle/Finished';
 import Battle from '@/components/battle/detail/Battle/index';
-import { useGetBattle } from '@/components/battle/detail/useGetBattle';
+import { useGetBattle } from '@/components/battle/useGetBattle';
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 import useBattleMusicPlay from '@/hooks/useBattleMusicPlay';
