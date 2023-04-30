@@ -30,7 +30,7 @@
 
 다른 사용자가 추천한 노래들을 확인할 수 있습니다.
 
-[Hype 서비스 바로가기](https://h-y-p-e.netlify.app/)
+[Hype 서비스 바로가기](https://h2pe.netlify.app/)
 
 </div>
 
@@ -188,46 +188,6 @@
 ```
 
 <br />
-
-## 🌴 Dependencies Module
-
-</br>
-
-<b>package.json</b>
-
-```
-"dependencies": {
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
-    "@next/font": "13.1.6",
-    "@tanstack/react-query": "^4.24.9",
-    "@tanstack/react-query-devtools": "^4.26.1",
-    "@types/lodash": "^4.14.191",
-    "@types/node": "18.14.0",
-    "@types/react": "18.0.28",
-    "@types/react-dom": "18.0.11",
-    "axios": "^1.3.3",
-    "eslint": "8.34.0",
-    "eslint-config-next": "13.1.6",
-    "eslint-plugin-simple-import-sort": "^10.0.0",
-    "lodash": "^4.17.21",
-    "next": "13.1.6",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "recoil": "^0.7.6",
-    "swiper": "^9.1.0",
-    "typescript": "4.9.5",
-    "zod": "^3.21.0"
-  },
-  "devDependencies": {
-    "@svgr/webpack": "^6.5.1",
-    "@typescript-eslint/eslint-plugin": "^5.52.0",
-    "@typescript-eslint/parser": "^5.52.0",
-    "eslint-plugin-react-hooks": "^4.6.0"
-  }
-```
-
-<br/>
 
 ## ☘ environment variables
 
